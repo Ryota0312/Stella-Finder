@@ -1,0 +1,1 @@
+# Starry sky information shared service

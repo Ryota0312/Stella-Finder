@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import styled from 'styled-components';
-import Layout from "../components/layout";
+import styled from 'styled-components'
+import Layout from '../components/layout'
 
 export default function Home() {
   return (
@@ -11,12 +11,12 @@ export default function Home() {
       </Head>
 
       <main>
-          <Title>index page</Title>
-          <div>
-              <Link href={'/spotList'}>
-                  <a>Watching Spot List</a>
-              </Link>
-          </div>
+        <Title>index page</Title>
+        <div>
+          <Link href={'/spotList'}>
+            <a>Watching Spot List</a>
+          </Link>
+        </div>
       </main>
     </Layout>
   )
@@ -24,4 +24,4 @@ export default function Home() {
 
 const Title = styled.h1`
   background-color: yellow;
-`;
+`

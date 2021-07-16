@@ -1,18 +1,15 @@
 import type { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Globalstyle />
-      <Component {...pageProps} />
-    </>
-  )
-}
-
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
+  <>
+    <GlobalStyle />
+    <Component {...pageProps} />
+  </>
+)
 export default MyApp
 
-const Globalstyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   a {
     color: #0070f3;
     text-decoration: none;

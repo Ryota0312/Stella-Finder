@@ -1,10 +1,26 @@
+import { GetStaticProps } from 'next'
 import Layout from '../components/layout'
 
-const SpotList: React.FC = () => (
-  <Layout>
-    <main>
-      <h1>Spot List</h1>
-    </main>
-  </Layout>
-)
+const SpotList: React.FC<{ data: { message: string } }> = ({ data }) => {
+  return (
+    <Layout>
+      <main>
+        <h1>Spot List</h1>
+        <div>{data.message}</div>
+      </main>
+    </Layout>
+  )
+}
 export default SpotList
+
+export const getStaticProps: GetStaticProps = async () => {
+  // Instead of the file system,
+  // fetch post data from an external API endpoint
+  const res = await fetch('http://localhost:3001/')
+  const data = (await res.json()) as { message: string }
+  return {
+    props: {
+      data,
+    },
+  }
+}

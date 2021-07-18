@@ -2,5 +2,23 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/davecgh/go-spew" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/gin-contrib/sse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/gin-gonic/gin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/go-playground/locales" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/go-playground/universal-translator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/go-playground/validator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/golang/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/leodido/go-urn" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/mattn/go-isatty" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/pmezard/go-difflib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/stretchr/testify" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/github.com/ugorji/go" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/golang.org/x/crypto" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/golang.org/x/sys" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/golang.org/x/text" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/google.golang.org/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/gopkg.in/yaml.v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/gopkg.in/yaml.v3" vcs="Git" />
   </component>
 </project>

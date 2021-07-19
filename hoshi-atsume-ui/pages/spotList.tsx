@@ -16,7 +16,7 @@ export default SpotList
 export const getStaticProps: GetStaticProps = async () => {
   // Instead of the file system,
   // fetch post data from an external API endpoint
-  const res = await fetch('http://localhost:3001/')
+  const res = await fetch('http://host.docker.internal/api/')
   const data = (await res.json()) as { message: string }
   return {
     props: {

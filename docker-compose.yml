@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./conf.d:/etc/nginx/conf.d"
+    links:
+      - hoshi-atsume-ui
+      - hoshi-atsume-server
+
+  hoshi-atsume-ui:
+    image: node:14.17.3-alpine
+    container_name: hoshi-atsume-ui
+    hostname: hoshi-atsume-ui
+    volumes:
+      - "./hoshi-atsume-ui/:/src"
+    working_dir: /src
+    command: [sh, -c, yarn install && yarn dev]
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  hoshi-atsume-server:
+    image: golang:latest
+    container_name: hoshi-atsume-server
+    hostname: hoshi-atsume-server
+    volumes:
+      - "./hoshi-atsume-server/:/go"
+    working_dir: /go
+    environment:
+      - GO111MODULE=on
+      - GOPATH= # GOPATHクリア
+    command: [sh, -c, go mod download && go run src/main.go]
+    tty: true
+    ports:
+      - "3001:3001"
+    links:
+      - hoshi-atsume-ui

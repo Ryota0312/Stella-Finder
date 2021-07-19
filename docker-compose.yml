@@ -23,6 +23,8 @@ services:
       - "3000:3000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    depends_on:
+      - hoshi-atsume-db
 
   hoshi-atsume-server:
     image: golang:latest
@@ -40,3 +42,21 @@ services:
       - "3001:3001"
     links:
       - hoshi-atsume-ui
+    depends_on:
+      - hoshi-atsume-db
+
+  hoshi-atsume-db:
+    image: mysql:8.0
+    container_name: hoshi-atsume-db
+    ports:
+      - "3306:3306"
+    volumes:
+      # 初期データを投入するSQLが格納されているdir
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./db/mysql_data:/var/lib/mysql
+      - ./db/mysql_conf/:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test

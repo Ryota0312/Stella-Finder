@@ -16,7 +16,7 @@ services:
     container_name: hoshi-atsume-ui
     hostname: hoshi-atsume-ui
     volumes:
-      - "./hoshi-atsume-ui/:/src"
+      - "./ui/:/src"
     working_dir: /src
     command: [sh, -c, yarn install && yarn dev]
     ports:
@@ -31,7 +31,7 @@ services:
     container_name: hoshi-atsume-server
     hostname: hoshi-atsume-server
     volumes:
-      - "./hoshi-atsume-server/:/go"
+      - "./server/:/go"
     working_dir: /go
     environment:
       - GO111MODULE=on

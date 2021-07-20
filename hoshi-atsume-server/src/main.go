@@ -1,15 +1,21 @@
 package main
 
-import "github.com/gin-gonic/gin"
-
-import "net/http"
+import (
+	"github.com/gin-gonic/gin"
+	"hoshi-atsume-server/src/controller"
+	"log"
+)
 
 func main() {
-	engine := gin.Default()
-	engine.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "hello world",
-		})
-	})
-	engine.Run(":3001")
+	serve()
+}
+
+func serve()  {
+	router := gin.Default()
+
+	router.GET("/spots", controller.GetSpots)
+
+	if err := router.Run(":3001"); err != nil {
+		log.Fatal("Server Run Failed: ", err)
+	}
 }

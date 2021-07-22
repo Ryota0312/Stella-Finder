@@ -8,13 +8,13 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func FindSpot(id int) []entity.Spot {
-	spot := []entity.Spot{}
+func FindUser(loginName string, password string) []entity.User {
+	user := []entity.User{}
 
 	db := open()
 	// select
-	db.First(&spot, id)
+	db.First(&user, `login_name = "` + loginName + `"`)
 	defer db.Close()
 
-	return spot
+	return user
 }

@@ -21,9 +21,3 @@ func GetSpots(c *gin.Context) {
 	// URLへのアクセスに対してJSONを返す
 	c.JSON(200, resultProduct)
 }
-
-func Auth(c *gin.Context) {
-	println("DEBUG!!!")
-
-	c.JSON(200, "ok")
-}

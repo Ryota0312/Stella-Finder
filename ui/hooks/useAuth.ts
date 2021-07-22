@@ -4,7 +4,7 @@ export const useAuth = () => {
   const [loginName, setLoginName] = useState<string>('')
   const [password, setPassword] = useState('')
 
-  async function send() {
+  const send = async () => {
     await fetch('http://localhost/api/auth', {
       method: 'POST',
       headers: {

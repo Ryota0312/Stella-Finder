@@ -15,6 +15,8 @@ func serve()  {
 
 	router.GET("/spots", controller.GetSpots)
 
+	router.POST("/auth", controller.Auth)
+
 	if err := router.Run(":3001"); err != nil {
 		log.Fatal("Server Run Failed: ", err)
 	}

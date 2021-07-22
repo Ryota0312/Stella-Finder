@@ -19,8 +19,17 @@ func Auth(c *gin.Context) {
 		return
 	}
 
-	user := db.FindUser(json.LoginName, json.Password)
+	user := db.FindUser(json.LoginName)
+	if len(user) == 0 {
+		c.JSON(http.StatusOK, "Invalid loginName")
+		return
+	}
 	println(user[0].UserName)
 
-	c.JSON(http.StatusOK, "ok")
+	if user[0].Password != json.Password {
+		c.JSON(http.StatusOK, "Incorrect password")
+		return
+	}
+
+	c.JSON(http.StatusOK, "Login success")
 }

@@ -8,7 +8,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func FindUser(loginName string, password string) []entity.User {
+func FindUser(loginName string) []entity.User {
 	user := []entity.User{}
 
 	db := open()

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/gin-contrib/sessions"
 	// Gin
 	"github.com/gin-gonic/gin"
 	"hoshi-atsume-server/src/models/db"
@@ -24,10 +25,18 @@ func Auth(c *gin.Context) {
 		c.JSON(http.StatusOK, "Invalid loginName")
 		return
 	}
-	println(user[0].UserName)
+	loginUser := user[0]
+	println(loginUser.UserName)
 
-	if user[0].Password != json.Password {
+	if loginUser.Password != json.Password {
 		c.JSON(http.StatusOK, "Incorrect password")
+		return
+	}
+
+	session :=sessions.Default(c)
+	session.Set(loginUser.LoginName, "session_id_1")
+	if err := session.Save(); err != nil {
+		println("Failed to save session")
 		return
 	}
 

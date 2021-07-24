@@ -12,13 +12,17 @@ const Login: React.FC = () => {
           <input
             type={'text'}
             placeholder={'your name'}
-            onChange={(e: any) => setLoginName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setLoginName(e.target.value)
+            }
           />
           <p>パスワード</p>
           <input
             type={'password'}
             placeholder={'password'}
-            onChange={(e: any) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           />
           <button type={'button'} onClick={login}>
             Enter

@@ -13,7 +13,7 @@ type JsonRequest struct {
 	Password  string `json:"password"`
 }
 
-func Auth(c *gin.Context) {
+func Login(c *gin.Context) {
 	var json JsonRequest
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -34,11 +34,38 @@ func Auth(c *gin.Context) {
 	}
 
 	session :=sessions.Default(c)
-	session.Set(loginUser.LoginName, "session_id_1")
+	session.Set("loginName", loginUser.LoginName)
 	if err := session.Save(); err != nil {
 		println("Failed to save session")
 		return
 	}
 
 	c.JSON(http.StatusOK, "Login success")
+}
+
+
+func Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Delete("loginName")
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		return
+	}
+	print("DEBUG: Logout success!")
+	c.Redirect(http.StatusFound, "/")
+}
+
+func User(c *gin.Context) {
+	session := sessions.Default(c)
+	var loginUser string
+	v := session.Get("loginName")
+	if v == nil {
+		loginUser = "not login"
+	} else {
+		loginUser = v.(string)
+	}
+	print("DEBUG:===")
+	print(loginUser)
+
+	c.JSON(http.StatusOK, "get")
 }

@@ -23,7 +23,9 @@ func serve() {
 	api := router.Group("/api")
 	{
 		api.GET("/spots", controller.GetSpots)
-		api.POST("/auth", controller.Auth)
+		api.POST("/login", controller.Login)
+		api.GET("/logout", controller.Logout)
+		api.GET("/user", controller.User)
 	}
 
 	// Proxy to Next.js

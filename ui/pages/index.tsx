@@ -19,7 +19,7 @@ const Home: React.FC = () => (
       <button
         type={'button'}
         onClick={() => {
-          fetch('/api/user', { method: 'GET' }).then((res) => {
+          fetch('/api/user/getUser', { method: 'GET' }).then((res) => {
             if (!res.ok) {
               console.log('unauthorized')
               window.location.href = '/login'
@@ -27,7 +27,7 @@ const Home: React.FC = () => (
           })
         }}
       >
-        Run API
+        Run Get User API
       </button>
     </main>
   </Layout>

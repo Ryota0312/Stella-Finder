@@ -30,7 +30,7 @@ func serve() {
 	api.Use(sessionCheck())
 	{
 		api.GET("/spots", controller.GetSpots)
-		api.GET("/user", controller.User)
+		api.GET("/user", controller.GetUser)
 	}
 
 	// Proxy to Next.js

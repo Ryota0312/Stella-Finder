@@ -40,6 +40,8 @@ services:
     tty: true
     ports:
       - "3001:3001"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     links:
       - hoshi-atsume-ui
     depends_on:

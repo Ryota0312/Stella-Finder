@@ -20,11 +20,16 @@ func serve() {
 	store, _ := redis.NewStore(10, "tcp", "redis:6379", "", []byte("secret"))
 	router.Use(sessions.Sessions("session", store))
 
+	auth := router.Group("/auth")
+	{
+		auth.POST("/login", controller.Login)
+		auth.GET("/logout", controller.Logout)
+	}
+
 	api := router.Group("/api")
+	api.Use(sessionCheck())
 	{
 		api.GET("/spots", controller.GetSpots)
-		api.POST("/login", controller.Login)
-		api.GET("/logout", controller.Logout)
 		api.GET("/user", controller.User)
 	}
 
@@ -48,4 +53,19 @@ func ReverseProxy(c *gin.Context) {
 	}
 
 	proxy.ServeHTTP(c.Writer, c.Request)
+}
+
+func sessionCheck() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		loginName := session.Get("loginName")
+
+		if loginName == nil {
+			// 認証に失敗した場合の処理はフロント側で行う
+			c.JSON(http.StatusUnauthorized, "Unauthorized.")
+			c.Abort()
+		} else {
+			c.Next()
+		}
+	}
 }

@@ -16,6 +16,19 @@ const Home: React.FC = () => (
           <a>Watching Spot List</a>
         </Link>
       </div>
+      <button
+        type={'button'}
+        onClick={() => {
+          fetch('/api/user', { method: 'GET' }).then((res) => {
+            if (!res.ok) {
+              console.log('unauthorized')
+              window.location.href = '/login'
+            }
+          })
+        }}
+      >
+        Run API
+      </button>
     </main>
   </Layout>
 )

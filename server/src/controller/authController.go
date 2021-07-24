@@ -43,7 +43,6 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, "Login success")
 }
 
-
 func Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("loginName")
@@ -52,7 +51,7 @@ func Logout(c *gin.Context) {
 		return
 	}
 	print("DEBUG: Logout success!")
-	c.Redirect(http.StatusFound, "/")
+	c.JSON(http.StatusOK, "Logout success")
 }
 
 func User(c *gin.Context) {

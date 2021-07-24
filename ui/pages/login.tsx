@@ -2,7 +2,7 @@ import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 
 const Login: React.FC = () => {
-  const { setLoginName, setPassword, send, logout } = useAuth()
+  const { setLoginName, setPassword, login, logout } = useAuth()
   return (
     <Layout>
       <main>
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
             placeholder={'password'}
             onChange={(e: any) => setPassword(e.target.value)}
           />
-          <button type={'button'} onClick={send}>
+          <button type={'button'} onClick={login}>
             Enter
           </button>
           <button type={'button'} onClick={logout}>

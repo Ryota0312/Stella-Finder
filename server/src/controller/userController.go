@@ -7,6 +7,11 @@ import (
 	"net/http"
 )
 
+type User struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
+
 func GetUser(c *gin.Context) {
 	session := sessions.Default(c)
 	var loginUser string
@@ -19,5 +24,10 @@ func GetUser(c *gin.Context) {
 	print("DEBUG:===")
 	print(loginUser)
 
-	c.JSON(http.StatusOK, "get")
+	user := User{
+		Id: 1,
+		Name: loginUser,
+	}
+
+	c.JSON(http.StatusOK, user)
 }

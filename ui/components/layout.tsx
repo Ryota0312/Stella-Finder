@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useApi } from '../hooks/useApi'
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,

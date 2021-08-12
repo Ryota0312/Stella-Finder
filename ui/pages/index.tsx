@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import styled from 'styled-components'
 import useSWR from 'swr'
 import Layout from '../components/layout'
 import { useApi } from '../hooks/useApi'
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <Title>index page</Title>
+        <h2>index page</h2>
         <div>
           <Link href={'/spotList'}>
             <a>Watching Spot List</a>
@@ -32,7 +31,3 @@ const Home: React.FC = () => {
   )
 }
 export default Home
-
-const Title = styled.h1`
-  background-color: yellow;
-`

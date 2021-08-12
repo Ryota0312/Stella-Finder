@@ -25,7 +25,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
           </HeaderMenuListItem>
         </HeaderMenuList>
       </LayoutHeader>
-      {children}
+      <MainContents>{children}</MainContents>
     </main>
   </>
 )
@@ -46,6 +46,7 @@ const HeaderMenuList = styled.li`
   display: flex;
   flex: 1;
   justify-content: flex-start;
+  margin: 0 8px;
 `
 
 const HeaderMenuListItem = styled.ul`
@@ -65,5 +66,13 @@ const HeaderMenuListItem = styled.ul`
     a {
       color: black;
     }
+  }
+`
+
+const MainContents = styled.div`
+  margin: 10px;
+
+  h2 {
+    color: green;
   }
 `

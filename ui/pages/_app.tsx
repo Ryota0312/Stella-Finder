@@ -10,6 +10,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
 export default MyApp
 
 const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
   a {
     color: #0070f3;
     text-decoration: none;

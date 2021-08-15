@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	// DBアクセス用モジュール
-	db "hoshi-atsume-server/src/models/db"
+	db "stella-finder-server/src/models/db"
 )
 
 func GetSpots(c *gin.Context) {

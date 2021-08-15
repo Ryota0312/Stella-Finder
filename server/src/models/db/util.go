@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"hoshi-atsume-server/src/models/entity"
+	"stella-finder-server/src/models/entity"
 )
 
 // DB接続する
@@ -11,7 +11,7 @@ func open() *gorm.DB {
 	DBMS := "mysql"
 	USER := "root"
 	PASS := "root"
-	PROTOCOL := "tcp(hoshi-atsume-db:3306)"
+	PROTOCOL := "tcp(stella-finder-db:3306)"
 	DBNAME := "sample"
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
 	db, err := gorm.Open(DBMS, CONNECT)

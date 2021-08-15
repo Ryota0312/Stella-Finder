@@ -8,48 +8,48 @@ services:
     volumes:
       - "./conf.d:/etc/nginx/conf.d"
     links:
-      - hoshi-atsume-ui
-      - hoshi-atsume-server
+      - stella-finder-ui
+      - stella-finder-server
 
-  hoshi-atsume-ui:
+  stella-finder-ui:
     image: node:14.17.3-alpine
-    container_name: hoshi-atsume-ui
-    hostname: hoshi-atsume-ui
+    container_name: stella-finder-ui
+    hostname: stella-finder-ui
     volumes:
       - "./ui/:/src"
     working_dir: /src
-    command: [sh, -c, yarn install && yarn dev]
+    command: [ sh, -c, yarn install && yarn dev ]
     ports:
       - "3000:3000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
-      - hoshi-atsume-db
+      - stella-finder-db
 
-  hoshi-atsume-server:
+  stella-finder-server:
     image: golang:latest
-    container_name: hoshi-atsume-server
-    hostname: hoshi-atsume-server
+    container_name: stella-finder-server
+    hostname: stella-finder-server
     volumes:
       - "./server/:/go"
     working_dir: /go
     environment:
       - GO111MODULE=on
       - GOPATH= # GOPATHクリア
-    command: [sh, -c, go mod download && go run src/main.go]
+    command: [ sh, -c, go mod download && go run src/main.go ]
     tty: true
     ports:
       - "3001:3001"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     links:
-      - hoshi-atsume-ui
+      - stella-finder-ui
     depends_on:
-      - hoshi-atsume-db
+      - stella-finder-db
 
-  hoshi-atsume-db:
+  stella-finder-db:
     image: mysql:8.0
-    container_name: hoshi-atsume-db
+    container_name: stella-finder-db
     ports:
       - "3306:3306"
     volumes:
@@ -65,6 +65,7 @@ services:
 
   redis:
     image: "redis:latest"
+    container_name: stella-finder-session-db
     tty: true
     expose:
       - "6379"

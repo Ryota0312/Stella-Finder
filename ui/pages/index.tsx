@@ -15,7 +15,7 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Hoshi Atsume</title>
+        <title>Stella Finder</title>
       </Head>
 
       <main>

@@ -4,8 +4,8 @@ import (
 	"github.com/gin-contrib/sessions"
 	// Gin
 	"github.com/gin-gonic/gin"
-	"hoshi-atsume-server/src/models/db"
 	"net/http"
+	"stella-finder-server/src/models/db"
 )
 
 type JsonRequest struct {
@@ -33,7 +33,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	session :=sessions.Default(c)
+	session := sessions.Default(c)
 	session.Set("loginName", loginUser.LoginName)
 	if err := session.Save(); err != nil {
 		println("Failed to save session")

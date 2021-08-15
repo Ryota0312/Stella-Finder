@@ -1,4 +1,4 @@
-module hoshi-atsume-server
+module stella-finder-server
 
 go 1.16
 

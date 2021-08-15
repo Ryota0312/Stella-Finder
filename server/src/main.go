@@ -30,14 +30,14 @@ func serve() {
 	api := router.Group("/api")
 	{
 		api.GET("/spots", controller.GetSpots)
-		api.GET("/getUser", controller.GetUser)
+		api.GET("/loginUser", controller.GetLoginUser)
 	}
 
 	// API (need Authorize)
 	authRequiredAPI := router.Group("/api/user")
 	authRequiredAPI.Use(sessionCheck())
 	{
-		authRequiredAPI.GET("/getUser", controller.GetUser)
+		authRequiredAPI.GET("/getUser", controller.GetLoginUser)
 	}
 
 	// Proxy to Next.js

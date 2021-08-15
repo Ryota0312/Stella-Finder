@@ -12,7 +12,7 @@ type User struct {
 	Name string `json:"name"`
 }
 
-func GetUser(c *gin.Context) {
+func GetLoginUser(c *gin.Context) {
 	session := sessions.Default(c)
 	var loginUser string
 	v := session.Get("loginName")

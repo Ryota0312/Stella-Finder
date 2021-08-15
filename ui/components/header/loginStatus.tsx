@@ -8,7 +8,7 @@ import { useAuth } from '../../hooks/useAuth'
 export const LoginStatus: React.FC = () => {
   const { logout } = useAuth()
   const fetcher = useApi()
-  const { data, error } = useSWR(['/api/getUser', false], fetcher)
+  const { data, error } = useSWR(['/api/loginUser', false], fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

@@ -29,7 +29,8 @@ func serve() {
 	// API (NOT　need Authorize)
 	api := router.Group("/api")
 	{
-		api.GET("/spots", controller.GetSpots)
+		api.GET("/spots", controller.GetSpot)
+		api.GET("/spot/list", controller.GetAllSpots)
 		api.GET("/loginUser", controller.GetLoginUser)
 	}
 

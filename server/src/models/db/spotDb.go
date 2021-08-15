@@ -18,3 +18,14 @@ func FindSpot(id int) []entity.Spot {
 
 	return spot
 }
+
+func AllSpots() []entity.Spot {
+	spots := []entity.Spot{}
+
+	db := open()
+	// select
+	db.Find(&spots)
+	defer db.Close()
+
+	return spots
+}

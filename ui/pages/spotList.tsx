@@ -1,8 +1,16 @@
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import useSWR from 'swr'
+import React from 'react'
 import Layout from '../components/layout'
+import { useApi } from '../hooks/useApi'
 
-const SpotList: React.FC<{ data: { name: string } }> = ({ data }) => {
+const SpotList: React.FC = () => {
+  const fetcher = useApi()
+  const { data, error } = useSWR(['/api/spot/list', false], fetcher)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
   return (
     <Layout>
       <Head>
@@ -11,19 +19,19 @@ const SpotList: React.FC<{ data: { name: string } }> = ({ data }) => {
 
       <main>
         <h2>Spot List</h2>
-        <div>{data.name}</div>
+        <div>
+          {data.map((d: any) => (
+            <li key={d.name}>
+              <Spot spotName={d.name} />
+            </li>
+          ))}
+        </div>
       </main>
     </Layout>
   )
 }
 export default SpotList
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('http://host.docker.internal/api/spots?id=1')
-  const data = (await res.json())[0] as { name: string }
-  return {
-    props: {
-      data,
-    },
-  }
+const Spot: React.FC<{ spotName: any }> = (props) => {
+  return <ul>{props.spotName}</ul>
 }

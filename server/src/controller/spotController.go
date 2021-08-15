@@ -11,7 +11,7 @@ import (
 	db "stella-finder-server/src/models/db"
 )
 
-func GetSpots(c *gin.Context) {
+func GetSpot(c *gin.Context) {
 	spotId := c.Query("id")
 
 	productID, _ := strconv.Atoi(spotId)
@@ -20,4 +20,8 @@ func GetSpots(c *gin.Context) {
 
 	// URLへのアクセスに対してJSONを返す
 	c.JSON(200, resultProduct)
+}
+
+func GetAllSpots(c *gin.Context) {
+	c.JSON(200, db.AllSpots())
 }

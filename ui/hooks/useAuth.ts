@@ -12,12 +12,14 @@ export const useAuth = () => {
       },
       body: JSON.stringify({ loginName: loginName, password: password }),
     })
+    window.location.href = '/'
   }
 
   const logout = async () => {
     await fetch('http://localhost/auth/logout', {
       method: 'GET',
     })
+    window.location.reload()
   }
 
   return {

@@ -30,6 +30,7 @@ func serve() {
 	api := router.Group("/api")
 	{
 		api.GET("/spots", controller.GetSpots)
+		api.GET("/getUser", controller.GetUser)
 	}
 
 	// API (need Authorize)

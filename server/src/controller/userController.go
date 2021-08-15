@@ -17,7 +17,13 @@ func GetUser(c *gin.Context) {
 	var loginUser string
 	v := session.Get("loginName")
 	if v == nil {
-		loginUser = "not login"
+		response := User{
+			Id:   0,
+			Name: "Guest",
+		}
+
+		c.JSON(http.StatusOK, response)
+		return
 	} else {
 		loginUser = v.(string)
 	}
@@ -25,7 +31,7 @@ func GetUser(c *gin.Context) {
 	print(loginUser)
 
 	user := User{
-		Id: 1,
+		Id:   1,
 		Name: loginUser,
 	}
 

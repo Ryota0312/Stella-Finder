@@ -9,7 +9,7 @@ import (
 )
 
 func FindUser(loginName string) []entity.User {
-	user := []entity.User{}
+	var user []entity.User
 
 	db := open()
 	// select

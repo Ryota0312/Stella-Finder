@@ -9,7 +9,7 @@ import (
 )
 
 func FindSpot(id int) []entity.Spot {
-	spot := []entity.Spot{}
+	var spot []entity.Spot
 
 	db := open()
 	// select
@@ -20,7 +20,7 @@ func FindSpot(id int) []entity.Spot {
 }
 
 func AllSpots() []entity.Spot {
-	spots := []entity.Spot{}
+	var spots []entity.Spot
 
 	db := open()
 	// select

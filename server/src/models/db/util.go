@@ -32,6 +32,7 @@ func open() *gorm.DB {
 	// マイグレーション（テーブルが無い時は自動生成）
 	db.AutoMigrate(&entity.User{})
 	db.AutoMigrate(&entity.Spot{})
+	db.AutoMigrate(&entity.File{})
 
 	fmt.Println("db connected: ", &db)
 	return db

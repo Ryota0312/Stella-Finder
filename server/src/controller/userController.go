@@ -2,6 +2,8 @@ package controller
 
 import (
 	"github.com/gin-contrib/sessions"
+	. "stella-finder-server/src/utils"
+
 	// Gin
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -14,21 +16,14 @@ type User struct {
 
 func GetLoginUser(c *gin.Context) {
 	session := sessions.Default(c)
-	var loginUser string
-	v := session.Get("loginName")
-	if v == nil {
-		response := User{
+	loginUser, err := GetLoginUserFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusOK, User{
 			Id:   0,
-			Name: "Guest",
-		}
-
-		c.JSON(http.StatusOK, response)
+			Name: loginUser,
+		})
 		return
-	} else {
-		loginUser = v.(string)
 	}
-	print("DEBUG:===")
-	print(loginUser)
 
 	user := User{
 		Id:   1, // TODO: 正しいidを使用する

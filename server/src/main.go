@@ -38,7 +38,8 @@ func serve() {
 	authRequiredAPI := router.Group("/api/user")
 	authRequiredAPI.Use(sessionCheck())
 	{
-		authRequiredAPI.GET("/getUser", controller.GetLoginUser)
+		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
+		authRequiredAPI.POST("file/upload", controller.CreateFile)
 	}
 
 	// Proxy to Next.js

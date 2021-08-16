@@ -31,7 +31,7 @@ func GetLoginUser(c *gin.Context) {
 	print(loginUser)
 
 	user := User{
-		Id:   1,
+		Id:   1, // TODO: 正しいidを使用する
 		Name: loginUser,
 	}
 

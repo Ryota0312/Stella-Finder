@@ -3,6 +3,12 @@ import useSWR from 'swr'
 import React from 'react'
 import Layout from '../components/layout'
 import { useApi } from '../hooks/useApi'
+import { GridList, GridListItemData } from '../components/common/GridList'
+
+type SpotListItem = {
+  id: number
+  name: string
+}
 
 const SpotList: React.FC = () => {
   const fetcher = useApi()
@@ -19,19 +25,15 @@ const SpotList: React.FC = () => {
 
       <main>
         <h2>Spot List</h2>
-        <div>
-          {data.map((d: any) => (
-            <li key={d.name}>
-              <Spot spotName={d.name} />
-            </li>
-          ))}
-        </div>
+        <GridList data={convertToGridItem(data)} />
       </main>
     </Layout>
   )
 }
 export default SpotList
 
-const Spot: React.FC<{ spotName: any }> = (props) => {
-  return <ul>{props.spotName}</ul>
+const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
+  return spotList.map((spot: SpotListItem) => {
+    return { title: spot.name } as GridListItemData
+  })
 }

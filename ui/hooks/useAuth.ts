@@ -5,7 +5,7 @@ export const useAuth = () => {
   const [password, setPassword] = useState('')
 
   const login = async () => {
-    await fetch('http://localhost/auth/login', {
+    await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const useAuth = () => {
   }
 
   const logout = async () => {
-    await fetch('http://localhost/auth/logout', {
+    await fetch('/auth/logout', {
       method: 'GET',
     })
     window.location.reload()

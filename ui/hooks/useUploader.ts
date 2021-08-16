@@ -8,7 +8,7 @@ export const useUploader = () => {
 
     const formData = new FormData()
     formData.append('image', image)
-    await fetch('http://localhost/api/user/file/upload', {
+    await fetch('/api/user/file/upload', {
       method: 'POST',
       body: formData,
     })

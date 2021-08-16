@@ -9,7 +9,7 @@ export const GridList: React.FC<{ data: GridListItemData[] }> = ({ data }) => {
   return (
     <GridLayout>
       {data.map((d: GridListItemData) => {
-        return <li key={d.title}>{d.title}</li>
+        return <GridItem key={d.title}>{d.title}</GridItem>
       })}
     </GridLayout>
   )
@@ -17,5 +17,15 @@ export const GridList: React.FC<{ data: GridListItemData[] }> = ({ data }) => {
 
 const GridLayout = styled.ul`
   display: grid;
+  padding: 0;
   grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+`
+
+const GridItem = styled.li`
+  list-style-type: none;
+  border: solid 2px gray;
+  border-radius: 8px;
+  padding: 8px;
 `

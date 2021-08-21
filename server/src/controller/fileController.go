@@ -32,14 +32,14 @@ func CreateFile(c *gin.Context) {
 		return
 	}
 
-	fileSha256Sum := getSHA256SumString(fileHash)
+	fileKey := getSHA256SumString(fileHash)
 	if err != nil {
 		return
 	}
 
 	fileName := header.Filename
 	dir, _ := os.Getwd()
-	out, err := os.Create(dir + "/uploadedImages/" + fileSha256Sum)
+	out, err := os.Create(dir + "/uploadedImages/" + fileKey)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,10 +51,10 @@ func CreateFile(c *gin.Context) {
 
 	session := sessions.Default(c)
 	loginUser, _ := GetLoginUserFromSession(session)
-	db.CreateFile(fileSha256Sum, fileName, loginUser)
+	db.CreateFile(fileKey, fileName, loginUser)
 
 	c.JSON(http.StatusOK, gin.H{
-		"status": "ok",
+		"fileKey": fileKey,
 	})
 }
 

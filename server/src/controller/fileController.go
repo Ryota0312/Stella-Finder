@@ -1,10 +1,11 @@
 package controller
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"fmt"
 	"github.com/gin-contrib/sessions"
-	"mime/multipart"
+	"hash"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
 
@@ -23,8 +24,15 @@ func CreateFile(c *gin.Context) {
 		return
 	}
 
-	fileSha256Sum, err := getSHA256SumString(file)
-	print(fileSha256Sum)
+	fileHash := sha256.New()
+	fileBody := bytes.NewBuffer(nil)
+	writer := io.MultiWriter(fileHash, fileBody)
+	_, err = io.Copy(writer, file)
+	if err != nil {
+		return
+	}
+
+	fileSha256Sum := getSHA256SumString(fileHash)
 	if err != nil {
 		return
 	}
@@ -36,7 +44,7 @@ func CreateFile(c *gin.Context) {
 		log.Fatal(err)
 	}
 	defer out.Close()
-	_, err = io.Copy(out, file)
+	_, err = io.Copy(out, fileBody)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,12 +58,6 @@ func CreateFile(c *gin.Context) {
 	})
 }
 
-func getSHA256SumString(file multipart.File) (string, error) {
-	var fileByte []byte
-	_, err := file.Read(fileByte)
-	if err != nil {
-		return "", err
-	}
-	sha256Sum := sha256.Sum256(fileByte)
-	return fmt.Sprintf("%x", sha256Sum), nil
+func getSHA256SumString(fileHash hash.Hash) string {
+	return fmt.Sprintf("%x", fileHash.Sum(nil))
 }

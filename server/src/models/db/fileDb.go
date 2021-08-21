@@ -20,12 +20,12 @@ func CreateFile(fileKey string, fileName string, createdBy string) {
 	defer db.Close()
 }
 
-func GetFile(fileKey string) entity.File {
-	var file = entity.File{}
+func GetFileInfo(fileKey string) entity.File {
+	var fileInfo = entity.File{}
 
 	db := open()
-	db.First(&file, fileKey)
+	db.First(&fileInfo, fileKey)
 	defer db.Close()
 
-	return file
+	return fileInfo
 }

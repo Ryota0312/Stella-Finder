@@ -58,6 +58,17 @@ func CreateFile(c *gin.Context) {
 	})
 }
 
+func GetFile(c *gin.Context) {
+	fileKey := c.Query("fileKey")
+
+	c.File(getFilePath(fileKey))
+}
+
 func getSHA256SumString(fileHash hash.Hash) string {
 	return fmt.Sprintf("%x", fileHash.Sum(nil))
+}
+
+func getFilePath(fileKey string) string {
+	dir, _ := os.Getwd()
+	return dir + "/uploadedImages/" + fileKey
 }

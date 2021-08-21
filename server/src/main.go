@@ -40,6 +40,7 @@ func serve() {
 	{
 		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
 		authRequiredAPI.POST("file/upload", controller.CreateFile)
+		authRequiredAPI.GET("file/download", controller.GetFile)
 	}
 
 	// Proxy to Next.js

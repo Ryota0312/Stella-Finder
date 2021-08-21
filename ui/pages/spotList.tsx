@@ -36,6 +36,6 @@ export default SpotList
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {
-    return { title: spot.name } as GridListItemData
+    return { id: spot.id, title: spot.name } as GridListItemData
   })
 }

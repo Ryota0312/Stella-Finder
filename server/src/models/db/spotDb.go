@@ -8,8 +8,8 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func FindSpot(id int) []entity.Spot {
-	var spot []entity.Spot
+func FindSpot(id int) entity.Spot {
+	var spot = entity.Spot{}
 
 	db := open()
 	// select

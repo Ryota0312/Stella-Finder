@@ -1,15 +1,22 @@
+import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 
 export interface GridListItemData {
+  id: number
   title: string
 }
 
+// TODO: spot/X 以外のURL受付
 export const GridList: React.FC<{ data: GridListItemData[] }> = ({ data }) => {
   return (
     <GridLayout>
       {data.map((d: GridListItemData) => {
-        return <GridItem key={d.title}>{d.title}</GridItem>
+        return (
+          <GridItem key={d.title}>
+            <Link href={'/spot/' + d.id}>{d.title}</Link>
+          </GridItem>
+        )
       })}
     </GridLayout>
   )

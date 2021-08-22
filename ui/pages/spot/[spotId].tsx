@@ -1,11 +1,11 @@
 import React from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
-import { Image } from '@geist-ui/react'
 import { useRouter } from 'next/router'
 import { useApi } from '../../hooks/useApi'
 import Layout from '../../components/layout'
 import { ImageUploader } from '../../components/common/ImageUploader'
+import { UnoptimizedImage } from '../../components/common/UnoptimizedImage'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -29,9 +29,9 @@ const Spot: React.FC = () => {
       <main>
         <h2>spot detail</h2>
         <div>{data.name}</div>
-        <Image
+        <UnoptimizedImage
           src="/api/file/download?fileKey=049b9324edf199059ffad82fe183c12eae7ce58c8c28d5d11460a38539c3fd79"
-          alt="Picture"
+          height={'200px'}
         />
         <ImageUploader />
       </main>

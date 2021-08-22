@@ -27,7 +27,7 @@ const SpotList: React.FC = () => {
       <main>
         <h2>Spot List</h2>
         <ImageUploader />
-        <GridList data={convertToGridItem(data)} />
+        <GridList data={convertToGridItem(data)} link="spot" />
       </main>
     </Layout>
   )

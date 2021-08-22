@@ -7,14 +7,16 @@ export interface GridListItemData {
   title: string
 }
 
-// TODO: spot/X 以外のURL受付
-export const GridList: React.FC<{ data: GridListItemData[] }> = ({ data }) => {
+export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
+  data,
+  link,
+}) => {
   return (
     <GridLayout>
       {data.map((d: GridListItemData) => {
         return (
           <GridItem key={d.title}>
-            <Link href={'/spot/' + d.id}>{d.title}</Link>
+            <Link href={'/' + link + '/' + d.id}>{d.title}</Link>
           </GridItem>
         )
       })}

@@ -32,6 +32,7 @@ func serve() {
 		api.GET("/spots", controller.GetSpot)
 		api.GET("/spot/list", controller.GetAllSpots)
 		api.GET("/loginUser", controller.GetLoginUser)
+		api.GET("/file/download", controller.GetFile)
 	}
 
 	// API (need Authorize)
@@ -39,8 +40,7 @@ func serve() {
 	authRequiredAPI.Use(sessionCheck())
 	{
 		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
-		authRequiredAPI.POST("file/upload", controller.CreateFile)
-		authRequiredAPI.GET("file/download", controller.GetFile)
+		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 	}
 
 	// Proxy to Next.js

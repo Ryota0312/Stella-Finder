@@ -1,11 +1,14 @@
 import type { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import React from 'react'
+import { GeistProvider } from '@geist-ui/react'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
   <>
-    <GlobalStyle />
-    <Component {...pageProps} />
+    <GeistProvider>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </GeistProvider>
   </>
 )
 export default MyApp

@@ -30,7 +30,11 @@ const Spot: React.FC = () => {
         <h2>spot detail</h2>
         <div>{data.name}</div>
         <UnoptimizedImage fileKey={data.coverImage} height={'200px'} />
-        <ImageUploader />
+        <ImageUploader
+          onSuccess={() => {
+            console.log('success!!!')
+          }}
+        />
       </main>
     </Layout>
   )

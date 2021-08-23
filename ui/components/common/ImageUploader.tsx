@@ -1,7 +1,9 @@
 import React from 'react'
 import { useUploader } from '../../hooks/useUploader'
 
-export const ImageUploader: React.FC = () => {
+export const ImageUploader: React.FC<{ onSuccess: () => void }> = ({
+  onSuccess,
+}) => {
   const { setImage, upload } = useUploader()
 
   return (
@@ -13,7 +15,12 @@ export const ImageUploader: React.FC = () => {
           setImage(e.target.files?.[0])
         }
       />
-      <button type="button" onClick={upload}>
+      <button
+        type="button"
+        onClick={() => {
+          upload().then(onSuccess)
+        }}
+      >
         Upload
       </button>
     </div>

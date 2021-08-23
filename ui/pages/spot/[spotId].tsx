@@ -29,10 +29,7 @@ const Spot: React.FC = () => {
       <main>
         <h2>spot detail</h2>
         <div>{data.name}</div>
-        <UnoptimizedImage
-          src="/api/file/download?fileKey=049b9324edf199059ffad82fe183c12eae7ce58c8c28d5d11460a38539c3fd79"
-          height={'200px'}
-        />
+        <UnoptimizedImage fileKey={data.coverImage} height={'200px'} />
         <ImageUploader />
       </main>
     </Layout>

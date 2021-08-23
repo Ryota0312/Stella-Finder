@@ -2,22 +2,20 @@ import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
 
-export const UnoptimizedImage: React.FC<{ src: string; height: string }> = ({
-  src,
-  height,
-}) => {
-  return (
-    <ImageWrapper height={height}>
-      <Image
-        src={src}
-        alt=""
-        unoptimized={true}
-        layout="fill"
-        objectFit="contain"
-      />
-    </ImageWrapper>
-  )
-}
+export const UnoptimizedImage: React.FC<{ fileKey: string; height: string }> =
+  ({ fileKey, height }) => {
+    return (
+      <ImageWrapper height={height}>
+        <Image
+          src={'/api/file/download?fileKey=' + fileKey}
+          alt=""
+          unoptimized={true}
+          layout="fill"
+          objectFit="contain"
+        />
+      </ImageWrapper>
+    )
+  }
 
 const ImageWrapper = styled.div.attrs((props: { height: string }) => ({
   height: props.height,

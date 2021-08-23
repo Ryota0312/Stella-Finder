@@ -14,16 +14,17 @@ VALUES ("Administrator", "admin", "administrator");
 
 CREATE TABLE IF NOT EXISTS spot
 (
-    id   INT(11) AUTO_INCREMENT NOT NULL,
-    name VARCHAR(64)            NOT NULL,
+    id          INT(11) AUTO_INCREMENT NOT NULL,
+    name        VARCHAR(64)            NOT NULL,
+    cover_image VARCHAR(64),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS file
 (
-    fileKey   VARCHAR(64)  NOT NULL,
-    filename  VARCHAR(256) NOT NULL,
-    createdBy VARCHAR(64)  NOT NULL,
-    createdAt TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (fileKey)
+    file_key   VARCHAR(64)  NOT NULL,
+    file_name  VARCHAR(256) NOT NULL,
+    created_by VARCHAR(64)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (file_key)
 );

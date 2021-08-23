@@ -6,13 +6,16 @@ export const UnoptimizedImage: React.FC<{ fileKey: string; height: string }> =
   ({ fileKey, height }) => {
     return (
       <ImageWrapper height={height}>
-        <Image
-          src={'/api/file/download?fileKey=' + fileKey}
-          alt=""
-          unoptimized={true}
-          layout="fill"
-          objectFit="contain"
-        />
+        {!!fileKey && (
+          <Image
+            src={'/api/file/download?fileKey=' + fileKey}
+            alt=""
+            unoptimized={true}
+            layout="fill"
+            objectFit="contain"
+          />
+        )}
+        {!fileKey && <div>No image</div>}
       </ImageWrapper>
     )
   }

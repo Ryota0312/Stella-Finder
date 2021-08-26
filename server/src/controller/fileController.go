@@ -52,6 +52,7 @@ func CreateFile(c *gin.Context) {
 	session := sessions.Default(c)
 	loginUser, _ := GetLoginUserFromSession(session)
 	db.CreateFile(fileKey, fileName, loginUser)
+	db.UpdateSpot(2, fileKey)
 
 	c.JSON(http.StatusOK, gin.H{
 		"fileKey": fileKey,

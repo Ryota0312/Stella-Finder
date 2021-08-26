@@ -4,7 +4,6 @@ import React from 'react'
 import Layout from '../components/layout'
 import { useApi } from '../hooks/useApi'
 import { GridList, GridListItemData } from '../components/common/GridList'
-import { ImageUploader } from '../components/common/ImageUploader'
 
 type SpotListItem = {
   id: number
@@ -26,7 +25,6 @@ const SpotList: React.FC = () => {
 
       <main>
         <h2>Spot List</h2>
-        <ImageUploader />
         <GridList data={convertToGridItem(data)} link="spot" />
       </main>
     </Layout>

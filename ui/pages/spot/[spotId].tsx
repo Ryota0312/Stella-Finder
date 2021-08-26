@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -11,11 +11,19 @@ const Spot: React.FC = () => {
   const router = useRouter()
   const { spotId } = router.query
 
+  const [coverImage, setCoverImage] = useState<string>('')
+
   const fetcher = useApi()
   const { data, error } = useSWR(
     ['/api/spots' + '?id=' + spotId, false],
     fetcher,
   )
+
+  useEffect(() => {
+    if (data) {
+      setCoverImage(data.coverImage)
+    }
+  }, [data])
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
@@ -29,10 +37,10 @@ const Spot: React.FC = () => {
       <main>
         <h2>spot detail</h2>
         <div>{data.name}</div>
-        <UnoptimizedImage fileKey={data.coverImage} height={'200px'} />
+        <UnoptimizedImage fileKey={coverImage} height={'200px'} />
         <ImageUploader
-          onSuccess={() => {
-            console.log('success!!!')
+          onSuccess={(res: any) => {
+            setCoverImage(res.fileKey)
           }}
         />
       </main>

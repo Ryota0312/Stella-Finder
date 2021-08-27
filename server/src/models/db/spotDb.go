@@ -1,11 +1,9 @@
 package db
 
 import (
-
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
-
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 func FindSpot(id int) entity.Spot {
@@ -35,6 +33,7 @@ func UpdateSpot(id int, coverImage string) {
 
 	db := open()
 	db.First(&spot, id)
-	db.Model(&spot).Update("CoverImage", coverImage)
+	spot.CoverImage = coverImage
+	db.Save(&spot)
 	defer db.Close()
 }

@@ -8,6 +8,7 @@ import (
 	"hash"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
+	"strconv"
 
 	// Gin
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,16 @@ import (
 	"os"
 )
 
+type CreateFileInputForm struct {
+	SpotId string `form:"spotId"`
+}
+
 func CreateFile(c *gin.Context) {
+	var json CreateFileInputForm
+	if err := c.Bind(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	file, header, err := c.Request.FormFile("image")
 	if err != nil {
 		c.String(http.StatusBadRequest, "Bad request")
@@ -52,7 +62,8 @@ func CreateFile(c *gin.Context) {
 	session := sessions.Default(c)
 	loginUser, _ := GetLoginUserFromSession(session)
 	db.CreateFile(fileKey, fileName, loginUser)
-	db.UpdateSpot(2, fileKey)
+	spotId, _ := strconv.Atoi(json.SpotId)
+	db.UpdateSpot(spotId, fileKey)
 
 	c.JSON(http.StatusOK, gin.H{
 		"fileKey": fileKey,

@@ -30,10 +30,9 @@ func AllSpots() []entity.Spot {
 
 func UpdateSpot(id int, coverImage string) {
 	var spot = entity.Spot{}
+	spot.ID = id
 
 	db := open()
-	db.First(&spot, id)
-	spot.CoverImage = coverImage
-	db.Save(&spot)
+	db.Model(&spot).Update("cover_image", coverImage)
 	defer db.Close()
 }

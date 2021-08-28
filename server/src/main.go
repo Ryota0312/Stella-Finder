@@ -43,6 +43,8 @@ func serve() {
 		// file/upload といいつつspotの更新をしている。今は決め打ちでspotId=2を更新。
 		// TODO: これをspotの更新APIにする？
 		authRequiredAPI.POST("/file/upload", controller.CreateFile)
+
+		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)
 	}
 
 	// Proxy to Next.js

@@ -8,7 +8,6 @@ export const useUploader = () => {
 
     const formData = new FormData()
     formData.append('image', image)
-    formData.append('spotId', '1')
     const response = await fetch('/api/user/file/upload', {
       method: 'POST',
       body: formData,

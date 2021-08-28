@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"net/http"
 	// 文字列と基本データ型の変換パッケージ
 	strconv "strconv"
 
@@ -24,4 +25,20 @@ func GetSpot(c *gin.Context) {
 
 func GetAllSpots(c *gin.Context) {
 	c.JSON(200, db.AllSpots())
+}
+
+type UpdateSpotInputForm struct {
+	SpotId     int    `json:"spotId"`
+	CoverImage string `json:"coverImage"`
+}
+
+func UpdateSpot(c *gin.Context) {
+	var input UpdateSpotInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	db.UpdateSpot(input.SpotId, input.CoverImage)
+	c.JSON(200, nil)
 }

@@ -18,3 +18,16 @@ func FindUser(loginName string) []entity.User {
 
 	return user
 }
+
+func MailAddressExists(mailAddress string) bool {
+	var user []entity.User
+	var count int
+
+	db := open()
+	db.Where("mail_address = ?", mailAddress).Find(&user).Count(&count)
+
+	if count > 0 {
+		return true
+	}
+	return false
+}

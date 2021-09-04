@@ -65,5 +65,10 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	if db.MailAddressExists(input.Mail) {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "E-mail address already exist"})
+		return
+	}
+
 	c.JSON(http.StatusOK, "Register: email addr is "+input.Mail)
 }

@@ -53,3 +53,17 @@ func Logout(c *gin.Context) {
 	print("DEBUG: Logout success!")
 	c.JSON(http.StatusOK, "Logout success")
 }
+
+type RegisterInputForm struct {
+	Mail string `json:"mail"`
+}
+
+func Register(c *gin.Context) {
+	var input RegisterInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, "Register: email addr is "+input.Mail)
+}

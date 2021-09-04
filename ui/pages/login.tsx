@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
@@ -8,6 +9,7 @@ const Login: React.FC = () => {
     <Layout>
       <main>
         <h1>Login</h1>
+        <Link href="/register">登録はこちら</Link>
         <div>
           <p>ログイン名</p>
           <input

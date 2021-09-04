@@ -8,19 +8,19 @@ import (
 	"stella-finder-server/src/models/db"
 )
 
-type JsonRequest struct {
+type LoginInputForm struct {
 	LoginName string `json:"loginName"`
 	Password  string `json:"password"`
 }
 
 func Login(c *gin.Context) {
-	var json JsonRequest
-	if err := c.ShouldBindJSON(&json); err != nil {
+	var input LoginInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	user := db.FindUser(json.LoginName)
+	user := db.FindUser(input.LoginName)
 	if len(user) == 0 {
 		c.JSON(http.StatusOK, "Invalid loginName")
 		return
@@ -28,7 +28,7 @@ func Login(c *gin.Context) {
 	loginUser := user[0]
 	println(loginUser.UserName)
 
-	if loginUser.Password != json.Password {
+	if loginUser.Password != input.Password {
 		c.JSON(http.StatusOK, "Incorrect password")
 		return
 	}

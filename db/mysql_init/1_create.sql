@@ -3,10 +3,10 @@ use stella_finder;
 
 CREATE TABLE IF NOT EXISTS user
 (
-    user_name    VARCHAR(64)  NOT NULL,
-    mail_address VARCHAR(128) NOT NULL,
-    login_name   VARCHAR(64)  NOT NULL,
-    password     VARCHAR(256) NOT NULL,
+    user_name    VARCHAR(64)         NOT NULL,
+    mail_address VARCHAR(128) UNIQUE NOT NULL,
+    login_name   VARCHAR(64) UNIQUE  NOT NULL,
+    password     VARCHAR(256)        NOT NULL,
     PRIMARY KEY (login_name)
 );
 

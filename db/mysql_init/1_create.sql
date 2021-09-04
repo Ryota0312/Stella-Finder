@@ -1,5 +1,5 @@
-CREATE DATABASE sample;
-use sample;
+CREATE DATABASE stella_finder;
+use stella_finder;
 
 CREATE TABLE IF NOT EXISTS user
 (

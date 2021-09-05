@@ -4,9 +4,26 @@ import (
 
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
+	"stella-finder-server/src/utils"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
+
+func CreateTmpUser(loginName string, mailAddress string) {
+	var tmpUser = entity.User{}
+	tmpUser.LoginName = loginName
+	tmpUser.MailAddress = mailAddress
+	tmpUser.IsTemporary = true
+
+	// 仮登録なのでユーザ名はランダムで生成されたログイン名と同一、パスワードはランダム生成
+	tmpUser.UserName = loginName
+	tmpUser.Password = utils.RandString(256)
+
+	db := open()
+	// select
+	db.Create(&tmpUser)
+	defer db.Close()
+}
 
 func FindUser(loginName string) []entity.User {
 	var user []entity.User

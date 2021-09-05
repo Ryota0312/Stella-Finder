@@ -9,7 +9,7 @@ const Login: React.FC = () => {
     <Layout>
       <main>
         <h1>Login</h1>
-        <Link href="/register">登録はこちら</Link>
+        <Link href="/tmpRegister">登録はこちら</Link>
         <div>
           <p>ログイン名</p>
           <input

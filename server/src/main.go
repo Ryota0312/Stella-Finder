@@ -24,7 +24,7 @@ func serve() {
 	{
 		auth.POST("/login", controller.Login)
 		auth.GET("/logout", controller.Logout)
-		auth.POST("/register", controller.Register)
+		auth.POST("/tmpRegister", controller.TmpRegister)
 	}
 
 	// API (NOT　need Authorize)

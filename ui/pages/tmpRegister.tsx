@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../components/layout'
 
-const Register: React.FC = () => {
+const TmpRegister: React.FC = () => {
   const [mail, setMail] = useState<string>('')
 
   return (
@@ -26,10 +26,10 @@ const Register: React.FC = () => {
     </Layout>
   )
 }
-export default Register
+export default TmpRegister
 
 const register_ = async (mail: string) => {
-  await fetch('/auth/register', {
+  await fetch('/auth/tmpRegister', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

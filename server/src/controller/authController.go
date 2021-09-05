@@ -2,6 +2,8 @@ package controller
 
 import (
 	"github.com/gin-contrib/sessions"
+	"stella-finder-server/src/utils"
+
 	// Gin
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -58,7 +60,7 @@ type RegisterInputForm struct {
 	Mail string `json:"mail"`
 }
 
-func Register(c *gin.Context) {
+func TmpRegister(c *gin.Context) {
 	var input RegisterInputForm
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -70,5 +72,17 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "Register: email addr is "+input.Mail)
+	tmpRegisterKey := utils.RandString(128)
+	tmpLoginName := utils.RandString(64)
+
+	db.CreateTmpUser(tmpLoginName, input.Mail)
+	db.CreateTmpRegister(tmpRegisterKey, tmpLoginName)
+
+	url := "http://localhost/register?key=" + tmpRegisterKey
+	print("-----------Send Mail following-----------\n")
+	print("Please click register URL\n")
+	print("URL: " + url + "\n")
+	print("-----------------------------------------\n")
+
+	c.JSON(http.StatusOK, "TmpRegister: email addr is "+input.Mail)
 }

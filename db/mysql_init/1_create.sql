@@ -7,11 +7,22 @@ CREATE TABLE IF NOT EXISTS user
     mail_address VARCHAR(128) UNIQUE NOT NULL,
     login_name   VARCHAR(64) UNIQUE  NOT NULL,
     password     VARCHAR(256)        NOT NULL,
+    is_temporary TINYINT(1) DEFAULT 0,
     PRIMARY KEY (login_name)
 );
 
-INSERT INTO user (user_name, mail_address, login_name, password)
-VALUES ("Administrator", "admin@example.com", "admin", "administrator");
+INSERT INTO user (user_name, mail_address, login_name, password, is_temporary)
+VALUES ('Administrator', 'admin@example.com', 'admin', 'administrator', 0);
+
+CREATE TABLE IF NOT EXISTS tmp_register
+(
+    id           INT(11) AUTO_INCREMENT NOT NULL,
+    register_key VARCHAR(128) UNIQUE    NOT NULL,
+    login_name   VARCHAR(64) UNIQUE     NOT NULL,
+    created_at   TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (login_name) REFERENCES user (login_name)
+);
 
 CREATE TABLE IF NOT EXISTS spot
 (

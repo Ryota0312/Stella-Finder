@@ -33,6 +33,7 @@ func open() *gorm.DB {
 	db.AutoMigrate(&entity.User{})
 	db.AutoMigrate(&entity.Spot{})
 	db.AutoMigrate(&entity.File{})
+	db.AutoMigrate(&entity.TmpRegister{})
 
 	fmt.Println("db connected: ", &db)
 	return db

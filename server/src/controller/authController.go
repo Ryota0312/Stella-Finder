@@ -56,12 +56,12 @@ func Logout(c *gin.Context) {
 	c.JSON(http.StatusOK, "Logout success")
 }
 
-type RegisterInputForm struct {
+type TmpRegisterInputForm struct {
 	Mail string `json:"mail"`
 }
 
 func TmpRegister(c *gin.Context) {
-	var input RegisterInputForm
+	var input TmpRegisterInputForm
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -76,13 +76,34 @@ func TmpRegister(c *gin.Context) {
 	tmpLoginName := utils.RandString(64)
 
 	db.CreateTmpUser(tmpLoginName, input.Mail)
-	db.CreateTmpRegister(tmpRegisterKey, tmpLoginName)
+	db.CreateTmpRegister(tmpRegisterKey, input.Mail)
 
-	url := "http://localhost/register?key=" + tmpRegisterKey
+	url := "http://localhost/register?registerKey=" + tmpRegisterKey
 	print("-----------Send Mail following-----------\n")
 	print("Please click register URL\n")
 	print("URL: " + url + "\n")
 	print("-----------------------------------------\n")
 
 	c.JSON(http.StatusOK, "TmpRegister: email addr is "+input.Mail)
+}
+
+type RegisterInputForm struct {
+	RegisterKey string `json:"registerKey"`
+	LoginName   string `json:"loginName"`
+	UserName    string `json:"userName"`
+	Password    string `json:"password"`
+}
+
+func Register(c *gin.Context) {
+	var input RegisterInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	tmpRegister := db.FindTmpRegister(input.RegisterKey)
+
+	db.UpdateTmpUser(tmpRegister.MailAddress, input.LoginName, input.UserName, input.Password)
+
+	c.JSON(http.StatusOK, "Register success!")
 }

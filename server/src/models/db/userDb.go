@@ -13,7 +13,7 @@ func CreateTmpUser(loginName string, mailAddress string) {
 	var tmpUser = entity.User{}
 	tmpUser.LoginName = loginName
 	tmpUser.MailAddress = mailAddress
-	tmpUser.IsTemporary = true
+	tmpUser.IsTemporary = 1
 
 	// 仮登録なのでユーザ名はランダムで生成されたログイン名と同一、パスワードはランダム生成
 	tmpUser.UserName = loginName
@@ -22,6 +22,14 @@ func CreateTmpUser(loginName string, mailAddress string) {
 	db := open()
 	// select
 	db.Create(&tmpUser)
+	defer db.Close()
+}
+
+func UpdateTmpUser(mailAddress string, newLoginName string, userName string, password string) {
+	var user = entity.User{}
+
+	db := open()
+	db.Model(&user).Where("mail_address = ?", mailAddress).Updates(entity.User{LoginName: newLoginName, UserName: userName, Password: password, IsTemporary: 0})
 	defer db.Close()
 }
 

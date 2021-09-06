@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS user
     mail_address VARCHAR(128) UNIQUE    NOT NULL,
     login_name   VARCHAR(64) UNIQUE     NOT NULL,
     password     VARCHAR(256)           NOT NULL,
-    is_temporary TINYINT(1)             NOT NULL,
+    is_temporary TINYINT(1) UNSIGNED    NOT NULL,
     PRIMARY KEY (id)
 );
 

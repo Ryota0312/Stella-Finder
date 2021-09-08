@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-contrib/sessions"
 	"stella-finder-server/src/utils"
+	"time"
 
 	// Gin
 	"github.com/gin-gonic/gin"
@@ -98,6 +99,12 @@ func Register(c *gin.Context) {
 	}
 
 	tmpRegister := db.FindTmpRegister(input.RegisterKey)
+
+	if tmpRegister.CreatedAt.Before(time.Now().Add(-24 * time.Hour)) {
+		// TODO: status codeは正しい？
+		c.JSON(http.StatusBadRequest, gin.H{"error": "URL expired!!!!!!!!!!!"})
+		return
+	}
 
 	db.UpdateTmpUser(tmpRegister.MailAddress, input.LoginName, input.UserName, input.Password)
 

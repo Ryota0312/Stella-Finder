@@ -13,7 +13,8 @@ func open() *gorm.DB {
 	PASS := "root"
 	PROTOCOL := "tcp(stella-finder-db:3306)"
 	DBNAME := "stella_finder"
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+	PARAMS := "parseTime=true"
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?" + PARAMS
 	db, err := gorm.Open(DBMS, CONNECT)
 
 	if err != nil {

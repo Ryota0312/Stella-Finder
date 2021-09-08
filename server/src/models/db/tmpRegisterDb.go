@@ -1,11 +1,9 @@
 package db
 
 import (
-
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
-
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 func CreateTmpRegister(registerKey string, mailAddress string) {
@@ -20,12 +18,12 @@ func CreateTmpRegister(registerKey string, mailAddress string) {
 }
 
 func FindTmpRegister(registerKey string) entity.TmpRegister {
-	var tmpRegisters entity.TmpRegister
+	var tmpRegister entity.TmpRegister
 
 	db := open()
 	// select
-	db.First(&tmpRegisters, `register_key = "`+registerKey+`"`)
+	db.First(&tmpRegister, `register_key = "`+registerKey+`"`)
 	defer db.Close()
 
-	return tmpRegisters
+	return tmpRegister
 }

@@ -79,11 +79,6 @@ func TmpRegister(c *gin.Context) {
 	db.CreateTmpRegister(tmpRegisterKey, input.Mail)
 
 	utils.SendTmpRegisterMail(input.Mail, tmpRegisterKey)
-	url := "http://localhost/register?registerKey=" + tmpRegisterKey
-	print("-----------Send Mail following-----------\n")
-	print("Please click register URL\n")
-	print("URL: " + url + "\n")
-	print("-----------------------------------------\n")
 
 	c.JSON(http.StatusOK, "TmpRegister: email addr is "+input.Mail)
 }

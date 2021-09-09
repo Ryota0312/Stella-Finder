@@ -9,6 +9,7 @@ const Register: React.FC = () => {
   const [loginName, setLoginName] = useState<string>('')
   const [userName, setUserName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
 
   return (
     <Layout>
@@ -21,7 +22,7 @@ const Register: React.FC = () => {
           <p>ログイン名</p>
           <input
             type={'text'}
-            placeholder={'your e-mail address'}
+            placeholder={'login name'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setLoginName(e.target.value)
             }
@@ -37,15 +38,32 @@ const Register: React.FC = () => {
           <p>パスワード</p>
           <input
             type={'password'}
-            placeholder={'your e-mail address'}
+            placeholder={'password'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
           />
+          <p>確認パスワード</p>
+          <input
+            type={'password'}
+            placeholder={'confirm password'}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setConfirmPassword(e.target.value)
+            }
+          />
+          {password !== confirmPassword && confirmPassword.length > 0 && (
+            <div>まちがってるよ</div>
+          )}
           <button
             type={'button'}
             onClick={() =>
-              register_(registerKey as string, loginName, userName, password)
+              register_(
+                registerKey as string,
+                loginName,
+                userName,
+                password,
+                confirmPassword,
+              )
             }
           >
             Register
@@ -62,17 +80,22 @@ const register_ = async (
   loginName: string,
   userName: string,
   password: string,
+  confirmPassword: string,
 ) => {
-  await fetch('/auth/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      registerKey: registerKey,
-      loginName: loginName,
-      userName: userName,
-      password: password,
-    }),
-  })
+  if (password === confirmPassword) {
+    await fetch('/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        registerKey: registerKey,
+        loginName: loginName,
+        userName: userName,
+        password: password,
+      }),
+    })
+  } else {
+    console.log('Password not match')
+  }
 }

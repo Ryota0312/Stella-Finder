@@ -69,7 +69,7 @@ func TmpRegister(c *gin.Context) {
 	}
 
 	if db.MailAddressExists(input.Mail) {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "E-mail address already exist"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "E-mail address already exist"})
 		return
 	}
 

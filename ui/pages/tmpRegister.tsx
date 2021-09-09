@@ -36,10 +36,8 @@ const TmpRegister: React.FC = () => {
               onClick={() => {
                 return register_(mail).then((res) => {
                   if (res.ok) {
-                    console.log('success')
                     setIsComplete(true)
                   } else {
-                    console.log('error')
                     setError(true)
                   }
                 })

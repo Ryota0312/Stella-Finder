@@ -31,14 +31,12 @@ func CreateSpot(c *gin.Context) {
 }
 
 func GetSpot(c *gin.Context) {
-	spotId := c.Query("id")
+	spotId, _ := strconv.Atoi(c.Query("id"))
 
-	productID, _ := strconv.Atoi(spotId)
-
-	resultProduct := db.FindSpot(productID)
+	result := db.FindSpot(spotId)
 
 	// URLへのアクセスに対してJSONを返す
-	c.JSON(200, resultProduct)
+	c.JSON(200, result)
 }
 
 func GetAllSpots(c *gin.Context) {
@@ -56,7 +54,7 @@ func UpdateSpot(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	db.UpdateSpot(input.SpotId, input.CoverImage)
 	c.JSON(200, nil)
 }

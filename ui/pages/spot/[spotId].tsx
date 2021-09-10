@@ -36,10 +36,12 @@ const Spot: React.FC = () => {
 
       <main>
         <h2>spot detail</h2>
-        <div>{data.name}</div>
+        <div>Name: {data.name}</div>
+        <div>Place: {data.place}</div>
         <UnoptimizedImage fileKey={coverImage} height={'200px'} />
+
         <ImageUploader
-          onSuccess={(res: any) => {
+          onSuccess={(res) => {
             setCoverImage(res.fileKey)
             fetch('/api/user/spot/update', {
               method: 'POST',

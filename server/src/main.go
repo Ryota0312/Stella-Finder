@@ -42,10 +42,8 @@ func serve() {
 	authRequiredAPI.Use(sessionCheck())
 	{
 		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
-		// file/upload といいつつspotの更新をしている。今は決め打ちでspotId=2を更新。
-		// TODO: これをspotの更新APIにする？
-		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 
+		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 		authRequiredAPI.POST("/spot/register", controller.CreateSpot)
 		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)
 	}

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-contrib/sessions"
+	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
 
 	// Gin
@@ -16,18 +17,20 @@ type User struct {
 
 func GetLoginUser(c *gin.Context) {
 	session := sessions.Default(c)
-	loginUser, err := GetLoginUserFromSession(session)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
 	if err != nil {
 		c.JSON(http.StatusOK, User{
 			Id:   0,
-			Name: loginUser,
+			Name: "ゲスト",
 		})
 		return
 	}
 
+	userEntity := db.FindUser(loginUserMailAddress)
+
 	user := User{
-		Id:   1, // TODO: 正しいidを使用する
-		Name: loginUser,
+		Id:   userEntity[0].ID,
+		Name: userEntity[0].UserName,
 	}
 
 	c.JSON(http.StatusOK, user)

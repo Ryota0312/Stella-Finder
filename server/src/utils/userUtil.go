@@ -5,14 +5,14 @@ import (
 	"github.com/gin-contrib/sessions"
 )
 
-func GetLoginUserFromSession(session sessions.Session) (string, error) {
-	var loginUser string
+func GetLoginUserMailAddressFromSession(session sessions.Session) (string, error) {
+	var loginUserMailAddress string
 	v := session.Get("mailAddress")
 	if v == nil {
-		return "Guest", errors.New("not login")
+		return "", errors.New("not login")
 	} else {
-		loginUser = v.(string)
+		loginUserMailAddress = v.(string)
 	}
 
-	return loginUser, nil
+	return loginUserMailAddress, nil
 }

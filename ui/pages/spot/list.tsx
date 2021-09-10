@@ -2,16 +2,16 @@ import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
 import Link from 'next/link'
-import Layout from '../components/layout'
-import { useApi } from '../hooks/useApi'
-import { GridList, GridListItemData } from '../components/common/GridList'
+import Layout from '../../components/layout'
+import { useApi } from '../../hooks/useApi'
+import { GridList, GridListItemData } from '../../components/common/GridList'
 
 type SpotListItem = {
   id: number
   name: string
 }
 
-const SpotList: React.FC = () => {
+const List: React.FC = () => {
   const fetcher = useApi()
   const { data, error } = useSWR(['/api/spot/list', false], fetcher)
 
@@ -26,13 +26,13 @@ const SpotList: React.FC = () => {
 
       <main>
         <h2>Spot List</h2>
-        <Link href={'/spotRegister'}>スポット登録</Link>
-        <GridList data={convertToGridItem(data)} link="spot" />
+        <Link href={'/spot/register'}>スポット登録</Link>
+        <GridList data={convertToGridItem(data)} link="spot/detail" />
       </main>
     </Layout>
   )
 }
-export default SpotList
+export default List
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {

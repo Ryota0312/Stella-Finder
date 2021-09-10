@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useApi } from '../../hooks/useApi'
-import Layout from '../../components/layout'
-import { ImageUploader } from '../../components/common/ImageUploader'
-import { UnoptimizedImage } from '../../components/common/UnoptimizedImage'
+import { useApi } from '../../../hooks/useApi'
+import Layout from '../../../components/layout'
+import { ImageUploader } from '../../../components/common/ImageUploader'
+import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 
 const Spot: React.FC = () => {
   const router = useRouter()

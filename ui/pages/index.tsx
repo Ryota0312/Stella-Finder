@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       <main>
         <h2>index page</h2>
         <div>
-          <Link href={'/spotList'}>
+          <Link href={'/spot/list'}>
             <a>Watching Spot List</a>
           </Link>
         </div>

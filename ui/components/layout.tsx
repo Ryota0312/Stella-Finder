@@ -26,7 +26,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
               <Link href="/">Home</Link>
             </HeaderMenuListItem>
             <HeaderMenuListItem>
-              <Link href="/spotList">Spot List</Link>
+              <Link href="/spot/list">Spot List</Link>
             </HeaderMenuListItem>
           </HeaderMenuList>
         </LayoutHeader>

@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import Layout from '../components/layout'
-import { ImageUploader } from '../components/common/ImageUploader'
+import Layout from '../../components/layout'
+import { ImageUploader } from '../../components/common/ImageUploader'
 
-const SpotRegister: React.FC = () => {
+const Register: React.FC = () => {
   const [isComplete, setIsComplete] = useState<boolean>(false)
 
   const [name, setName] = useState<string>('')
@@ -67,7 +67,7 @@ const SpotRegister: React.FC = () => {
     )
   }
 }
-export default SpotRegister
+export default Register
 
 const register_ = async (name: string, place: string, coverImage: string) => {
   return await fetch('/api/user/spot/register', {

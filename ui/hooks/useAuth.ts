@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export const useAuth = () => {
-  const [loginName, setLoginName] = useState<string>('')
+  const [mailAddress, setMailAddress] = useState<string>('')
   const [password, setPassword] = useState('')
 
   const login = async () => {
@@ -10,7 +10,7 @@ export const useAuth = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ loginName: loginName, password: password }),
+      body: JSON.stringify({ mailAddress: mailAddress, password: password }),
     })
     window.location.href = '/'
   }
@@ -23,7 +23,7 @@ export const useAuth = () => {
   }
 
   return {
-    setLoginName,
+    setMailAddress: setMailAddress,
     setPassword,
     login,
     logout,

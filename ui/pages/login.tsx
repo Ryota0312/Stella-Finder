@@ -4,19 +4,19 @@ import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 
 const Login: React.FC = () => {
-  const { setLoginName, setPassword, login } = useAuth()
+  const { setMailAddress, setPassword, login } = useAuth()
   return (
     <Layout>
       <main>
         <h1>Login</h1>
         <Link href="/tmpRegister">登録はこちら</Link>
         <div>
-          <p>ログイン名</p>
+          <p>メールアドレス</p>
           <input
             type={'text'}
-            placeholder={'your name'}
+            placeholder={'your e-mail address'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setLoginName(e.target.value)
+              setMailAddress(e.target.value)
             }
           />
           <p>パスワード</p>

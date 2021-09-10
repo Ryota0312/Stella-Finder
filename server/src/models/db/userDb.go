@@ -9,17 +9,15 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func CreateTmpUser(loginName string, mailAddress string) {
+func CreateTmpUser(mailAddress string) {
 	// TODO: boolポインタやめたい
 	ptrue := &[]bool{true}[0]
 
 	var tmpUser = entity.User{}
-	tmpUser.LoginName = loginName
 	tmpUser.MailAddress = mailAddress
 	tmpUser.IsTemporary = ptrue
 
-	// 仮登録なのでユーザ名はランダムで生成されたログイン名と同一、パスワードはランダム生成
-	tmpUser.UserName = loginName
+	// 仮登録なのでパスワードはランダム生成
 	tmpUser.Password = utils.RandString(256)
 
 	db := open()
@@ -28,22 +26,22 @@ func CreateTmpUser(loginName string, mailAddress string) {
 	defer db.Close()
 }
 
-func UpdateTmpUser(mailAddress string, newLoginName string, userName string, password string) {
+func UpdateTmpUser(mailAddress string, userName string, password string) {
 	// TODO: boolポインタやめたい
 	pfalse := &[]bool{false}[0]
 	var user = entity.User{}
 
 	db := open()
-	db.Model(&user).Where("mail_address = ?", mailAddress).Updates(entity.User{LoginName: newLoginName, UserName: userName, Password: password, IsTemporary: pfalse})
+	db.Model(&user).Where("mail_address = ?", mailAddress).Updates(entity.User{UserName: userName, Password: password, IsTemporary: pfalse})
 	defer db.Close()
 }
 
-func FindUser(loginName string) []entity.User {
+func FindUser(mailAddress string) []entity.User {
 	var user []entity.User
 
 	db := open()
 	// select
-	db.First(&user, `login_name = "`+loginName+`"`)
+	db.First(&user, `mail_address = "`+mailAddress+`"`)
 	defer db.Close()
 
 	return user

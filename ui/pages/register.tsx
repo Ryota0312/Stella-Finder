@@ -10,7 +10,6 @@ const Register: React.FC = () => {
   const [isComplete, setIsComplete] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
 
-  const [loginName, setLoginName] = useState<string>('')
   const [userName, setUserName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -33,14 +32,6 @@ const Register: React.FC = () => {
           {error && <div>エラーがあります</div>}
 
           <div>
-            <p>ログイン名</p>
-            <input
-              type={'text'}
-              placeholder={'login name'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setLoginName(e.target.value)
-              }
-            />
             <p>ユーザー名</p>
             <input
               type={'text'}
@@ -73,7 +64,6 @@ const Register: React.FC = () => {
               onClick={() => {
                 register_(
                   registerKey as string,
-                  loginName,
                   userName,
                   password,
                   confirmPassword,
@@ -103,7 +93,6 @@ export default Register
 
 const register_ = async (
   registerKey: string,
-  loginName: string,
   userName: string,
   password: string,
   confirmPassword: string,
@@ -116,7 +105,6 @@ const register_ = async (
       },
       body: JSON.stringify({
         registerKey: registerKey,
-        loginName: loginName,
         userName: userName,
         password: password,
       }),

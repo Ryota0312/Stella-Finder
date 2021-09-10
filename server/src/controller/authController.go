@@ -12,8 +12,8 @@ import (
 )
 
 type LoginInputForm struct {
-	LoginName string `json:"loginName"`
-	Password  string `json:"password"`
+	MailAddress string `json:"mailAddress"`
+	Password    string `json:"password"`
 }
 
 func Login(c *gin.Context) {
@@ -23,9 +23,9 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	user := db.FindUser(input.LoginName)
+	user := db.FindUser(input.MailAddress)
 	if len(user) == 0 {
-		c.JSON(http.StatusOK, "Invalid loginName")
+		c.JSON(http.StatusOK, "Invalid mailAddress")
 		return
 	}
 	loginUser := user[0]
@@ -37,7 +37,7 @@ func Login(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	session.Set("loginName", loginUser.LoginName)
+	session.Set("mailAddress", loginUser.MailAddress)
 	if err := session.Save(); err != nil {
 		println("Failed to save session")
 		return
@@ -48,7 +48,7 @@ func Login(c *gin.Context) {
 
 func Logout(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Delete("loginName")
+	session.Delete("mailAddress")
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
@@ -74,9 +74,8 @@ func TmpRegister(c *gin.Context) {
 	}
 
 	tmpRegisterKey := utils.RandString(128)
-	tmpLoginName := utils.RandString(64)
 
-	db.CreateTmpUser(tmpLoginName, input.Mail)
+	db.CreateTmpUser(input.Mail)
 	db.CreateTmpRegister(tmpRegisterKey, input.Mail)
 
 	utils.SendTmpRegisterMail(input.Mail, tmpRegisterKey)
@@ -86,7 +85,6 @@ func TmpRegister(c *gin.Context) {
 
 type RegisterInputForm struct {
 	RegisterKey string `json:"registerKey"`
-	LoginName   string `json:"loginName"`
 	UserName    string `json:"userName"`
 	Password    string `json:"password"`
 }
@@ -106,7 +104,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	db.UpdateTmpUser(tmpRegister.MailAddress, input.LoginName, input.UserName, input.Password)
+	db.UpdateTmpUser(tmpRegister.MailAddress, input.UserName, input.Password)
 
 	c.JSON(http.StatusOK, "Register success!")
 }

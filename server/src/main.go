@@ -75,9 +75,9 @@ func ReverseProxy(c *gin.Context) {
 func sessionCheck() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-		loginName := session.Get("loginName")
+		mailAddress := session.Get("mailAddress")
 
-		if loginName == nil {
+		if mailAddress == nil {
 			// 認証に失敗した場合の処理はフロント側で行う
 			c.JSON(http.StatusUnauthorized, "Unauthorized.")
 			c.Abort()

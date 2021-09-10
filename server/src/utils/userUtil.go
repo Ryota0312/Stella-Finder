@@ -7,7 +7,7 @@ import (
 
 func GetLoginUserFromSession(session sessions.Session) (string, error) {
 	var loginUser string
-	v := session.Get("loginName")
+	v := session.Get("mailAddress")
 	if v == nil {
 		return "Guest", errors.New("not login")
 	} else {

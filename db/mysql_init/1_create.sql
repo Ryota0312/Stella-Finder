@@ -6,14 +6,13 @@ CREATE TABLE IF NOT EXISTS user
     id           INT(11) AUTO_INCREMENT NOT NULL,
     user_name    VARCHAR(64)            NOT NULL,
     mail_address VARCHAR(128) UNIQUE    NOT NULL,
-    login_name   VARCHAR(64) UNIQUE     NOT NULL,
     password     VARCHAR(256)           NOT NULL,
     is_temporary TINYINT(1) UNSIGNED    NOT NULL,
     PRIMARY KEY (id)
 );
 
-INSERT INTO user (user_name, mail_address, login_name, password, is_temporary)
-VALUES ('Administrator', 'admin@example.com', 'admin', 'administrator', 0);
+INSERT INTO user (user_name, mail_address, password, is_temporary)
+VALUES ('Administrator', 'admin@example.com', 'administrator', 0);
 
 CREATE TABLE IF NOT EXISTS tmp_register
 (

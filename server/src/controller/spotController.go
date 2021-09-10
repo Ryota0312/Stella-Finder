@@ -12,6 +12,24 @@ import (
 	db "stella-finder-server/src/models/db"
 )
 
+type CreateSpotInputForm struct {
+	Name       string `json:"name"`
+	Place      string `json:"place"`
+	CoverImage string `json:"coverImage"`
+}
+
+func CreateSpot(c *gin.Context) {
+	var input CreateSpotInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.CreateSpot(input.Name, input.Place, input.CoverImage)
+
+	c.JSON(200, nil)
+}
+
 func GetSpot(c *gin.Context) {
 	spotId := c.Query("id")
 

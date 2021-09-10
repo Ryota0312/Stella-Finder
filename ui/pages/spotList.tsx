@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
+import Link from 'next/link'
 import Layout from '../components/layout'
 import { useApi } from '../hooks/useApi'
 import { GridList, GridListItemData } from '../components/common/GridList'
@@ -25,6 +26,7 @@ const SpotList: React.FC = () => {
 
       <main>
         <h2>Spot List</h2>
+        <Link href={'/spotRegister'}>スポット登録</Link>
         <GridList data={convertToGridItem(data)} link="spot" />
       </main>
     </Layout>

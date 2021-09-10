@@ -36,3 +36,15 @@ func UpdateSpot(id int, coverImage string) {
 	db.Model(&spot).Update("cover_image", coverImage)
 	defer db.Close()
 }
+
+func CreateSpot(name string, place string, coverImage string) {
+	var spot = entity.Spot{}
+	spot.Name = name
+	spot.Place = place
+	spot.CoverImage = coverImage
+
+	db := open()
+	// select
+	db.Create(&spot)
+	defer db.Close()
+}

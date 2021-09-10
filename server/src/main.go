@@ -46,6 +46,7 @@ func serve() {
 		// TODO: これをspotの更新APIにする？
 		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 
+		authRequiredAPI.POST("/spot/register", controller.CreateSpot)
 		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)
 	}
 

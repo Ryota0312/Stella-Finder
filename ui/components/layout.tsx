@@ -54,6 +54,7 @@ const HeaderTitle = styled.h1`
   color: white;
   margin: 0;
   float: left;
+  cursor: pointer;
 `
 
 const HeaderMenuList = styled.li`

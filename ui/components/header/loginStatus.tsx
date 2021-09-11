@@ -36,6 +36,8 @@ const UserName = styled.div`
   color: white;
   float: right;
   margin-right: 8px;
+  height: 1em;
+  cursor: pointer;
 `
 
 // スタイルこれでいいかは怪しい

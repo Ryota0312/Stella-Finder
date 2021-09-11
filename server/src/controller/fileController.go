@@ -8,6 +8,8 @@ import (
 	"hash"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
+	"strconv"
+
 	// Gin
 	"github.com/gin-gonic/gin"
 	"io"
@@ -61,6 +63,19 @@ func GetFile(c *gin.Context) {
 	fileKey := c.Query("fileKey")
 
 	c.File(getFilePath(fileKey))
+}
+
+func GetFilesByUser(c *gin.Context) {
+	userId, err := strconv.Atoi(c.Query("userId"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "userId error"})
+		return
+	}
+
+	user := db.FindUserById(userId)
+	files := db.GetFilesByUserId(user.MailAddress)
+
+	c.JSON(http.StatusOK, files)
 }
 
 func getSHA256SumString(fileHash hash.Hash) string {

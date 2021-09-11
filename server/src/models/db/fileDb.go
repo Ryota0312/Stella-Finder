@@ -29,3 +29,13 @@ func GetFileInfo(fileKey string) entity.File {
 
 	return fileInfo
 }
+
+func GetFilesByUserId(mailAddress string) []entity.File {
+	var files []entity.File
+
+	db := open()
+	db.Find(&files).Where("created_by = ?", mailAddress)
+	defer db.Close()
+
+	return files
+}

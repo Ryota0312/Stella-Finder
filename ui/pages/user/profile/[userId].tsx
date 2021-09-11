@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
+import { UserImageList } from '../../../components/user/UserImageList'
 
 const User: React.FC = () => {
   const router = useRouter()
@@ -27,6 +28,8 @@ const User: React.FC = () => {
       <main>
         <h2>{data.user_name}</h2>
         <div>メールアドレス: {data.mail_address}</div>
+        <h3>投稿写真一覧</h3>
+        <UserImageList userId={Number(userId)} />
       </main>
     </Layout>
   )

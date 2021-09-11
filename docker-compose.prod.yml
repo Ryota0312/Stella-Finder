@@ -1,7 +1,18 @@
 version: '3'
 services:
+  nginx:
+    restart: always
+
   stella-finder-ui:
     command: [ sh, -c, yarn install && yarn build && yarn start ]
+    restart: always
 
   stella-finder-server:
     command: [ sh, -c, go mod download && cd src/ && go build -o ../target/ && cd ../ && ./target/src ]
+    restart: always
+
+  stella-finder-db:
+    restart: always
+
+  redis:
+    restart: always

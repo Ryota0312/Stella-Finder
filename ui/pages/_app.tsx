@@ -27,7 +27,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 8px;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: #298aea;
       color: white;
     }

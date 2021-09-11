@@ -2,9 +2,9 @@ package controller
 
 import (
 	"github.com/gin-contrib/sessions"
+	"golang.org/x/crypto/bcrypt"
 	"stella-finder-server/src/utils"
 	"time"
-
 	// Gin
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -29,9 +29,9 @@ func Login(c *gin.Context) {
 		return
 	}
 	loginUser := user[0]
-	println(loginUser.UserName)
 
-	if loginUser.Password != input.Password {
+	err := bcrypt.CompareHashAndPassword([]byte(loginUser.Password), []byte(input.Password))
+	if err != nil {
 		c.JSON(http.StatusOK, "Incorrect password")
 		return
 	}
@@ -104,7 +104,9 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	db.UpdateTmpUser(tmpRegister.MailAddress, input.UserName, input.Password)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
+
+	db.UpdateTmpUser(tmpRegister.MailAddress, input.UserName, string(hashedPassword))
 
 	c.JSON(http.StatusOK, "Register success!")
 }

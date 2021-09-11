@@ -57,7 +57,7 @@ const Register: React.FC = () => {
               }
             />
             {password !== confirmPassword && confirmPassword.length > 0 && (
-              <div>まちがってるよ</div>
+              <div>パスワードが一致しません</div>
             )}
             <button
               type={'button'}

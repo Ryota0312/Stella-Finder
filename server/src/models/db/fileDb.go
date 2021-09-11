@@ -34,7 +34,7 @@ func GetFilesByUserId(mailAddress string) []entity.File {
 	var files []entity.File
 
 	db := open()
-	db.Find(&files).Where("created_by = ?", mailAddress)
+	db.Where("created_by = ?", mailAddress).Find(&files)
 	defer db.Close()
 
 	return files

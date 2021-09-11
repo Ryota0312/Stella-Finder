@@ -18,6 +18,7 @@ func SendTmpRegisterMail(toMailAddress string, registerKey string) {
 	// .envから環境変数読み込み
 	API_KEY := os.Getenv("API_KEY")
 	FROM := os.Getenv("FROM")
+	DOMAIN := os.Getenv("DOMAIN")
 
 	// メッセージの構築
 	message := mail.NewV3Mail()
@@ -35,7 +36,7 @@ func SendTmpRegisterMail(toMailAddress string, registerKey string) {
 	// 件名を設定
 	message.Subject = "Stella-Finder 仮登録完了のお知らせ"
 	// テキストパートを設定
-	c := mail.NewContent("text/plain", "仮登録が完了しました。以下のURLから本登録を行ってください。\r\n http://localhost/register?registerKey=%registerKey%\r\n(有効期限は24時間です)")
+	c := mail.NewContent("text/plain", "仮登録が完了しました。以下のURLから本登録を行ってください。\r\n http://"+DOMAIN+"/register?registerKey=%registerKey%\r\n(有効期限は24時間です)")
 	message.AddContent(c)
 
 	// メール送信を行い、レスポンスを表示

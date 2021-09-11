@@ -27,3 +27,12 @@ func FindTmpRegister(registerKey string) entity.TmpRegister {
 
 	return tmpRegister
 }
+
+func DeleteTmpRegister(registerKey string) {
+	var tmpRegister = entity.TmpRegister{}
+	tmpRegister.RegisterKey = registerKey
+
+	db := open()
+	db.Delete(&tmpRegister)
+	defer db.Close()
+}

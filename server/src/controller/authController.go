@@ -106,6 +106,7 @@ func Register(c *gin.Context) {
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
 
 	db.UpdateTmpUser(tmpRegister.MailAddress, input.UserName, string(hashedPassword))
+	db.DeleteTmpRegister(tmpRegister.RegisterKey)
 
 	c.JSON(http.StatusOK, "Register success!")
 }

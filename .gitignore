@@ -1,3 +1,4 @@
 db/mysql_data/
 server/uploadedImages/
 server/.env
+server/target/

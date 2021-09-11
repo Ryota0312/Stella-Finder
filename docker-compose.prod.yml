@@ -1,0 +1,7 @@
+version: '3'
+services:
+  stella-finder-ui:
+    command: [ sh, -c, yarn install && yarn build && yarn start ]
+
+  stella-finder-server:
+    command: [ sh, -c, go mod download && cd src/ && go build -o ../target/ && cd ../ && ./target/src ]

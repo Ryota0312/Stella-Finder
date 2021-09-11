@@ -18,7 +18,6 @@ services:
     volumes:
       - "./ui/:/src"
     working_dir: /src
-    command: [ sh, -c, yarn install && yarn dev ]
     ports:
       - "3000:3000"
     extra_hosts:
@@ -36,7 +35,6 @@ services:
     environment:
       - GO111MODULE=on
       - GOPATH= # GOPATHクリア
-    command: [ sh, -c, go mod download && go run src/main.go ]
     tty: true
     ports:
       - "3001:3001"

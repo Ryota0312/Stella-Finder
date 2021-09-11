@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: ./scripts/prod/docker-compose-wrapper.sh down
-      - run: ./scripts/prod/docker-compose-wrapper.sh up
+      - run: ./scripts/prod/docker-compose-wrapper.sh up -d

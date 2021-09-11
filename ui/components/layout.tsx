@@ -23,10 +23,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
           </HeaderP1>
           <HeaderMenuList>
             <HeaderMenuListItem>
-              <Link href="/">Home</Link>
+              <Link href="/">トップ</Link>
             </HeaderMenuListItem>
             <HeaderMenuListItem>
-              <Link href="/spot/list">Spot List</Link>
+              <Link href="/spot/list">天体観測スポット</Link>
             </HeaderMenuListItem>
           </HeaderMenuList>
         </LayoutHeader>

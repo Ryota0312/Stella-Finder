@@ -27,7 +27,7 @@ const Register: React.FC = () => {
     return (
       <Layout>
         <main>
-          <h1>Register</h1>
+          <h2>ユーザー登録</h2>
 
           {error && <div>エラーがあります</div>}
 
@@ -81,7 +81,7 @@ const Register: React.FC = () => {
                 )
               }}
             >
-              Register
+              登録
             </button>
           </div>
         </main>

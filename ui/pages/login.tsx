@@ -8,8 +8,8 @@ const Login: React.FC = () => {
   return (
     <Layout>
       <main>
-        <h1>Login</h1>
-        <Link href="/tmpRegister">登録はこちら</Link>
+        <h2>ログイン</h2>
+        <Link href="/tmpRegister">新規ユーザー登録</Link>
         <div>
           <p>メールアドレス</p>
           <input
@@ -39,7 +39,7 @@ const Login: React.FC = () => {
               })
             }}
           >
-            Enter
+            ログイン
           </button>
         </div>
       </main>

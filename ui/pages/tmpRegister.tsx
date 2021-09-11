@@ -11,7 +11,7 @@ const TmpRegister: React.FC = () => {
       <Layout>
         <main>
           <div>
-            仮登録が完了しました。入力したメールアドレスに記載されたURLより本登録へお進みください。
+            入力したメールアドレスに本登録用メールを送信しました。メールに記載されたURLより本登録へお進みください。
           </div>
         </main>
       </Layout>
@@ -20,7 +20,7 @@ const TmpRegister: React.FC = () => {
     return (
       <Layout>
         <main>
-          <h1>Register</h1>
+          <h2>新規ユーザー登録</h2>
 
           <div>
             <p>メールアドレス</p>
@@ -43,7 +43,7 @@ const TmpRegister: React.FC = () => {
                 })
               }}
             >
-              Register
+              登録
             </button>
             {error && <div>このメールアドレスはすでに使用されています</div>}
           </div>

@@ -22,11 +22,11 @@ const Register: React.FC = () => {
     return (
       <Layout>
         <Head>
-          <title>Spot List</title>s
+          <title>スポット登録</title>s
         </Head>
 
         <main>
-          <h2>Spot Register</h2>
+          <h2>スポット登録</h2>
           スポット登録ページです。
           <p>スポット名</p>
           <input
@@ -60,7 +60,7 @@ const Register: React.FC = () => {
               })
             }}
           >
-            Register
+            登録
           </button>
         </main>
       </Layout>

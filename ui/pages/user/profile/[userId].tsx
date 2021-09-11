@@ -26,7 +26,7 @@ const User: React.FC = () => {
 
       <main>
         <h2>{data.user_name}</h2>
-        <div>Mail: {data.mail_address}</div>
+        <div>メールアドレス: {data.mail_address}</div>
       </main>
     </Layout>
   )

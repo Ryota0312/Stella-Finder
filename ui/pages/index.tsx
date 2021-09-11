@@ -11,10 +11,11 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <h2>index page</h2>
+        <h2>天体観測スポット</h2>
+        <div>以下より天体観測スポットの一覧を閲覧できます。</div>
         <div>
           <Link href={'/spot/list'}>
-            <a>Watching Spot List</a>
+            <a>一覧を見る</a>
           </Link>
         </div>
       </main>

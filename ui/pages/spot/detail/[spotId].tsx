@@ -31,13 +31,12 @@ const Spot: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Spot Detail</title>
+        <title>スポット詳細 - {data.name}</title>
       </Head>
 
       <main>
-        <h2>spot detail</h2>
-        <div>Name: {data.name}</div>
-        <div>Place: {data.place}</div>
+        <h2>{data.name}</h2>
+        <div>所在地: {data.place}</div>
         <UnoptimizedImage fileKey={coverImage} height={'200px'} />
 
         <ImageUploader

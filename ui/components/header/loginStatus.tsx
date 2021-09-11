@@ -20,10 +20,10 @@ export const LoginStatus: React.FC = () => {
       </Link>
       {data.id != 0 && (
         <LogoutButton type={'button'} onClick={logout}>
-          Logout
+          ログアウト
         </LogoutButton>
       )}
-      {data.id == 0 && <Link href="/login">Login</Link>}
+      {data.id == 0 && <Link href="/login">ログイン</Link>}
     </Status>
   )
 }

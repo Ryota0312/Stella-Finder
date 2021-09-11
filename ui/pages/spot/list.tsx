@@ -21,11 +21,11 @@ const List: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Spot List</title>
+        <title>スポット一覧</title>
       </Head>
 
       <main>
-        <h2>Spot List</h2>
+        <h2>スポット一覧</h2>
         <Link href={'/spot/register'}>スポット登録</Link>
         <GridList data={convertToGridItem(data)} link="spot/detail" />
       </main>

@@ -27,7 +27,18 @@ const Login: React.FC = () => {
               setPassword(e.target.value)
             }
           />
-          <button type={'button'} onClick={login}>
+          <button
+            type={'button'}
+            onClick={() => {
+              login().then((res) => {
+                if (res.ok) {
+                  window.location.href = '/'
+                } else {
+                  console.log('Login failed')
+                }
+              })
+            }}
+          >
             Enter
           </button>
         </div>

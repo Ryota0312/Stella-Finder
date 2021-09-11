@@ -23,16 +23,15 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	user := db.FindUserByMailAddress(input.MailAddress)
-	if len(user) == 0 {
-		c.JSON(http.StatusOK, "Invalid mailAddress")
+	loginUser, err := db.FindUserByMailAddress(input.MailAddress)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid mailAddress"})
 		return
 	}
-	loginUser := user[0]
 
-	err := bcrypt.CompareHashAndPassword([]byte(loginUser.Password), []byte(input.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(loginUser.Password), []byte(input.Password))
 	if err != nil {
-		c.JSON(http.StatusOK, "Incorrect password")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Incorrect password"})
 		return
 	}
 

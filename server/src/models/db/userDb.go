@@ -37,15 +37,19 @@ func UpdateTmpUser(mailAddress string, userName string, password string) {
 	defer db.Close()
 }
 
-func FindUserByMailAddress(mailAddress string) []entity.User {
-	var user []entity.User
+func FindUserByMailAddress(mailAddress string) (entity.User, error) {
+	var user = entity.User{}
 
 	db := open()
 	// select
-	db.First(&user, `mail_address = "`+mailAddress+`"`)
+	err := db.First(&user, `mail_address = "`+mailAddress+`"`)
 	defer db.Close()
 
-	return user
+	if err != nil {
+		return user, err.Error
+	}
+
+	return user, nil
 }
 
 func FindUserById(id int) entity.User {

@@ -5,14 +5,13 @@ export const useAuth = () => {
   const [password, setPassword] = useState('')
 
   const login = async () => {
-    await fetch('/auth/login', {
+    return await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ mailAddress: mailAddress, password: password }),
     })
-    window.location.href = '/'
   }
 
   const logout = async () => {

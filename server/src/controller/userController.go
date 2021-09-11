@@ -27,11 +27,15 @@ func GetLoginUser(c *gin.Context) {
 		return
 	}
 
-	userEntity := db.FindUserByMailAddress(loginUserMailAddress)
+	userEntity, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "Cannot find user")
+		return
+	}
 
 	user := User{
-		Id:   userEntity[0].ID,
-		Name: userEntity[0].UserName,
+		Id:   userEntity.ID,
+		Name: userEntity.UserName,
 	}
 
 	c.JSON(http.StatusOK, user)

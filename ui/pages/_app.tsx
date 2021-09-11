@@ -19,4 +19,17 @@ const GlobalStyle = createGlobalStyle`
     color: #0070f3;
     text-decoration: none;
   }
+
+  button {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #298aea;
+      color: white;
+    }
+  }
 `

@@ -11,7 +11,7 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <h2>天体観測スポット</h2>
+        <h2>天体観測スポットを探す</h2>
         <div>以下より天体観測スポットの一覧を閲覧できます。</div>
         <div>
           <Link href={'/spot/list'}>

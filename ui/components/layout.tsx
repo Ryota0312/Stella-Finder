@@ -18,7 +18,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
       <main>
         <LayoutHeader>
           <HeaderP1>
-            <HeaderTitle>Stella Finder</HeaderTitle>
+            <Link href={'/'}>
+              <HeaderTitle>Stella Finder</HeaderTitle>
+            </Link>
             <LoginStatus />
           </HeaderP1>
           <HeaderMenuList>

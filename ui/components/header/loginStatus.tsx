@@ -15,7 +15,9 @@ export const LoginStatus: React.FC = () => {
 
   return (
     <Status>
-      <UserName>{data.name}</UserName>
+      <Link href={'/user/profile/' + data.id}>
+        <UserName>{data.name}</UserName>
+      </Link>
       {data.id != 0 && (
         <LogoutButton type={'button'} onClick={logout}>
           Logout

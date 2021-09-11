@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
+	"strconv"
 
 	// Gin
 	"github.com/gin-gonic/gin"
@@ -26,7 +27,7 @@ func GetLoginUser(c *gin.Context) {
 		return
 	}
 
-	userEntity := db.FindUser(loginUserMailAddress)
+	userEntity := db.FindUserByMailAddress(loginUserMailAddress)
 
 	user := User{
 		Id:   userEntity[0].ID,
@@ -34,4 +35,12 @@ func GetLoginUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, user)
+}
+
+func GetUser(c *gin.Context) {
+	userId, _ := strconv.Atoi(c.Query("id"))
+
+	result := db.FindUserById(userId)
+
+	c.JSON(200, result)
 }

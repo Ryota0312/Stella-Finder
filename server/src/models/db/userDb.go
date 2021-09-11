@@ -5,6 +5,7 @@ import (
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
 	"stella-finder-server/src/utils"
+	"strconv"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -36,12 +37,23 @@ func UpdateTmpUser(mailAddress string, userName string, password string) {
 	defer db.Close()
 }
 
-func FindUser(mailAddress string) []entity.User {
+func FindUserByMailAddress(mailAddress string) []entity.User {
 	var user []entity.User
 
 	db := open()
 	// select
 	db.First(&user, `mail_address = "`+mailAddress+`"`)
+	defer db.Close()
+
+	return user
+}
+
+func FindUserById(id int) entity.User {
+	var user = entity.User{}
+
+	db := open()
+	// select
+	db.First(&user, `id = "`+strconv.Itoa(id)+`" AND is_temporary = 0`)
 	defer db.Close()
 
 	return user

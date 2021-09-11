@@ -23,7 +23,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	user := db.FindUser(input.MailAddress)
+	user := db.FindUserByMailAddress(input.MailAddress)
 	if len(user) == 0 {
 		c.JSON(http.StatusOK, "Invalid mailAddress")
 		return

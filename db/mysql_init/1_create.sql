@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user
 );
 
 INSERT INTO user (user_name, mail_address, password, is_temporary)
-VALUES ('Administrator', 'admin@example.com', 'administrator', 0);
+VALUES ('Administrator', 'admin@example.com', '$2a$10$BUnaN4172OKkExLbfpsbj./EhvryG5LvfRnjpfQ8TnbCEf59a16l.', 0);
 
 CREATE TABLE IF NOT EXISTS tmp_register
 (

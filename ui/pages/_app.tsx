@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
     border-radius: 4px;
     padding: 4px 8px;
-    margin: 8px;
+    margin: 8px 0;
     cursor: pointer;
 
     &:hover,

@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import { useUploader } from '../../hooks/useUploader'
+import { UnoptimizedImage } from './UnoptimizedImage'
 
 export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
   onSuccess,
 }) => {
   const { setImage, upload } = useUploader()
+  const [uploadedImage, setUploadedImage] = useState<string>('')
 
   return (
     <div>
+      {uploadedImage && (
+        <UploadedImageThumbnails>
+          <UnoptimizedImage fileKey={uploadedImage} width={'300px'} />
+        </UploadedImageThumbnails>
+      )}
+      {!uploadedImage && (
+        <UploadedImageThumbnails>
+          アップロードされていません
+        </UploadedImageThumbnails>
+      )}
       <input
         type="file"
         accept="image/*"
@@ -20,6 +33,7 @@ export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
         onClick={() => {
           upload().then((res) => {
             onSuccess(res)
+            setUploadedImage(res.fileKey)
           })
         }}
       >
@@ -28,3 +42,8 @@ export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
     </div>
   )
 }
+
+const UploadedImageThumbnails = styled.div`
+  width: 300px;
+  height: 200px;
+`

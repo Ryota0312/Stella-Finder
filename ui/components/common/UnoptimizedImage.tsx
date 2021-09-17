@@ -2,28 +2,56 @@ import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
 
-export const UnoptimizedImage: React.FC<{ fileKey: string; height: string }> =
-  ({ fileKey, height }) => {
-    return (
-      <ImageWrapper height={height}>
-        {!!fileKey && (
-          <Image
-            src={'/api/file/download?fileKey=' + fileKey}
-            alt=""
-            unoptimized={true}
-            layout="fill"
-            objectFit="contain"
-          />
-        )}
-        {!fileKey && <div>No image</div>}
-      </ImageWrapper>
-    )
-  }
+interface ImageSize {
+  width: string
+  height: string
+}
 
-const ImageWrapper = styled.div.attrs((props: { height: string }) => ({
-  height: props.height,
-}))`
+interface UnoptimizedImageInterface extends ImageSize {
+  fileKey: string
+}
+
+export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = ({
+  fileKey,
+  width,
+  height,
+}) => {
+  return (
+    <ImageWrapper width={width} height={height}>
+      {!!fileKey && (
+        <Image
+          src={'/api/file/download?fileKey=' + fileKey}
+          alt=""
+          unoptimized={true}
+          layout="fill"
+          objectFit="contain"
+        />
+      )}
+      {!fileKey && <div>No image</div>}
+    </ImageWrapper>
+  )
+}
+
+/*
+const ImageWrapper = styled.div.attrs(
+  (props: { width: string; height: string }) => ({
+    width: props.width,
+    height: props.height,
+  }),
+)`
   position: relative;
-  width: 100%;
+  width: ${(props) => props.width};
   height: ${(props) => props.height};
 `
+*/
+
+const ImageWrapper = styled.div<Partial<ImageSize>>`
+  position: relative;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+`
+
+ImageWrapper.defaultProps = {
+  width: '100%',
+  height: '200px',
+}

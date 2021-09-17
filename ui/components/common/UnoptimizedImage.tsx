@@ -32,19 +32,6 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = ({
   )
 }
 
-/*
-const ImageWrapper = styled.div.attrs(
-  (props: { width: string; height: string }) => ({
-    width: props.width,
-    height: props.height,
-  }),
-)`
-  position: relative;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-`
-*/
-
 const ImageWrapper = styled.div<Partial<ImageSize>>`
   position: relative;
   width: ${({ width }) => width};

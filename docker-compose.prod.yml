@@ -1,5 +1,10 @@
 version: '3'
 services:
+  https-portal:
+    environment:
+      STAGE: local
+      DOMAINS: 'stella-finder.com -> http://nginx:8080'
+
   nginx:
     restart: always
 

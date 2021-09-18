@@ -1,5 +1,10 @@
 version: '3'
 services:
+  https-portal:
+    environment:
+      STAGE: local
+      DOMAINS: 'localhost -> http://nginx:8080'
+
   stella-finder-ui:
     command: [ sh, -c, yarn install && yarn dev ]
 

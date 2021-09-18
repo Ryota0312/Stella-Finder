@@ -7,6 +7,8 @@ services:
       - '443:443'
     depends_on:
       - nginx
+    environment:
+      CLIENT_MAX_BODY_SIZE: 20M
 
   nginx:
     image: nginx:stable

@@ -19,9 +19,13 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
       {data.map((d: GridListItemData) => {
         return (
           <GridItem key={d.title}>
-            <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
-            <Link href={'/' + link + '/' + d.id}>{d.title}</Link>
-            <div>{d.place}</div>
+            <Link href={'/' + link + '/' + d.id}>
+              <div>
+                <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
+                {d.title}
+                <div>{d.place}</div>
+              </div>
+            </Link>
           </GridItem>
         )
       })}
@@ -42,4 +46,10 @@ const GridItem = styled.li`
   border: solid 2px gray;
   border-radius: 8px;
   padding: 8px;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    border: solid 4px #73efff;
+  }
 `

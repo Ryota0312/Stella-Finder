@@ -19,7 +19,7 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
       {data.map((d: GridListItemData) => {
         return (
           <GridItem key={d.title}>
-            <Link href={'/' + link + '/' + d.id}>
+            <Link href={'/' + link + '/' + d.id} passHref>
               <div>
                 <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
                 {d.title}

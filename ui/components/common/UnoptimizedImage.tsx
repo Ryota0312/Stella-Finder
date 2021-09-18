@@ -27,7 +27,7 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = ({
           objectFit="contain"
         />
       )}
-      {!fileKey && <div>No image</div>}
+      {!fileKey && <NoImage height={height}>No image</NoImage>}
     </ImageWrapper>
   )
 }
@@ -36,6 +36,26 @@ const ImageWrapper = styled.div<Partial<ImageSize>>`
   position: relative;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+`
+
+const NoImage = styled.div<Partial<ImageSize>>`
+  text-align: center;
+  line-height: ${({ height }) => height};
+  border: 1px solid grey;
+  background-color: #ececec;
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    100% 100%,
+    color-stop(0.25, #f9f9f9),
+    color-stop(0.25, transparent),
+    color-stop(0.5, transparent),
+    color-stop(0.5, #f9f9f9),
+    color-stop(0.75, #f9f9f9),
+    color-stop(0.75, transparent),
+    to(transparent)
+  );
+  -webkit-background-size: 16px 16px;
 `
 
 ImageWrapper.defaultProps = {

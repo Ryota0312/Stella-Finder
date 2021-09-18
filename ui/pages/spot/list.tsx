@@ -9,6 +9,8 @@ import { GridList, GridListItemData } from '../../components/common/GridList'
 type SpotListItem = {
   id: number
   name: string
+  place: string
+  coverImage: string
 }
 
 const List: React.FC = () => {
@@ -36,6 +38,11 @@ export default List
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {
-    return { id: spot.id, title: spot.name } as GridListItemData
+    return {
+      id: spot.id,
+      title: spot.name,
+      place: spot.place,
+      coverImage: spot.coverImage,
+    } as GridListItemData
   })
 }

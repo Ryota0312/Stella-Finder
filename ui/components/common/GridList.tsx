@@ -1,10 +1,13 @@
 import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
+import { UnoptimizedImage } from './UnoptimizedImage'
 
 export interface GridListItemData {
   id: number
   title: string
+  place: string
+  coverImage: string
 }
 
 export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
@@ -16,7 +19,9 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
       {data.map((d: GridListItemData) => {
         return (
           <GridItem key={d.title}>
+            <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
             <Link href={'/' + link + '/' + d.id}>{d.title}</Link>
+            <div>{d.place}</div>
           </GridItem>
         )
       })}

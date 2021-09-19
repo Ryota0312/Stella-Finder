@@ -20,11 +20,11 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
         return (
           <GridItem key={d.title}>
             <Link href={'/' + link + '/' + d.id} passHref>
-              <div>
+              <a>
                 <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
                 {d.title}
                 <div>{d.place}</div>
-              </div>
+              </a>
             </Link>
           </GridItem>
         )
@@ -48,8 +48,8 @@ const GridItem = styled.li`
   padding: 8px;
 
   &:hover,
-  &:focus {
+  &:focus-within {
     cursor: pointer;
-    border: solid 4px #73efff;
+    border: solid 2px #ffa216;
   }
 `

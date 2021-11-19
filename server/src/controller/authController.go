@@ -9,7 +9,19 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"stella-finder-server/src/models/db"
+	. "stella-finder-server/src/utils"
 )
+
+func Check(c *gin.Context) {
+	session := sessions.Default(c)
+	_, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, "Unauthorized")
+		return
+	}
+
+	c.JSON(http.StatusOK, "ok")
+}
 
 type LoginInputForm struct {
 	MailAddress string `json:"mailAddress"`

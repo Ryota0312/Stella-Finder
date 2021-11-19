@@ -23,6 +23,7 @@ func serve() {
 
 	auth := router.Group("/auth")
 	{
+		auth.POST("/check", controller.Check)
 		auth.POST("/login", controller.Login)
 		auth.GET("/logout", controller.Logout)
 		auth.POST("/tmpRegister", controller.TmpRegister)

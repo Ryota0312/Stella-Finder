@@ -63,6 +63,15 @@ func FindUserById(id int) entity.User {
 	return user
 }
 
+func UpdateUser(id int, userName string) {
+	var user = entity.User{}
+	user.ID = id
+
+	db := open()
+	db.Model(&user).Update("user_name", userName)
+	defer db.Close()
+}
+
 func MailAddressExists(mailAddress string) bool {
 	var user []entity.User
 	var count int

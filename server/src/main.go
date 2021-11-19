@@ -46,6 +46,7 @@ func serve() {
 		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
 
 		authRequiredAPI.GET("/profile", controller.GetUser)
+		authRequiredAPI.POST("/profile", controller.UpdateUser)
 		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 		authRequiredAPI.POST("/spot/register", controller.CreateSpot)
 		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)

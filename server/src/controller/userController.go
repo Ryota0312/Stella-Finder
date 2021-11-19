@@ -48,3 +48,19 @@ func GetUser(c *gin.Context) {
 
 	c.JSON(200, result)
 }
+
+type UpdateUserInputForm struct {
+	UserId   int    `json:"id"`
+	UserName string `json:"userName"`
+}
+
+func UpdateUser(c *gin.Context) {
+	var input UpdateUserInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.UpdateUser(input.UserId, input.UserName)
+	c.JSON(200, nil)
+}

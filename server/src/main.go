@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"regexp"
 	"stella-finder-server/src/controller"
 )
 
@@ -51,6 +52,7 @@ func serve() {
 	}
 
 	// Proxy to Next.js
+	router.Use(sessionCheckFallbackLoginPage())
 	router.NoRoute(ReverseProxy)
 
 	if err := router.Run(":3001"); err != nil {
@@ -74,6 +76,26 @@ func ReverseProxy(c *gin.Context) {
 
 func sessionCheck() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		session := sessions.Default(c)
+		mailAddress := session.Get("mailAddress")
+
+		if mailAddress == nil {
+			// 認証に失敗した場合の処理はフロント側で行う
+			c.JSON(http.StatusUnauthorized, "Unauthorized.")
+			c.Abort()
+		} else {
+			c.Next()
+		}
+	}
+}
+
+func sessionCheckFallbackLoginPage() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		r := regexp.MustCompile(`^(.*(/login|_next.*|\..+)$).*$`)
+		if r.MatchString(c.Request.URL.String()) {
+			c.Next()
+		}
+
 		session := sessions.Default(c)
 		mailAddress := session.Get("mailAddress")
 

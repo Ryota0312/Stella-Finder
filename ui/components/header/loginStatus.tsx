@@ -21,7 +21,6 @@ export const LoginStatus: React.FC = () => {
           <UserIcon
             src="/image/profile-icon-default.png"
             alt="user icon"
-            unoptimized={true}
             width={24}
             height={24}
           />

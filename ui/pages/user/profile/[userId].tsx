@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -8,10 +8,13 @@ import styled from 'styled-components'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UserImageList } from '../../../components/user/UserImageList'
+import { UserIconEditDialog } from '../../../components/settings/UserIconEditDialog'
 
 const User: React.FC = () => {
   const router = useRouter()
   const { userId } = router.query
+
+  const [isIconEditDialogOpen, setIsIconEditDialogOpen] = useState(false)
 
   const fetcher = useApi()
   const { data, error } = useSWR(
@@ -37,7 +40,7 @@ const User: React.FC = () => {
             width={128}
             height={128}
           />
-          <UserIconEditButton onClick={() => alert('edit')}>
+          <UserIconEditButton onClick={() => setIsIconEditDialogOpen(true)}>
             <Image
               src="/image/profile-icon-setting.png"
               alt="edit user icon"
@@ -46,6 +49,10 @@ const User: React.FC = () => {
             />
           </UserIconEditButton>
         </UserIconWrapper>
+        <UserIconEditDialog
+          isOpen={isIconEditDialogOpen}
+          closeDialog={() => setIsIconEditDialogOpen(false)}
+        />
         <Link href={'/settings/user'}>編集</Link>
         <div>メールアドレス: {data.mail_address}</div>
         <h3>投稿写真一覧</h3>

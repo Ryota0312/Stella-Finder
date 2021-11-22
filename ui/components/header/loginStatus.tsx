@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
-import styled from 'styled-components'
 import useSWR from 'swr'
+import styled from 'styled-components'
+import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { useAuth } from '../../hooks/useAuth'
 
@@ -15,6 +16,17 @@ export const LoginStatus: React.FC = () => {
 
   return (
     <Status>
+      <Link href={'/user/profile/' + data.id}>
+        <UserIconWrapper>
+          <UserIcon
+            src="/image/profile-icon-default.png"
+            alt="user icon"
+            unoptimized={true}
+            width={24}
+            height={24}
+          />
+        </UserIconWrapper>
+      </Link>
       <Link href={'/user/profile/' + data.id}>
         <UserName>{data.name}</UserName>
       </Link>
@@ -30,6 +42,8 @@ export const LoginStatus: React.FC = () => {
 
 const Status = styled.div`
   display: flex;
+  height: fit-content;
+  align-items: center;
 `
 
 const UserName = styled.div`
@@ -44,4 +58,15 @@ const UserName = styled.div`
 const LogoutButton = styled.a`
   cursor: pointer;
   height: 1em;
+`
+
+const UserIconWrapper = styled.div`
+  height: 1em;
+  margin-right: 8px;
+  cursor: pointer;
+`
+
+const UserIcon = styled(Image)`
+  border-radius: 48px;
+  background-color: white;
 `

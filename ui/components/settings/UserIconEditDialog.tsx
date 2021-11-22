@@ -19,6 +19,7 @@ export const UserIconEditDialog: (
       isOpen={props.isOpen}
       onRequestClose={props.closeDialog}
       contentLabel="User icon edit dialog"
+      ariaHideApp={false}
     >
       <h3>アイコン画像の変更</h3>
       <ImageUploader

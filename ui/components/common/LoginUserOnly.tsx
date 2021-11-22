@@ -15,5 +15,5 @@ export const LoginUserOnly: React.FC<LoginUserOnlyProps> = (
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  return <div>{data.authorized && props.children}</div>
+  return <>{data.authorized && props.children}</>
 }

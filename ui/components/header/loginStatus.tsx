@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { useAuth } from '../../hooks/useAuth'
 import { UnoptimizedImage } from '../common/UnoptimizedImage'
+import { LoginUserOnly } from '../common/LoginUserOnly'
 
 export const LoginStatus: React.FC = () => {
   const { logout } = useAuth()
@@ -17,33 +18,35 @@ export const LoginStatus: React.FC = () => {
 
   return (
     <Status>
-      {data.icon === '' && (
+      <LoginUserOnly>
+        {data.icon === '' && (
+          <Link href={'/user/profile/' + data.id}>
+            <UserIconWrapper>
+              <UserIconDefault
+                src="/image/profile-icon-default.png"
+                alt="user icon"
+                width={24}
+                height={24}
+              />
+            </UserIconWrapper>
+          </Link>
+        )}
+        {data.icon !== '' && (
+          <Link href={'/user/profile/' + data.id}>
+            <UserIconWrapper>
+              <UserIcon fileKey={data.icon} width="24px" height="24px" />
+            </UserIconWrapper>
+          </Link>
+        )}
         <Link href={'/user/profile/' + data.id}>
-          <UserIconWrapper>
-            <UserIconDefault
-              src="/image/profile-icon-default.png"
-              alt="user icon"
-              width={24}
-              height={24}
-            />
-          </UserIconWrapper>
+          <UserName>{data.name}</UserName>
         </Link>
-      )}
-      {data.icon !== '' && (
-        <Link href={'/user/profile/' + data.id}>
-          <UserIconWrapper>
-            <UserIcon fileKey={data.icon} width="24px" height="24px" />
-          </UserIconWrapper>
-        </Link>
-      )}
-      <Link href={'/user/profile/' + data.id}>
-        <UserName>{data.name}</UserName>
-      </Link>
-      {data.id != 0 && (
-        <LogoutButton type={'button'} onClick={logout}>
-          ログアウト
-        </LogoutButton>
-      )}
+        {data.id != 0 && (
+          <LogoutButton type={'button'} onClick={logout}>
+            ログアウト
+          </LogoutButton>
+        )}
+      </LoginUserOnly>
       {data.id == 0 && (
         <LoginLink>
           <Link href="/login">ログイン</Link>

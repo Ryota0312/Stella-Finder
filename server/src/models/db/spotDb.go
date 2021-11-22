@@ -37,7 +37,7 @@ func UpdateSpot(id int, coverImage string) {
 	defer db.Close()
 }
 
-func CreateSpot(name string, place string, coverImage string) {
+func CreateSpot(name string, place string, coverImage string) entity.Spot {
 	var spot = entity.Spot{}
 	spot.Name = name
 	spot.Place = place
@@ -47,4 +47,6 @@ func CreateSpot(name string, place string, coverImage string) {
 	// select
 	db.Create(&spot)
 	defer db.Close()
+
+	return spot
 }

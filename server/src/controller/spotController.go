@@ -25,9 +25,9 @@ func CreateSpot(c *gin.Context) {
 		return
 	}
 
-	db.CreateSpot(input.Name, input.Place, input.CoverImage)
+	spot := db.CreateSpot(input.Name, input.Place, input.CoverImage)
 
-	c.JSON(200, nil)
+	c.JSON(200, gin.H{"id": spot.ID})
 }
 
 func GetSpot(c *gin.Context) {

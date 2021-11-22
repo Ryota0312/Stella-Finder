@@ -8,9 +8,9 @@ import Layout from '../../../components/layout'
 import { ImageUploader } from '../../../components/common/ImageUploader'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
+import { useFragment } from '../../../hooks/useFragment'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { useFragment } from '../../../hooks/useFragment'
 
 const Spot: React.FC = () => {
   const router = useRouter()

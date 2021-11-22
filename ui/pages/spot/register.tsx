@@ -2,9 +2,12 @@ import Head from 'next/head'
 import React, { useState } from 'react'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
+import { toast, ToastContainer } from 'react-toastify'
 import Layout from '../../components/layout'
 import { ImageUploader } from '../../components/common/ImageUploader'
 import { useApi } from '../../hooks/useApi'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Register: React.FC = () => {
   const router = useRouter()
@@ -16,6 +19,8 @@ const Register: React.FC = () => {
   const [place, setPlace] = useState<string>('')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
 
+  const notifyError = (msg: string) => toast.error(msg)
+
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
@@ -25,6 +30,11 @@ const Register: React.FC = () => {
         <title>スポット登録</title>s
       </Head>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+      />
       <main>
         <h2>スポット登録</h2>
         スポット登録ページです。
@@ -57,6 +67,9 @@ const Register: React.FC = () => {
             if (response.ok) {
               const json = await response.json()
               await router.push(`/spot/detail/${json.id}#success`)
+            } else {
+              const json = await response.json()
+              notifyError(json.error)
             }
           }}
         >

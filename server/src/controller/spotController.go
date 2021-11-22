@@ -26,7 +26,7 @@ func CreateSpot(c *gin.Context) {
 	}
 
 	if db.SpotNameExists(input.Name) {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "already exist"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "このスポット名はすでに登録されています"})
 		return
 	}
 

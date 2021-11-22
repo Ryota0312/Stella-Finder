@@ -16,11 +16,11 @@ func Check(c *gin.Context) {
 	session := sessions.Default(c)
 	_, err := GetLoginUserMailAddressFromSession(session)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, "Unauthorized")
+		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false})
 		return
 	}
 
-	c.JSON(http.StatusOK, "ok")
+	c.JSON(http.StatusOK, gin.H{"authorized": true})
 }
 
 type LoginInputForm struct {

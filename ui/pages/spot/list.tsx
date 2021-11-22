@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
+import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 
 type SpotListItem = {
   id: number
@@ -28,7 +29,9 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <Link href={'/spot/register'}>スポット登録</Link>
+        <LoginUserOnly>
+          <Link href={'/spot/register'}>スポット登録</Link>
+        </LoginUserOnly>
         <GridList data={convertToGridItem(data)} link="spot/detail" />
       </main>
     </Layout>

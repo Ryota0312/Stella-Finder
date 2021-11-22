@@ -1,14 +1,22 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
+import useSWR from 'swr'
 import Layout from '../../components/layout'
 import { ImageUploader } from '../../components/common/ImageUploader'
+import { useApi } from '../../hooks/useApi'
 
 const Register: React.FC = () => {
+  const { fetcher } = useApi()
+  const { data, error } = useSWR(['/auth/check', true], fetcher)
+
   const [isComplete, setIsComplete] = useState<boolean>(false)
 
   const [name, setName] = useState<string>('')
   const [place, setPlace] = useState<string>('')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
 
   if (isComplete) {
     return (

@@ -44,7 +44,11 @@ export const LoginStatus: React.FC = () => {
           ログアウト
         </LogoutButton>
       )}
-      {data.id == 0 && <Link href="/login">ログイン</Link>}
+      {data.id == 0 && (
+        <LoginLink>
+          <Link href="/login">ログイン</Link>
+        </LoginLink>
+      )}
     </Status>
   )
 }
@@ -66,6 +70,10 @@ const UserName = styled.div`
 // スタイルこれでいいかは怪しい
 const LogoutButton = styled.a`
   cursor: pointer;
+  height: 1em;
+`
+
+const LoginLink = styled.div`
   height: 1em;
 `
 

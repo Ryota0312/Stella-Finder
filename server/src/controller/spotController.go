@@ -25,6 +25,11 @@ func CreateSpot(c *gin.Context) {
 		return
 	}
 
+	if db.SpotNameExists(input.Name) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "already exist"})
+		return
+	}
+
 	spot := db.CreateSpot(input.Name, input.Place, input.CoverImage)
 
 	c.JSON(200, gin.H{"id": spot.ID})

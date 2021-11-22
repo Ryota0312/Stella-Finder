@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS tmp_register
 CREATE TABLE IF NOT EXISTS spot
 (
     id          INT(11) AUTO_INCREMENT NOT NULL,
-    name        VARCHAR(64)            NOT NULL,
+    name        VARCHAR(64) UNIQUE     NOT NULL,
     place       VARCHAR(128)           NOT NULL,
     cover_image VARCHAR(64),
     PRIMARY KEY (id)

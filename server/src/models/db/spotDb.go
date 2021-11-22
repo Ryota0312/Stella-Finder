@@ -50,3 +50,16 @@ func CreateSpot(name string, place string, coverImage string) entity.Spot {
 
 	return spot
 }
+
+func SpotNameExists(spotName string) bool {
+	var spot []entity.Spot
+	var count int
+
+	db := open()
+	db.Where("name = ?", spotName).Find(&spot).Count(&count)
+
+	if count > 0 {
+		return true
+	}
+	return false
+}

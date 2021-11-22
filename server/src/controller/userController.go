@@ -11,16 +11,18 @@ import (
 	"net/http"
 )
 
-type User struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+type UserOutputForm struct {
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	MailAddress string `json:"mailAddress"`
+	Icon        string `json:"icon"`
 }
 
 func GetLoginUser(c *gin.Context) {
 	session := sessions.Default(c)
 	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
 	if err != nil {
-		c.JSON(http.StatusOK, User{
+		c.JSON(http.StatusOK, UserOutputForm{
 			Id:   0,
 			Name: "ゲスト",
 		})
@@ -33,9 +35,11 @@ func GetLoginUser(c *gin.Context) {
 		return
 	}
 
-	user := User{
-		Id:   userEntity.ID,
-		Name: userEntity.UserName,
+	user := UserOutputForm{
+		Id:          userEntity.ID,
+		Name:        userEntity.UserName,
+		Icon:        userEntity.Icon,
+		MailAddress: userEntity.MailAddress,
 	}
 
 	c.JSON(http.StatusOK, user)
@@ -45,8 +49,9 @@ func GetUser(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Query("id"))
 
 	result := db.FindUserById(userId)
+	output := UserOutputForm{result.ID, result.UserName, result.MailAddress, result.Icon}
 
-	c.JSON(200, result)
+	c.JSON(200, output)
 }
 
 type UpdateUserInputForm struct {

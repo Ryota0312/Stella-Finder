@@ -9,6 +9,7 @@ import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UserImageList } from '../../../components/user/UserImageList'
 import { UserIconEditDialog } from '../../../components/settings/UserIconEditDialog'
+import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 
 const User: React.FC = () => {
   const router = useRouter()
@@ -18,7 +19,7 @@ const User: React.FC = () => {
 
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/user/profile' + '?id=' + userId, false],
+    ['/api/profile' + '?id=' + userId, false],
     fetcher,
   )
 
@@ -34,12 +35,21 @@ const User: React.FC = () => {
       <main>
         <h2>{data.user_name}</h2>
         <UserIconWrapper>
-          <UserIcon
-            src="/image/profile-icon-default.png"
-            alt="user icon"
-            width={128}
-            height={128}
-          />
+          {data.icon === '' && (
+            <UserIcon
+              src="/image/profile-icon-default.png"
+              alt="user icon"
+              width={128}
+              height={128}
+            />
+          )}
+          {data.icon !== '' && (
+            <UnoptimizedImage
+              fileKey={data.icon}
+              width="128px"
+              height="128px"
+            />
+          )}
           <UserIconEditButton onClick={() => setIsIconEditDialogOpen(true)}>
             <Image
               src="/image/profile-icon-setting.png"

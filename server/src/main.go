@@ -37,6 +37,7 @@ func serve() {
 		api.GET("/loginUser", controller.GetLoginUser)
 		api.GET("/file/download", controller.GetFile)
 		api.GET("/file/list", controller.GetFilesByUser)
+		api.GET("/profile", controller.GetUser)
 	}
 
 	// API (need Authorize)
@@ -45,7 +46,6 @@ func serve() {
 	{
 		authRequiredAPI.GET("/getUser", controller.GetLoginUser) // Deprecated
 
-		authRequiredAPI.GET("/profile", controller.GetUser)
 		authRequiredAPI.POST("/profile", controller.UpdateUser)
 		authRequiredAPI.POST("/file/upload", controller.CreateFile)
 		authRequiredAPI.POST("/spot/register", controller.CreateSpot)

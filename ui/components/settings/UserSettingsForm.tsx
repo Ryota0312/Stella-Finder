@@ -15,7 +15,7 @@ export const UserSettingsForm: React.FC = () => {
   }, [])
 
   const { data, error } = useSWR(
-    ['/api/user/profile' + '?id=' + loginUserId, false],
+    ['/api/profile' + '?id=' + loginUserId, false],
     fetcher,
   )
 

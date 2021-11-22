@@ -6,6 +6,7 @@ import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { ImageUploader } from '../../../components/common/ImageUploader'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
+import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -39,18 +40,20 @@ const Spot: React.FC = () => {
         <div>所在地: {data.place}</div>
         <UnoptimizedImage fileKey={coverImage} height={'200px'} />
 
-        <ImageUploader
-          onSuccess={(res) => {
-            setCoverImage(res.fileKey)
-            fetch('/api/user/spot/update', {
-              method: 'POST',
-              body: JSON.stringify({
-                spotId: Number(spotId),
-                coverImage: res.fileKey,
-              }),
-            })
-          }}
-        />
+        <LoginUserOnly>
+          <ImageUploader
+            onSuccess={(res) => {
+              setCoverImage(res.fileKey)
+              fetch('/api/user/spot/update', {
+                method: 'POST',
+                body: JSON.stringify({
+                  spotId: Number(spotId),
+                  coverImage: res.fileKey,
+                }),
+              })
+            }}
+          />
+        </LoginUserOnly>
       </main>
     </Layout>
   )

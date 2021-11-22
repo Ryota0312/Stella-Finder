@@ -10,9 +10,11 @@ export const useApi = () => {
   }
 
   const postFetcher = (url: string, body: any): Promise<any> => {
-    return fetch(url, { method: 'POST', body: body }).then((res) => {
-      return res.json()
-    })
+    return fetch(url, { method: 'POST', body: JSON.stringify(body) }).then(
+      (res) => {
+        return res.json()
+      },
+    )
   }
 
   return {

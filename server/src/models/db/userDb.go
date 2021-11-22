@@ -72,6 +72,15 @@ func UpdateUser(id int, userName string) {
 	defer db.Close()
 }
 
+func UpdateUserIcon(id int, icon string) {
+	var user = entity.User{}
+	user.ID = id
+
+	db := open()
+	db.Model(&user).Update("icon", icon)
+	defer db.Close()
+}
+
 func MailAddressExists(mailAddress string) bool {
 	var user []entity.User
 	var count int

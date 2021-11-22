@@ -33,13 +33,10 @@ export const UserSettingsForm: React.FC = () => {
       />
       <button
         onClick={() =>
-          postFetcher(
-            '/api/user/profile',
-            JSON.stringify({
-              id: loginUserId,
-              userName: userName,
-            }),
-          ).then(() => (window.location.href = '/user/profile/' + loginUserId))
+          postFetcher('/api/user/profile', {
+            id: loginUserId,
+            userName: userName,
+          }).then(() => (window.location.href = '/user/profile/' + loginUserId))
         }
       >
         Save

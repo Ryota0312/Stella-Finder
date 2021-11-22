@@ -52,6 +52,7 @@ func GetUser(c *gin.Context) {
 type UpdateUserInputForm struct {
 	UserId   int    `json:"id"`
 	UserName string `json:"userName"`
+	Icon     string `json:"icon"`
 }
 
 func UpdateUser(c *gin.Context) {
@@ -61,6 +62,10 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	db.UpdateUser(input.UserId, input.UserName)
+	if input.Icon == "" {
+		db.UpdateUser(input.UserId, input.UserName)
+	} else {
+		db.UpdateUserIcon(input.UserId, input.Icon)
+	}
 	c.JSON(200, nil)
 }

@@ -7,12 +7,13 @@ CREATE TABLE IF NOT EXISTS user
     user_name    VARCHAR(64)            NOT NULL,
     mail_address VARCHAR(128) UNIQUE    NOT NULL,
     password     VARCHAR(256)           NOT NULL,
+    icon         VARCHAR(64),
     is_temporary TINYINT(1) UNSIGNED    NOT NULL,
     PRIMARY KEY (id)
 );
 
-INSERT INTO user (user_name, mail_address, password, is_temporary)
-VALUES ('Administrator', 'admin@example.com', '$2a$10$BUnaN4172OKkExLbfpsbj./EhvryG5LvfRnjpfQ8TnbCEf59a16l.', 0);
+INSERT INTO user (user_name, mail_address, password, icon, is_temporary)
+VALUES ('Administrator', 'admin@example.com', '$2a$10$BUnaN4172OKkExLbfpsbj./EhvryG5LvfRnjpfQ8TnbCEf59a16l.', NULL, 0);
 
 CREATE TABLE IF NOT EXISTS tmp_register
 (

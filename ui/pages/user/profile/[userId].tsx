@@ -50,6 +50,7 @@ const User: React.FC = () => {
           </UserIconEditButton>
         </UserIconWrapper>
         <UserIconEditDialog
+          userId={Number(userId)}
           isOpen={isIconEditDialogOpen}
           closeDialog={() => setIsIconEditDialogOpen(false)}
         />

@@ -55,7 +55,6 @@ func GetUser(c *gin.Context) {
 }
 
 type UpdateUserInputForm struct {
-	UserId   int    `json:"id"`
 	UserName string `json:"userName"`
 	Icon     string `json:"icon"`
 }
@@ -67,10 +66,23 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
 	if input.Icon == "" {
-		db.UpdateUser(input.UserId, input.UserName)
+		db.UpdateUser(loginUser.ID, input.UserName)
 	} else {
-		db.UpdateUserIcon(input.UserId, input.Icon)
+		db.UpdateUserIcon(loginUser.ID, input.Icon)
 	}
 	c.JSON(200, nil)
 }

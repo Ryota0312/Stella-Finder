@@ -33,7 +33,7 @@ const User: React.FC = () => {
       </Head>
 
       <main>
-        <h2>{data.user_name}</h2>
+        <h2>{data.name}</h2>
         <UserIconWrapper>
           {data.icon === '' && (
             <UserIcon
@@ -60,12 +60,11 @@ const User: React.FC = () => {
           </UserIconEditButton>
         </UserIconWrapper>
         <UserIconEditDialog
-          userId={Number(userId)}
           isOpen={isIconEditDialogOpen}
           closeDialog={() => setIsIconEditDialogOpen(false)}
         />
         <Link href={'/settings/user'}>編集</Link>
-        <div>メールアドレス: {data.mail_address}</div>
+        <div>メールアドレス: {data.mailAddress}</div>
         <h3>投稿写真一覧</h3>
         <UserImageList userId={Number(userId)} />
       </main>

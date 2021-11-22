@@ -4,7 +4,6 @@ import { ImageUploader } from '../common/ImageUploader'
 import { useApi } from '../../hooks/useApi'
 
 export type UserIconEditDialogProps = {
-  userId: number
   isOpen: boolean
   closeDialog: () => void
 }
@@ -30,10 +29,10 @@ export const UserIconEditDialog: (
       <button
         onClick={() => {
           postFetcher('/api/user/profile', {
-            id: props.userId,
             icon: icon,
           }).then(() => {
             props.closeDialog()
+            window.location.reload()
           })
         }}
       >

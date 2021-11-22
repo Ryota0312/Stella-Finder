@@ -34,7 +34,6 @@ export const UserSettingsForm: React.FC = () => {
       <button
         onClick={() =>
           postFetcher('/api/user/profile', {
-            id: loginUserId,
             userName: userName,
           }).then(() => (window.location.href = '/user/profile/' + loginUserId))
         }

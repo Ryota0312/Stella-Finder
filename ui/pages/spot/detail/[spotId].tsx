@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
+import styled from 'styled-components'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { ImageUploader } from '../../../components/common/ImageUploader'
@@ -53,10 +54,45 @@ const Spot: React.FC = () => {
         autoClose={5000}
         hideProgressBar={true}
       />
+
       <main>
         <h2>{data.name}</h2>
-        <div>所在地: {data.place}</div>
-        <UnoptimizedImage fileKey={coverImage} height={'200px'} />
+        <SpotInfoTable>
+          <tbody>
+            <tr>
+              <th />
+              <td>
+                <UnoptimizedImage fileKey={coverImage} height={'200px'} />
+              </td>
+            </tr>
+            <tr>
+              <th>名称</th>
+              <td>{data.name}</td>
+            </tr>
+            <tr>
+              <th>所在地</th>
+              <td>
+                〒{data.postalCode}
+                <br />
+                {data.prefecture + data.address}
+              </td>
+            </tr>
+            <tr>
+              <th>地図</th>
+              <td>TODO: ここに地図が入る予定</td>
+            </tr>
+            <tr>
+              <th>その他</th>
+              <td>{data.remarks}</td>
+            </tr>
+            <tr>
+              <th>最終更新</th>
+              <td>
+                {data.updatedAt}({data.updatedBy})
+              </td>
+            </tr>
+          </tbody>
+        </SpotInfoTable>
 
         <LoginUserOnly>
           <ImageUploader
@@ -77,3 +113,11 @@ const Spot: React.FC = () => {
   )
 }
 export default Spot
+
+const SpotInfoTable = styled.table`
+  //border-collapse: collapse;
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin: 8px;
+  padding: 8px;
+`

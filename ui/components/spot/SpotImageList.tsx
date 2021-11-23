@@ -3,10 +3,16 @@ import useSWR from 'swr'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { useApi } from '../../hooks/useApi'
 
-export const SpotImageList: React.FC<{ spotId: number }> = ({ spotId }) => {
+type SpotImageList = {
+  spotId: number
+}
+
+export const SpotImageList: React.FC<SpotImageList> = (
+  props: SpotImageList,
+) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/spot/image/list' + '?spotId=' + spotId, false],
+    ['/api/spot/image/list?spotId=' + props.spotId, false],
     fetcher,
   )
 

@@ -57,14 +57,9 @@ const Spot: React.FC = () => {
 
       <main>
         <h2>{data.name}</h2>
+        <UnoptimizedImage fileKey={coverImage} height={'400px'} />
         <SpotInfoTable>
           <tbody>
-            <tr>
-              <th />
-              <td>
-                <UnoptimizedImage fileKey={coverImage} height={'200px'} />
-              </td>
-            </tr>
             <tr>
               <th>名称</th>
               <td>{data.name}</td>
@@ -115,9 +110,21 @@ const Spot: React.FC = () => {
 export default Spot
 
 const SpotInfoTable = styled.table`
-  //border-collapse: collapse;
-  border: 1px solid gray;
-  border-radius: 8px;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   margin: 8px;
-  padding: 8px;
+  border-spacing: 0;
+
+  th {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 8px;
+  }
 `

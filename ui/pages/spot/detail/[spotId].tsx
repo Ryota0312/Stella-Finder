@@ -3,14 +3,14 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
-import styled from 'styled-components'
 import Link from 'next/link'
+import styled from 'styled-components'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
-import { ImageUploader } from '../../../components/common/ImageUploader'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
-import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
 import { useFragment } from '../../../hooks/useFragment'
+import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
+import { ImageUploader } from '../../../components/common/ImageUploader'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -77,7 +77,24 @@ const Spot: React.FC = () => {
             </tr>
             <tr>
               <th>地図</th>
-              <td>TODO: ここに地図が入る予定</td>
+              <td>
+                <iframe
+                  title="map"
+                  width="600"
+                  height="450"
+                  loading="lazy"
+                  allowFullScreen
+                  src={
+                    'https://www.google.com/maps/embed/v1/place?key=' +
+                    process.env.NEXT_PUBLIC_MAPS_API_KEY +
+                    '&q=' +
+                    data.name +
+                    '+' +
+                    data.prefecture +
+                    data.address
+                  }
+                />
+              </td>
             </tr>
             <tr>
               <th>その他</th>

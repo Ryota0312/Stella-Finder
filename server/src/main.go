@@ -52,6 +52,7 @@ func serve() {
 		authRequiredAPI.POST("/spot/register", controller.CreateSpot)
 		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)
 		authRequiredAPI.POST("/spot/addImage", controller.CreateSpotImage)
+		authRequiredAPI.POST("/review/add", controller.CreateReview)
 	}
 
 	// Proxy to Next.js

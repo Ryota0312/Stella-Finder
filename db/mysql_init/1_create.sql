@@ -57,4 +57,25 @@ CREATE TABLE IF NOT EXISTS spot_image
     image   VARCHAR(64) NOT NULL,
     PRIMARY KEY (spot_id, image),
     FOREIGN KEY (spot_id) REFERENCES spot (id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS review
+(
+    id         int(11) AUTO_INCREMENT NOT NULL,
+    spot_id    int(11)                NOT NULL,
+    darkness   tinyint                NOT NULL,
+    view       tinyint                NOT NULL,
+    safety     tinyint                NOT NULL,
+    comment    text,
+    created_at timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by int(11)                NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS review_image
+(
+    review_id int(11)     NOT NULL,
+    image     VARCHAR(64) NOT NULL,
+    PRIMARY KEY (review_id, image),
+    FOREIGN KEY (review_id) REFERENCES review (id)
+);

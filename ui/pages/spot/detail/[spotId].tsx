@@ -120,6 +120,7 @@ const Spot: React.FC = () => {
           <button onClick={() => setIsOpenAddImageDialog(true)}>
             写真を投稿
           </button>
+          <Link href={'/spot/' + spotId + '/review/post'}>レビューを投稿</Link>
           <AddImageDialog
             isOpen={isOpenAddImageDialog}
             closeDialog={() => setIsOpenAddImageDialog(false)}

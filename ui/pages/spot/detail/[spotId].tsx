@@ -116,7 +116,11 @@ const Spot: React.FC = () => {
             </tr>
           </tbody>
         </SpotInfoTable>
-        <LoginUserOnly>
+        <LoginUserOnly
+          fallbackComponent={
+            <Link href={'/login'}>ログインしてレビューを投稿する</Link>
+          }
+        >
           <Link href={'/spot/edit/' + spotId}>スポット情報を編集</Link>
           <button onClick={() => setIsOpenAddImageDialog(true)}>
             写真を投稿

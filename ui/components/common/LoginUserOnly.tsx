@@ -4,6 +4,7 @@ import { useApi } from '../../hooks/useApi'
 
 export type LoginUserOnlyProps = {
   children: React.ReactNode
+  fallbackComponent?: React.ReactNode
 }
 
 export const LoginUserOnly: React.FC<LoginUserOnlyProps> = (
@@ -12,7 +13,7 @@ export const LoginUserOnly: React.FC<LoginUserOnlyProps> = (
   const { fetcher } = useApi()
   const { data, error } = useSWR(['/auth/check', false], fetcher)
 
-  if (error) return <div>failed to load</div>
+  if (error) return <>{!!props.fallbackComponent && props.fallbackComponent}</>
   if (!data) return <div>loading...</div>
 
   return <>{data.authorized && props.children}</>

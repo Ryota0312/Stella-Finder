@@ -64,6 +64,10 @@ func GetAllSpots(c *gin.Context) {
 type UpdateSpotInputForm struct {
 	SpotId     int    `json:"spotId"`
 	CoverImage string `json:"coverImage"`
+	PostalCode string `json:"postalCode"`
+	Prefecture string `json:"prefecture"`
+	Address    string `json:"address"`
+	Remarks    string `json:"remarks"`
 }
 
 func UpdateSpot(c *gin.Context) {
@@ -73,6 +77,19 @@ func UpdateSpot(c *gin.Context) {
 		return
 	}
 
-	db.UpdateSpot(input.SpotId, input.CoverImage)
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	db.UpdateSpot(input.SpotId, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
 	c.JSON(200, nil)
 }

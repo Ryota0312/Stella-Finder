@@ -28,12 +28,27 @@ func AllSpots() []entity.Spot {
 	return spots
 }
 
-func UpdateSpot(id int, coverImage string) {
+func UpdateSpot(id int, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) {
 	var spot = entity.Spot{}
 	spot.ID = id
 
 	db := open()
-	db.Model(&spot).Update("cover_image", coverImage)
+	db.Model(&spot).Updates(entity.Spot{
+		CoverImage:    coverImage,
+		PostalCode:    postalCode,
+		Prefecture:    prefecture,
+		Address:       address,
+		Remarks:       remarks,
+		LastUpdatedBy: updatedBy,
+	})
+	//.Update(
+	//	"cover_image", coverImage,
+	//	"postal_code", postalCode,
+	//	"prefecture", prefecture,
+	//	"address", address,
+	//	"remarks", remarks,
+	//	"last_updated_by", updatedBy)
+
 	defer db.Close()
 }
 

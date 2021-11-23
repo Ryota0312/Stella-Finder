@@ -9,10 +9,9 @@ import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { useFragment } from '../../../hooks/useFragment'
-import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
-import { ImageUploader } from '../../../components/common/ImageUploader'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -112,20 +111,8 @@ const Spot: React.FC = () => {
             </tr>
           </tbody>
         </SpotInfoTable>
-
         <LoginUserOnly>
-          <ImageUploader
-            onSuccess={(res) => {
-              setCoverImage(res.fileKey)
-              fetch('/api/user/spot/update', {
-                method: 'POST',
-                body: JSON.stringify({
-                  spotId: Number(spotId),
-                  coverImage: res.fileKey,
-                }),
-              })
-            }}
-          />
+          <Link href={'/spot/edit/' + spotId}>スポット情報を編集</Link>
         </LoginUserOnly>
       </main>
     </Layout>

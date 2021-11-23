@@ -93,3 +93,19 @@ func UpdateSpot(c *gin.Context) {
 	db.UpdateSpot(input.SpotId, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
 	c.JSON(200, nil)
 }
+
+type CreateSpotImageInputForm struct {
+	SpotId int    `json:"spotId"`
+	Image  string `json:"image"`
+}
+
+func CreateSpotImage(c *gin.Context) {
+	var input CreateSpotImageInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.CreateSpotImage(input.SpotId, input.Image)
+	c.JSON(200, nil)
+}

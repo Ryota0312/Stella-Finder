@@ -50,3 +50,11 @@ CREATE TABLE IF NOT EXISTS file
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (file_key)
 );
+
+CREATE TABLE IF NOT EXISTS spot_image
+(
+    spot_id INT(11)     NOT NULL,
+    image   VARCHAR(64) NOT NULL,
+    PRIMARY KEY (spot_id, image),
+    FOREIGN KEY (spot_id) REFERENCES spot (id)
+)

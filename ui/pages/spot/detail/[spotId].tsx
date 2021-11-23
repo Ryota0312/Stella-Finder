@@ -12,12 +12,15 @@ import { useFragment } from '../../../hooks/useFragment'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
+import { AddImageDialog } from '../../../components/spot/AddImageDialog'
 
 const Spot: React.FC = () => {
   const router = useRouter()
   const { spotId } = router.query
   const { fragment, setFragment } = useFragment()
 
+  const [isOpenAddImageDialog, setIsOpenAddImageDialog] =
+    useState<boolean>(false)
   const [coverImage, setCoverImage] = useState<string>('')
   const [updatedBy, setUpdatedBy] = useState<string>('')
 
@@ -113,6 +116,14 @@ const Spot: React.FC = () => {
         </SpotInfoTable>
         <LoginUserOnly>
           <Link href={'/spot/edit/' + spotId}>スポット情報を編集</Link>
+          <button onClick={() => setIsOpenAddImageDialog(true)}>
+            写真を投稿
+          </button>
+          <AddImageDialog
+            isOpen={isOpenAddImageDialog}
+            closeDialog={() => setIsOpenAddImageDialog(false)}
+            spotId={Number(spotId)}
+          />
         </LoginUserOnly>
       </main>
     </Layout>

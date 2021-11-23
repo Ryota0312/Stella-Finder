@@ -136,7 +136,7 @@ export default Spot
 const SpotInfoTable = styled.table`
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  margin: 0 8px;
+  margin: 8px 0;
   border-spacing: 0;
   width: 100%;
 

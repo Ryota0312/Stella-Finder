@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { StarEvaluate } from '../common/StarEvaluate'
+import { ImageList, ImageListItem } from '../common/ImageList'
 
 type ReviewProps = {
   darkness: number
@@ -9,6 +10,7 @@ type ReviewProps = {
   comment: string
   createdBy: number
   createdAt: string
+  images: Array<string> | null
 }
 
 export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
@@ -20,6 +22,13 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         <StarEvaluate label="安全性" point={props.safety} />
       </Evaluates>
       {props.comment}
+      {props.images && (
+        <ImageList
+          data={props.images.map((image) => {
+            return { fileKey: image, fileName: '' } as ImageListItem
+          })}
+        />
+      )}
     </ReviewListItem>
   )
 }

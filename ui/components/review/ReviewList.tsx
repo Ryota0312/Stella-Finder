@@ -25,6 +25,7 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
             comment={d.comment}
             createdBy={d.createdBy}
             createdAt={d.createdAt}
+            images={d.images}
           />
         )
       })}

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
 import styled from 'styled-components'
+import Link from 'next/link'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { ImageUploader } from '../../../components/common/ImageUploader'
@@ -19,6 +20,7 @@ const Spot: React.FC = () => {
   const { fragment, setFragment } = useFragment()
 
   const [coverImage, setCoverImage] = useState<string>('')
+  const [updatedBy, setUpdatedBy] = useState<string>('')
 
   const fetcher = useApi()
   const { data, error } = useSWR(
@@ -29,6 +31,7 @@ const Spot: React.FC = () => {
   useEffect(() => {
     if (data) {
       setCoverImage(data.coverImage)
+      getUserNameById_(data.updatedBy).then((name) => setUpdatedBy(name))
     }
   }, [data])
 
@@ -83,7 +86,11 @@ const Spot: React.FC = () => {
             <tr>
               <th>最終更新</th>
               <td>
-                {data.updatedAt}({data.updatedBy})
+                {convertDateTimeString_(data.updatedAt)} (
+                <Link href={'/user/profile/' + data.updatedBy}>
+                  {updatedBy}
+                </Link>
+                )
               </td>
             </tr>
           </tbody>
@@ -114,6 +121,7 @@ const SpotInfoTable = styled.table`
   border-left: 1px solid #ccc;
   margin: 8px;
   border-spacing: 0;
+  width: 100%;
 
   th {
     border-bottom: 1px solid #ccc;
@@ -128,3 +136,14 @@ const SpotInfoTable = styled.table`
     padding: 8px;
   }
 `
+
+const convertDateTimeString_ = (datetime: string) => {
+  const dt = new Date(datetime)
+  return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日`
+}
+
+const getUserNameById_ = async (id: number) => {
+  const response = await fetch('/api/profile?id=' + id)
+  const json = await response.json()
+  return json.name
+}

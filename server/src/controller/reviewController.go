@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-contrib/sessions"
 	"strconv"
+	"time"
 
 	// Gin
 	"github.com/gin-gonic/gin"
@@ -46,10 +47,42 @@ func CreateReview(c *gin.Context) {
 	c.JSON(200, nil)
 }
 
+type GetReviewListOutputForm struct {
+	Id        int       `json:"id"`
+	SpotId    int       `json:"spotId"`
+	Darkness  int       `json:"darkness"`
+	View      int       `json:"view"`
+	Safety    int       `json:"safety"`
+	Comment   string    `json:"comment"`
+	CreatedBy int       `json:"createdBy"`
+	CreatedAt time.Time `json:"createdAt"`
+	Images    []string  `json:"images"`
+}
+
 func GetReviewList(c *gin.Context) {
 	spotId, _ := strconv.Atoi(c.Query("spotId"))
 
 	reviews := db.FindReviews(spotId)
 
-	c.JSON(200, reviews)
+	var output []GetReviewListOutputForm
+	for _, review := range reviews {
+		var images []string
+		reviewImages := db.FindReviewImages(review.Id)
+		for _, reviewImage := range reviewImages {
+			images = append(images, reviewImage.Image)
+		}
+		output = append(output, GetReviewListOutputForm{
+			review.Id,
+			review.SpotId,
+			review.Darkness,
+			review.View,
+			review.Safety,
+			review.Comment,
+			review.CreatedBy,
+			review.CreatedAt,
+			images,
+		})
+	}
+
+	c.JSON(200, output)
 }

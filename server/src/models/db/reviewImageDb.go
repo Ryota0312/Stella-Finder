@@ -19,3 +19,13 @@ func CreateReviewImages(reviewId int, images []string) {
 
 	defer db.Close()
 }
+
+func FindReviewImages(reviewId int) []entity.ReviewImage {
+	var reviewImages []entity.ReviewImage
+
+	db := open()
+	db.Where("review_id = ?", reviewId).Find(&reviewImages)
+	defer db.Close()
+
+	return reviewImages
+}

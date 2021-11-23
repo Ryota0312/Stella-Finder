@@ -7,7 +7,7 @@ import Layout from '../../../../components/layout'
 import { useApi } from '../../../../hooks/useApi'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { StarEvaluate } from '../../../../components/common/StarEvaluate'
+import { StarEvaluator } from '../../../../components/common/StarEvaluator'
 import { ImageUploader } from '../../../../components/common/ImageUploader'
 
 const Post: React.FC = () => {
@@ -50,11 +50,11 @@ const Post: React.FC = () => {
       <main>
         <h2>{name}のレビュー投稿</h2>
         <p>空の暗さ</p>
-        <StarEvaluate onChange={(point) => setDarkness(point)} />
+        <StarEvaluator onChange={(point) => setDarkness(point)} />
         <p>見晴らし</p>
-        <StarEvaluate onChange={(point) => setView(point)} />
+        <StarEvaluator onChange={(point) => setView(point)} />
         <p>安全性</p>
-        <StarEvaluate onChange={(point) => setSafety(point)} />
+        <StarEvaluator onChange={(point) => setSafety(point)} />
         <p>コメント</p>
         <input
           type={'text'}

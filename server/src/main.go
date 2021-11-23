@@ -39,6 +39,7 @@ func serve() {
 		api.GET("/file/download", controller.GetFile)
 		api.GET("/file/list", controller.GetFilesByUser)
 		api.GET("/profile", controller.GetUser)
+		api.GET("/review/list", controller.GetReviewList)
 	}
 
 	// API (need Authorize)

@@ -22,3 +22,14 @@ func CreateReview(spoId int, darkness int, view int, safety int, comment string,
 
 	return review
 }
+
+func FindReviews(spotId int) []entity.Review {
+	var review []entity.Review
+
+	db := open()
+	db.Where("spot_id = ?", spotId).Find(&review)
+
+	defer db.Close()
+
+	return review
+}

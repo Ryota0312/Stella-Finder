@@ -2,6 +2,8 @@ package controller
 
 import (
 	"github.com/gin-contrib/sessions"
+	"strconv"
+
 	// Gin
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -42,4 +44,12 @@ func CreateReview(c *gin.Context) {
 	db.CreateReviewImages(review.Id, input.Images)
 
 	c.JSON(200, nil)
+}
+
+func GetReviewList(c *gin.Context) {
+	spotId, _ := strconv.Atoi(c.Query("spotId"))
+
+	reviews := db.FindReviews(spotId)
+
+	c.JSON(200, reviews)
 }

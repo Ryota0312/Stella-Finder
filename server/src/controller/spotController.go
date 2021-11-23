@@ -1,21 +1,22 @@
 package controller
 
 import (
-	"net/http"
-	// 文字列と基本データ型の変換パッケージ
-	strconv "strconv"
-
-	// Gin
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-
-	// DBアクセス用モジュール
-	db "stella-finder-server/src/models/db"
+	"net/http"
+	"stella-finder-server/src/models/db"
+	. "stella-finder-server/src/utils"
+	"strconv"
 )
 
 type CreateSpotInputForm struct {
 	Name       string `json:"name"`
 	Place      string `json:"place"`
 	CoverImage string `json:"coverImage"`
+	PostalCode string `json:"postalCode"`
+	Prefecture string `json:"prefecture"`
+	Address    string `json:"address"`
+	Remarks    string `json:"remarks"`
 }
 
 func CreateSpot(c *gin.Context) {
@@ -30,7 +31,20 @@ func CreateSpot(c *gin.Context) {
 		return
 	}
 
-	spot := db.CreateSpot(input.Name, input.Place, input.CoverImage)
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	spot := db.CreateSpot(input.Name, input.Place, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
 
 	c.JSON(200, gin.H{"id": spot.ID})
 }

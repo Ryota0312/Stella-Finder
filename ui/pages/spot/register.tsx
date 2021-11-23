@@ -18,6 +18,10 @@ const Register: React.FC = () => {
   const [name, setName] = useState<string>('')
   const [place, setPlace] = useState<string>('')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
+  const [postalCode, setPostalCode] = useState<string>('')
+  const [prefecture, setPrefecture] = useState<string>('')
+  const [address, setAddress] = useState<string>('')
+  const [remarks, setRemarks] = useState<string>('')
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -35,6 +39,7 @@ const Register: React.FC = () => {
         autoClose={5000}
         hideProgressBar={true}
       />
+
       <main>
         <h2>スポット登録</h2>
         スポット登録ページです。
@@ -54,6 +59,34 @@ const Register: React.FC = () => {
             setPlace(e.target.value)
           }
         />
+        <p>郵便番号</p>
+        <input
+          type={'text'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPostalCode(e.target.value)
+          }
+        />
+        <p>都道府県</p>
+        <input
+          type={'text'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPrefecture(e.target.value)
+          }
+        />
+        <p>住所</p>
+        <input
+          type={'text'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setAddress(e.target.value)
+          }
+        />
+        <p>その他</p>
+        <input
+          type={'text'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setRemarks(e.target.value)
+          }
+        />
         <p>写真</p>
         <ImageUploader
           onSuccess={(res) => {
@@ -63,7 +96,15 @@ const Register: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
-            const response = await register_(name, place, coverImageKey)
+            const response = await register_(
+              name,
+              place,
+              coverImageKey,
+              postalCode,
+              prefecture,
+              address,
+              remarks,
+            )
             if (response.ok) {
               const json = await response.json()
               await router.push(`/spot/detail/${json.id}#success`)
@@ -81,7 +122,15 @@ const Register: React.FC = () => {
 }
 export default Register
 
-const register_ = async (name: string, place: string, coverImage: string) => {
+const register_ = async (
+  name: string,
+  place: string,
+  coverImage: string,
+  postalCode: string,
+  prefecture: string,
+  address: string,
+  remarks: string,
+) => {
   return await fetch('/api/user/spot/register', {
     method: 'POST',
     headers: {
@@ -91,6 +140,10 @@ const register_ = async (name: string, place: string, coverImage: string) => {
       name: name,
       place: place,
       coverImage: coverImage,
+      postalCode: postalCode,
+      prefecture: prefecture,
+      address: address,
+      remarks: remarks,
     }),
   })
 }

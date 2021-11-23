@@ -37,10 +37,9 @@ func UpdateSpot(id int, coverImage string) {
 	defer db.Close()
 }
 
-func CreateSpot(name string, place string, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) entity.Spot {
+func CreateSpot(name string, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) entity.Spot {
 	var spot = entity.Spot{}
 	spot.Name = name
-	spot.Place = place
 	spot.CoverImage = coverImage
 	spot.PostalCode = postalCode
 	spot.Prefecture = prefecture

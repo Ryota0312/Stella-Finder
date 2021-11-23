@@ -6,7 +6,6 @@ import { UnoptimizedImage } from './UnoptimizedImage'
 export interface GridListItemData {
   id: number
   title: string
-  place: string
   coverImage: string
 }
 
@@ -23,7 +22,6 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
               <a>
                 <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
                 {d.title}
-                <div>{d.place}</div>
               </a>
             </Link>
           </GridItem>

@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS spot
     id              INT(11) AUTO_INCREMENT NOT NULL,
     name            VARCHAR(64) UNIQUE     NOT NULL,
     cover_image     VARCHAR(64),
-    place           VARCHAR(128)           NOT NULL,
     postal_code     VARCHAR(8),
     prefecture      VARCHAR(32)            NOT NULL,
     address         VARCHAR(256)           NOT NULL,
@@ -40,8 +39,8 @@ CREATE TABLE IF NOT EXISTS spot
     PRIMARY KEY (id)
 ) default character set utf8mb4;
 
-INSERT INTO spot (name, place, postal_code, prefecture, address, remarks, last_updated_by)
-VALUES (N'井原市星空公園', 'none', '714-1405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', N'初期データ', 1);
+INSERT INTO spot (name, postal_code, prefecture, address, remarks, last_updated_by)
+VALUES (N'井原市星空公園', '714-1405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', N'初期データ', 1);
 
 CREATE TABLE IF NOT EXISTS file
 (

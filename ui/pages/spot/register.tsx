@@ -16,7 +16,6 @@ const Register: React.FC = () => {
   const { data, error } = useSWR(['/auth/check', true], fetcher)
 
   const [name, setName] = useState<string>('')
-  const [place, setPlace] = useState<string>('')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
   const [postalCode, setPostalCode] = useState<string>('')
   const [prefecture, setPrefecture] = useState<string>('')
@@ -49,14 +48,6 @@ const Register: React.FC = () => {
           placeholder={'spot name'}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
-          }
-        />
-        <p>所在地</p>
-        <input
-          type={'text'}
-          placeholder={'spot place'}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPlace(e.target.value)
           }
         />
         <p>郵便番号</p>
@@ -98,7 +89,6 @@ const Register: React.FC = () => {
           onClick={async () => {
             const response = await register_(
               name,
-              place,
               coverImageKey,
               postalCode,
               prefecture,
@@ -124,7 +114,6 @@ export default Register
 
 const register_ = async (
   name: string,
-  place: string,
   coverImage: string,
   postalCode: string,
   prefecture: string,
@@ -138,7 +127,6 @@ const register_ = async (
     },
     body: JSON.stringify({
       name: name,
-      place: place,
       coverImage: coverImage,
       postalCode: postalCode,
       prefecture: prefecture,

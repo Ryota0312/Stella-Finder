@@ -10,7 +10,6 @@ import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 type SpotListItem = {
   id: number
   name: string
-  place: string
   coverImage: string
 }
 
@@ -44,7 +43,6 @@ const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
     return {
       id: spot.id,
       title: spot.name,
-      place: spot.place,
       coverImage: spot.coverImage,
     } as GridListItemData
   })

@@ -11,7 +11,6 @@ import (
 
 type CreateSpotInputForm struct {
 	Name       string `json:"name"`
-	Place      string `json:"place"`
 	CoverImage string `json:"coverImage"`
 	PostalCode string `json:"postalCode"`
 	Prefecture string `json:"prefecture"`
@@ -44,7 +43,7 @@ func CreateSpot(c *gin.Context) {
 		return
 	}
 
-	spot := db.CreateSpot(input.Name, input.Place, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
+	spot := db.CreateSpot(input.Name, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
 
 	c.JSON(200, gin.H{"id": spot.ID})
 }

@@ -34,6 +34,7 @@ func serve() {
 	{
 		api.GET("/spots", controller.GetSpot)
 		api.GET("/spot/list", controller.GetAllSpots)
+		api.GET("/spot/image/list", controller.GetSpotImages)
 		api.GET("/loginUser", controller.GetLoginUser)
 		api.GET("/file/download", controller.GetFile)
 		api.GET("/file/list", controller.GetFilesByUser)

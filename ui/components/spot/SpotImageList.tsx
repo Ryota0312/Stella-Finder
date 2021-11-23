@@ -3,10 +3,10 @@ import useSWR from 'swr'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { useApi } from '../../hooks/useApi'
 
-export const UserImageList: React.FC<{ userId: number }> = ({ spotId }) => {
+export const SpotImageList: React.FC<{ spotId: number }> = ({ spotId }) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/file/list' + '?userId=' + spotId, false],
+    ['/api/spot/image/list' + '?spotId=' + spotId, false],
     fetcher,
   )
 
@@ -17,7 +17,10 @@ export const UserImageList: React.FC<{ userId: number }> = ({ spotId }) => {
 }
 
 const convertToFileItems_ = (data: any[]): ImageListItem[] => {
+  if (data === undefined) return []
+  console.log(data)
+
   return data.map((d) => {
-    return { fileKey: d.fileKey, fileName: d.fileName } as ImageListItem
+    return { fileKey: d.image, fileName: '' } as ImageListItem
   })
 }

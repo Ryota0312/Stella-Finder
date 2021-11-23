@@ -109,3 +109,10 @@ func CreateSpotImage(c *gin.Context) {
 	db.CreateSpotImage(input.SpotId, input.Image)
 	c.JSON(200, nil)
 }
+
+func GetSpotImages(c *gin.Context) {
+	spotId, _ := strconv.Atoi(c.Query("spotId"))
+
+	result := db.GetAllSpotImages(spotId)
+	c.JSON(http.StatusOK, result)
+}

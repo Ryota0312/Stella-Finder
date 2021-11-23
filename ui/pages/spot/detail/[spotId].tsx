@@ -13,6 +13,7 @@ import { useFragment } from '../../../hooks/useFragment'
 import 'react-toastify/dist/ReactToastify.css'
 import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
 import { AddImageDialog } from '../../../components/spot/AddImageDialog'
+import { SpotImageList } from '../../../components/spot/SpotImageList'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -125,6 +126,7 @@ const Spot: React.FC = () => {
             spotId={Number(spotId)}
           />
         </LoginUserOnly>
+        <SpotImageList spotId={Number(spotId)} />
       </main>
     </Layout>
   )

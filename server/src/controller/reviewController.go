@@ -86,3 +86,35 @@ func GetReviewList(c *gin.Context) {
 
 	c.JSON(200, output)
 }
+
+type GetSummaryOutputForm struct {
+	Total    float64 `json:"total"`
+	Darkness float64 `json:"darkness"`
+	View     float64 `json:"view"`
+	Safety   float64 `json:"safety"`
+}
+
+func GetSummary(c *gin.Context) {
+	spotId, _ := strconv.Atoi(c.Query("spotId"))
+
+	reviews := db.FindReviews(spotId)
+
+	var count = 0
+	var darknessSum = 0
+	var viewSum = 0
+	var safetySum = 0
+	for i, review := range reviews {
+		count = i + 1
+		darknessSum += review.Darkness
+		viewSum += review.View
+		safetySum += review.Safety
+	}
+
+	darknessAvg := float64(darknessSum) / float64(count)
+	viewAvg := float64(viewSum) / float64(count)
+	safetyAvg := float64(safetySum) / float64(count)
+	total := (darknessAvg + viewAvg + safetyAvg) / 3.0
+	output := GetSummaryOutputForm{total, darknessAvg, viewAvg, safetyAvg}
+
+	c.JSON(http.StatusOK, output)
+}

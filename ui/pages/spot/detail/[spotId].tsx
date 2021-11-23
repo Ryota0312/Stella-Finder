@@ -9,12 +9,13 @@ import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { useFragment } from '../../../hooks/useFragment'
-
-import 'react-toastify/dist/ReactToastify.css'
 import { LoginUserOnly } from '../../../components/common/LoginUserOnly'
 import { AddImageDialog } from '../../../components/spot/AddImageDialog'
 import { SpotImageList } from '../../../components/spot/SpotImageList'
 import { ReviewList } from '../../../components/review/ReviewList'
+import { ReviewSummary } from '../../../components/review/ReviewSummary'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -64,7 +65,10 @@ const Spot: React.FC = () => {
 
       <main>
         <h2>{data.name}</h2>
-        <UnoptimizedImage fileKey={coverImage} height={'400px'} />
+        <CoverImageAndReviewSummary>
+          <UnoptimizedImage fileKey={coverImage} height={'400px'} />
+          <ReviewSummary spotId={Number(spotId)} />
+        </CoverImageAndReviewSummary>
         <SpotInfoTable>
           <tbody>
             <tr>
@@ -139,6 +143,10 @@ const Spot: React.FC = () => {
   )
 }
 export default Spot
+
+const CoverImageAndReviewSummary = styled.div`
+  display: flex;
+`
 
 const SpotInfoTable = styled.table`
   border-top: 1px solid #ccc;

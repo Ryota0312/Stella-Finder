@@ -5,6 +5,7 @@ import Image from 'next/image'
 type StarEvaluateProps = {
   label: string
   point: number
+  showPoint?: boolean
 }
 
 export const StarEvaluate: React.FC<StarEvaluateProps> = (
@@ -13,6 +14,7 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
   return (
     <div>
       <p>{props.label}</p>
+      {!!props.showPoint && props.point}
       <StarEvaluateWrapper>
         {props.point >= 1 && (
           <Image src="/image/star.png" width={24} height={24} alt="star" />

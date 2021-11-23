@@ -18,7 +18,6 @@ export const SpotImageList: React.FC<{ spotId: number }> = ({ spotId }) => {
 
 const convertToFileItems_ = (data: any[]): ImageListItem[] => {
   if (data === undefined) return []
-  console.log(data)
 
   return data.map((d) => {
     return { fileKey: d.image, fileName: '' } as ImageListItem

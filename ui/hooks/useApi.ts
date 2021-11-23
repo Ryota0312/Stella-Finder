@@ -1,9 +1,13 @@
 export const useApi = () => {
   const fetcher = (url: string, fallbackLoginPage: boolean): Promise<any> => {
     return fetch(url).then((res) => {
-      if (fallbackLoginPage && !res.ok) {
-        window.location.href = '/login'
-        return
+      if (!res.ok) {
+        if (fallbackLoginPage) {
+          window.location.href = '/login'
+          return
+        } else {
+          throw Error
+        }
       }
       return res.json()
     })

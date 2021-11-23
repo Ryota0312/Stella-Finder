@@ -20,9 +20,9 @@ const User: React.FC = () => {
 
   const [isLoginUser, setIsLoginUser] = useState(false)
   useEffect(() => {
-    fetcher('/api/loginUser', false).then((res) =>
-      setIsLoginUser(res.id === Number(userId)),
-    )
+    fetcher('/api/loginUser', false).then((res) => {
+      setIsLoginUser(res.id === Number(userId))
+    })
   }, [userId])
 
   if (error) return <div>failed to load</div>

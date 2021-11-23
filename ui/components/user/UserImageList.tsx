@@ -3,10 +3,16 @@ import useSWR from 'swr'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { useApi } from '../../hooks/useApi'
 
-export const UserImageList: React.FC<{ userId: number }> = ({ spotId }) => {
+type UserImageListProps = {
+  userId: number
+}
+
+export const UserImageList: React.FC<UserImageListProps> = (
+  props: UserImageListProps,
+) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/file/list' + '?userId=' + spotId, false],
+    ['/api/file/list?userId=' + props.userId, false],
     fetcher,
   )
 

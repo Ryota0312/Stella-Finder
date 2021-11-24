@@ -14,67 +14,33 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
   return (
     <div>
       <p>{props.label}</p>
-      {!!props.showPoint && props.point}
+      {!!props.showPoint && Math.round(props.point * 10) / 10}
       <StarEvaluateWrapper>
-        {props.point >= 1 && (
-          <Image src="/image/star.png" width={24} height={24} alt="star" />
-        )}
-        {props.point < 1 && (
-          <Image
-            src="/image/star-blank.png"
-            width={24}
-            height={24}
-            alt="star"
-          />
-        )}
-
-        {props.point >= 2 && (
-          <Image src="/image/star.png" width={24} height={24} alt="star" />
-        )}
-        {props.point < 2 && (
-          <Image
-            src="/image/star-blank.png"
-            width={24}
-            height={24}
-            alt="star"
-          />
-        )}
-
-        {props.point >= 3 && (
-          <Image src="/image/star.png" width={24} height={24} alt="star" />
-        )}
-        {props.point < 3 && (
-          <Image
-            src="/image/star-blank.png"
-            width={24}
-            height={24}
-            alt="star"
-          />
-        )}
-
-        {props.point >= 4 && (
-          <Image src="/image/star.png" width={24} height={24} alt="star" />
-        )}
-        {props.point < 4 && (
-          <Image
-            src="/image/star-blank.png"
-            width={24}
-            height={24}
-            alt="star"
-          />
-        )}
-
-        {props.point >= 5 && (
-          <Image src="/image/star.png" width={24} height={24} alt="star" />
-        )}
-        {props.point < 5 && (
-          <Image
-            src="/image/star-blank.png"
-            width={24}
-            height={24}
-            alt="star"
-          />
-        )}
+        {[...Array(5)].map((_, i) => {
+          if (props.point < i + 0.5) {
+            return (
+              <Image
+                src="/image/star-blank.png"
+                width={24}
+                height={24}
+                alt="star"
+              />
+            )
+          } else if (props.point >= i + 0.5 && props.point < i + 1) {
+            return (
+              <Image
+                src="/image/star-half.png"
+                width={24}
+                height={24}
+                alt="star"
+              />
+            )
+          } else {
+            return (
+              <Image src="/image/star.png" width={24} height={24} alt="star" />
+            )
+          }
+        })}
       </StarEvaluateWrapper>
     </div>
   )

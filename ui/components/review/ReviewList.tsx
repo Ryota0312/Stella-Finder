@@ -1,5 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'
+import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { Review } from './Review'
 
@@ -14,7 +15,7 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
   if (!data) return <div>loading...</div>
 
   return (
-    <ul>
+    <ReviewListUl>
       {data.map((d: any) => {
         return (
           <Review
@@ -29,6 +30,10 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
           />
         )
       })}
-    </ul>
+    </ReviewListUl>
   )
 }
+
+const ReviewListUl = styled.ul`
+  padding: 8px;
+`

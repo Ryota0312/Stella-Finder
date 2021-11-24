@@ -21,7 +21,7 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         <StarEvaluate label="見晴らし" point={props.view} />
         <StarEvaluate label="安全性" point={props.safety} />
       </Evaluates>
-      {props.comment}
+      <Comment>{props.comment}</Comment>
       {props.images && (
         <ImageList
           data={props.images.map((image) => {
@@ -44,4 +44,8 @@ const Evaluates = styled.div`
   display: flex;
   gap: 0 16px;
   margin-bottom: 16px;
+`
+
+const Comment = styled.div`
+  margin-top: 32px;
 `

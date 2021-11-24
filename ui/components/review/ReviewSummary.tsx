@@ -1,5 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'
+import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { StarEvaluate } from '../common/StarEvaluate'
 
@@ -20,10 +21,15 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
   if (!data) return <div>loading...</div>
 
   return (
-    <div>
+    <ReviewSummaryContent>
       <StarEvaluate label={'空の暗さ'} point={data.darkness} showPoint={true} />
       <StarEvaluate label={'見晴らし'} point={data.view} showPoint={true} />
       <StarEvaluate label={'安全性'} point={data.safety} showPoint={true} />
-    </div>
+    </ReviewSummaryContent>
   )
 }
+
+const ReviewSummaryContent = styled.div`
+  border: 1px solid #ccc;
+  padding: 8px 48px;
+`

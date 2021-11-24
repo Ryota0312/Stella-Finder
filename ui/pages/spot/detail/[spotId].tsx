@@ -66,7 +66,9 @@ const Spot: React.FC = () => {
       <main>
         <h2>{data.name}</h2>
         <CoverImageAndReviewSummary>
-          <UnoptimizedImage fileKey={coverImage} height={'400px'} />
+          <div style={{ width: '50vw' }}>
+            <UnoptimizedImage fileKey={coverImage} height={'400px'} />
+          </div>
           <ReviewSummary spotId={Number(spotId)} />
         </CoverImageAndReviewSummary>
         <SpotInfoTable>
@@ -86,7 +88,7 @@ const Spot: React.FC = () => {
             <tr>
               <th>地図</th>
               <td>
-                <iframe
+                <Map
                   title="map"
                   width="600"
                   height="450"
@@ -146,6 +148,8 @@ export default Spot
 
 const CoverImageAndReviewSummary = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 16px;
 `
 
 const SpotInfoTable = styled.table`
@@ -167,6 +171,10 @@ const SpotInfoTable = styled.table`
     border-right: 1px solid #ccc;
     padding: 8px;
   }
+`
+
+const Map = styled.iframe`
+  width: 50vw;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

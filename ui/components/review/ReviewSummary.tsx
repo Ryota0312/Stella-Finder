@@ -22,6 +22,7 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
 
   return (
     <ReviewSummaryContent>
+      <StarEvaluate label={'総合'} point={data.total} showPoint={true} />
       <StarEvaluate label={'空の暗さ'} point={data.darkness} showPoint={true} />
       <StarEvaluate label={'見晴らし'} point={data.view} showPoint={true} />
       <StarEvaluate label={'安全性'} point={data.safety} showPoint={true} />
@@ -31,5 +32,5 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
 
 const ReviewSummaryContent = styled.div`
   border: 1px solid #ccc;
-  padding: 8px 48px;
+  padding: 16px 48px;
 `

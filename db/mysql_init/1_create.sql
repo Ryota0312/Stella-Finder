@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS spot
     prefecture      VARCHAR(32)            NOT NULL,
     address         VARCHAR(256)           NOT NULL,
     remarks         TEXT,
-    last_updated_at TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated_at TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     last_updated_by INT(11)                NOT NULL,
     PRIMARY KEY (id)
 ) default character set utf8mb4;

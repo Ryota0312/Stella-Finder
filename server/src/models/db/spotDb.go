@@ -41,13 +41,6 @@ func UpdateSpot(id int, coverImage string, postalCode string, prefecture string,
 		Remarks:       remarks,
 		LastUpdatedBy: updatedBy,
 	})
-	//.Update(
-	//	"cover_image", coverImage,
-	//	"postal_code", postalCode,
-	//	"prefecture", prefecture,
-	//	"address", address,
-	//	"remarks", remarks,
-	//	"last_updated_by", updatedBy)
 
 	defer db.Close()
 }

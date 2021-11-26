@@ -20,6 +20,7 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
           if (props.point < i + 0.5) {
             return (
               <Image
+                key={i}
                 src="/image/star-blank.png"
                 width={24}
                 height={24}
@@ -29,6 +30,7 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
           } else if (props.point >= i + 0.5 && props.point < i + 1) {
             return (
               <Image
+                key={i}
                 src="/image/star-half.png"
                 width={24}
                 height={24}
@@ -37,7 +39,13 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
             )
           } else {
             return (
-              <Image src="/image/star.png" width={24} height={24} alt="star" />
+              <Image
+                key={i}
+                src="/image/star.png"
+                width={24}
+                height={24}
+                alt="star"
+              />
             )
           }
         })}

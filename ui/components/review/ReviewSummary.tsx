@@ -13,7 +13,7 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
 ) => {
   const { fetcher } = useApi()
   const { data, error } = useSWR(
-    ['/api/review/summary?spotId=' + props.spotId, false],
+    props.spotId ? ['/api/review/summary?spotId=' + props.spotId, false] : null,
     fetcher,
   )
 

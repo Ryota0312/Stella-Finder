@@ -69,8 +69,8 @@ const Spot: React.FC = () => {
           <div style={{ margin: '0 16px' }}>
             <UnoptimizedImage
               fileKey={coverImage}
-              width={'40vw'}
-              height={'40vw'}
+              width={'400px'}
+              height={'400px'}
               objectFit={'cover'}
             />
           </div>
@@ -180,7 +180,9 @@ const SpotInfoTable = styled.table`
 `
 
 const Map = styled.iframe`
-  width: 50vw;
+  width: 100%;
+  max-width: 600px;
+  border: none;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

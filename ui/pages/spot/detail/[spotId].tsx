@@ -176,12 +176,23 @@ const SpotInfoTable = styled.table`
     border-right: 1px solid #ccc;
     padding: 8px;
     text-align: left;
+    background-color: #eee;
   }
 
   td {
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
     padding: 8px;
+  }
+
+  @media screen and (max-width: 600px) {
+    th {
+      display: block;
+    }
+
+    td {
+      display: block;
+    }
   }
 `
 

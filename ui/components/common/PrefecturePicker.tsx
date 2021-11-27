@@ -1,8 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import styled from 'styled-components'
 
 export const PrefecturePicker: React.FC = () => {
+  const router = useRouter()
+
   return (
     <Map>
       <Image
@@ -11,16 +14,78 @@ export const PrefecturePicker: React.FC = () => {
         height={506}
         alt="Prefecture picker"
       />
-      <HokkaidoButton>北海道</HokkaidoButton>
-      <TohokuButton>東北</TohokuButton>
-      <KantoButton>関東</KantoButton>
-      <HokurikuButton>北陸</HokurikuButton>
-      <ChubuButton>中部</ChubuButton>
-      <KinkiButton>近畿</KinkiButton>
-      <ChugokuButton>中国</ChugokuButton>
-      <ShikokuButton>四国</ShikokuButton>
-      <KyusyuButton>九州</KyusyuButton>
-      <OkinawaButton>沖縄</OkinawaButton>
+      <HokkaidoButton onClick={() => router.push('/spot/list?pref=hokkaido')}>
+        北海道
+      </HokkaidoButton>
+      <TohokuButton
+        onClick={() =>
+          router.push(
+            '/spot/list?pref=aomori+iwate+akita+miyagi+yamagata+fukushima',
+          )
+        }
+      >
+        東北
+      </TohokuButton>
+      <KantoButton
+        onClick={() =>
+          router.push(
+            'spot/list?pref=ibaraki+tochigi+gunma+saitama+chiba+kanagawa+tokyo',
+          )
+        }
+      >
+        関東
+      </KantoButton>
+      <HokurikuButton
+        onClick={() =>
+          router.push('spot/list?pref=nigata+toyama+ishikawa+fukui')
+        }
+      >
+        北陸
+      </HokurikuButton>
+      <ChubuButton
+        onClick={() =>
+          router.push('spot/list?pref=yamanashi+nagano+gifu+shizuoka+aichi')
+        }
+      >
+        中部
+      </ChubuButton>
+      <KinkiButton
+        onClick={() =>
+          router.push(
+            'spot/list?pref=mie+shiga+kyoto+osaka+hyogo+nara+wakayama',
+          )
+        }
+      >
+        近畿
+      </KinkiButton>
+      <ChugokuButton
+        onClick={() =>
+          router.push(
+            'spot/list?pref=tottori+shimane+okayama+hiroshima+yamaguchi',
+          )
+        }
+      >
+        中国
+      </ChugokuButton>
+      <ShikokuButton
+        onClick={() =>
+          router.push('spot/list?pref=tokushima+kagawa+ehime+kochi')
+        }
+      >
+        四国
+      </ShikokuButton>
+      <KyusyuButton
+        onClick={() =>
+          router.push(
+            'spot/list?pref=fukuoka+saga+nagasaki+kumamoto+oita+miyazaki+kagoshima',
+          )
+        }
+      >
+        九州
+      </KyusyuButton>
+      <OkinawaButton onClick={() => router.push('spot/list?pref=okinawa')}>
+        沖縄
+      </OkinawaButton>
     </Map>
   )
 }

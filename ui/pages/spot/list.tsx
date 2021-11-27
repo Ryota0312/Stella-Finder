@@ -2,6 +2,7 @@ import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
@@ -14,6 +15,9 @@ type SpotListItem = {
 }
 
 const List: React.FC = () => {
+  const router = useRouter()
+  const { pref } = router.query
+
   const fetcher = useApi()
   const { data, error } = useSWR(['/api/spot/list', false], fetcher)
 
@@ -28,6 +32,7 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
+        <div>Area: {pref}</div>
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>

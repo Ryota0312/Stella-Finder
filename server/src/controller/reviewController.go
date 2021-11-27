@@ -110,9 +110,14 @@ func GetSummary(c *gin.Context) {
 		safetySum += review.Safety
 	}
 
-	darknessAvg := float64(darknessSum) / float64(count)
-	viewAvg := float64(viewSum) / float64(count)
-	safetyAvg := float64(safetySum) / float64(count)
+	var darknessAvg = 0.0
+	var viewAvg = 0.0
+	var safetyAvg = 0.0
+	if count > 0 {
+		darknessAvg = float64(darknessSum) / float64(count)
+		viewAvg = float64(viewSum) / float64(count)
+		safetyAvg = float64(safetySum) / float64(count)
+	}
 	total := (darknessAvg + viewAvg + safetyAvg) / 3.0
 	output := GetSummaryOutputForm{total, darknessAvg, viewAvg, safetyAvg}
 

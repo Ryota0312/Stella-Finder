@@ -34,7 +34,16 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
           objectFit={!props.objectFit ? 'contain' : props.objectFit}
         />
       )}
-      {!props.fileKey && <NoImage height={props.height}>No image</NoImage>}
+      {!props.fileKey && (
+        <NoImage
+          width={props.width}
+          height={props.height}
+          maxWidth={props.maxWidth}
+          maxHeight={props.maxHeight}
+        >
+          No image
+        </NoImage>
+      )}
     </ImageWrapper>
   )
 }
@@ -48,8 +57,14 @@ const ImageWrapper = styled.div<Partial<ImageSize>>`
 `
 
 const NoImage = styled.div<Partial<ImageSize>>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  line-height: ${({ height }) => height};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  max-width: ${({ maxWidth }) => maxWidth};
+  max-height: ${({ maxHeight }) => maxHeight};
   border: 1px solid grey;
   background-color: #ececec;
   background-image: -webkit-gradient(

@@ -39,7 +39,10 @@ const List: React.FC = () => {
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
-        <GridList data={convertToGridItem(data)} link="spot/detail" />
+        {data.length === 0 && <div>スポットが登録されていません</div>}
+        {data.length > 0 && (
+          <GridList data={convertToGridItem(data)} link="spot/detail" />
+        )}
       </main>
     </Layout>
   )

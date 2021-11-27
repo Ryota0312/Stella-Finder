@@ -159,7 +159,7 @@ const CoverImageAndReviewSummary = styled.div`
   align-items: flex-start;
   gap: 16px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     display: block;
   }
 `

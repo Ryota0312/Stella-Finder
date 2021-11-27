@@ -35,9 +35,20 @@ const ReviewSummaryContent = styled.div`
   padding: 16px 48px;
   width: 100%;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    width: auto;
+    margin: 16px 0;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
     width: auto;
     margin: 16px 0;
   }

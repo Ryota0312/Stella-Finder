@@ -33,4 +33,12 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
 const ReviewSummaryContent = styled.div`
   border: 1px solid #ccc;
   padding: 16px 48px;
+  width: 100%;
+
+  @media screen and (max-width: 900px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: auto;
+    margin: 16px 0;
+  }
 `

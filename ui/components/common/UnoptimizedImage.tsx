@@ -6,6 +6,8 @@ import { Property } from 'csstype'
 interface ImageSize {
   width: string
   height: string
+  maxWidth?: string
+  maxHeight?: string
 }
 
 interface UnoptimizedImageInterface extends ImageSize {
@@ -17,7 +19,12 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
   props: Partial<UnoptimizedImageInterface>,
 ) => {
   return (
-    <ImageWrapper width={props.width} height={props.height}>
+    <ImageWrapper
+      width={props.width}
+      height={props.height}
+      maxWidth={props.maxWidth}
+      maxHeight={props.maxHeight}
+    >
       {!!props.fileKey && (
         <Image
           src={'/api/file/download?fileKey=' + props.fileKey}
@@ -36,6 +43,8 @@ const ImageWrapper = styled.div<Partial<ImageSize>>`
   position: relative;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  max-width: ${({ maxWidth }) => maxWidth};
+  max-height: ${({ maxHeight }) => maxHeight};
 `
 
 const NoImage = styled.div<Partial<ImageSize>>`
@@ -61,4 +70,6 @@ const NoImage = styled.div<Partial<ImageSize>>`
 ImageWrapper.defaultProps = {
   width: '100%',
   height: '200px',
+  maxWidth: '100%',
+  maxHeight: '100%',
 }

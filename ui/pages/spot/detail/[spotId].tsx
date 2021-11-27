@@ -66,11 +66,13 @@ const Spot: React.FC = () => {
       <main>
         <h2>{data.name}</h2>
         <CoverImageAndReviewSummary>
-          <div style={{ margin: '0 16px' }}>
+          <div>
             <UnoptimizedImage
               fileKey={coverImage}
-              width={'400px'}
-              height={'400px'}
+              width={'90vw'}
+              height={'90vw'}
+              maxWidth={'600px'}
+              maxHeight={'600px'}
               objectFit={'cover'}
             />
           </div>
@@ -153,9 +155,13 @@ export default Spot
 
 const CoverImageAndReviewSummary = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 16px;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+
+  @media screen and (max-width: 900px) {
+    display: block;
+  }
 `
 
 const SpotInfoTable = styled.table`

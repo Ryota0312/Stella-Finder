@@ -51,6 +51,7 @@ const AreaButton = styled.button`
   text-align: center;
   white-space: nowrap;
   height: 8%;
+  line-height: 1em;
 
   @media screen and (max-width: 480px) {
     font-size: 3vw;

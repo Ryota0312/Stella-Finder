@@ -19,27 +19,21 @@ export const LoginStatus: React.FC = () => {
   return (
     <Status>
       <LoginUserOnly>
-        {data.icon === '' && (
-          <Link href={'/user/profile/' + data.id}>
-            <UserIconWrapper>
+        <Link href={'/user/profile/' + data.id}>
+          <UserIconAndName>
+            {data.icon === '' && (
               <UserIconDefault
                 src="/image/profile-icon-default.png"
                 alt="user icon"
                 width={24}
                 height={24}
               />
-            </UserIconWrapper>
-          </Link>
-        )}
-        {data.icon !== '' && (
-          <Link href={'/user/profile/' + data.id}>
-            <UserIconWrapper>
+            )}
+            {data.icon !== '' && (
               <UserIcon fileKey={data.icon} width="24px" height="24px" />
-            </UserIconWrapper>
-          </Link>
-        )}
-        <Link href={'/user/profile/' + data.id}>
-          <UserName>{data.name}</UserName>
+            )}
+            <UserName>{data.name}</UserName>
+          </UserIconAndName>
         </Link>
         {data.id != 0 && (
           <LogoutButton type={'button'} onClick={logout}>
@@ -60,6 +54,11 @@ const Status = styled.div`
   display: flex;
   height: fit-content;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    display: block;
+    text-align: right;
+  }
 `
 
 const UserName = styled.div`
@@ -73,16 +72,16 @@ const UserName = styled.div`
 // スタイルこれでいいかは怪しい
 const LogoutButton = styled.a`
   cursor: pointer;
-  height: 1em;
+  line-height: 1em;
 `
 
 const LoginLink = styled.div`
-  height: 1em;
+  line-height: 1em;
 `
 
-const UserIconWrapper = styled.div`
-  height: 1em;
-  margin-right: 8px;
+const UserIconAndName = styled.div`
+  display: flex;
+  gap: 8px;
   cursor: pointer;
 `
 

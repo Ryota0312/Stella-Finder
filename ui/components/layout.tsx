@@ -28,7 +28,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
               <Link href="/">トップ</Link>
             </HeaderMenuListItem>
             <HeaderMenuListItem>
-              <Link href="/spot/list">天体観測スポット</Link>
+              <Link href="/spot/list">観測スポット</Link>
             </HeaderMenuListItem>
           </HeaderMenuList>
         </LayoutHeader>
@@ -90,6 +90,7 @@ const MainContents = styled.div`
   max-width: 900px;
 
   h2 {
-    color: green;
+    color: #3e4f6d;
+    font-size: 2em;
   }
 `

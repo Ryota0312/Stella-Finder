@@ -27,6 +27,10 @@ func CreateReview(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	if input.Darkness == 0 || input.View == 0 || input.Safety == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "空の暗さ、見晴らし、安全性の評価が入力されていません"})
+		return
+	}
 
 	session := sessions.Default(c)
 	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)

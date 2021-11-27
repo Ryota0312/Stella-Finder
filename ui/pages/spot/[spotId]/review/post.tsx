@@ -71,6 +71,12 @@ const Post: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
+            if (darkness === 0 || view === 0 || safety == 0) {
+              notifyError(
+                '空の暗さ、見晴らし、安全性は☆1つ以上の評価を選択してください',
+              )
+              return
+            }
             const response = await post_(
               Number(spotId),
               darkness,

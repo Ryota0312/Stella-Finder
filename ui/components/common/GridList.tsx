@@ -41,6 +41,10 @@ const GridLayout = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `
 
 const GridItem = styled.li`

@@ -9,6 +9,7 @@ import { useApi } from '../../../hooks/useApi'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
+import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -72,12 +73,9 @@ const Edit: React.FC = () => {
           }
         />
         <p>都道府県</p>
-        <input
-          type={'text'}
+        <PrefectureSelect
           value={prefecture}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPrefecture(e.target.value)
-          }
+          onChange={(e) => setPrefecture(e.target.value)}
         />
         <p>住所</p>
         <input

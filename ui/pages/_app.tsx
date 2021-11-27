@@ -34,4 +34,11 @@ const GlobalStyle = createGlobalStyle`
       //color: white;
     }
   }
+
+  input {
+    border: 2px solid gray;
+    border-radius: 4px;
+    line-height: 2em;
+    width: 30%;
+  }
 `

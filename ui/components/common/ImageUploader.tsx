@@ -24,7 +24,7 @@ export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
           <NoThumbnail>画像がアップロードされていません</NoThumbnail>
         </UploadedImageThumbnail>
       )}
-      <input
+      <ImageInput
         type="file"
         accept="image/*"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -45,6 +45,11 @@ export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
     </div>
   )
 }
+
+const ImageInput = styled.input`
+  border: none;
+  width: auto;
+`
 
 const UploadedImageThumbnail = styled.div`
   width: ${THUMBNAIL_WIDTH};

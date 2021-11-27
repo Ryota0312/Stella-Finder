@@ -14,7 +14,7 @@ const User: React.FC = () => {
 
   const { fetcher } = useApi()
   const { data, error } = useSWR(
-    ['/api/profile' + '?id=' + userId, false],
+    userId ? ['/api/profile' + '?id=' + userId, false] : null,
     fetcher,
   )
 

@@ -7,7 +7,7 @@ import { Review } from './Review'
 export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/review/list?spotId=' + spotId, false],
+    spotId ? ['/api/review/list?spotId=' + spotId, false] : null,
     fetcher,
   )
 

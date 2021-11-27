@@ -12,7 +12,9 @@ export const SpotImageList: React.FC<SpotImageList> = (
 ) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/spot/image/list?spotId=' + props.spotId, false],
+    props.spotId
+      ? ['/api/spot/image/list?spotId=' + props.spotId, false]
+      : null,
     fetcher,
   )
 

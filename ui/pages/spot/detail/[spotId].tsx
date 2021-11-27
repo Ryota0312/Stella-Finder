@@ -29,7 +29,7 @@ const Spot: React.FC = () => {
 
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/spots' + '?id=' + spotId, false],
+    spotId ? ['/api/spots' + '?id=' + spotId, false] : null,
     fetcher,
   )
 

@@ -12,7 +12,7 @@ export const UserImageList: React.FC<UserImageListProps> = (
 ) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/file/list?userId=' + props.userId, false],
+    props.userId ? ['/api/file/list?userId=' + props.userId, false] : null,
     fetcher,
   )
 

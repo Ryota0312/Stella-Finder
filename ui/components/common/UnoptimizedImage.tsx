@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
+import { Property } from 'csstype'
 
 interface ImageSize {
   width: string
@@ -9,25 +10,24 @@ interface ImageSize {
 
 interface UnoptimizedImageInterface extends ImageSize {
   fileKey: string
+  objectFit?: Property.ObjectFit
 }
 
-export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = ({
-  fileKey,
-  width,
-  height,
-}) => {
+export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
+  props: Partial<UnoptimizedImageInterface>,
+) => {
   return (
-    <ImageWrapper width={width} height={height}>
-      {!!fileKey && (
+    <ImageWrapper width={props.width} height={props.height}>
+      {!!props.fileKey && (
         <Image
-          src={'/api/file/download?fileKey=' + fileKey}
+          src={'/api/file/download?fileKey=' + props.fileKey}
           alt=""
           unoptimized={true}
           layout="fill"
-          objectFit="contain"
+          objectFit={!props.objectFit ? 'contain' : props.objectFit}
         />
       )}
-      {!fileKey && <NoImage height={height}>No image</NoImage>}
+      {!props.fileKey && <NoImage height={props.height}>No image</NoImage>}
     </ImageWrapper>
   )
 }

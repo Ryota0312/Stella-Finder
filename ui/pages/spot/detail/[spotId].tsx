@@ -66,8 +66,13 @@ const Spot: React.FC = () => {
       <main>
         <h2>{data.name}</h2>
         <CoverImageAndReviewSummary>
-          <div style={{ width: '50vw' }}>
-            <UnoptimizedImage fileKey={coverImage} height={'400px'} />
+          <div style={{ margin: '0 16px' }}>
+            <UnoptimizedImage
+              fileKey={coverImage}
+              width={'50vw'}
+              height={'50vw'}
+              objectFit={'cover'}
+            />
           </div>
           <ReviewSummary spotId={Number(spotId)} />
         </CoverImageAndReviewSummary>

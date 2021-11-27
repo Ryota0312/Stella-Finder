@@ -14,13 +14,13 @@ export const PrefecturePicker: React.FC = () => {
         height={506}
         alt="Prefecture picker"
       />
-      <HokkaidoButton onClick={() => router.push('/spot/list?pref=hokkaido')}>
+      <HokkaidoButton onClick={() => router.push('/spot/list?pref=北海道')}>
         北海道
       </HokkaidoButton>
       <TohokuButton
         onClick={() =>
           router.push(
-            '/spot/list?pref=aomori+iwate+akita+miyagi+yamagata+fukushima',
+            '/spot/list?pref=青森県+岩手県+秋田県+宮城県+山形県+福島県',
           )
         }
       >
@@ -29,7 +29,7 @@ export const PrefecturePicker: React.FC = () => {
       <KantoButton
         onClick={() =>
           router.push(
-            'spot/list?pref=ibaraki+tochigi+gunma+saitama+chiba+kanagawa+tokyo',
+            'spot/list?pref=茨城県+栃木県+群馬県+埼玉県+千葉県+神奈川県+東京都',
           )
         }
       >
@@ -37,14 +37,14 @@ export const PrefecturePicker: React.FC = () => {
       </KantoButton>
       <HokurikuButton
         onClick={() =>
-          router.push('spot/list?pref=nigata+toyama+ishikawa+fukui')
+          router.push('spot/list?pref=新潟県+富山県+石川県+福井県')
         }
       >
         北陸
       </HokurikuButton>
       <ChubuButton
         onClick={() =>
-          router.push('spot/list?pref=yamanashi+nagano+gifu+shizuoka+aichi')
+          router.push('spot/list?pref=山梨県+長野県+岐阜県+静岡県+愛知県')
         }
       >
         中部
@@ -52,7 +52,7 @@ export const PrefecturePicker: React.FC = () => {
       <KinkiButton
         onClick={() =>
           router.push(
-            'spot/list?pref=mie+shiga+kyoto+osaka+hyogo+nara+wakayama',
+            'spot/list?pref=三重県+滋賀県+京都府+大阪府+兵庫県+奈良県+和歌山県',
           )
         }
       >
@@ -60,16 +60,14 @@ export const PrefecturePicker: React.FC = () => {
       </KinkiButton>
       <ChugokuButton
         onClick={() =>
-          router.push(
-            'spot/list?pref=tottori+shimane+okayama+hiroshima+yamaguchi',
-          )
+          router.push('spot/list?pref=鳥取県+島根県+岡山県+広島県+山口県')
         }
       >
         中国
       </ChugokuButton>
       <ShikokuButton
         onClick={() =>
-          router.push('spot/list?pref=tokushima+kagawa+ehime+kochi')
+          router.push('spot/list?pref=徳島県+香川県+愛媛県+高知県')
         }
       >
         四国
@@ -77,13 +75,13 @@ export const PrefecturePicker: React.FC = () => {
       <KyusyuButton
         onClick={() =>
           router.push(
-            'spot/list?pref=fukuoka+saga+nagasaki+kumamoto+oita+miyazaki+kagoshima',
+            'spot/list?pref=福岡県+佐賀県+長崎県+熊本県+大分県+宮崎県+鹿児島県',
           )
         }
       >
         九州
       </KyusyuButton>
-      <OkinawaButton onClick={() => router.push('spot/list?pref=okinawa')}>
+      <OkinawaButton onClick={() => router.push('spot/list?pref=沖縄県')}>
         沖縄
       </OkinawaButton>
     </Map>

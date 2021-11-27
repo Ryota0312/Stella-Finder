@@ -4,9 +4,11 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"net/url"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
 	"strconv"
+	"strings"
 )
 
 type CreateSpotInputForm struct {
@@ -58,7 +60,15 @@ func GetSpot(c *gin.Context) {
 }
 
 func GetAllSpots(c *gin.Context) {
-	c.JSON(200, db.AllSpots())
+	prefectures := c.Query("pref")
+
+	if prefectures == "" {
+		c.JSON(http.StatusOK, db.AllSpots())
+	} else {
+		prefectures, _ = url.QueryUnescape(prefectures)
+		prefArray := strings.Split(prefectures, " ")
+		c.JSON(http.StatusOK, db.FindSpotByPrefecture(prefArray))
+	}
 }
 
 type UpdateSpotInputForm struct {

@@ -6,6 +6,17 @@ import (
 	entity "stella-finder-server/src/models/entity"
 )
 
+func AllSpots() []entity.Spot {
+	var spots []entity.Spot
+
+	db := open()
+	// select
+	db.Find(&spots)
+	defer db.Close()
+
+	return spots
+}
+
 func FindSpot(id int) entity.Spot {
 	var spot = entity.Spot{}
 
@@ -17,11 +28,13 @@ func FindSpot(id int) entity.Spot {
 	return spot
 }
 
-func AllSpots() []entity.Spot {
+func FindSpotByPrefecture(prefectures []string) []entity.Spot {
 	var spots []entity.Spot
 
 	db := open()
-	// select
+	for _, prefecture := range prefectures {
+		db = db.Or("prefecture = ?", prefecture)
+	}
 	db.Find(&spots)
 	defer db.Close()
 

@@ -19,7 +19,10 @@ const List: React.FC = () => {
   const { pref } = router.query
 
   const fetcher = useApi()
-  const { data, error } = useSWR(['/api/spot/list', false], fetcher)
+  const { data, error } = useSWR(
+    !pref ? ['/api/spot/list', false] : ['/api/spot/list?pref=' + pref, false],
+    fetcher,
+  )
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

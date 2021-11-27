@@ -236,8 +236,9 @@ const Map = styled.iframe`
 `
 
 const Actions = styled.div`
-  display: flex;
-  gap: 8px;
+  button {
+    margin: 4px 8px 4px 0;
+  }
 `
 
 const ButtonInnerWithImage = styled.div`

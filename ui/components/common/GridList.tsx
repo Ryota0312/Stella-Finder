@@ -20,7 +20,11 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
           <GridItem key={d.title}>
             <Link href={'/' + link + '/' + d.id} passHref>
               <a>
-                <UnoptimizedImage fileKey={d.coverImage} height={'200px'} />
+                <UnoptimizedImage
+                  fileKey={d.coverImage}
+                  height={'200px'}
+                  objectFit={'cover'}
+                />
                 {d.title}
               </a>
             </Link>

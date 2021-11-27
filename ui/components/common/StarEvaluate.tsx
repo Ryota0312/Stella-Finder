@@ -15,7 +15,10 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
     <div>
       <p>{props.label}</p>
       <div style={{ display: 'flex', gap: '8px' }}>
-        <div>{!!props.showPoint && Math.round(props.point * 10) / 10}</div>
+        <div>
+          {!!props.showPoint &&
+            (Math.round(props.point * 10) / 10).toPrecision(2)}
+        </div>
         <StarEvaluateWrapper>
           {[...Array(5)].map((_, i) => {
             if (props.point < i + 0.5) {

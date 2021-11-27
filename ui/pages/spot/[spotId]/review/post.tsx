@@ -56,9 +56,10 @@ const Post: React.FC = () => {
         <p>安全性</p>
         <StarEvaluator onChange={(point) => setSafety(point)} />
         <p>コメント</p>
-        <input
-          type={'text'}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        <textarea
+          rows={7}
+          cols={100}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setComment(e.target.value)
           }
         />

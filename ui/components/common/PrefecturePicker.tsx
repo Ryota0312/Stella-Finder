@@ -11,12 +11,16 @@ export const PrefecturePicker: React.FC = () => {
         height={506}
         alt="Prefecture picker"
       />
-      <HokkaidoTohokuButton>北海道・東北</HokkaidoTohokuButton>
+      <HokkaidoButton>北海道</HokkaidoButton>
+      <TohokuButton>東北</TohokuButton>
       <KantoButton>関東</KantoButton>
-      <HokurikuChubuButton>北陸・中部</HokurikuChubuButton>
+      <HokurikuButton>北陸</HokurikuButton>
+      <ChubuButton>中部</ChubuButton>
       <KinkiButton>近畿</KinkiButton>
-      <ChugokuShikokuButton>中国・四国</ChugokuShikokuButton>
-      <KyusyuOkinawaButton>九州・沖縄</KyusyuOkinawaButton>
+      <ChugokuButton>中国</ChugokuButton>
+      <ShikokuButton>四国</ShikokuButton>
+      <KyusyuButton>九州</KyusyuButton>
+      <OkinawaButton>沖縄</OkinawaButton>
     </Map>
   )
 }
@@ -46,16 +50,23 @@ const AreaButton = styled.button`
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
+  height: 8%;
 
   @media screen and (max-width: 480px) {
     font-size: 3vw;
   }
 `
 
-const HokkaidoTohokuButton = styled(AreaButton)`
-  top: 30%;
-  right: 0;
-  width: 30%;
+const HokkaidoButton = styled(AreaButton)`
+  top: 2%;
+  right: 5%;
+  width: 18%;
+`
+
+const TohokuButton = styled(AreaButton)`
+  top: 31%;
+  right: 11%;
+  width: 13%;
 `
 
 const KantoButton = styled(AreaButton)`
@@ -64,10 +75,16 @@ const KantoButton = styled(AreaButton)`
   width: 13%;
 `
 
-const HokurikuChubuButton = styled(AreaButton)`
-  top: 51%;
-  right: 23.5%;
-  width: 23%;
+const HokurikuButton = styled(AreaButton)`
+  top: 43%;
+  right: 36%;
+  width: 13%;
+`
+
+const ChubuButton = styled(AreaButton)`
+  top: 60%;
+  right: 28%;
+  width: 13%;
 `
 
 const KinkiButton = styled(AreaButton)`
@@ -76,14 +93,26 @@ const KinkiButton = styled(AreaButton)`
   width: 13%;
 `
 
-const ChugokuShikokuButton = styled(AreaButton)`
+const ChugokuButton = styled(AreaButton)`
   top: 52%;
-  left: 20%;
-  width: 25%;
+  left: 26%;
+  width: 13%;
 `
 
-const KyusyuOkinawaButton = styled(AreaButton)`
-  top: 70%;
+const ShikokuButton = styled(AreaButton)`
+  top: 74%;
+  left: 27%;
+  width: 13%;
+`
+
+const KyusyuButton = styled(AreaButton)`
+  top: 65%;
+  left: 6%;
+  width: 13%;
+`
+
+const OkinawaButton = styled(AreaButton)`
+  top: 89%;
   left: 0;
-  width: 25%;
+  width: 13%;
 `

@@ -41,4 +41,14 @@ const GlobalStyle = createGlobalStyle`
     line-height: 2em;
     width: 30%;
   }
+
+  select {
+    border: 2px solid gray;
+    border-radius: 4px;
+    height: 2em;
+    line-height: 2em;
+    width: 30%;
+    background-color: transparent;
+    font-size: 1em;
+  }
 `

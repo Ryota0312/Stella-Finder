@@ -8,6 +8,7 @@ import { ImageUploader } from '../../components/common/ImageUploader'
 import { useApi } from '../../hooks/useApi'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { PrefectureSelect } from '../../components/common/PrefectureSelect'
 
 const Register: React.FC = () => {
   const router = useRouter()
@@ -58,12 +59,7 @@ const Register: React.FC = () => {
           }
         />
         <p>都道府県</p>
-        <input
-          type={'text'}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPrefecture(e.target.value)
-          }
-        />
+        <PrefectureSelect onChange={(e) => setPrefecture(e.target.value)} />
         <p>住所</p>
         <input
           type={'text'}
@@ -87,6 +83,10 @@ const Register: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
+            if (prefecture === '') {
+              notifyError('都道府県は必須です')
+              return
+            }
             const response = await register_(
               name,
               coverImageKey,

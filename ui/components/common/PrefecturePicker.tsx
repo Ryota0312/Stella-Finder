@@ -13,10 +13,10 @@ export const PrefecturePicker: React.FC = () => {
       />
       <HokkaidoTohokuButton>北海道・東北</HokkaidoTohokuButton>
       <KantoButton>関東</KantoButton>
-      <ChubuButton>中部</ChubuButton>
+      <HokurikuChubuButton>北陸・中部</HokurikuChubuButton>
       <KinkiButton>近畿</KinkiButton>
       <ChugokuShikokuButton>中国・四国</ChugokuShikokuButton>
-      <KyusyuOkinawaButton>九州。沖縄</KyusyuOkinawaButton>
+      <KyusyuOkinawaButton>九州・沖縄</KyusyuOkinawaButton>
     </Map>
   )
 }
@@ -64,10 +64,10 @@ const KantoButton = styled(AreaButton)`
   width: 13%;
 `
 
-const ChubuButton = styled(AreaButton)`
-  top: 56%;
-  right: 27.5%;
-  width: 13%;
+const HokurikuChubuButton = styled(AreaButton)`
+  top: 51%;
+  right: 23.5%;
+  width: 23%;
 `
 
 const KinkiButton = styled(AreaButton)`

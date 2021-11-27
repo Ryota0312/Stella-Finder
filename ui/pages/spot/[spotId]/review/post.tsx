@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
+import styled from 'styled-components'
 import Layout from '../../../../components/layout'
 import { useApi } from '../../../../hooks/useApi'
 
@@ -56,9 +57,8 @@ const Post: React.FC = () => {
         <p>安全性</p>
         <StarEvaluator onChange={(point) => setSafety(point)} />
         <p>コメント</p>
-        <textarea
+        <CommentInput
           rows={7}
-          cols={100}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setComment(e.target.value)
           }
@@ -101,6 +101,10 @@ const Post: React.FC = () => {
   )
 }
 export default Post
+
+const CommentInput = styled.textarea`
+  width: 80%;
+`
 
 const post_ = async (
   spotId: number,

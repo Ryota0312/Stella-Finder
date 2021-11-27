@@ -16,20 +16,22 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
 
   return (
     <ReviewListUl>
-      {data.map((d: any) => {
-        return (
-          <Review
-            key={d.id}
-            darkness={d.darkness}
-            view={d.view}
-            safety={d.safety}
-            comment={d.comment}
-            createdBy={d.createdBy}
-            createdAt={d.createdAt}
-            images={d.images}
-          />
-        )
-      })}
+      {data.length === 0 && <div>レビューがありません</div>}
+      {data.length > 0 &&
+        data.map((d: any) => {
+          return (
+            <Review
+              key={d.id}
+              darkness={d.darkness}
+              view={d.view}
+              safety={d.safety}
+              comment={d.comment}
+              createdBy={d.createdBy}
+              createdAt={d.createdAt}
+              images={d.images}
+            />
+          )
+        })}
     </ReviewListUl>
   )
 }

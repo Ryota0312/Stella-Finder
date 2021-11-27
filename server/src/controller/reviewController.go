@@ -65,6 +65,7 @@ func GetReviewList(c *gin.Context) {
 	reviews := db.FindReviews(spotId)
 
 	var output []GetReviewListOutputForm
+	output = []GetReviewListOutputForm{}
 	for _, review := range reviews {
 		var images []string
 		reviewImages := db.FindReviewImages(review.Id)

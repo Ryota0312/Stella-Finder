@@ -134,11 +134,19 @@ const Spot: React.FC = () => {
             <Link href={'/login'}>ログインしてレビューを投稿する</Link>
           }
         >
-          <Link href={'/spot/edit/' + spotId}>スポット情報を編集</Link>
-          <button onClick={() => setIsOpenAddImageDialog(true)}>
-            写真を投稿
-          </button>
-          <Link href={'/spot/' + spotId + '/review/post'}>レビューを投稿</Link>
+          <Actions>
+            <button onClick={() => router.push('/spot/edit/' + spotId)}>
+              スポット情報を編集
+            </button>
+            <button onClick={() => setIsOpenAddImageDialog(true)}>
+              写真を投稿
+            </button>
+            <button
+              onClick={() => router.push('/spot/' + spotId + '/review/post')}
+            >
+              レビューを投稿
+            </button>
+          </Actions>
           <AddImageDialog
             isOpen={isOpenAddImageDialog}
             closeDialog={() => setIsOpenAddImageDialog(false)}
@@ -200,6 +208,11 @@ const Map = styled.iframe`
   width: 100%;
   max-width: 600px;
   border: none;
+`
+
+const Actions = styled.div`
+  display: flex;
+  gap: 8px;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

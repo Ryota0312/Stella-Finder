@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { toast, ToastContainer } from 'react-toastify'
 import Link from 'next/link'
 import styled from 'styled-components'
+import Image from 'next/image'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
@@ -136,15 +137,39 @@ const Spot: React.FC = () => {
         >
           <Actions>
             <button onClick={() => router.push('/spot/edit/' + spotId)}>
-              スポット情報を編集
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/spot-edit.png'}
+                  alt={'Edit spot information'}
+                  width={18}
+                  height={18}
+                />
+                <div>スポット情報を編集</div>
+              </ButtonInnerWithImage>
             </button>
             <button onClick={() => setIsOpenAddImageDialog(true)}>
-              写真を投稿
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/spot-photo.png'}
+                  alt={'Edit spot information'}
+                  width={18}
+                  height={18}
+                />
+                <div>写真を投稿</div>
+              </ButtonInnerWithImage>
             </button>
             <button
               onClick={() => router.push('/spot/' + spotId + '/review/post')}
             >
-              レビューを投稿
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/spot-review.png'}
+                  alt={'Edit spot information'}
+                  width={18}
+                  height={18}
+                />
+                <div>レビュー投稿</div>
+              </ButtonInnerWithImage>
             </button>
           </Actions>
           <AddImageDialog
@@ -213,6 +238,11 @@ const Map = styled.iframe`
 const Actions = styled.div`
   display: flex;
   gap: 8px;
+`
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 4px;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

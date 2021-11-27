@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     background-color: #ffffff;
+    border-color: #ccc;
     border-radius: 4px;
     padding: 4px 8px;
     margin: 8px 0;
@@ -29,8 +30,8 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover,
     &:focus {
-      background-color: #298aea;
-      color: white;
+      background-color: #aaa;
+      //color: white;
     }
   }
 `

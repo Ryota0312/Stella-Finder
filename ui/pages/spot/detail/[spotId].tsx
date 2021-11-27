@@ -69,8 +69,8 @@ const Spot: React.FC = () => {
           <div style={{ margin: '0 16px' }}>
             <UnoptimizedImage
               fileKey={coverImage}
-              width={'50vw'}
-              height={'50vw'}
+              width={'40vw'}
+              height={'40vw'}
               objectFit={'cover'}
             />
           </div>
@@ -155,6 +155,7 @@ const CoverImageAndReviewSummary = styled.div`
   display: flex;
   justify-content: center;
   margin: 16px;
+  align-items: center;
 `
 
 const SpotInfoTable = styled.table`

@@ -85,8 +85,9 @@ const HeaderMenuListItem = styled.ul`
 `
 
 const MainContents = styled.div`
-  margin: 10px 15vw;
-  width: 70vw;
+  margin: 16px auto;
+  width: 90vw;
+  max-width: 1280px;
 
   h2 {
     color: green;

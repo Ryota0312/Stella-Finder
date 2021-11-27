@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
+import { PrefecturePicker } from '../components/common/PrefecturePicker'
 
 const Home: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
 
       <main>
         <h2>天体観測スポットを探す</h2>
-        <div>以下より天体観測スポットの一覧を閲覧できます。</div>
+        <PrefecturePicker />
         <div>
           <Link href={'/spot/list'}>
             <a>一覧を見る</a>

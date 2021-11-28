@@ -25,12 +25,13 @@ const ButtonWrapper = styled.div`
   background-color: #feffb6;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 0 8px;
   margin: 0 8px 8px 0;
+  padding: 0 8px;
 `
 
 const DeleteButton = styled.button`
   background: transparent;
   border: none;
   margin: 0;
+  padding: 0 8px 0 4px;
 `

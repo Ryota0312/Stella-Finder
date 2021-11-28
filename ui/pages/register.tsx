@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import styled from 'styled-components'
 import Layout from '../components/layout'
 
 const Register: React.FC = () => {
@@ -59,7 +60,7 @@ const Register: React.FC = () => {
             {password !== confirmPassword && confirmPassword.length > 0 && (
               <div>パスワードが一致しません</div>
             )}
-            <button
+            <RegisterButton
               type={'button'}
               onClick={() => {
                 register_(
@@ -82,7 +83,7 @@ const Register: React.FC = () => {
               }}
             >
               登録
-            </button>
+            </RegisterButton>
           </div>
         </main>
       </Layout>
@@ -90,6 +91,12 @@ const Register: React.FC = () => {
   }
 }
 export default Register
+
+const RegisterButton = styled.button`
+  display: block;
+  width: 31%;
+  margin-top: 32px;
+`
 
 const register_ = async (
   registerKey: string,

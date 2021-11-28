@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import useSWR from 'swr'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
+import { PrefectureButton } from '../../components/common/PrefectureButton'
 
 type SpotListItem = {
   id: number
@@ -24,6 +26,24 @@ const List: React.FC = () => {
     fetcher,
   )
 
+  const [prefectures, setPrefectures] = useState<Array<string>>(() => {
+    if (!pref) {
+      return []
+    } else {
+      return String(pref).split(' ')
+    }
+  })
+
+  useEffect(() => {
+    setPrefectures(() => {
+      if (!pref) {
+        return []
+      } else {
+        return String(pref).split(' ')
+      }
+    })
+  }, [pref])
+
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
@@ -35,7 +55,26 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <div>Area: {pref}</div>
+        <div>
+          <PrefectureButtonList>
+            {prefectures.map((p) => {
+              return (
+                <PrefectureButton
+                  key={p}
+                  prefecture={p}
+                  onDelete={() =>
+                    router.push(
+                      '/spot/list?pref=' +
+                        prefectures
+                          .filter((prefecture) => prefecture !== p)
+                          .join('+'),
+                    )
+                  }
+                />
+              )
+            })}
+          </PrefectureButtonList>
+        </div>
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
@@ -48,6 +87,10 @@ const List: React.FC = () => {
   )
 }
 export default List
+
+const PrefectureButtonList = styled.div`
+  display: flex;
+`
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {

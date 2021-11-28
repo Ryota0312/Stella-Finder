@@ -40,6 +40,10 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
     line-height: 2em;
     width: 30%;
+
+    @media screen and (max-width: 600px) {
+      width: 85vw;
+    }
   }
 
   select {
@@ -50,5 +54,9 @@ const GlobalStyle = createGlobalStyle`
     width: 30%;
     background-color: transparent;
     font-size: 1em;
+
+    @media screen and (max-width: 600px) {
+      width: 85vw;
+    }
   }
 `

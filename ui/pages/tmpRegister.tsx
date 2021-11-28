@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import { toast, ToastContainer } from 'react-toastify'
 import Layout from '../components/layout'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const TmpRegister: React.FC = () => {
   const [mail, setMail] = useState<string>('')
   const [isComplete, setIsComplete] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
+
+  const notifyError = (msg: string) => toast.error(msg)
 
   if (isComplete) {
     return (
@@ -19,6 +25,12 @@ const TmpRegister: React.FC = () => {
   } else {
     return (
       <Layout>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={true}
+        />
+
         <main>
           <h2>新規ユーザー登録</h2>
 
@@ -31,9 +43,13 @@ const TmpRegister: React.FC = () => {
                 setMail(e.target.value)
               }
             />
-            <button
+            <RegisterButton
               type={'button'}
               onClick={() => {
+                if (!validate_(mail)) {
+                  notifyError('メールアドレスの形式が不正です')
+                  return
+                }
                 return register_(mail).then((res) => {
                   if (res.ok) {
                     setIsComplete(true)
@@ -44,7 +60,7 @@ const TmpRegister: React.FC = () => {
               }}
             >
               登録
-            </button>
+            </RegisterButton>
             {error && <div>このメールアドレスはすでに使用されています</div>}
           </div>
         </main>
@@ -53,6 +69,17 @@ const TmpRegister: React.FC = () => {
   }
 }
 export default TmpRegister
+
+const RegisterButton = styled.button`
+  margin: 0 16px;
+`
+
+const validate_ = (mail: string) => {
+  const mailAddressRegExp = new RegExp(
+    '^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$',
+  )
+  return mailAddressRegExp.test(mail)
+}
 
 const register_ = async (mail: string) => {
   return await fetch('/auth/tmpRegister', {

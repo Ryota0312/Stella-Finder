@@ -89,7 +89,7 @@ const List: React.FC = () => {
 export default List
 
 const PrefectureButtonList = styled.div`
-  display: flex;
+  display: inline-block;
 `
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {

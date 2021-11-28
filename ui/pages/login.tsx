@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import styled from 'styled-components'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 
@@ -10,7 +11,7 @@ const Login: React.FC = () => {
       <main>
         <h2>ログイン</h2>
         <Link href="/tmpRegister">新規ユーザー登録</Link>
-        <div>
+        <LoginForm>
           <p>メールアドレス</p>
           <input
             type={'text'}
@@ -41,9 +42,29 @@ const Login: React.FC = () => {
           >
             ログイン
           </button>
-        </div>
+        </LoginForm>
       </main>
     </Layout>
   )
 }
 export default Login
+
+const LoginForm = styled.div`
+  border: 1px solid #ccc;
+  padding: 16px;
+  width: 80vw;
+  max-width: 400px;
+  margin: 16px 0;
+
+  input {
+    width: 70%;
+  }
+
+  button {
+    display: block;
+    margin-top: 32px;
+    width: 72%;
+    line-height: 2em;
+    font-size: 1em;
+  }
+`

@@ -14,6 +14,7 @@ type SpotListItem = {
   id: number
   name: string
   coverImage: string
+  avgTotalPoint: number
 }
 
 const List: React.FC = () => {
@@ -98,6 +99,7 @@ const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
       id: spot.id,
       title: spot.name,
       coverImage: spot.coverImage,
+      avgTotalPoint: spot.avgTotalPoint,
     } as GridListItemData
   })
 }

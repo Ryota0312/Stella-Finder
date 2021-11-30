@@ -2,11 +2,13 @@ import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 import { UnoptimizedImage } from './UnoptimizedImage'
+import { StarEvaluate } from './StarEvaluate'
 
 export interface GridListItemData {
   id: number
   title: string
   coverImage: string
+  avgTotalPoint: number
 }
 
 export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
@@ -26,6 +28,7 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
                   objectFit={'cover'}
                 />
                 {d.title}
+                <StarEvaluate point={d.avgTotalPoint} showPoint={true} />
               </a>
             </Link>
           </GridItem>

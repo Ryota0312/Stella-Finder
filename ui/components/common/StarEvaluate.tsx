@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 
 type StarEvaluateProps = {
-  label: string
+  label?: string
   point: number
   showPoint?: boolean
 }
@@ -13,7 +13,7 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
 ) => {
   return (
     <div>
-      <p>{props.label}</p>
+      {!!props.label && <p>{props.label}</p>}
       <div style={{ display: 'flex', gap: '8px' }}>
         <div>
           {!!props.showPoint &&

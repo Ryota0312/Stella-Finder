@@ -27,15 +27,19 @@ CREATE TABLE IF NOT EXISTS tmp_register
 
 CREATE TABLE IF NOT EXISTS spot
 (
-    id              INT(11) AUTO_INCREMENT NOT NULL,
-    name            VARCHAR(64) UNIQUE     NOT NULL,
-    cover_image     VARCHAR(64),
-    postal_code     VARCHAR(8),
-    prefecture      VARCHAR(32)            NOT NULL,
-    address         VARCHAR(256)           NOT NULL,
-    remarks         TEXT,
-    last_updated_at TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    last_updated_by INT(11)                NOT NULL,
+    id                 INT(11) AUTO_INCREMENT NOT NULL,
+    name               VARCHAR(64) UNIQUE     NOT NULL,
+    cover_image        VARCHAR(64),
+    postal_code        VARCHAR(8),
+    prefecture         VARCHAR(32)            NOT NULL,
+    address            VARCHAR(256)           NOT NULL,
+    remarks            TEXT,
+    last_updated_at    TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_updated_by    INT(11)                NOT NULL,
+    avg_total_point    DOUBLE                 NOT NULL DEFAULT 0,
+    avg_darkness_point DOUBLE                 NOT NULL DEFAULT 0,
+    avg_view_point     DOUBLE                 NOT NULL DEFAULT 0,
+    avg_safety_point   DOUBLE                 NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 ) default character set utf8mb4;
 

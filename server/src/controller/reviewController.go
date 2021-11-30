@@ -48,6 +48,24 @@ func CreateReview(c *gin.Context) {
 	review := db.CreateReview(input.SpotId, input.Darkness, input.View, input.Safety, input.Comment, loginUser.ID)
 	db.CreateReviewImages(review.Id, input.Images)
 
+	reviews := db.FindReviews(input.SpotId)
+	reviewCount := len(reviews)
+	total := 0.0
+	darkness := 0.0
+	view := 0.0
+	safety := 0.0
+	for _, review := range reviews {
+		total += float64((review.Darkness + review.View + review.Safety) / 3)
+		darkness += float64(review.Darkness)
+		view += float64(review.View)
+		safety += float64(review.Safety)
+	}
+	total /= float64(reviewCount)
+	darkness /= float64(reviewCount)
+	view /= float64(reviewCount)
+	safety /= float64(reviewCount)
+	db.UpdateReviewPoint(input.SpotId, total, darkness, view, safety)
+
 	c.JSON(200, nil)
 }
 

@@ -88,3 +88,18 @@ func SpotNameExists(spotName string) bool {
 	}
 	return false
 }
+
+func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64, safety float64) {
+	var spot = entity.Spot{}
+	spot.ID = spotId
+
+	db := open()
+	db.Model(&spot).Updates(entity.Spot{
+		AvgTotalPoint:    total,
+		AvgDarknessPoint: darkness,
+		AvgViewPoint:     view,
+		AvgSafetyPoint:   safety,
+	})
+
+	defer db.Close()
+}

@@ -77,7 +77,12 @@ const Spot: React.FC = () => {
               objectFit={'cover'}
             />
           </div>
-          <ReviewSummary spotId={Number(spotId)} />
+          <ReviewSummary
+            total={data.avgTotalPoint}
+            darkness={data.avgDarknessPoint}
+            view={data.avgViewPoint}
+            safety={data.avgSafetyPoint}
+          />
         </CoverImageAndReviewSummary>
         <SpotInfoTable>
           <tbody>

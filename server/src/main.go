@@ -40,7 +40,7 @@ func serve() {
 		api.GET("/file/list", controller.GetFilesByUser)
 		api.GET("/profile", controller.GetUser)
 		api.GET("/review/list", controller.GetReviewList)
-		api.GET("/review/summary", controller.GetSummary)
+		api.GET("/review/summary", controller.GetSummary) // Deprecated: spot DB の値を使えばよい
 	}
 
 	// API (need Authorize)

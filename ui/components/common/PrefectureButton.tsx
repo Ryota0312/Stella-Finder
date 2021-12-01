@@ -22,11 +22,17 @@ export const PrefectureButton: React.FC<PrefectureButtonProps> = (
 
 const ButtonWrapper = styled.div`
   display: inline-block;
-  background-color: #feffb6;
+  background-color: #ddf6ff;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 0 8px 8px 0;
   padding: 0 8px;
+
+  a {
+    &:hover {
+      color: darkred;
+    }
+  }
 `
 
 const DeleteButton = styled.button`

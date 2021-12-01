@@ -63,7 +63,8 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <div>
+        <SearchButtons>
+          <p>検索条件</p>
           <PrefectureButtonList>
             {prefectures.map((p) => {
               return (
@@ -90,7 +91,7 @@ const List: React.FC = () => {
               router.push(buildUrl_(prefectures.join('+'), e.target.value))
             }
           />
-        </div>
+        </SearchButtons>
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
@@ -103,6 +104,17 @@ const List: React.FC = () => {
   )
 }
 export default List
+
+const SearchButtons = styled.div`
+  display: grid;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  p {
+    margin: 0 0 16px 0;
+  }
+`
 
 const PrefectureButtonList = styled.div`
   display: inline-block;

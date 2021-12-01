@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 type SpotOrderSelectProps = {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
@@ -21,7 +22,7 @@ export const SpotOrderSelect: React.FC<SpotOrderSelectProps> = (
   return (
     // FIXME: eslint
     // eslint-disable-next-line jsx-a11y/no-onchange
-    <select
+    <StyledSpotOrderSelect
       name="spot_order"
       onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.onChange(e)}
       value={props.value}
@@ -32,6 +33,12 @@ export const SpotOrderSelect: React.FC<SpotOrderSelectProps> = (
           {order.displayValue}
         </option>
       ))}
-    </select>
+    </StyledSpotOrderSelect>
   )
 }
+
+const StyledSpotOrderSelect = styled.select`
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+`

@@ -9,6 +9,7 @@ export interface GridListItemData {
   title: string
   coverImage: string
   avgTotalPoint: number
+  reviewCount: number
 }
 
 export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
@@ -28,7 +29,11 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
                   objectFit={'cover'}
                 />
                 {d.title}
-                <StarEvaluate point={d.avgTotalPoint} showPoint={true} />
+                <StarEvaluate
+                  point={d.avgTotalPoint}
+                  showPoint={true}
+                  reviewCount={d.reviewCount}
+                />
               </a>
             </Link>
           </GridItem>

@@ -6,6 +6,7 @@ type StarEvaluateProps = {
   label?: string
   point: number
   showPoint?: boolean
+  reviewCount?: number
 }
 
 export const StarEvaluate: React.FC<StarEvaluateProps> = (
@@ -53,6 +54,7 @@ export const StarEvaluate: React.FC<StarEvaluateProps> = (
               )
             }
           })}
+          {!!props.reviewCount && <div>({props.reviewCount})</div>}
         </StarEvaluateWrapper>
       </div>
     </div>

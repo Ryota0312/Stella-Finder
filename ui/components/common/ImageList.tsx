@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { UnoptimizedImage } from './UnoptimizedImage'
+import { ZoomImage } from './ZoomImage'
 
 export interface ImageListItem {
   fileKey: string
@@ -8,20 +9,37 @@ export interface ImageListItem {
 }
 
 export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [zoomFileKey, setZoomFileKey] = useState('')
+
   return (
     <ImageGridLayout>
       {data.map((d: ImageListItem) => {
         return (
-          <ImageItem key={d.fileKey}>
-            <UnoptimizedImage
-              fileKey={d.fileKey}
-              width="25vw"
-              height="25vw"
-              maxWidth="200px"
-              maxHeight="200px"
-              objectFit="cover"
+          <>
+            <ImageItem key={d.fileKey}>
+              <ImageItemButton
+                onClick={() => {
+                  setZoomFileKey(d.fileKey)
+                  setIsOpen(true)
+                }}
+              >
+                <UnoptimizedImage
+                  fileKey={d.fileKey}
+                  width="25vw"
+                  height="25vw"
+                  maxWidth="200px"
+                  maxHeight="200px"
+                  objectFit="cover"
+                />
+              </ImageItemButton>
+            </ImageItem>
+            <ZoomImage
+              fileKey={zoomFileKey}
+              isOpen={isOpen}
+              closeDialog={() => setIsOpen(false)}
             />
-          </ImageItem>
+          </>
         )
       })}
     </ImageGridLayout>
@@ -39,4 +57,9 @@ const ImageGridLayout = styled.ul`
 const ImageItem = styled.li`
   list-style-type: none;
   padding: 8px;
+`
+
+const ImageItemButton = styled.button`
+  border: none;
+  background: transparent;
 `

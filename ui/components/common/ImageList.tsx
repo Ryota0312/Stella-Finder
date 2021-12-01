@@ -62,4 +62,6 @@ const ImageItem = styled.li`
 const ImageItemButton = styled.button`
   border: none;
   background: transparent;
+  padding: 0;
+  margin: 0;
 `

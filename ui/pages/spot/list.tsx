@@ -9,6 +9,7 @@ import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { PrefectureButton } from '../../components/common/PrefectureButton'
+import { SpotOrderSelect } from '../../components/common/SpotOrderSelect'
 
 type SpotListItem = {
   id: number
@@ -22,21 +23,10 @@ const List: React.FC = () => {
   const { pref, order } = router.query
 
   const fetcher = useApi()
-  const { data, error } = useSWR(() => {
-    const params = []
-    if (pref) {
-      params.push('pref=' + pref)
-    }
-    if (order) {
-      params.push('order=' + order)
-    }
-
-    if (params.length === 0) {
-      return ['/api/spot/list', false]
-    } else {
-      return ['/api/spot/list?' + params.join('&'), false]
-    }
-  }, fetcher)
+  const { data, error } = useSWR(
+    ['/api/' + buildUrl_(pref, order), false],
+    fetcher,
+  )
 
   const [prefectures, setPrefectures] = useState<Array<string>>(() => {
     if (!pref) {
@@ -45,6 +35,9 @@ const List: React.FC = () => {
       return String(pref).split(' ')
     }
   })
+  const [orderState, setOrderState] = useState<string>(
+    !order ? '' : String(order),
+  )
 
   useEffect(() => {
     setPrefectures(() => {
@@ -55,6 +48,9 @@ const List: React.FC = () => {
       }
     })
   }, [pref])
+  useEffect(() => {
+    setOrderState(!order ? '' : String(order).replace(' ', '+'))
+  }, [order])
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
@@ -76,16 +72,24 @@ const List: React.FC = () => {
                   prefecture={p}
                   onDelete={() =>
                     router.push(
-                      '/spot/list?pref=' +
+                      buildUrl_(
                         prefectures
                           .filter((prefecture) => prefecture !== p)
                           .join('+'),
+                        order,
+                      ),
                     )
                   }
                 />
               )
             })}
           </PrefectureButtonList>
+          <SpotOrderSelect
+            value={orderState}
+            onChange={(e) =>
+              router.push(buildUrl_(prefectures.join('+'), e.target.value))
+            }
+          />
         </div>
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
@@ -113,4 +117,23 @@ const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
       avgTotalPoint: spot.avgTotalPoint,
     } as GridListItemData
   })
+}
+
+const buildUrl_ = (
+  pref: string | string[] | undefined,
+  order: string | string[] | undefined,
+) => {
+  const params = []
+  if (pref) {
+    params.push('pref=' + pref)
+  }
+  if (order) {
+    params.push('order=' + order)
+  }
+
+  if (params.length === 0) {
+    return '/spot/list'
+  } else {
+    return '/spot/list?' + params.join('&')
+  }
 }

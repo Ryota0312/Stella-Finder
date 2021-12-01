@@ -113,7 +113,7 @@ func SpotNameExists(spotName string) bool {
 	return false
 }
 
-func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64, safety float64) {
+func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64, safety float64, reviewCount int) {
 	var spot = entity.Spot{}
 	spot.ID = spotId
 
@@ -123,6 +123,7 @@ func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64
 		AvgDarknessPoint: darkness,
 		AvgViewPoint:     view,
 		AvgSafetyPoint:   safety,
+		ReviewCount:      reviewCount,
 	})
 
 	defer db.Close()

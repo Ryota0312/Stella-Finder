@@ -16,4 +16,5 @@ type Spot struct {
 	AvgDarknessPoint float64   `gorm:"type:double;not null;default:0"  json:"avgDarknessPoint"`
 	AvgViewPoint     float64   `gorm:"type:double;not null;default:0"  json:"avgViewPoint"`
 	AvgSafetyPoint   float64   `gorm:"type:double;not null;default:0"  json:"avgSafetyPoint"`
+	ReviewCount      int       `gorm:"type:int;not null;default:0" json:"reviewCount"`
 }

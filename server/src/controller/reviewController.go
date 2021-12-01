@@ -64,7 +64,7 @@ func CreateReview(c *gin.Context) {
 	darkness /= float64(reviewCount)
 	view /= float64(reviewCount)
 	safety /= float64(reviewCount)
-	db.UpdateReviewPoint(input.SpotId, total, darkness, view, safety)
+	db.UpdateReviewPoint(input.SpotId, total, darkness, view, safety, reviewCount)
 
 	c.JSON(200, nil)
 }

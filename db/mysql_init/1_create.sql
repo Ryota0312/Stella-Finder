@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS spot
     avg_darkness_point DOUBLE                 NOT NULL DEFAULT 0,
     avg_view_point     DOUBLE                 NOT NULL DEFAULT 0,
     avg_safety_point   DOUBLE                 NOT NULL DEFAULT 0,
+    review_count       int                    NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 ) default character set utf8mb4;
 

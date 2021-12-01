@@ -51,8 +51,8 @@ export const LoginStatus: React.FC = () => {
             <UserIconDefault
               src="/image/profile-icon-default.png"
               alt="user icon"
-              width={24}
-              height={24}
+              width={32}
+              height={32}
             />
           </MobileUserMenuButton>
           <MobileUserMenuList isOpen={isOpenMenu}>
@@ -138,6 +138,8 @@ const MobileUserMenu = styled.div`
 const MobileUserMenuButton = styled.button`
   background: transparent;
   border: none;
+  margin: 0;
+  padding: 0;
 
   &:hover {
     background: transparent;

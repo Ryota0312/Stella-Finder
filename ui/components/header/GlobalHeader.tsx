@@ -57,6 +57,7 @@ const LayoutHeader = styled.header`
 const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 `
 
 const HeaderP1 = styled.div`

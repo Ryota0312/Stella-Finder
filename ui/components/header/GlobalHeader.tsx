@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { LoginStatus } from './loginStatus'
+import { LoginStatus } from './LoginStatus'
 
 export const GlobalHeader: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false)
@@ -119,7 +119,7 @@ const HeaderMenuOpenButton = styled.button`
   }
 `
 
-const MobileHeaderMenuList = styled.div<{ isOpen: boolean }>`
+const MobileHeaderMenuList = styled.li<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   flex-direction: column;
   gap: 8px;

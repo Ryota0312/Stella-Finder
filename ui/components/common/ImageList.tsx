@@ -28,8 +28,8 @@ export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
                   fileKey={d.fileKey}
                   width="25vw"
                   height="25vw"
-                  maxWidth="200px"
-                  maxHeight="200px"
+                  maxWidth="280px"
+                  maxHeight="280px"
                   objectFit="cover"
                 />
               </ImageItemButton>

@@ -17,6 +17,8 @@ export const SpotOrderSelect: React.FC<SpotOrderSelectProps> = (
   const orders = [
     { key: 'avg_total_point+desc', displayValue: '総合評価が高い順' },
     { key: 'avg_total_point+asc', displayValue: '総合評価が低い順' },
+    { key: 'review_count+desc', displayValue: '口コミが多い順' },
+    { key: 'review_count+asc', displayValue: '口コミが少ない順' },
   ] as Array<OrderKey>
 
   return (

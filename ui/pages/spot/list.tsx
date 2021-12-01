@@ -19,13 +19,24 @@ type SpotListItem = {
 
 const List: React.FC = () => {
   const router = useRouter()
-  const { pref } = router.query
+  const { pref, order } = router.query
 
   const fetcher = useApi()
-  const { data, error } = useSWR(
-    !pref ? ['/api/spot/list', false] : ['/api/spot/list?pref=' + pref, false],
-    fetcher,
-  )
+  const { data, error } = useSWR(() => {
+    const params = []
+    if (pref) {
+      params.push('pref=' + pref)
+    }
+    if (order) {
+      params.push('order=' + order)
+    }
+
+    if (params.length === 0) {
+      return ['/api/spot/list', false]
+    } else {
+      return ['/api/spot/list?' + params.join('&'), false]
+    }
+  }, fetcher)
 
   const [prefectures, setPrefectures] = useState<Array<string>>(() => {
     if (!pref) {

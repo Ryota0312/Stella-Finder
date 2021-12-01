@@ -61,13 +61,25 @@ func GetSpot(c *gin.Context) {
 
 func GetAllSpots(c *gin.Context) {
 	prefectures := c.Query("pref")
+	order := c.Query("order")
+
+	order, _ = url.QueryUnescape(order)
+	orderArray := strings.Split(order, " ")
 
 	if prefectures == "" {
-		c.JSON(http.StatusOK, db.AllSpots())
+		if order == "" {
+			c.JSON(http.StatusOK, db.AllSpots())
+		} else {
+			c.JSON(http.StatusOK, db.AllSpotsOrderBy(orderArray[0], orderArray[1]))
+		}
 	} else {
 		prefectures, _ = url.QueryUnescape(prefectures)
 		prefArray := strings.Split(prefectures, " ")
-		c.JSON(http.StatusOK, db.FindSpotByPrefecture(prefArray))
+		if order == "" {
+			c.JSON(http.StatusOK, db.FindSpotByPrefecture(prefArray))
+		} else {
+			c.JSON(http.StatusOK, db.FindSpotByPrefectureOrderBy(prefArray, orderArray[0], orderArray[1]))
+		}
 	}
 }
 

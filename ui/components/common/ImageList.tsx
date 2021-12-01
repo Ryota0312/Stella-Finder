@@ -13,7 +13,14 @@ export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
       {data.map((d: ImageListItem) => {
         return (
           <ImageItem key={d.fileKey}>
-            <UnoptimizedImage fileKey={d.fileKey} height="200px" />
+            <UnoptimizedImage
+              fileKey={d.fileKey}
+              width="25vw"
+              height="25vw"
+              maxWidth="200px"
+              maxHeight="200px"
+              objectFit="cover"
+            />
           </ImageItem>
         )
       })}

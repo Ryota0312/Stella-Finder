@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import Image from 'next/image'
@@ -9,13 +9,18 @@ import { useAuth } from '../../hooks/useAuth'
 import { UnoptimizedImage } from '../common/UnoptimizedImage'
 import { LoginUserOnly } from '../common/LoginUserOnly'
 
-export const LoginStatus: React.FC = () => {
+type LoginStatusProps = {
+  isOpen: boolean
+  onClickUserMenu: (isOpen: boolean) => void
+}
+
+export const LoginStatus: React.FC<LoginStatusProps> = (
+  props: LoginStatusProps,
+) => {
   const router = useRouter()
   const { logout } = useAuth()
   const fetcher = useApi()
   const { data, error } = useSWR(['/api/loginUser', false], fetcher)
-
-  const [isOpenMenu, setIsOpenMenu] = useState(false)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
@@ -47,7 +52,9 @@ export const LoginStatus: React.FC = () => {
           )}
         </DesktopUserMenu>
         <MobileUserMenu>
-          <MobileUserMenuButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
+          <MobileUserMenuButton
+            onClick={() => props.onClickUserMenu(!props.isOpen)}
+          >
             <UserIconDefault
               src="/image/profile-icon-default.png"
               alt="user icon"
@@ -55,7 +62,7 @@ export const LoginStatus: React.FC = () => {
               height={32}
             />
           </MobileUserMenuButton>
-          <MobileUserMenuList isOpen={isOpenMenu}>
+          <MobileUserMenuList isOpen={props.isOpen}>
             <MobileUserMenuListItem
               onClick={() => router.push('/user/profile/' + data.id)}
             >

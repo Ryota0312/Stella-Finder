@@ -6,6 +6,7 @@ import { LoginStatus } from './LoginStatus'
 
 export const GlobalHeader: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const [isOpenUserMenu, setIsOpenUserMenu] = useState(false)
 
   const headerMenuItems = [
     { label: 'トップ', href: '/' },
@@ -15,7 +16,12 @@ export const GlobalHeader: React.FC = () => {
   return (
     <LayoutHeader>
       <HeaderContent>
-        <HeaderMenuOpenButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
+        <HeaderMenuOpenButton
+          onClick={() => {
+            setIsOpenUserMenu(false)
+            setIsOpenMenu(!isOpenMenu)
+          }}
+        >
           <Image
             src="/image/header-menu.png"
             alt="open menu"
@@ -27,7 +33,13 @@ export const GlobalHeader: React.FC = () => {
           <Link href={'/'}>
             <HeaderTitle>Stella Finder</HeaderTitle>
           </Link>
-          <LoginStatus />
+          <LoginStatus
+            isOpen={isOpenUserMenu}
+            onClickUserMenu={() => {
+              setIsOpenMenu(false)
+              setIsOpenUserMenu(!isOpenUserMenu)
+            }}
+          />
         </HeaderP1>
       </HeaderContent>
       <HeaderMenuList>

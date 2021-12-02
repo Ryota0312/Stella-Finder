@@ -16,11 +16,20 @@ export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
       onRequestClose={props.closeDialog}
       contentLabel="User icon edit dialog"
       ariaHideApp={false}
+      style={{
+        content: {
+          width: 'fit-content',
+          height: 'fit-content',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      }}
     >
       <UnoptimizedImage
         fileKey={props.fileKey}
-        width="90vw"
-        height="90vh"
+        width={window.screen.width > window.screen.height ? '90vh' : '80vw'}
+        height={window.screen.width > window.screen.height ? '90vh' : '80vw'}
         objectFit="contain"
       />
       <CloseButton onClick={() => props.closeDialog()}>✕</CloseButton>

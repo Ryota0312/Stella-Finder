@@ -20,6 +20,15 @@ export const UserIconEditDialog: (
       onRequestClose={props.closeDialog}
       contentLabel="User icon edit dialog"
       ariaHideApp={false}
+      style={{
+        content: {
+          width: 'fit-content',
+          height: 'fit-content',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+      }}
     >
       <h3>アイコン画像の変更</h3>
       <ImageUploader

@@ -18,8 +18,8 @@ export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
       ariaHideApp={false}
       style={{
         content: {
-          width: 'fit-content',
-          height: 'fit-content',
+          width: '90vmin',
+          height: '90vmin',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',

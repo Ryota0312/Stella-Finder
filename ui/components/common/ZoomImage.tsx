@@ -28,8 +28,8 @@ export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
     >
       <UnoptimizedImage
         fileKey={props.fileKey}
-        width={window.screen.width > window.screen.height ? '90vh' : '80vw'}
-        height={window.screen.width > window.screen.height ? '90vh' : '80vw'}
+        width={screen.width > screen.height ? '90vh' : '80vw'}
+        height={screen.width > screen.height ? '90vh' : '80vw'}
         objectFit="contain"
       />
       <CloseButton onClick={() => props.closeDialog()}>✕</CloseButton>

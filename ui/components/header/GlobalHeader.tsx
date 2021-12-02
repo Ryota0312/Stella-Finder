@@ -75,6 +75,7 @@ const HeaderContent = styled.div`
 const HeaderP1 = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   padding: 8px 16px;
   width: 100%;
 `

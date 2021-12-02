@@ -157,6 +157,7 @@ const MobileUserMenuList = styled.li<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   flex-direction: column;
   gap: 8px;
+  margin-top: 16px;
 }
 `
 

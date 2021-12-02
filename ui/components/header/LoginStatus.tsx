@@ -55,12 +55,18 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
           <MobileUserMenuButton
             onClick={() => props.onClickUserMenu(!props.isOpen)}
           >
-            <UserIconDefault
-              src="/image/profile-icon-default.png"
-              alt="user icon"
-              width={32}
-              height={32}
-            />
+            {data.icon === '' && (
+              <UserIconDefault
+                src="/image/profile-icon-default.png"
+                alt="user icon"
+                width={48}
+                height={48}
+              />
+            )}
+            {data.icon !== '' && (
+              <UserIcon fileKey={data.icon} width="48px" height="48px" />
+            )}
+            <div style={{ color: 'white' }}>▼</div>
           </MobileUserMenuButton>
           <MobileUserMenuList isOpen={props.isOpen}>
             <MobileUserMenuListItem
@@ -105,7 +111,6 @@ const UserName = styled.div`
 // スタイルこれでいいかは怪しい
 const LogoutButton = styled.a`
   cursor: pointer;
-  line-height: 1em;
 `
 
 const LoginLink = styled.div`
@@ -130,6 +135,8 @@ const UserIcon = styled(UnoptimizedImage)`
 
 const DesktopUserMenu = styled.div`
   display: flex;
+  gap: 8px;
+  margin-top: 8px;
 
   @media screen and (max-width: 600px) {
     display: none;
@@ -137,12 +144,19 @@ const DesktopUserMenu = styled.div`
 `
 
 const MobileUserMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
   @media screen and (min-width: 601px) {
     display: none;
   }
 `
 
 const MobileUserMenuButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: transparent;
   border: none;
   margin: 0;

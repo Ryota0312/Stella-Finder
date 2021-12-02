@@ -9,19 +9,17 @@ export interface ImageListItem {
 }
 
 export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
-  const [isOpen, setIsOpen] = useState(false)
   const [zoomFileKey, setZoomFileKey] = useState('')
 
   return (
-    <ImageGridLayout>
-      {data.map((d: ImageListItem) => {
-        return (
-          <>
+    <>
+      <ImageGridLayout>
+        {data.map((d: ImageListItem) => {
+          return (
             <ImageItem key={d.fileKey}>
               <ImageItemButton
                 onClick={() => {
                   setZoomFileKey(d.fileKey)
-                  setIsOpen(true)
                 }}
               >
                 <UnoptimizedImage
@@ -34,15 +32,15 @@ export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
                 />
               </ImageItemButton>
             </ImageItem>
-            <ZoomImage
-              fileKey={zoomFileKey}
-              isOpen={isOpen}
-              closeDialog={() => setIsOpen(false)}
-            />
-          </>
-        )
-      })}
-    </ImageGridLayout>
+          )
+        })}
+      </ImageGridLayout>
+      <ZoomImage
+        fileKey={zoomFileKey}
+        isOpen={!!zoomFileKey}
+        closeDialog={() => setZoomFileKey('')}
+      />
+    </>
   )
 }
 

@@ -105,6 +105,7 @@ const Edit: React.FC = () => {
           onClick={async () => {
             const response = await update_(
               Number(spotId),
+              name,
               coverImageKey,
               postalCode,
               prefecture,
@@ -129,6 +130,7 @@ export default Edit
 
 const update_ = async (
   spotId: number,
+  spotName: string,
   coverImage: string,
   postalCode: string,
   prefecture: string,
@@ -142,6 +144,7 @@ const update_ = async (
     },
     body: JSON.stringify({
       spotId: spotId,
+      spotName: spotName,
       coverImage: coverImage,
       postalCode: postalCode,
       prefecture: prefecture,

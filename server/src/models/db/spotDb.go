@@ -65,12 +65,13 @@ func FindSpotByPrefectureOrderBy(prefectures []string, order string, ascDesc str
 	return spots
 }
 
-func UpdateSpot(id int, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) {
+func UpdateSpot(id int, spotName string, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) {
 	var spot = entity.Spot{}
 	spot.ID = id
 
 	db := open()
 	db.Model(&spot).Updates(entity.Spot{
+		Name:          spotName,
 		CoverImage:    coverImage,
 		PostalCode:    postalCode,
 		Prefecture:    prefecture,

@@ -85,6 +85,7 @@ func GetAllSpots(c *gin.Context) {
 
 type UpdateSpotInputForm struct {
 	SpotId     int    `json:"spotId"`
+	SpotName   string `json:"spotName"`
 	CoverImage string `json:"coverImage"`
 	PostalCode string `json:"postalCode"`
 	Prefecture string `json:"prefecture"`
@@ -96,6 +97,11 @@ func UpdateSpot(c *gin.Context) {
 	var input UpdateSpotInputForm
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if db.SpotNameExists(input.SpotName) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "このスポット名はすでに登録されています"})
 		return
 	}
 
@@ -112,7 +118,7 @@ func UpdateSpot(c *gin.Context) {
 		return
 	}
 
-	db.UpdateSpot(input.SpotId, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
+	db.UpdateSpot(input.SpotId, input.SpotName, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
 	c.JSON(200, nil)
 }
 

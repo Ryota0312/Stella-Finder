@@ -114,6 +114,19 @@ func SpotNameExists(spotName string) bool {
 	return false
 }
 
+func SpotNameExistsExcludeId(spotId int, spotName string) bool {
+	var spot []entity.Spot
+	var count int
+
+	db := open()
+	db.Where("id <> ?", spotId).Where("name = ?", spotName).Find(&spot).Count(&count)
+
+	if count > 0 {
+		return true
+	}
+	return false
+}
+
 func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64, safety float64, reviewCount int) {
 	var spot = entity.Spot{}
 	spot.ID = spotId

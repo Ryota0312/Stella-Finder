@@ -100,7 +100,7 @@ func UpdateSpot(c *gin.Context) {
 		return
 	}
 
-	if db.SpotNameExists(input.SpotName) {
+	if db.SpotNameExistsExcludeId(input.SpotId, input.SpotName) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "このスポット名はすでに登録されています"})
 		return
 	}

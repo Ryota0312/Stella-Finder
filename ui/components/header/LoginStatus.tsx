@@ -91,9 +91,9 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
         </MobileUserMenu>
       </LoginUserOnly>
       {data.id == 0 && (
-        <LoginLink>
-          <Link href="/login">ログイン</Link>
-        </LoginLink>
+        <LoginButton onClick={() => router.push('/login')}>
+          ログイン
+        </LoginButton>
       )}
     </Status>
   )
@@ -119,12 +119,36 @@ const UserName = styled.div`
 `
 
 // スタイルこれでいいかは怪しい
-const LogoutButton = styled.a`
-  cursor: pointer;
+const LogoutButton = styled.button`
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 0;
+  line-height: 1em;
+
+  &:hover,
+  &:focus {
+    background-color: #ccc;
+    color: black;
+  }
 `
 
-const LoginLink = styled.div`
+const LoginButton = styled.button`
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px;
   line-height: 1em;
+
+  &:hover,
+  &:focus {
+    background-color: #ccc;
+    color: black;
+  }
 `
 
 const UserIconAndName = styled.div`
@@ -145,6 +169,7 @@ const UserIcon = styled(UnoptimizedImage)`
 
 const DesktopUserMenu = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
   margin-top: 8px;
 

@@ -63,12 +63,12 @@ func FindUserById(id int) entity.User {
 	return user
 }
 
-func UpdateUser(id int, userName string) {
+func UpdateUser(id int, userName string, description string) {
 	var user = entity.User{}
 	user.ID = id
 
 	db := open()
-	db.Model(&user).Update("user_name", userName)
+	db.Model(&user).Update("user_name", userName).Update("description", description)
 	defer db.Close()
 }
 

@@ -37,8 +37,13 @@ const User: React.FC = () => {
       <main>
         <h2>{data.name}</h2>
         <UserProfileIcon isLoginUser={isLoginUser} icon={data.icon} />
-        {isLoginUser && <Link href={'/settings/user'}>編集</Link>}
-        <div>メールアドレス: {data.mailAddress}</div>
+        <div>{data.description}</div>
+        {isLoginUser && data.description && (
+          <Link href={'/settings/user'}>編集</Link>
+        )}
+        {isLoginUser && !data.description && (
+          <Link href={'/settings/user'}>自己紹介を入力</Link>
+        )}
         <h3>投稿写真一覧</h3>
         <UserImageList userId={Number(userId)} />
       </main>

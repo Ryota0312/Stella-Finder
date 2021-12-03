@@ -11,18 +11,17 @@ import (
 	"net/http"
 )
 
-type UserOutputForm struct {
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	MailAddress string `json:"mailAddress"`
-	Icon        string `json:"icon"`
+type UserInfoOutputForm struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+	Icon string `json:"icon"`
 }
 
 func GetLoginUser(c *gin.Context) {
 	session := sessions.Default(c)
 	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
 	if err != nil {
-		c.JSON(http.StatusOK, UserOutputForm{
+		c.JSON(http.StatusOK, UserInfoOutputForm{
 			Id:   0,
 			Name: "ゲスト",
 		})
@@ -35,28 +34,35 @@ func GetLoginUser(c *gin.Context) {
 		return
 	}
 
-	user := UserOutputForm{
-		Id:          userEntity.ID,
-		Name:        userEntity.UserName,
-		Icon:        userEntity.Icon,
-		MailAddress: userEntity.MailAddress,
+	user := UserInfoOutputForm{
+		Id:   userEntity.ID,
+		Name: userEntity.UserName,
+		Icon: userEntity.Icon,
 	}
 
 	c.JSON(http.StatusOK, user)
+}
+
+type UserProfileOutputForm struct {
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Icon        string `json:"icon"`
+	Description string `json:"description"`
 }
 
 func GetUser(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Query("id"))
 
 	result := db.FindUserById(userId)
-	output := UserOutputForm{result.ID, result.UserName, result.MailAddress, result.Icon}
+	output := UserProfileOutputForm{result.ID, result.UserName, result.Icon, result.Description}
 
 	c.JSON(200, output)
 }
 
 type UpdateUserInputForm struct {
-	UserName string `json:"userName"`
-	Icon     string `json:"icon"`
+	UserName    string `json:"userName"`
+	Icon        string `json:"icon"`
+	Description string `json:"description"`
 }
 
 func UpdateUser(c *gin.Context) {
@@ -80,7 +86,7 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	if input.Icon == "" {
-		db.UpdateUser(loginUser.ID, input.UserName)
+		db.UpdateUser(loginUser.ID, input.UserName, input.Description)
 	} else {
 		db.UpdateUserIcon(loginUser.ID, input.Icon)
 	}

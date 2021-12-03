@@ -6,5 +6,6 @@ type User struct {
 	MailAddress string `gorm:"type:varchar(128);not null" json:"mail_address"`
 	Password    string `gorm:"type:varchar(256);not null" json:"password"`
 	Icon        string `gorm:"type:varchar(64)"           json:"icon"`
+	Description string `gorm:"type:text" json:"description"`
 	IsTemporary *bool  `json:"is_temporary"`
 }

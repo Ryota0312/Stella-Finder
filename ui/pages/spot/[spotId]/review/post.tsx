@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import Layout from '../../../../components/layout'
 import { useApi } from '../../../../hooks/useApi'
@@ -41,12 +41,6 @@ const Post: React.FC = () => {
       <Head>
         <title>{name} - レビュー投稿</title>s
       </Head>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-      />
 
       <main>
         <h2>{name}のレビュー投稿</h2>

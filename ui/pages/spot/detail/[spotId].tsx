@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
@@ -57,12 +57,6 @@ const Spot: React.FC = () => {
       <Head>
         <title>スポット詳細 - {data.name}</title>
       </Head>
-
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-      />
 
       <main>
         <h2>{data.name}</h2>

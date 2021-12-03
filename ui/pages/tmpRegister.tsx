@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import Layout from '../components/layout'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -25,12 +25,6 @@ const TmpRegister: React.FC = () => {
   } else {
     return (
       <Layout>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={true}
-        />
-
         <main>
           <h2>新規ユーザー登録</h2>
 

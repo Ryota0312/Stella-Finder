@@ -12,6 +12,7 @@ import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
+import { TextField } from '../../../components/common/TextField'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -26,7 +27,7 @@ const Edit: React.FC = () => {
     '',
     (v) => {
       const regExp = new RegExp('^[0-9]{3}-?[0-9]{4}$')
-      return regExp.test(v)
+      return v === '' || regExp.test(v)
     },
   )
   const [prefecture, isPrefectureValid, setPrefecture] = useStateWithValidate(
@@ -94,10 +95,10 @@ const Edit: React.FC = () => {
             setAddress(e.target.value)
           }
         />
-        <InputField
+        <TextField
           label="その他"
           value={remarks}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setRemarks(e.target.value)
           }
         />

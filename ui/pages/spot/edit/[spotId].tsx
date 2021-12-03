@@ -53,6 +53,7 @@ const Edit: React.FC = () => {
         <InputField
           label="スポット名"
           value={name}
+          required={true}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }

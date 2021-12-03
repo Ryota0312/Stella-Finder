@@ -46,6 +46,8 @@ export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
 
 const ImageGridLayout = styled.ul`
   display: grid;
+  justify-items: center;
+  align-items: center;
   padding: 0;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 5px;

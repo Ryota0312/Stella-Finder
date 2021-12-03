@@ -40,7 +40,12 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
                 />
               )}
               {data.icon !== '' && (
-                <UserIcon fileKey={data.icon} width="24px" height="24px" />
+                <UserIcon
+                  fileKey={data.icon}
+                  width="24px"
+                  height="24px"
+                  objectFit={'cover'}
+                />
               )}
               <UserName>{data.name}</UserName>
             </UserIconAndName>
@@ -64,7 +69,12 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
               />
             )}
             {data.icon !== '' && (
-              <UserIcon fileKey={data.icon} width="48px" height="48px" />
+              <UserIcon
+                fileKey={data.icon}
+                width="48px"
+                height="48px"
+                objectFit={'cover'}
+              />
             )}
             <div style={{ color: 'white' }}>▼</div>
           </MobileUserMenuButton>

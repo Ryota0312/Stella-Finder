@@ -34,7 +34,12 @@ export const UserProfileIcon: React.FC<UserIconProps> = (
           />
         )}
         {props.icon !== '' && (
-          <UnoptimizedImage fileKey={props.icon} width="128px" height="128px" />
+          <UnoptimizedImage
+            fileKey={props.icon}
+            width="128px"
+            height="128px"
+            objectFit={'cover'}
+          />
         )}
 
         {props.isLoginUser && (

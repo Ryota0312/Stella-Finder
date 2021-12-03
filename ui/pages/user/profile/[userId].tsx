@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import styled from 'styled-components'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UserImageList } from '../../../components/user/UserImageList'
@@ -36,14 +37,20 @@ const User: React.FC = () => {
 
       <main>
         <h2>{data.name}</h2>
-        <UserProfileIcon isLoginUser={isLoginUser} icon={data.icon} />
-        <div>{data.description}</div>
-        {isLoginUser && data.description && (
-          <Link href={'/settings/user'}>編集</Link>
-        )}
-        {isLoginUser && !data.description && (
-          <Link href={'/settings/user'}>自己紹介を入力</Link>
-        )}
+        <IconAndDescription>
+          <UserProfileIcon isLoginUser={isLoginUser} icon={data.icon} />
+          <DescriptionWrapper>
+            <Description>{data.description}</Description>
+            {isLoginUser && data.description && (
+              <DescriptionEditButton>
+                <Link href={'/settings/user'}>編集</Link>
+              </DescriptionEditButton>
+            )}
+            {isLoginUser && !data.description && (
+              <Link href={'/settings/user'}>自己紹介を入力</Link>
+            )}
+          </DescriptionWrapper>
+        </IconAndDescription>
         <h3>投稿写真一覧</h3>
         <UserImageList userId={Number(userId)} />
       </main>
@@ -51,3 +58,32 @@ const User: React.FC = () => {
   )
 }
 export default User
+
+const IconAndDescription = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+`
+
+const DescriptionWrapper = styled.div`
+  border: 1px solid #ccc;
+  padding: 8px;
+  width: 100%;
+
+  @media screen and (max-width: 600px) {
+    width: auto;
+  }
+`
+
+const Description = styled.div`
+  white-space: pre-line;
+`
+
+const DescriptionEditButton = styled.div`
+  margin-top: 16px;
+  text-align: right;
+`

@@ -10,6 +10,7 @@ import { useApi } from '../../../hooks/useApi'
 import 'react-toastify/dist/ReactToastify.css'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
+import { InputField } from '../../../components/common/InputField'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -49,18 +50,15 @@ const Edit: React.FC = () => {
 
       <main>
         <h2>スポット情報編集</h2>
-        <p>スポット名</p>
-        <input
-          type={'text'}
-          placeholder={'spot name'}
+        <InputField
+          label="スポット名"
           value={name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }
         />
-        <p>郵便番号</p>
-        <input
-          type={'text'}
+        <InputField
+          label="郵便番号"
           value={postalCode}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPostalCode(e.target.value)
@@ -71,17 +69,15 @@ const Edit: React.FC = () => {
           value={prefecture}
           onChange={(e) => setPrefecture(e.target.value)}
         />
-        <p>住所</p>
-        <input
-          type={'text'}
+        <InputField
+          label="住所"
           value={address}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setAddress(e.target.value)
           }
         />
-        <p>その他</p>
-        <input
-          type={'text'}
+        <InputField
+          label="その他"
           value={remarks}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setRemarks(e.target.value)

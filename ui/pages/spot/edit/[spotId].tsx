@@ -22,7 +22,13 @@ const Edit: React.FC = () => {
 
   const [name, isNameValid, setName] = useStateWithValidate('', (v) => v !== '')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
-  const [postalCode, setPostalCode] = useState<string>('')
+  const [postalCode, isPostalCodeValid, setPostalCode] = useStateWithValidate(
+    '',
+    (v) => {
+      const regExp = new RegExp('^[0-9]{3}-?[0-9]{4}$')
+      return regExp.test(v)
+    },
+  )
   const [prefecture, setPrefecture] = useState<string>('')
   const [address, setAddress] = useState<string>('')
   const [remarks, setRemarks] = useState<string>('')
@@ -67,6 +73,8 @@ const Edit: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPostalCode(e.target.value)
           }
+          isValid={isPostalCodeValid}
+          validateErrorMsg="郵便番号の形式が不正です"
         />
         <p>都道府県</p>
         <PrefectureSelect
@@ -97,6 +105,10 @@ const Edit: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
+            if (!isNameValid || !isPostalCodeValid) {
+              notifyError('エラーがあります')
+              return
+            }
             const response = await update_(
               Number(spotId),
               name,
@@ -140,7 +152,7 @@ const update_ = async (
       spotId: spotId,
       spotName: spotName,
       coverImage: coverImage,
-      postalCode: postalCode,
+      postalCode: postalCode.replace('-', ''),
       prefecture: prefecture,
       address: address,
       remarks: remarks,

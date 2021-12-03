@@ -36,14 +36,14 @@ const TmpRegister: React.FC = () => {
 
           <div>
             <p>メールアドレス</p>
-            <input
+            <MailAddressInput
               type={'text'}
               placeholder={'your e-mail address'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setMail(e.target.value)
               }
             />
-            <RegisterButton
+            <button
               type={'button'}
               onClick={() => {
                 if (!validate_(mail)) {
@@ -60,7 +60,7 @@ const TmpRegister: React.FC = () => {
               }}
             >
               登録
-            </RegisterButton>
+            </button>
             {error && <div>このメールアドレスはすでに使用されています</div>}
           </div>
         </main>
@@ -70,8 +70,8 @@ const TmpRegister: React.FC = () => {
 }
 export default TmpRegister
 
-const RegisterButton = styled.button`
-  margin: 0 16px;
+const MailAddressInput = styled.input`
+  margin: 0 16px 16px 0;
 `
 
 const validate_ = (mail: string) => {

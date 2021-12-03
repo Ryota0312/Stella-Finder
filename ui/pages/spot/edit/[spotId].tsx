@@ -57,6 +57,10 @@ const Edit: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }
+          validateFunc={(v) => {
+            return v !== ''
+          }}
+          validateErrorMsg="必須です"
         />
         <InputField
           label="郵便番号"

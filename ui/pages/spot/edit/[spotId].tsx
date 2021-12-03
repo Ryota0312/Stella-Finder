@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'
+import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -19,7 +20,7 @@ const Edit: React.FC = () => {
   const { fetcher } = useApi()
   const { data, error } = useSWR(['/auth/check', true], fetcher)
 
-  const [name, setName] = useState<string>('')
+  const [name, isNameValid, setName] = useStateWithValidate('', (v) => v !== '')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
   const [postalCode, setPostalCode] = useState<string>('')
   const [prefecture, setPrefecture] = useState<string>('')
@@ -57,9 +58,7 @@ const Edit: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }
-          validateFunc={(v) => {
-            return v !== ''
-          }}
+          isValid={isNameValid}
           validateErrorMsg="必須です"
         />
         <InputField

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 type InputFieldProps = {
@@ -6,23 +6,13 @@ type InputFieldProps = {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   required?: boolean
-  validateFunc?: (value: string) => boolean
+  isValid?: boolean
   validateErrorMsg?: string
 }
 
 export const InputField: React.FC<InputFieldProps> = (
   props: InputFieldProps,
 ) => {
-  const [accept, setAccept] = useState(false)
-
-  useEffect(() => {
-    if (!props.validateFunc) {
-      setAccept(true)
-    } else {
-      setAccept(props.validateFunc(props.value))
-    }
-  }, [props.value])
-
   return (
     <>
       <Label>
@@ -35,12 +25,9 @@ export const InputField: React.FC<InputFieldProps> = (
           value={props.value}
           onChange={(e) => {
             props.onChange(e)
-            if (props.validateFunc) {
-              setAccept(props.validateFunc(props.value))
-            }
           }}
         />
-        {!!props.validateFunc && !accept && (
+        {!props.isValid && (
           <ValidateError>{props.validateErrorMsg}</ValidateError>
         )}
       </InputAndError>

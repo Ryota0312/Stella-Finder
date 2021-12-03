@@ -8,6 +8,7 @@ interface ImageSize {
   height: string
   maxWidth?: string
   maxHeight?: string
+  borderRadius?: string
 }
 
 interface UnoptimizedImageInterface extends ImageSize {
@@ -24,6 +25,7 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
       height={props.height}
       maxWidth={props.maxWidth}
       maxHeight={props.maxHeight}
+      borderRadius={props.borderRadius}
     >
       {!!props.fileKey && (
         <Image
@@ -54,6 +56,10 @@ const ImageWrapper = styled.div<Partial<ImageSize>>`
   height: ${({ height }) => height};
   max-width: ${({ maxWidth }) => maxWidth};
   max-height: ${({ maxHeight }) => maxHeight};
+
+  img {
+    border-radius: ${({ borderRadius }) => borderRadius};
+  }
 `
 
 const NoImage = styled.div<Partial<ImageSize>>`

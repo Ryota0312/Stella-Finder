@@ -35,16 +35,17 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
                 <UserIconDefault
                   src="/image/profile-icon-default.png"
                   alt="user icon"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                 />
               )}
               {data.icon !== '' && (
                 <UserIcon
                   fileKey={data.icon}
-                  width="24px"
-                  height="24px"
+                  width="32px"
+                  height="32px"
                   objectFit={'cover'}
+                  borderRadius={'50%'}
                 />
               )}
               <UserName>{data.name}</UserName>
@@ -74,6 +75,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
                 width="48px"
                 height="48px"
                 objectFit={'cover'}
+                borderRadius={'50%'}
               />
             )}
             <div style={{ color: 'white' }}>▼</div>
@@ -114,6 +116,7 @@ const UserName = styled.div`
   color: white;
   float: right;
   margin-right: 8px;
+  line-height: 1em;
   height: 1em;
   cursor: pointer;
 `
@@ -153,6 +156,7 @@ const LoginButton = styled.button`
 
 const UserIconAndName = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
   cursor: pointer;
 `

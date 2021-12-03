@@ -29,7 +29,10 @@ const Edit: React.FC = () => {
       return regExp.test(v)
     },
   )
-  const [prefecture, setPrefecture] = useState<string>('')
+  const [prefecture, isPrefectureValid, setPrefecture] = useStateWithValidate(
+    '',
+    (v) => v !== '',
+  )
   const [address, setAddress] = useState<string>('')
   const [remarks, setRemarks] = useState<string>('')
 
@@ -76,10 +79,13 @@ const Edit: React.FC = () => {
           isValid={isPostalCodeValid}
           validateErrorMsg="郵便番号の形式が不正です"
         />
-        <p>都道府県</p>
         <PrefectureSelect
+          label="都道府県"
+          required={true}
           value={prefecture}
           onChange={(e) => setPrefecture(e.target.value)}
+          isValid={isPrefectureValid}
+          validateErrorMsg="必須です"
         />
         <InputField
           label="住所"
@@ -105,7 +111,7 @@ const Edit: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
-            if (!isNameValid || !isPostalCodeValid) {
+            if (!isNameValid || !isPostalCodeValid || !isPrefectureValid) {
               notifyError('エラーがあります')
               return
             }

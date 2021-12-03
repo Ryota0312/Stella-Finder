@@ -51,12 +51,12 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
     height: 2em;
     line-height: 2em;
-    width: 30%;
+    width: 31%;
     background-color: transparent;
     font-size: 1em;
 
     @media screen and (max-width: 600px) {
-      width: 85vw;
+      width: 87vw;
     }
   }
 `

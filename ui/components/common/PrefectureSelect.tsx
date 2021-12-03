@@ -1,8 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
 
 type PrefectureSelectProps = {
+  label?: string
+  required?: boolean
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
   value?: string
+  isValid?: boolean
+  validateErrorMsg?: string
 }
 
 export const PrefectureSelect: React.FC<PrefectureSelectProps> = (
@@ -58,19 +63,64 @@ export const PrefectureSelect: React.FC<PrefectureSelectProps> = (
     '沖縄県',
   ]
   return (
-    // FIXME: eslint
-    // eslint-disable-next-line jsx-a11y/no-onchange
-    <select
-      name="pref_name"
-      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.onChange(e)}
-      value={props.value}
-    >
-      <option value="">都道府県</option>
-      {prefectures.map((prefecture) => (
-        <option key={prefecture} value={prefecture}>
-          {prefecture}
-        </option>
-      ))}
-    </select>
+    <>
+      <Label>
+        {!!props.label && <p>{props.label}</p>}
+        {props.required && <Required>必須</Required>}
+      </Label>
+      <SelectAndError>
+        {/* eslint-disable-next-line jsx-a11y/no-onchange */}
+        <select
+          name="pref_name"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            props.onChange(e)
+          }
+          value={props.value}
+        >
+          <option value="">都道府県</option>
+          {prefectures.map((prefecture) => (
+            <option key={prefecture} value={prefecture}>
+              {prefecture}
+            </option>
+          ))}
+        </select>
+        {!props.isValid && (
+          <ValidateError>{props.validateErrorMsg}</ValidateError>
+        )}
+      </SelectAndError>
+    </>
   )
 }
+
+const Label = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`
+
+const Required = styled.div`
+  background-color: #de2121;
+  font-size: 8px;
+  color: white;
+  border-radius: 4px;
+  padding: 2px 4px;
+`
+
+const SelectAndError = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media screen and (max-width: 600px) {
+    display: inline-block;
+  }
+`
+
+const ValidateError = styled.div`
+  color: red;
+  font-size: 12px;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 8px;
+  }
+`

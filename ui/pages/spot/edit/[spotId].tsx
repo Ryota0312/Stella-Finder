@@ -45,7 +45,7 @@ const Edit: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>スポット情報編集</title>s
+        <title>スポット情報編集</title>
       </Head>
 
       <main>

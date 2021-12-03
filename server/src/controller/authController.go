@@ -111,7 +111,7 @@ func Register(c *gin.Context) {
 
 	if tmpRegister.CreatedAt.Before(time.Now().Add(-24 * time.Hour)) {
 		// TODO: status codeは正しい？
-		c.JSON(http.StatusBadRequest, gin.H{"error": "URL expired!!!!!!!!!!!"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "仮登録の有効期限が切れています。ユーザー登録をやり直してください。"})
 		return
 	}
 

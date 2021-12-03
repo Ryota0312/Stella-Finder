@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import Layout from '../components/layout'
 
 const Register: React.FC = () => {
@@ -9,11 +10,12 @@ const Register: React.FC = () => {
   const { registerKey } = router.query
 
   const [isComplete, setIsComplete] = useState<boolean>(false)
-  const [error, setError] = useState<boolean>(false)
 
   const [userName, setUserName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
+
+  const notifyError = (msg: string) => toast.error(msg)
 
   if (isComplete) {
     return (
@@ -29,8 +31,6 @@ const Register: React.FC = () => {
       <Layout>
         <main>
           <h2>ユーザー登録</h2>
-
-          {error && <div>エラーがあります</div>}
 
           <div>
             <p>ユーザー名</p>
@@ -73,11 +73,11 @@ const Register: React.FC = () => {
                     if (res.ok) {
                       setIsComplete(true)
                     } else {
-                      setError(true)
+                      notifyError('Error')
                     }
                   },
                   () => {
-                    setError(true)
+                    notifyError('Error')
                   },
                 )
               }}

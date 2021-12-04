@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
+
+const notifyError = (msg: string) => toast.error(msg)
 
 const Login: React.FC = () => {
   const { setMailAddress, setPassword, login } = useAuth()
@@ -15,7 +18,6 @@ const Login: React.FC = () => {
           <p>メールアドレス</p>
           <input
             type={'text'}
-            placeholder={'your e-mail address'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setMailAddress(e.target.value)
             }
@@ -23,7 +25,6 @@ const Login: React.FC = () => {
           <p>パスワード</p>
           <input
             type={'password'}
-            placeholder={'password'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
@@ -31,11 +32,12 @@ const Login: React.FC = () => {
           <button
             type={'button'}
             onClick={() => {
-              login().then((res) => {
+              login().then(async (res) => {
                 if (res.ok) {
                   window.location.href = '/'
                 } else {
-                  console.log('Login failed')
+                  const json = await res.json()
+                  notifyError(json.error)
                 }
               })
             }}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
-import { ImageUploader } from '../common/ImageUploader'
 import { useApi } from '../../hooks/useApi'
+import { ImageUploader } from '../common/ImageUploader'
 
 export type UserIconEditDialogProps = {
   isOpen: boolean

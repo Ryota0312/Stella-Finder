@@ -6,58 +6,68 @@ import { UnoptimizedImage } from './UnoptimizedImage'
 const THUMBNAIL_WIDTH = '300px'
 const THUMBNAIL_HEIGHT = '200px'
 
-export const ImageUploader: React.FC<{ onSuccess: (e: any) => void }> = ({
-  onSuccess,
-}) => {
-  const { setImage, upload } = useUploader()
+type ImageUploaderProps = {
+  onSuccess: (e: any) => void
+}
+
+export const ImageUploader: React.FC<ImageUploaderProps> = (
+  props: ImageUploaderProps,
+) => {
   const [uploadedImage, setUploadedImage] = useState<string>('')
 
   return (
     <div>
-      {uploadedImage && (
-        <UploadedImageThumbnail>
-          <UnoptimizedImage fileKey={uploadedImage} width={THUMBNAIL_WIDTH} />
-        </UploadedImageThumbnail>
-      )}
-      {!uploadedImage && (
-        <UploadedImageThumbnail>
-          <NoThumbnail>画像がアップロードされていません</NoThumbnail>
-        </UploadedImageThumbnail>
-      )}
+      <label htmlFor="image_input">
+        {uploadedImage && (
+          <UploadedImageThumbnail>
+            <UnoptimizedImage fileKey={uploadedImage} width={THUMBNAIL_WIDTH} />
+          </UploadedImageThumbnail>
+        )}
+        {!uploadedImage && (
+          <UploadedImageThumbnail>
+            <NoThumbnail>
+              クリックまたはドラッグ＆ドロップで画像をアップロード
+            </NoThumbnail>
+          </UploadedImageThumbnail>
+        )}
+      </label>
       <ImageInput
+        id="image_input"
         type="file"
         accept="image/*"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setImage(e.target.files?.[0])
-        }
-      />
-      <button
-        type="button"
-        onClick={() => {
-          upload().then((res) => {
-            onSuccess(res)
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          upload(e.target.files?.[0] as File).then((res: any) => {
+            props.onSuccess(res)
             setUploadedImage(res.fileKey)
           })
         }}
-      >
-        Upload
-      </button>
+      />
     </div>
   )
 }
 
+const upload = async (image: File) => {
+  const formData = new FormData()
+  formData.append('image', image)
+  const response = await fetch('/api/user/file/upload', {
+    method: 'POST',
+    body: formData,
+  })
+  return response.json()
+}
+
 const ImageInput = styled.input`
-  border: none;
-  width: auto;
+  display: none;
 `
 
 const UploadedImageThumbnail = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: ${THUMBNAIL_WIDTH};
   height: ${THUMBNAIL_HEIGHT};
   border: 1px solid grey;
 `
 const NoThumbnail = styled.div`
-  text-align: center;
-  line-height: ${THUMBNAIL_HEIGHT};
   color: grey;
 `

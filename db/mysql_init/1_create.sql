@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS spot
 ) default character set utf8mb4;
 
 INSERT INTO spot (name, postal_code, prefecture, address, remarks, last_updated_by)
-VALUES (N'井原市星空公園', '714-1405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', N'初期データ', 1);
+VALUES (N'井原市星空公園', '7141405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', N'初期データ', 1);
 
 CREATE TABLE IF NOT EXISTS file
 (

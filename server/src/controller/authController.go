@@ -107,10 +107,13 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	// TODO: サーバーでもバリデーションを行う
+
 	tmpRegister := db.FindTmpRegister(input.RegisterKey)
 
 	if tmpRegister.CreatedAt.Before(time.Now().Add(-24 * time.Hour)) {
-		// TODO: status codeは正しい？
+		db.DeleteTmpRegister(tmpRegister.RegisterKey)
+		db.DeleteTemporaryUser(tmpRegister.MailAddress)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "仮登録の有効期限が切れています。ユーザー登録をやり直してください。"})
 		return
 	}

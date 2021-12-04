@@ -3,7 +3,10 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
+import Image from 'next/image'
 import Layout from '../components/layout'
+import { useStateWithValidate } from '../hooks/useStateWithValidate'
+import { InputField } from '../components/common/InputField'
 
 const Register: React.FC = () => {
   const router = useRouter()
@@ -11,9 +14,19 @@ const Register: React.FC = () => {
 
   const [isComplete, setIsComplete] = useState<boolean>(false)
 
-  const [userName, setUserName] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [userName, isUserNameValid, setUserName] = useStateWithValidate(
+    '',
+    (v) => v.length > 0 && v.length <= 24,
+  )
+  const [password, isPasswordValid, setPassword] = useStateWithValidate(
+    '',
+    (v) => {
+      const regExp = new RegExp('^(?=.*?[a-zA-Z])(?=.*?\\d)[a-zA=Z\\d]{8,100}$')
+      return regExp.test(v)
+    },
+  )
+  const [confirmPassword, isConfirmPasswordValid, setConfirmPassword] =
+    useStateWithValidate('', (v) => v.length > 0 && v === password)
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -21,8 +34,18 @@ const Register: React.FC = () => {
     return (
       <Layout>
         <main>
-          <div>登録が完了しました！以下からログインしてください。</div>
-          <Link href={'login'}>ログイン</Link>
+          <RegisterSuccess>
+            <Image
+              src="/image/register-success.png"
+              alt="Register success"
+              width={64}
+              height={64}
+            />
+            <div>
+              <div>登録が完了しました！以下からログインしてください。</div>
+              <button onClick={() => router.push('/login')}>ログイン</button>
+            </div>
+          </RegisterSuccess>
         </main>
       </Layout>
     )
@@ -33,47 +56,55 @@ const Register: React.FC = () => {
           <h2>ユーザー登録</h2>
 
           <div>
-            <p>ユーザー名</p>
-            <input
-              type={'text'}
-              placeholder={'your e-mail address'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUserName(e.target.value)
-              }
+            <InputField
+              label="ユーザー名"
+              value={userName}
+              required={true}
+              onChange={(v) => setUserName(v)}
+              isValid={isUserNameValid}
+              validateErrorMsg="1文字以上24文字以下で入力してください"
             />
-            <p>パスワード</p>
-            <input
+            <InputField
+              label="パスワード"
+              value={password}
               type={'password'}
-              placeholder={'password'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              required={true}
+              isValid={isPasswordValid}
+              onChange={(v) => setPassword(v)}
+              validateErrorMsg="8文字以上で入力してください。半角英字・数字がそれぞれ1文字以上含まれている必要があります。"
             />
-            <p>確認パスワード</p>
-            <input
+            <InputField
+              label="確認パスワード"
+              value={confirmPassword}
+              required={true}
               type={'password'}
-              placeholder={'confirm password'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setConfirmPassword(e.target.value)
-              }
+              onChange={(v) => setConfirmPassword(v)}
+              isValid={isConfirmPasswordValid}
+              validateErrorMsg="パスワードが一致していません"
             />
-            {password !== confirmPassword && confirmPassword.length > 0 && (
-              <div>パスワードが一致しません</div>
-            )}
             <RegisterButton
               type={'button'}
               onClick={() => {
+                if (
+                  !isUserNameValid ||
+                  !isPasswordValid ||
+                  !isConfirmPasswordValid
+                ) {
+                  notifyError('入力内容にエラーがあります')
+                  return
+                }
                 register_(
                   registerKey as string,
                   userName,
                   password,
                   confirmPassword,
                 ).then(
-                  (res) => {
+                  async (res) => {
                     if (res.ok) {
                       setIsComplete(true)
                     } else {
-                      notifyError('Error')
+                      const json = await res.json()
+                      notifyError(json.error)
                     }
                   },
                   () => {
@@ -96,6 +127,16 @@ const RegisterButton = styled.button`
   display: block;
   width: 31%;
   margin-top: 32px;
+`
+
+const RegisterSuccess = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 48px;
 `
 
 const register_ = async (

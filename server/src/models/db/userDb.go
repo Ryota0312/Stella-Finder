@@ -93,3 +93,9 @@ func MailAddressExists(mailAddress string) bool {
 	}
 	return false
 }
+
+func DeleteTemporaryUser(mailAddress string) {
+	db := open()
+	db.Where("mail_address = ?", mailAddress).Where("is_temporary = ?", 1).Delete(entity.User{})
+	defer db.Close()
+}

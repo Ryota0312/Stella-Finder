@@ -8,6 +8,7 @@ type InputFieldProps = {
   required?: boolean
   isValid?: boolean
   validateErrorMsg?: string
+  type?: string
 }
 
 export const InputField: React.FC<InputFieldProps> = (
@@ -21,7 +22,7 @@ export const InputField: React.FC<InputFieldProps> = (
       </Label>
       <InputAndError>
         <input
-          type={'text'}
+          type={props.type ? props.type : 'text'}
           value={props.value}
           onChange={(e) => {
             props.onChange(e.target.value)

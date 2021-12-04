@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useDropzone } from 'react-dropzone'
 import { useUploader } from '../../hooks/useUploader'
 import { UnoptimizedImage } from './UnoptimizedImage'
 
@@ -15,33 +16,27 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
 ) => {
   const [uploadedImage, setUploadedImage] = useState<string>('')
 
+  const onDrop = (files: Array<File>) => {
+    upload(files[0]).then((res: any) => {
+      props.onSuccess(res)
+      setUploadedImage(res.fileKey)
+    })
+  }
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
   return (
     <div>
-      <label htmlFor="image_input">
+      <UploadedImageThumbnail {...getRootProps()}>
         {uploadedImage && (
-          <UploadedImageThumbnail>
-            <UnoptimizedImage fileKey={uploadedImage} width={THUMBNAIL_WIDTH} />
-          </UploadedImageThumbnail>
+          <UnoptimizedImage fileKey={uploadedImage} width={THUMBNAIL_WIDTH} />
         )}
         {!uploadedImage && (
-          <UploadedImageThumbnail>
-            <NoThumbnail>
-              クリックまたはドラッグ＆ドロップで画像をアップロード
-            </NoThumbnail>
-          </UploadedImageThumbnail>
+          <NoThumbnail>
+            クリックまたはドラッグ＆ドロップで画像をアップロード
+          </NoThumbnail>
         )}
-      </label>
-      <ImageInput
-        id="image_input"
-        type="file"
-        accept="image/*"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          upload(e.target.files?.[0] as File).then((res: any) => {
-            props.onSuccess(res)
-            setUploadedImage(res.fileKey)
-          })
-        }}
-      />
+        <input {...getInputProps()} type="file" accept="image/*" />
+      </UploadedImageThumbnail>
     </div>
   )
 }
@@ -56,10 +51,6 @@ const upload = async (image: File) => {
   return response.json()
 }
 
-const ImageInput = styled.input`
-  display: none;
-`
-
 const UploadedImageThumbnail = styled.div`
   display: flex;
   align-items: center;
@@ -67,6 +58,7 @@ const UploadedImageThumbnail = styled.div`
   width: ${THUMBNAIL_WIDTH};
   height: ${THUMBNAIL_HEIGHT};
   border: 1px solid grey;
+  cursor: pointer;
 `
 const NoThumbnail = styled.div`
   color: grey;

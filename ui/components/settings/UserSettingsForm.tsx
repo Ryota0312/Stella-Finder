@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import { useApi } from '../../hooks/useApi'
+import { InputField } from '../common/InputField'
+import { useStateWithValidate } from '../../hooks/useStateWithValidate'
+import { TextField } from '../common/TextField'
+
+const notifyError = (msg: string) => toast.error(msg)
 
 export const UserSettingsForm: React.FC = () => {
   const { fetcher, postFetcher } = useApi()
   const [loginUserId, setLoginUserId] = useState(null)
-  const [userName, setUserName] = useState('')
-  const [description, setDescription] = useState('')
+  const [userName, isUserNameValid, setUserName] = useStateWithValidate(
+    '',
+    (v) => v.length > 0 && v.length <= 24,
+  )
+  const [description, isDescriptionValid, setDescription] =
+    useStateWithValidate('', (v) => v.length <= 1000)
 
   useEffect(() => {
     fetcher('/api/loginUser', false).then((res) => {
@@ -31,37 +41,35 @@ export const UserSettingsForm: React.FC = () => {
   return (
     <div>
       <h2>プロフィールを編集</h2>
-      <p>ユーザー名</p>
-      <input
-        type={'text'}
+      <InputField
+        label="ユーザー名"
         value={userName}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setUserName(e.target.value)
-        }
+        onChange={(v) => setUserName(v)}
+        isValid={isUserNameValid}
+        validateErrorMsg="1文字以上24文字以内で入力してください"
       />
-      <p>自己紹介</p>
-      <DescriptionInput
-        rows={7}
+      <TextField
+        label="自己紹介"
         value={description}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-          setDescription(e.target.value)
-        }
+        onChange={(v) => setDescription(v)}
+        isValid={isDescriptionValid}
+        validateErrorMsg="1000文字以内で入力してください"
       />
       <div></div>
       <button
-        onClick={() =>
+        onClick={() => {
+          if (!isUserNameValid || !isDescriptionValid) {
+            notifyError('入力内容にエラーがあります')
+            return
+          }
           postFetcher('/api/user/profile', {
             userName: userName,
             description: description,
           }).then(() => (window.location.href = '/user/profile/' + loginUserId))
-        }
+        }}
       >
-        Save
+        保存
       </button>
     </div>
   )
 }
-
-const DescriptionInput = styled.textarea`
-  width: 80%;
-`

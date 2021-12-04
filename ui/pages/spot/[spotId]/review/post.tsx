@@ -9,6 +9,8 @@ import { useApi } from '../../../../hooks/useApi'
 
 import { StarEvaluator } from '../../../../components/common/StarEvaluator'
 import { ImageUploader } from '../../../../components/common/ImageUploader'
+import { TextField } from '../../../../components/common/TextField'
+import { useStateWithValidate } from '../../../../hooks/useStateWithValidate'
 
 const Post: React.FC = () => {
   const router = useRouter()
@@ -22,7 +24,10 @@ const Post: React.FC = () => {
   const [darkness, setDarkness] = useState(0)
   const [view, setView] = useState(0)
   const [safety, setSafety] = useState(0)
-  const [comment, setComment] = useState('')
+  const [comment, isCommentValid, setComment] = useStateWithValidate(
+    '',
+    (v) => v.length <= 1000,
+  )
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -43,18 +48,27 @@ const Post: React.FC = () => {
 
       <main>
         <h2>{name}のレビュー投稿</h2>
-        <p>空の暗さ</p>
-        <StarEvaluator onChange={(point) => setDarkness(point)} />
-        <p>見晴らし</p>
-        <StarEvaluator onChange={(point) => setView(point)} />
-        <p>安全性</p>
-        <StarEvaluator onChange={(point) => setSafety(point)} />
-        <p>コメント</p>
-        <CommentInput
-          rows={7}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setComment(e.target.value)
-          }
+        <StarEvaluator
+          label="空の暗さ"
+          required={true}
+          onChange={(point) => setDarkness(point)}
+        />
+        <StarEvaluator
+          label="見晴らし"
+          required={true}
+          onChange={(point) => setView(point)}
+        />
+        <StarEvaluator
+          label="安全性"
+          required={true}
+          onChange={(point) => setSafety(point)}
+        />
+        <TextField
+          label="コメント"
+          value={comment}
+          onChange={(v) => setComment(v)}
+          isValid={isCommentValid}
+          validateErrorMsg="1000文字以内で入力してください"
         />
         <p>写真</p>
         <ImageUploader
@@ -65,6 +79,10 @@ const Post: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
+            if (!isCommentValid) {
+              notifyError('入力内容にエラーがあります')
+              return
+            }
             if (darkness === 0 || view === 0 || safety == 0) {
               notifyError(
                 '空の暗さ、見晴らし、安全性は☆1つ以上の評価を選択してください',
@@ -94,10 +112,6 @@ const Post: React.FC = () => {
   )
 }
 export default Post
-
-const CommentInput = styled.textarea`
-  width: 80%;
-`
 
 const post_ = async (
   spotId: number,

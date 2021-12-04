@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { toast } from 'react-toastify'
+import Image from 'next/image'
+import styled from 'styled-components'
 import Layout from '../components/layout'
 import { InputField } from '../components/common/InputField'
 import { useStateWithValidate } from '../hooks/useStateWithValidate'
@@ -21,9 +22,17 @@ const TmpRegister: React.FC = () => {
     return (
       <Layout>
         <main>
-          <div>
-            入力いただいたメールアドレスに本登録用メールを送信しました。メールに記載されたURLより本登録へお進みください。
-          </div>
+          <MailSendSuccess>
+            <Image
+              src="/image/mail-send-success.png"
+              alt="Success mail sent"
+              width={64}
+              height={64}
+            />
+            <div>
+              入力いただいたメールアドレスに本登録用メールを送信しました。メールに記載されたURLより本登録へお進みください。
+            </div>
+          </MailSendSuccess>
         </main>
       </Layout>
     )
@@ -68,6 +77,16 @@ const TmpRegister: React.FC = () => {
   }
 }
 export default TmpRegister
+
+const MailSendSuccess = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 48px;
+`
 
 const register_ = async (mail: string) => {
   return await fetch('/auth/tmpRegister', {

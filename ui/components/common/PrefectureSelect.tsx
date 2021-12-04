@@ -4,7 +4,7 @@ import styled from 'styled-components'
 type PrefectureSelectProps = {
   label?: string
   required?: boolean
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChange: (v: string) => void
   value?: string
   isValid?: boolean
   validateErrorMsg?: string
@@ -73,7 +73,7 @@ export const PrefectureSelect: React.FC<PrefectureSelectProps> = (
         <select
           name="pref_name"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            props.onChange(e)
+            props.onChange(e.target.value)
           }
           value={props.value}
         >

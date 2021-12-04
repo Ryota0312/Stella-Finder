@@ -41,32 +41,24 @@ const Register: React.FC = () => {
         <InputField
           label="スポット名"
           value={name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
+          onChange={(v) => setName(v)}
         />
         <InputField
           label="郵便番号"
           value={postalCode}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPostalCode(e.target.value)
-          }
+          onChange={(v) => setPostalCode(v)}
         />
         <p>都道府県</p>
-        <PrefectureSelect onChange={(e) => setPrefecture(e.target.value)} />
+        <PrefectureSelect onChange={(v) => setPrefecture(v)} />
         <InputField
           label="住所"
           value={address}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAddress(e.target.value)
-          }
+          onChange={(v) => setAddress(v)}
         />
         <InputField
           label="その他"
           value={remarks}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRemarks(e.target.value)
-          }
+          onChange={(v) => setRemarks(v)}
         />
         <p>写真</p>
         <ImageUploader

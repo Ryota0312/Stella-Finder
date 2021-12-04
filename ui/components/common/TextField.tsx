@@ -4,7 +4,7 @@ import styled from 'styled-components'
 type InputFieldProps = {
   label?: string
   value: string
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  onChange: (v: string) => void
   required?: boolean
   isValid?: boolean
   validateErrorMsg?: string
@@ -24,7 +24,7 @@ export const TextField: React.FC<InputFieldProps> = (
           rows={7}
           value={props.value}
           onChange={(e) => {
-            props.onChange(e)
+            props.onChange(e.target.value)
           }}
         />
         {!props.isValid && (

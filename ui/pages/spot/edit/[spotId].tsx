@@ -65,18 +65,14 @@ const Edit: React.FC = () => {
           label="スポット名"
           value={name}
           required={true}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
+          onChange={(v) => setName(v)}
           isValid={isNameValid}
           validateErrorMsg="必須です"
         />
         <InputField
           label="郵便番号"
           value={postalCode}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPostalCode(e.target.value)
-          }
+          onChange={(v) => setPostalCode(v)}
           isValid={isPostalCodeValid}
           validateErrorMsg="郵便番号の形式が不正です"
         />
@@ -84,23 +80,19 @@ const Edit: React.FC = () => {
           label="都道府県"
           required={true}
           value={prefecture}
-          onChange={(e) => setPrefecture(e.target.value)}
+          onChange={(v) => setPrefecture(v)}
           isValid={isPrefectureValid}
           validateErrorMsg="必須です"
         />
         <InputField
           label="住所"
           value={address}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAddress(e.target.value)
-          }
+          onChange={(v) => setAddress(v)}
         />
         <TextField
           label="その他"
           value={remarks}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setRemarks(e.target.value)
-          }
+          onChange={(v) => setRemarks(v)}
         />
         <p>写真</p>
         <UnoptimizedImage fileKey={coverImageKey} height={'400px'} />
@@ -113,7 +105,7 @@ const Edit: React.FC = () => {
           type={'button'}
           onClick={async () => {
             if (!isNameValid || !isPostalCodeValid || !isPrefectureValid) {
-              notifyError('エラーがあります')
+              notifyError('入力内容にエラーがあります')
               return
             }
             const response = await update_(

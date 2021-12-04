@@ -2,11 +2,18 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import Layout from '../components/layout'
+import { InputField } from '../components/common/InputField'
+import { useStateWithValidate } from '../hooks/useStateWithValidate'
 
 const TmpRegister: React.FC = () => {
-  const [mail, setMail] = useState<string>('')
+  const [mail, isMailValid, setMail] = useStateWithValidate('', (v) => {
+    const mailAddressRegExp = new RegExp(
+      '^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$',
+    )
+    return mailAddressRegExp.test(v)
+  })
+
   const [isComplete, setIsComplete] = useState<boolean>(false)
-  const [error, setError] = useState<boolean>(false)
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -15,7 +22,7 @@ const TmpRegister: React.FC = () => {
       <Layout>
         <main>
           <div>
-            入力したメールアドレスに本登録用メールを送信しました。メールに記載されたURLより本登録へお進みください。
+            入力いただいたメールアドレスに本登録用メールを送信しました。メールに記載されたURLより本登録へお進みください。
           </div>
         </main>
       </Layout>
@@ -27,33 +34,33 @@ const TmpRegister: React.FC = () => {
           <h2>新規ユーザー登録</h2>
 
           <div>
-            <p>メールアドレス</p>
-            <MailAddressInput
-              type={'text'}
-              placeholder={'your e-mail address'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setMail(e.target.value)
-              }
+            <InputField
+              label="メールアドレス"
+              value={mail}
+              required={true}
+              onChange={(v) => setMail(v)}
+              isValid={isMailValid}
+              validateErrorMsg="メールアドレスが空または不正な形式です"
             />
             <button
               type={'button'}
               onClick={() => {
-                if (!validate_(mail)) {
-                  notifyError('メールアドレスの形式が不正です')
+                if (!isMailValid) {
+                  notifyError('入力内容にエラーがあります')
                   return
                 }
-                return register_(mail).then((res) => {
+                return register_(mail).then(async (res) => {
                   if (res.ok) {
                     setIsComplete(true)
                   } else {
-                    setError(true)
+                    const json = await res.json()
+                    notifyError(json.error)
                   }
                 })
               }}
             >
               登録
             </button>
-            {error && <div>このメールアドレスはすでに使用されています</div>}
           </div>
         </main>
       </Layout>
@@ -61,17 +68,6 @@ const TmpRegister: React.FC = () => {
   }
 }
 export default TmpRegister
-
-const MailAddressInput = styled.input`
-  margin: 0 16px 16px 0;
-`
-
-const validate_ = (mail: string) => {
-  const mailAddressRegExp = new RegExp(
-    '^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$',
-  )
-  return mailAddressRegExp.test(mail)
-}
 
 const register_ = async (mail: string) => {
   return await fetch('/auth/tmpRegister', {

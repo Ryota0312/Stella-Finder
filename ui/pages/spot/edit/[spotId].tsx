@@ -7,7 +7,6 @@ import Layout from '../../../components/layout'
 import { ImageUploader } from '../../../components/common/ImageUploader'
 import { useApi } from '../../../hooks/useApi'
 
-import 'react-toastify/dist/ReactToastify.css'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'

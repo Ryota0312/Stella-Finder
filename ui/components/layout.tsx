@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { GlobalHeader } from './header/GlobalHeader'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }: {

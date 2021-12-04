@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import Layout from '../components/layout'
 
-import 'react-toastify/dist/ReactToastify.css'
-
 const TmpRegister: React.FC = () => {
   const [mail, setMail] = useState<string>('')
   const [isComplete, setIsComplete] = useState<boolean>(false)

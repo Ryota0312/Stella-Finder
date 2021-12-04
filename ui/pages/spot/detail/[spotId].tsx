@@ -16,8 +16,6 @@ import { SpotImageList } from '../../../components/spot/SpotImageList'
 import { ReviewList } from '../../../components/review/ReviewList'
 import { ReviewSummary } from '../../../components/review/ReviewSummary'
 
-import 'react-toastify/dist/ReactToastify.css'
-
 const Spot: React.FC = () => {
   const router = useRouter()
   const { spotId } = router.query

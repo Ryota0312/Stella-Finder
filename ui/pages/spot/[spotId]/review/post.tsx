@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import Layout from '../../../../components/layout'
 import { useApi } from '../../../../hooks/useApi'
 
-import 'react-toastify/dist/ReactToastify.css'
 import { StarEvaluator } from '../../../../components/common/StarEvaluator'
 import { ImageUploader } from '../../../../components/common/ImageUploader'
 

@@ -3,7 +3,7 @@ export const useApi = () => {
     return fetch(url).then((res) => {
       if (!res.ok) {
         if (fallbackLoginPage) {
-          window.location.href = '/login'
+          window.location.href = '/login?redirect=' + location.pathname
           return
         } else {
           throw Error

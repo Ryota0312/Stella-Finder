@@ -9,6 +9,8 @@ const THUMBNAIL_HEIGHT = '200px'
 
 type ImageUploaderProps = {
   onSuccess: (e: any) => void
+  thumbnailWidth?: string
+  thumbnailHeight?: string
 }
 
 export const ImageUploader: React.FC<ImageUploaderProps> = (
@@ -26,9 +28,16 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
 
   return (
     <div>
-      <UploadedImageThumbnail {...getRootProps()}>
+      <UploadedImageThumbnail
+        {...getRootProps()}
+        width={props.thumbnailWidth}
+        height={props.thumbnailHeight}
+      >
         {uploadedImage && (
-          <UnoptimizedImage fileKey={uploadedImage} width={THUMBNAIL_WIDTH} />
+          <UnoptimizedImage
+            fileKey={uploadedImage}
+            width={props.thumbnailWidth}
+          />
         )}
         {!uploadedImage && (
           <NoThumbnail>
@@ -41,6 +50,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
   )
 }
 
+ImageUploader.defaultProps = {
+  thumbnailWidth: THUMBNAIL_WIDTH,
+  thumbnailHeight: THUMBNAIL_HEIGHT,
+}
+
 const upload = async (image: File) => {
   const formData = new FormData()
   formData.append('image', image)
@@ -51,12 +65,12 @@ const upload = async (image: File) => {
   return response.json()
 }
 
-const UploadedImageThumbnail = styled.div`
+const UploadedImageThumbnail = styled.div<{ width: string; height: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${THUMBNAIL_WIDTH};
-  height: ${THUMBNAIL_HEIGHT};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   border: 1px solid grey;
   cursor: pointer;
 `

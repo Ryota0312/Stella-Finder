@@ -85,7 +85,7 @@ const Spot: React.FC = () => {
             <tr>
               <th>所在地</th>
               <td>
-                〒{data.postalCode}
+                〒{data.postalCode.slice(0, 3) + '-' + data.postalCode.slice(3)}
                 <br />
                 {data.prefecture + data.address}
               </td>
@@ -113,7 +113,7 @@ const Spot: React.FC = () => {
             </tr>
             <tr>
               <th>その他</th>
-              <td>{data.remarks}</td>
+              <Remarks>{data.remarks}</Remarks>
             </tr>
             <tr>
               <th>最終更新</th>
@@ -241,6 +241,10 @@ const Actions = styled.div`
 const ButtonInnerWithImage = styled.div`
   display: flex;
   gap: 4px;
+`
+
+const Remarks = styled.td`
+  white-space: pre-line;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

@@ -34,7 +34,10 @@ const Edit: React.FC = () => {
     (v) => v !== '',
   )
   const [address, setAddress] = useState<string>('')
-  const [remarks, setRemarks] = useState<string>('')
+  const [remarks, isRemarksValid, setRemarks] = useStateWithValidate(
+    '',
+    (v) => v.length <= 1000,
+  )
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -92,6 +95,8 @@ const Edit: React.FC = () => {
           label="その他"
           value={remarks}
           onChange={(v) => setRemarks(v)}
+          isValid={isRemarksValid}
+          validateErrorMsg="1000文字以内で入力してください"
         />
         <p>写真</p>
         <UnoptimizedImage fileKey={coverImageKey} height={'400px'} />
@@ -103,7 +108,12 @@ const Edit: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
-            if (!isNameValid || !isPostalCodeValid || !isPrefectureValid) {
+            if (
+              !isNameValid ||
+              !isPostalCodeValid ||
+              !isPrefectureValid ||
+              !isRemarksValid
+            ) {
               notifyError('入力内容にエラーがあります')
               return
             }

@@ -9,6 +9,8 @@ import { useApi } from '../../hooks/useApi'
 
 import { PrefectureSelect } from '../../components/common/PrefectureSelect'
 import { InputField } from '../../components/common/InputField'
+import { useStateWithValidate } from '../../hooks/useStateWithValidate'
+import { TextField } from '../../components/common/TextField'
 
 const Register: React.FC = () => {
   const router = useRouter()
@@ -16,12 +18,24 @@ const Register: React.FC = () => {
   const { fetcher } = useApi()
   const { data, error } = useSWR(['/auth/check', true], fetcher)
 
-  const [name, setName] = useState<string>('')
+  const [name, isNameValid, setName] = useStateWithValidate('', (v) => v !== '')
   const [coverImageKey, setCoverImageKey] = useState<string>('')
-  const [postalCode, setPostalCode] = useState<string>('')
-  const [prefecture, setPrefecture] = useState<string>('')
+  const [postalCode, isPostalCodeValid, setPostalCode] = useStateWithValidate(
+    '',
+    (v) => {
+      const regExp = new RegExp('^[0-9]{3}-?[0-9]{4}$')
+      return v === '' || regExp.test(v)
+    },
+  )
+  const [prefecture, isPrefectureValid, setPrefecture] = useStateWithValidate(
+    '',
+    (v) => v !== '',
+  )
   const [address, setAddress] = useState<string>('')
-  const [remarks, setRemarks] = useState<string>('')
+  const [remarks, isRemarksValid, setRemarks] = useStateWithValidate(
+    '',
+    (v) => v.length <= 1000,
+  )
 
   const notifyError = (msg: string) => toast.error(msg)
 
@@ -40,24 +54,37 @@ const Register: React.FC = () => {
         <InputField
           label="スポット名"
           value={name}
+          required={true}
           onChange={(v) => setName(v)}
+          isValid={isNameValid}
+          validateErrorMsg="必須です"
         />
         <InputField
           label="郵便番号"
           value={postalCode}
           onChange={(v) => setPostalCode(v)}
+          isValid={isPostalCodeValid}
+          validateErrorMsg="郵便番号の形式が不正です"
         />
-        <p>都道府県</p>
-        <PrefectureSelect onChange={(v) => setPrefecture(v)} />
+        <PrefectureSelect
+          label="都道府県"
+          required={true}
+          value={prefecture}
+          onChange={(v) => setPrefecture(v)}
+          isValid={isPrefectureValid}
+          validateErrorMsg="必須です"
+        />
         <InputField
           label="住所"
           value={address}
           onChange={(v) => setAddress(v)}
         />
-        <InputField
+        <TextField
           label="その他"
           value={remarks}
           onChange={(v) => setRemarks(v)}
+          isValid={isRemarksValid}
+          validateErrorMsg="1000文字以内で入力してください"
         />
         <p>写真</p>
         <ImageUploader
@@ -68,8 +95,13 @@ const Register: React.FC = () => {
         <button
           type={'button'}
           onClick={async () => {
-            if (prefecture === '') {
-              notifyError('都道府県は必須です')
+            if (
+              !isNameValid ||
+              !isPostalCodeValid ||
+              !isPrefectureValid ||
+              !isRemarksValid
+            ) {
+              notifyError('入力内容にエラーがあります')
               return
             }
             const response = await register_(

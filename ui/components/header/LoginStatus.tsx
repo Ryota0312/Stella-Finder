@@ -93,7 +93,9 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
         </MobileUserMenu>
       </LoginUserOnly>
       {data.id == 0 && (
-        <LoginButton onClick={() => router.push('/login')}>
+        <LoginButton
+          onClick={() => router.push('/login?redirect=' + location.pathname)}
+        >
           ログイン
         </LoginButton>
       )}

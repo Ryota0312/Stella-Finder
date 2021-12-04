@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 
@@ -9,6 +10,9 @@ const notifyError = (msg: string) => toast.error(msg)
 
 const Login: React.FC = () => {
   const { setMailAddress, setPassword, login } = useAuth()
+  const router = useRouter()
+  const { redirect } = router.query
+
   return (
     <Layout>
       <main>
@@ -34,7 +38,11 @@ const Login: React.FC = () => {
             onClick={() => {
               login().then(async (res) => {
                 if (res.ok) {
-                  window.location.href = '/'
+                  if (redirect) {
+                    window.location.href = String(redirect)
+                  } else {
+                    window.location.href = '/'
+                  }
                 } else {
                   const json = await res.json()
                   notifyError(json.error)

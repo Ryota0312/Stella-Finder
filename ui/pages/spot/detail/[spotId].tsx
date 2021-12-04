@@ -129,7 +129,9 @@ const Spot: React.FC = () => {
         </SpotInfoTable>
         <LoginUserOnly
           fallbackComponent={
-            <Link href={'/login'}>ログインしてレビューを投稿する</Link>
+            <Link href={'/login?redirect=' + location.pathname}>
+              ログインしてレビューを投稿する
+            </Link>
           }
         >
           <Actions>

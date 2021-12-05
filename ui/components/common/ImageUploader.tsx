@@ -4,13 +4,12 @@ import { useDropzone } from 'react-dropzone'
 import { useUploader } from '../../hooks/useUploader'
 import { UnoptimizedImage } from './UnoptimizedImage'
 
-const THUMBNAIL_WIDTH = '300px'
-const THUMBNAIL_HEIGHT = '200px'
-
 type ImageUploaderProps = {
   onSuccess: (e: any) => void
   thumbnailWidth?: string
   thumbnailHeight?: string
+  thumbnailMaxWidth?: string
+  thumbnailMaxHeight?: string
 }
 
 export const ImageUploader: React.FC<ImageUploaderProps> = (
@@ -32,6 +31,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
         {...getRootProps()}
         width={props.thumbnailWidth}
         height={props.thumbnailHeight}
+        maxWidth={props.thumbnailMaxWidth}
+        maxHeight={props.thumbnailMaxHeight}
       >
         {uploadedImage && (
           <UnoptimizedImage
@@ -51,8 +52,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
 }
 
 ImageUploader.defaultProps = {
-  thumbnailWidth: THUMBNAIL_WIDTH,
-  thumbnailHeight: THUMBNAIL_HEIGHT,
+  thumbnailWidth: '80vw',
+  thumbnailHeight: '55vw',
+  thumbnailMaxWidth: '600px',
+  thumbnailMaxHeight: '450px',
 }
 
 const upload = async (image: File) => {
@@ -65,15 +68,23 @@ const upload = async (image: File) => {
   return response.json()
 }
 
-const UploadedImageThumbnail = styled.div<{ width: string; height: string }>`
+const UploadedImageThumbnail = styled.div<{
+  width: string
+  height: string
+  maxWidth: string
+  maxHeight: string
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  max-width: ${({ maxWidth }) => maxWidth};
+  max-height: ${({ maxHeight }) => maxHeight};
   border: 1px solid grey;
   cursor: pointer;
 `
 const NoThumbnail = styled.div`
   color: grey;
+  padding: 16px;
 `

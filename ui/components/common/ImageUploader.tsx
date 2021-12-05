@@ -46,12 +46,18 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
           <UnoptimizedImage
             fileKey={uploadedImage}
             width={props.thumbnailWidth}
+            height={props.thumbnailHeight}
           />
         )}
         {!uploadedImage && (
           <NoThumbnail>
             クリックまたはドラッグ＆ドロップで画像をアップロード
           </NoThumbnail>
+        )}
+        {!!props.initialImageKey && (
+          <Overlay>
+            クリックまたはドラッグ＆ドロップで画像をアップロード
+          </Overlay>
         )}
         <input {...getInputProps()} type="file" accept="image/*" />
       </UploadedImageThumbnail>
@@ -93,6 +99,14 @@ const UploadedImageThumbnail = styled.div<{
   cursor: pointer;
 `
 const NoThumbnail = styled.div`
+  position: absolute;
   color: grey;
   padding: 16px;
+`
+
+const Overlay = styled.div`
+  position: absolute;
+  color: grey;
+  padding: 16px;
+  background-color: rgb(0, 0, 0, 0.5);
 `

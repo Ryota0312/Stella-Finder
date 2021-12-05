@@ -13,7 +13,7 @@ export const LoginUserOnly: React.FC<LoginUserOnlyProps> = (
   const { fetcher } = useApi()
   const { data, error } = useSWR(['/auth/check', false], fetcher)
 
-  if (error) return <div>failed to load</div>
+  if (error) return <div>{props.fallbackComponent}</div>
   if (!data) return <div>loading...</div>
 
   return (

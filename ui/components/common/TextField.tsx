@@ -20,7 +20,7 @@ export const TextField: React.FC<InputFieldProps> = (
         {props.required && <Required>必須</Required>}
       </Label>
       <TextAreaAndError>
-        <TextArea
+        <textarea
           rows={7}
           value={props.value}
           onChange={(e) => {
@@ -61,10 +61,6 @@ const TextAreaAndError = styled.div`
   @media screen and (max-width: 600px) {
     display: inline-block;
   }
-`
-
-const TextArea = styled.textarea`
-  width: 80%;
 `
 
 const ValidateError = styled.div`

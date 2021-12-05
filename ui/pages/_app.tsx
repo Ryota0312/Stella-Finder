@@ -46,6 +46,17 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  textarea {
+    border: 2px solid gray;
+    border-radius: 4px;
+    line-height: 2em;
+    width: 80%;
+
+    @media screen and (max-width: 600px) {
+      width: 85vw;
+    }
+  }
+
   select {
     border: 2px solid gray;
     border-radius: 4px;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDropzone } from 'react-dropzone'
+import { string } from 'prop-types'
 import { useUploader } from '../../hooks/useUploader'
 import { UnoptimizedImage } from './UnoptimizedImage'
 
@@ -55,7 +56,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
           </NoThumbnail>
         )}
         {!!props.initialImageKey && (
-          <Overlay>
+          <Overlay
+            {...getRootProps()}
+            width={props.thumbnailWidth}
+            maxWidth={props.thumbnailMaxWidth}
+          >
             クリックまたはドラッグ＆ドロップで画像をアップロード
           </Overlay>
         )}
@@ -99,14 +104,17 @@ const UploadedImageThumbnail = styled.div<{
   cursor: pointer;
 `
 const NoThumbnail = styled.div`
-  position: absolute;
   color: grey;
   padding: 16px;
 `
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ width: string; maxWidth: string }>`
   position: absolute;
   color: #2c2a2a;
   padding: 16px;
   background-color: rgba(225, 225, 225, 0.5);
+  width: ${({ width }) => width};
+  max-width: ${({ maxWidth }) => maxWidth};
+  transform: scale(0.9);
+  text-align: center;
 `

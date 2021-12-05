@@ -55,6 +55,7 @@ export const UserProfileIcon: React.FC<UserIconProps> = (
       </UserIconWrapper>
       {props.isLoginUser && (
         <UserIconEditDialog
+          icon={props.icon}
           isOpen={isIconEditDialogOpen}
           closeDialog={() => setIsIconEditDialogOpen(false)}
         />

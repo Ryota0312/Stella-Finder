@@ -106,7 +106,7 @@ const NoThumbnail = styled.div`
 
 const Overlay = styled.div`
   position: absolute;
-  color: grey;
+  color: #2c2a2a;
   padding: 16px;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgba(225, 225, 225, 0.5);
 `

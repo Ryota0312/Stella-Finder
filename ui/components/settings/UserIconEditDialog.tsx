@@ -6,6 +6,7 @@ import { ImageUploader } from '../common/ImageUploader'
 export type UserIconEditDialogProps = {
   isOpen: boolean
   closeDialog: () => void
+  icon?: string
 }
 
 export const UserIconEditDialog: (
@@ -32,6 +33,7 @@ export const UserIconEditDialog: (
     >
       <h3>アイコン画像の変更</h3>
       <ImageUploader
+        initialImageKey={props.icon}
         onSuccess={(res) => {
           setIcon(res.fileKey)
         }}

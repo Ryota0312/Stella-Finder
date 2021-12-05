@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDropzone } from 'react-dropzone'
 import { useUploader } from '../../hooks/useUploader'
@@ -6,6 +6,7 @@ import { UnoptimizedImage } from './UnoptimizedImage'
 
 type ImageUploaderProps = {
   onSuccess: (e: any) => void
+  initialImageKey?: string
   thumbnailWidth?: string
   thumbnailHeight?: string
   thumbnailMaxWidth?: string
@@ -15,7 +16,14 @@ type ImageUploaderProps = {
 export const ImageUploader: React.FC<ImageUploaderProps> = (
   props: ImageUploaderProps,
 ) => {
-  const [uploadedImage, setUploadedImage] = useState<string>('')
+  const [uploadedImage, setUploadedImage] = useState<string>(
+    props.initialImageKey ? props.initialImageKey : '',
+  )
+
+  useEffect(
+    () => setUploadedImage(props.initialImageKey ? props.initialImageKey : ''),
+    [props.initialImageKey],
+  )
 
   const onDrop = (files: Array<File>) => {
     upload(files[0]).then((res: any) => {

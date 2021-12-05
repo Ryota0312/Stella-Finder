@@ -99,8 +99,8 @@ const Edit: React.FC = () => {
           validateErrorMsg="1000文字以内で入力してください"
         />
         <p>写真</p>
-        <UnoptimizedImage fileKey={coverImageKey} height={'400px'} />
         <ImageUploader
+          initialImageKey={coverImageKey}
           onSuccess={(res) => {
             setCoverImageKey(res.fileKey)
           }}

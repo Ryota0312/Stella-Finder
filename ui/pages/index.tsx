@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
 import { PrefecturePicker } from '../components/common/PrefecturePicker'
+import { MoonAge } from '../components/moon/MoonAge'
 
 const Home: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <h2>天体観測スポットを探す</h2>
+        <div>本日の月齢</div>
+        <MoonAge />
         <PrefecturePicker />
         <div>
           <Link href={'/spot/list'}>

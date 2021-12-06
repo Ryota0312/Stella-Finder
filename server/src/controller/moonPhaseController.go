@@ -26,7 +26,6 @@ func GetMoonAge(c *gin.Context) {
 
 	cache, err := cacheDb.Get(todayString)
 	if cache == nil {
-		println("======================= No Cache !! GET !! ============================")
 		response, _ := http.Get("https://labs.bitmeister.jp/ohakon/json/?mode=moon_age" +
 			"&year=" + strconv.Itoa(today.Year()) +
 			"&month=" + strconv.Itoa(int(today.Month())) +
@@ -46,7 +45,6 @@ func GetMoonAge(c *gin.Context) {
 		}
 
 	} else {
-		println("======================= USE Cache !! ============================")
 		err = json.Unmarshal(cache, &output)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, "Cache error")

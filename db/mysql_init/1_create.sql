@@ -86,3 +86,13 @@ CREATE TABLE IF NOT EXISTS review_image
     PRIMARY KEY (review_id, image),
     FOREIGN KEY (review_id) REFERENCES review (id)
 );
+
+CREATE TABLE IF NOT EXISTS article
+(
+    id         INT(11) AUTO_INCREMENT              NOT NULL,
+    title      VARCHAR(128)                        NOT NULL,
+    body       LONGTEXT                            NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by INT(11)                             NOT NULL,
+    PRIMARY KEY (id)
+) default character set utf8mb4;

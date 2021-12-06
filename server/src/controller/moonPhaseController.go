@@ -18,6 +18,12 @@ func GetMoonAge(c *gin.Context) {
 	cacheDb := utils.NewCacheDb()
 	defer cacheDb.CloseCacheDb()
 
+	jst, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		panic(err)
+	}
+	time.Local = jst
+
 	today := time.Now()
 	const layout = "2006-01-02"
 	todayString := today.Format(layout)

@@ -3,13 +3,14 @@ use stella_finder;
 
 CREATE TABLE IF NOT EXISTS user
 (
-    id           INT(11) AUTO_INCREMENT NOT NULL,
-    user_name    VARCHAR(64)            NOT NULL,
-    mail_address VARCHAR(128) UNIQUE    NOT NULL,
-    password     VARCHAR(256)           NOT NULL,
+    id           INT(11) AUTO_INCREMENT        NOT NULL,
+    user_name    VARCHAR(64)                   NOT NULL,
+    mail_address VARCHAR(128) UNIQUE           NOT NULL,
+    password     VARCHAR(256)                  NOT NULL,
     icon         VARCHAR(64),
     description  TEXT,
-    is_temporary TINYINT(1) UNSIGNED    NOT NULL,
+    is_temporary TINYINT(1) UNSIGNED           NOT NULL,
+    is_admin     TINYINT(1) UNSIGNED DEFAULT 0 NOT NULL,
     PRIMARY KEY (id)
 );
 

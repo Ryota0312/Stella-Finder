@@ -34,6 +34,11 @@ func CreateArticle(c *gin.Context) {
 		return
 	}
 
+	if *loginUser.IsAdmin == false {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "管理者ユーザーのみ利用可能な機能です"})
+		return
+	}
+
 	article := db.CreateArticle(input.Title, input.Body, loginUser.ID)
 
 	c.JSON(200, gin.H{"id": article.ID})

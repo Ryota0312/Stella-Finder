@@ -54,7 +54,13 @@ const Add: React.FC = () => {
             postFetcher('/api/user/article/add', {
               title: title,
               body: body,
-            }).then(() => router.push('/'))
+            }).then(async (res) => {
+              if (!res.error) {
+                await router.push('/')
+              } else {
+                notifyError(res.error)
+              }
+            })
           }}
         >
           投稿

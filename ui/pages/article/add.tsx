@@ -1,6 +1,7 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 import Layout from '../../components/layout'
 import { InputField } from '../../components/common/InputField'
 import { useStateWithValidate } from '../../hooks/useStateWithValidate'
@@ -10,8 +11,10 @@ import { useApi } from '../../hooks/useApi'
 const notifyError = (msg: string) => toast.error(msg)
 
 const Add: React.FC = () => {
-  const { postFetcher } = useApi()
+  const { fetcher, postFetcher } = useApi()
   const router = useRouter()
+
+  const { data, error } = useSWR(['/auth/check', true], fetcher)
 
   const [title, isTitleValid, setTitle] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 128
@@ -19,6 +22,9 @@ const Add: React.FC = () => {
   const [body, isBodyValid, setBody] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 10000
   })
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <Layout>

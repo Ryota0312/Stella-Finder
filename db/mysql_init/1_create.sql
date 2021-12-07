@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS user
     PRIMARY KEY (id)
 );
 
-INSERT INTO user (user_name, mail_address, password, icon, description, is_temporary)
+INSERT INTO user (user_name, mail_address, password, icon, description, is_temporary, is_admin)
 VALUES ('Administrator', 'admin@example.com', '$2a$10$BUnaN4172OKkExLbfpsbj./EhvryG5LvfRnjpfQ8TnbCEf59a16l.', NULL,
-        NULL, 0);
+        NULL, 0, 1);
 
 CREATE TABLE IF NOT EXISTS tmp_register
 (

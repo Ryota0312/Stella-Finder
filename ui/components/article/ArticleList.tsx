@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
+import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 
 export const ArticleList: React.FC = () => {
@@ -11,12 +12,37 @@ export const ArticleList: React.FC = () => {
   if (!data) return <div>loading...</div>
 
   return (
-    <ul>
+    <ArticleListUl>
       {data.map((d: any) => (
         <li key={d.id}>
-          <Link href={'/article/' + d.id + '/show'}>{d.title}</Link>
+          <Link href={'/article/' + d.id + '/show'}>
+            <ArticleListItem>
+              <div>{d.title}</div>
+              <div>{d.createdAt}</div>
+            </ArticleListItem>
+          </Link>
         </li>
       ))}
-    </ul>
+    </ArticleListUl>
   )
 }
+
+const ArticleListUl = styled.ul`
+  list-style: none;
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+`
+
+const ArticleListItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: #0070f3;
+  cursor: pointer;
+  padding: 4px;
+
+  &:hover,
+  &:focus {
+    background-color: #aaa;
+  }
+`

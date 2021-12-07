@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
+	"strconv"
 )
 
 type CreateArticleInputForm struct {
@@ -36,4 +37,14 @@ func CreateArticle(c *gin.Context) {
 	article := db.CreateArticle(input.Title, input.Body, loginUser.ID)
 
 	c.JSON(200, gin.H{"id": article.ID})
+}
+
+func GetArticleList(c *gin.Context) {
+	c.JSON(http.StatusOK, db.FindAllArticle())
+}
+
+func GetArticle(c *gin.Context) {
+	articleId, _ := strconv.Atoi(c.Query("articleId"))
+
+	c.JSON(http.StatusOK, db.FindArticleById(articleId))
 }

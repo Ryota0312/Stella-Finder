@@ -4,6 +4,7 @@ import React from 'react'
 import Layout from '../components/layout'
 import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
+import { ArticleList } from '../components/article/ArticleList'
 
 const Home: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Home: React.FC = () => {
       <main>
         <div>本日の月齢</div>
         <MoonAge />
+        <ArticleList />
         <PrefecturePicker />
         <div>
           <Link href={'/spot/list'}>

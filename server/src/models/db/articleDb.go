@@ -19,3 +19,23 @@ func CreateArticle(title string, body string, createdBy int) entity.Article {
 
 	return article
 }
+
+func FindAllArticle() []entity.Article {
+	var articles []entity.Article
+
+	db := open()
+	db.Find(&articles)
+	defer db.Close()
+
+	return articles
+}
+
+func FindArticleById(articleId int) entity.Article {
+	var article entity.Article
+
+	db := open()
+	db.Where("id = ?", articleId).Find(&article)
+	defer db.Close()
+
+	return article
+}

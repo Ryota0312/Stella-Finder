@@ -71,6 +71,8 @@ type RiseAndSet struct {
 }
 
 func GetMoonRiseSet(c *gin.Context) {
+	prefecture := c.Query("pref")
+
 	cacheDb := utils.NewCacheDb()
 	defer cacheDb.CloseCacheDb()
 
@@ -83,18 +85,20 @@ func GetMoonRiseSet(c *gin.Context) {
 	today := time.Now()
 	const layout = "2006-01-02"
 	todayString := today.Format(layout)
-	cacheKey := todayString + "-tokyo-moonriseset"
+	cacheKey := todayString + "-" + prefecture + "-moonriseset"
 
 	var output MoonRiseSetOutputForm
 
 	cache, err := cacheDb.Get(cacheKey)
 	if cache == nil {
+		lat, lng := utils.GetPrefectureCenter(prefecture)
+
 		response, _ := http.Get("https://labs.bitmeister.jp/ohakon/json/?mode=sun_moon_rise_set" +
 			"&year=" + strconv.Itoa(today.Year()) +
 			"&month=" + strconv.Itoa(int(today.Month())) +
 			"&day=" + strconv.Itoa(today.Day()) +
-			"&lat=" + "35.68944" +
-			"&lng=" + "139.69167")
+			"&lat=" + strconv.FormatFloat(lat, 'f', -1, 64) +
+			"&lng=" + strconv.FormatFloat(lng, 'f', -1, 64))
 		responseBody, _ := ioutil.ReadAll(response.Body)
 		defer response.Body.Close()
 

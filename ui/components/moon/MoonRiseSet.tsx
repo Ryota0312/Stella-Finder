@@ -6,7 +6,10 @@ import { useApi } from '../../hooks/useApi'
 
 export const MoonRiseSet: React.FC = () => {
   const { fetcher } = useApi()
-  const { data, error } = useSWR(['/api/moonRiseSet', false], fetcher)
+  const { data, error } = useSWR(
+    ['/api/moonRiseSet?pref=東京都', false],
+    fetcher,
+  )
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

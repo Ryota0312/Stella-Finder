@@ -19,8 +19,8 @@ const Home: React.FC = () => {
         <MoonInfo>
           <MoonAge />
           <MoonRiseSet />
+          <ArticleList />
         </MoonInfo>
-        <ArticleList />
         <PrefecturePicker />
         <div>
           <Link href={'/spot/list'}>
@@ -34,6 +34,8 @@ const Home: React.FC = () => {
 export default Home
 
 const MoonInfo = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
   gap: 16px;
+  margin-bottom: 16px;
 `

@@ -43,6 +43,7 @@ const ArticleListUl = styled.ul`
   border: 1px solid #ccc;
   padding: 24px 16px 16px 16px;
   border-radius: 8px;
+  margin: 8px 0;
 `
 
 const ArticleListItem = styled.div`

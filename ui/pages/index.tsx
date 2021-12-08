@@ -15,7 +15,6 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <div>本日の月齢</div>
         <MoonAge />
         <div>月の出・月の入</div>
         <MoonRiseSet />

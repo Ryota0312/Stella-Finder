@@ -15,22 +15,47 @@ export const MoonAge: React.FC = () => {
   if (!data) return <div>loading...</div>
 
   return (
-    <div>
+    <MoonAgeInfo>
+      <Title>月齢</Title>
       <Moon>
         <MoonCanvasLayer1 id="a0" />
         <MoonCanvasLayer2 id="a1" />
         <MoonCanvasLayer3 id="a2" />
       </Moon>
-      <div>{data.moon_age}</div>
-    </div>
+      <MoonAgeNumber>{data.moon_age}</MoonAgeNumber>
+    </MoonAgeInfo>
   )
 }
 
 const MOON_SIZE = 100
 
+const MoonAgeInfo = styled.div`
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px 0;
+  width: 150px;
+`
+
+const Title = styled.div`
+  font-size: 24px;
+`
+
 const Moon = styled.div`
   position: relative;
+  width: 100px;
   height: ${MOON_SIZE}px;
+  margin: auto;
+`
+
+const MoonAgeNumber = styled.div`
+  position: absolute;
+  top: 78px;
+  left: 56px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
 `
 
 const MoonCanvasLayer1 = styled.canvas`

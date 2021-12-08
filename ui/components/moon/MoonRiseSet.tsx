@@ -24,7 +24,7 @@ export const MoonRiseSet: React.FC<MoonRiseSetProps> = (
 
   return (
     <MoonRiseSetInfo>
-      <div>{props.prefecture}</div>
+      <Title>{props.prefecture}</Title>
       <div>月の出</div>
       <TimeText>{data.rise_and_set.moonrise_hm}</TimeText>
       <div>月の入</div>
@@ -33,7 +33,12 @@ export const MoonRiseSet: React.FC<MoonRiseSetProps> = (
   )
 }
 
+const Title = styled.div`
+  font-size: 24px;
+`
+
 const MoonRiseSetInfo = styled.div`
+  flex: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px 16px;

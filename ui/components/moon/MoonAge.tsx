@@ -30,6 +30,7 @@ export const MoonAge: React.FC = () => {
 const MOON_SIZE = 100
 
 const MoonAgeInfo = styled.div`
+  flex: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;

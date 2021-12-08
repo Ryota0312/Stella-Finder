@@ -194,6 +194,7 @@ const Spot: React.FC = () => {
 export default Spot
 
 const MoonAndReview = styled.div`
+  flex: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -206,6 +207,7 @@ const MoonAndReview = styled.div`
 const MoonInfo = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 
   @media screen and (max-width: 950px) {
     justify-content: flex-start;

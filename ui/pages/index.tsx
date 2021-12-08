@@ -5,6 +5,7 @@ import Layout from '../components/layout'
 import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleList } from '../components/article/ArticleList'
+import { MoonRiseSet } from '../components/moon/MoonRiseSet'
 
 const Home: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ const Home: React.FC = () => {
       <main>
         <div>本日の月齢</div>
         <MoonAge />
+        <div>月の出・月の入</div>
+        <MoonRiseSet />
         <ArticleList />
         <PrefecturePicker />
         <div>

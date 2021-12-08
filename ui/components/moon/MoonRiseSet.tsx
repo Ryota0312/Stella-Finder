@@ -4,23 +4,29 @@ import { useApi } from '../../hooks/useApi'
 import { PrefectureSelectMoonRiseSet } from './PrefectureSelectMoonRiseSet'
 
 export const MoonRiseSet: React.FC = () => {
-  const [prefecture, setPrefecture] = useState('東京都')
-  const [rise, setRise] = useState('')
-  const [set, setSet] = useState('')
+  const [prefecture, setPrefecture] = useState('')
+  const [rise, setRise] = useState('--:--')
+  const [set, setSet] = useState('--:--')
 
   const { fetcher } = useApi()
 
   useEffect(() => {
     const localStoragePref = localStorage.getItem('prefecture')
-    if (localStoragePref) setPrefecture(localStoragePref)
+    if (localStoragePref) {
+      setPrefecture(localStoragePref)
+    } else {
+      setPrefecture('東京都')
+    }
   }, [])
 
   useEffect(() => {
     localStorage.setItem('prefecture', prefecture)
-    fetcher('/api/moonRiseSet?pref=' + prefecture, false).then((res) => {
-      setRise(res.rise_and_set.moonrise_hm)
-      setSet(res.rise_and_set.moonset_hm)
-    })
+    if (prefecture !== '') {
+      fetcher('/api/moonRiseSet?pref=' + prefecture, false).then((res) => {
+        setRise(res.rise_and_set.moonrise_hm)
+        setSet(res.rise_and_set.moonset_hm)
+      })
+    }
   }, [prefecture])
 
   return (

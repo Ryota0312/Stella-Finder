@@ -60,3 +60,62 @@ func GetMoonAge(c *gin.Context) {
 
 	c.JSON(http.StatusOK, output)
 }
+
+type MoonRiseSetOutputForm struct {
+	RiseSet RiseAndSet `json:"rise_and_set"`
+}
+
+type RiseAndSet struct {
+	MoonRise string `json:"moonrise_hm"`
+	MoonSet  string `json:"moonset_hm"`
+}
+
+func GetMoonRiseSet(c *gin.Context) {
+	cacheDb := utils.NewCacheDb()
+	defer cacheDb.CloseCacheDb()
+
+	jst, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		panic(err)
+	}
+	time.Local = jst
+
+	today := time.Now()
+	const layout = "2006-01-02"
+	todayString := today.Format(layout)
+	cacheKey := todayString + "-tokyo-moonriseset"
+
+	var output MoonRiseSetOutputForm
+
+	cache, err := cacheDb.Get(cacheKey)
+	if cache == nil {
+		response, _ := http.Get("https://labs.bitmeister.jp/ohakon/json/?mode=sun_moon_rise_set" +
+			"&year=" + strconv.Itoa(today.Year()) +
+			"&month=" + strconv.Itoa(int(today.Month())) +
+			"&day=" + strconv.Itoa(today.Day()) +
+			"&lat=" + "35.68944" +
+			"&lng=" + "139.69167")
+		responseBody, _ := ioutil.ReadAll(response.Body)
+		defer response.Body.Close()
+
+		if err := json.Unmarshal(responseBody, &output); err != nil {
+			c.JSON(http.StatusInternalServerError, "Internal server error")
+			return
+		}
+
+		err = cacheDb.Set(cacheKey, responseBody, 60*60*24)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, "Cache error")
+			return
+		}
+
+	} else {
+		err = json.Unmarshal(cache, &output)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, "Cache error")
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, output)
+}

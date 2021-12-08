@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
+import styled from 'styled-components'
 import Layout from '../components/layout'
 import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
@@ -15,9 +16,10 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <MoonAge />
-        <div>月の出・月の入</div>
-        <MoonRiseSet />
+        <MoonInfo>
+          <MoonAge />
+          <MoonRiseSet />
+        </MoonInfo>
         <ArticleList />
         <PrefecturePicker />
         <div>
@@ -30,3 +32,8 @@ const Home: React.FC = () => {
   )
 }
 export default Home
+
+const MoonInfo = styled.div`
+  display: flex;
+  gap: 16px;
+`

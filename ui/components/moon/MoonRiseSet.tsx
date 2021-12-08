@@ -12,9 +12,25 @@ export const MoonRiseSet: React.FC = () => {
   if (!data) return <div>loading...</div>
 
   return (
-    <div>
-      <div>{data.rise_and_set.moonrise_hm}</div>
-      <div>{data.rise_and_set.moonset_hm}</div>
-    </div>
+    <MoonRiseSetInfo>
+      <div>月の出</div>
+      <TimeText>{data.rise_and_set.moonrise_hm}</TimeText>
+      <div>月の入</div>
+      <TimeText>{data.rise_and_set.moonset_hm}</TimeText>
+      <div>(東京)</div>
+    </MoonRiseSetInfo>
   )
 }
+
+const MoonRiseSetInfo = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 8px 0;
+`
+
+const TimeText = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  color: #2a2467;
+`

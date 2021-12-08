@@ -38,4 +38,13 @@ const MoonInfo = styled.div`
   grid-template-columns: 1fr 1fr 4fr;
   gap: 16px;
   margin-bottom: 16px;
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+
+    ul {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
 `

@@ -13,6 +13,7 @@ export const ArticleList: React.FC = () => {
 
   return (
     <ArticleListUl>
+      <ArticleListLabel>お知らせ</ArticleListLabel>
       {data.map((d: any) => (
         <li key={d.id}>
           <Link href={'/article/' + d.id + '/show'}>
@@ -27,10 +28,20 @@ export const ArticleList: React.FC = () => {
   )
 }
 
+const ArticleListLabel = styled.div`
+  position: absolute;
+  top: -16px;
+  left: 16px;
+  font-size: 24px;
+  background-color: white;
+  color: #9f9f9f;
+`
+
 const ArticleListUl = styled.ul`
+  position: relative;
   list-style: none;
   border: 1px solid #ccc;
-  padding: 16px;
+  padding: 24px 16px 16px 16px;
   border-radius: 8px;
 `
 

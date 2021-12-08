@@ -55,6 +55,7 @@ func serve() {
 
 		authRequiredAPI.POST("/profile", controller.UpdateUser)
 		authRequiredAPI.POST("/file/upload", controller.CreateFile)
+		//authRequiredAPI.POST("/file/delete", controller.DeleteFile)
 		authRequiredAPI.POST("/spot/register", controller.CreateSpot)
 		authRequiredAPI.POST("/spot/update", controller.UpdateSpot)
 		authRequiredAPI.POST("/spot/addImage", controller.CreateSpotImage)

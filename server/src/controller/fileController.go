@@ -51,8 +51,19 @@ func CreateFile(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	loginUser, _ := GetLoginUserMailAddressFromSession(session)
-	db.CreateFile(fileKey, fileName, loginUser)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	db.CreateFile(fileKey, fileName, loginUser.ID)
 
 	c.JSON(http.StatusOK, gin.H{
 		"fileKey": fileKey,
@@ -72,8 +83,7 @@ func GetFilesByUser(c *gin.Context) {
 		return
 	}
 
-	user := db.FindUserById(userId)
-	files := db.GetFilesByUserId(user.MailAddress)
+	files := db.GetFilesByUserId(userId)
 
 	c.JSON(http.StatusOK, files)
 }
@@ -86,3 +96,30 @@ func getFilePath(fileKey string) string {
 	dir, _ := os.Getwd()
 	return dir + "/uploadedImages/" + fileKey
 }
+
+type DeleteFileInputForm struct {
+	FileKey string `json:"fileKey"`
+}
+
+//func DeleteFile(c *gin.Context) {
+//	var input DeleteFileInputForm
+//	if err := c.ShouldBindJSON(&input); err != nil {
+//		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+//		return
+//	}
+//
+//	session := sessions.Default(c)
+//	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+//	if err != nil {
+//		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+//		return
+//	}
+//
+//	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+//	if err != nil {
+//		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+//		return
+//	}
+//
+//	db.DeleteFile(input.FileKey, loginUser.MailAddress)
+//}

@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS file
 (
     file_key   VARCHAR(64)  NOT NULL,
     file_name  VARCHAR(256) NOT NULL,
-    created_by VARCHAR(64)  NOT NULL,
+    created_by INT(11)      NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (file_key)
 );

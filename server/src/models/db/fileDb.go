@@ -8,7 +8,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func CreateFile(fileKey string, fileName string, createdBy string) {
+func CreateFile(fileKey string, fileName string, createdBy int) {
 	var file = entity.File{}
 	file.FileKey = fileKey
 	file.FileName = fileName
@@ -30,12 +30,18 @@ func GetFileInfo(fileKey string) entity.File {
 	return fileInfo
 }
 
-func GetFilesByUserId(mailAddress string) []entity.File {
+func GetFilesByUserId(userId int) []entity.File {
 	var files []entity.File
 
 	db := open()
-	db.Where("created_by = ?", mailAddress).Find(&files)
+	db.Where("created_by = ?", userId).Find(&files)
 	defer db.Close()
 
 	return files
 }
+
+//func DeleteFile(fileKey string, userMailAddress string) {
+//	db := open()
+//	db.Where().Delete()
+//	defer db.Close()
+//}

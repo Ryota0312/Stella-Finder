@@ -1,44 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import useSWR from 'swr'
 import { useApi } from '../../hooks/useApi'
 import { PrefectureSelectMoonRiseSet } from './PrefectureSelectMoonRiseSet'
 
-export const MoonRiseSet: React.FC = () => {
-  const [prefecture, setPrefecture] = useState('')
-  const [rise, setRise] = useState('--:--')
-  const [set, setSet] = useState('--:--')
+type MoonRiseSetProps = {
+  prefecture: string
+}
 
+export const MoonRiseSet: React.FC<MoonRiseSetProps> = (
+  props: MoonRiseSetProps,
+) => {
   const { fetcher } = useApi()
+  const { data, error } = useSWR(
+    props.prefecture
+      ? ['/api/moonRiseSet?pref=' + props.prefecture, false]
+      : null,
+    fetcher,
+  )
 
-  useEffect(() => {
-    const localStoragePref = localStorage.getItem('prefecture')
-    if (localStoragePref) {
-      setPrefecture(localStoragePref)
-    } else {
-      setPrefecture('東京都')
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('prefecture', prefecture)
-    if (prefecture !== '') {
-      fetcher('/api/moonRiseSet?pref=' + prefecture, false).then((res) => {
-        setRise(res.rise_and_set.moonrise_hm)
-        setSet(res.rise_and_set.moonset_hm)
-      })
-    }
-  }, [prefecture])
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <MoonRiseSetInfo>
+      <div>{props.prefecture}</div>
       <div>月の出</div>
-      <TimeText>{rise}</TimeText>
+      <TimeText>{data.rise_and_set.moonrise_hm}</TimeText>
       <div>月の入</div>
-      <TimeText>{set}</TimeText>
-      <PrefectureSelectMoonRiseSet
-        value={prefecture}
-        onChange={(v) => setPrefecture(v)}
-      />
+      <TimeText>{data.rise_and_set.moonset_hm}</TimeText>
     </MoonRiseSetInfo>
   )
 }
@@ -47,7 +37,7 @@ const MoonRiseSetInfo = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px 16px;
-  margin: 8px 0;
+  margin: 0;
 `
 
 const TimeText = styled.div`

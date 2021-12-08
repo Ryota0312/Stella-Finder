@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleList } from '../components/article/ArticleList'
-import { MoonRiseSet } from '../components/moon/MoonRiseSet'
+import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
 
 const Home: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
       <main>
         <MoonInfo>
           <MoonAge />
-          <MoonRiseSet />
+          <MoonRiseSetWithPrefectureSelect />
           <ArticleList />
         </MoonInfo>
         <PrefecturePicker />
@@ -37,7 +37,7 @@ const MoonInfo = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 4fr;
   gap: 16px;
-  margin-bottom: 16px;
+  margin: 32px 0 16px 0;
 
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr 1fr;

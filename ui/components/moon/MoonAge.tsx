@@ -33,7 +33,7 @@ const MoonAgeInfo = styled.div`
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;
-  margin: 8px 0;
+  margin: 0;
 `
 
 const Title = styled.div`

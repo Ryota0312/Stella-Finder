@@ -15,6 +15,8 @@ import { AddImageDialog } from '../../../components/spot/AddImageDialog'
 import { SpotImageList } from '../../../components/spot/SpotImageList'
 import { ReviewList } from '../../../components/review/ReviewList'
 import { ReviewSummary } from '../../../components/review/ReviewSummary'
+import { MoonRiseSet } from '../../../components/moon/MoonRiseSet'
+import { MoonAge } from '../../../components/moon/MoonAge'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -69,12 +71,18 @@ const Spot: React.FC = () => {
               objectFit={'cover'}
             />
           </div>
-          <ReviewSummary
-            total={data.avgTotalPoint}
-            darkness={data.avgDarknessPoint}
-            view={data.avgViewPoint}
-            safety={data.avgSafetyPoint}
-          />
+          <MoonAndReview>
+            <MoonInfo>
+              <MoonAge />
+              <MoonRiseSet prefecture={data.prefecture} />
+            </MoonInfo>
+            <ReviewSummary
+              total={data.avgTotalPoint}
+              darkness={data.avgDarknessPoint}
+              view={data.avgViewPoint}
+              safety={data.avgSafetyPoint}
+            />
+          </MoonAndReview>
         </CoverImageAndReviewSummary>
         <SpotInfoTable>
           <tbody>
@@ -184,6 +192,27 @@ const Spot: React.FC = () => {
   )
 }
 export default Spot
+
+const MoonAndReview = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media screen and (max-width: 950px) {
+    gap: 8px;
+  }
+`
+
+const MoonInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: 950px) {
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 8px;
+  }
+`
 
 const CoverImageAndReviewSummary = styled.div`
   display: flex;

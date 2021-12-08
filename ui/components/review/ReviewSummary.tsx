@@ -29,7 +29,6 @@ export const ReviewSummary: React.FC<ReviewSummaryProps> = (
 const ReviewSummaryContent = styled.div`
   border: 1px solid #ccc;
   padding: 16px 48px;
-  width: 100%;
 
   @media screen and (max-width: 950px) {
     display: grid;
@@ -37,7 +36,7 @@ const ReviewSummaryContent = styled.div`
     grid-column-gap: 8px;
     grid-row-gap: 8px;
     width: auto;
-    margin: 16px 0;
+    margin: 8px 0;
   }
 
   @media screen and (max-width: 450px) {

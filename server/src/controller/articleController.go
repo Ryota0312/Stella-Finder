@@ -45,7 +45,9 @@ func CreateArticle(c *gin.Context) {
 }
 
 func GetArticleList(c *gin.Context) {
-	c.JSON(http.StatusOK, db.FindAllArticle())
+	limit, _ := strconv.Atoi(c.Query("limit"))
+
+	c.JSON(http.StatusOK, db.FindAllArticle(limit))
 }
 
 func GetArticle(c *gin.Context) {

@@ -6,7 +6,7 @@ import { useApi } from '../../hooks/useApi'
 
 export const ArticleList: React.FC = () => {
   const fetcher = useApi()
-  const { data, error } = useSWR(['/api/article/list', false], fetcher)
+  const { data, error } = useSWR(['/api/article/list?limit=5', false], fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>

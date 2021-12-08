@@ -20,11 +20,15 @@ func CreateArticle(title string, body string, createdBy int) entity.Article {
 	return article
 }
 
-func FindAllArticle() []entity.Article {
+func FindAllArticle(limit int) []entity.Article {
 	var articles []entity.Article
 
 	db := open()
-	db.Find(&articles)
+	if limit > 0 {
+		db.Order("created_at desc").Limit(limit).Find(&articles)
+	} else {
+		db.Order("created_at desc").Find(&articles)
+	}
 	defer db.Close()
 
 	return articles

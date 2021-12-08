@@ -18,7 +18,7 @@ export const ArticleList: React.FC = () => {
           <Link href={'/article/' + d.id + '/show'}>
             <ArticleListItem>
               <div>{d.title}</div>
-              <div>{d.createdAt}</div>
+              <div>{convertDateTimeString_(d.createdAt)}</div>
             </ArticleListItem>
           </Link>
         </li>
@@ -46,3 +46,10 @@ const ArticleListItem = styled.div`
     background-color: #aaa;
   }
 `
+
+const convertDateTimeString_ = (datetime: string) => {
+  const dt = new Date(datetime)
+  return `${dt.getFullYear()}年${
+    dt.getMonth() + 1
+  }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
+}

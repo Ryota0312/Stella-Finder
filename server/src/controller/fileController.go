@@ -122,9 +122,6 @@ func DeleteFile(c *gin.Context) {
 	}
 
 	deleteCount := db.DeleteFile(input.FileKey, loginUser.ID)
-	println("=========================--")
-	println(deleteCount)
-	println("=========================--")
 	if deleteCount > 0 {
 		dir, _ := os.Getwd()
 		err = os.Remove(dir + "/uploadedImages/" + input.FileKey)

@@ -101,25 +101,36 @@ type DeleteFileInputForm struct {
 	FileKey string `json:"fileKey"`
 }
 
-//func DeleteFile(c *gin.Context) {
-//	var input DeleteFileInputForm
-//	if err := c.ShouldBindJSON(&input); err != nil {
-//		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-//		return
-//	}
-//
-//	session := sessions.Default(c)
-//	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
-//	if err != nil {
-//		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
-//		return
-//	}
-//
-//	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
-//	if err != nil {
-//		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
-//		return
-//	}
-//
-//	db.DeleteFile(input.FileKey, loginUser.MailAddress)
-//}
+func DeleteFile(c *gin.Context) {
+	var input DeleteFileInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	deleteCount := db.DeleteFile(input.FileKey, loginUser.ID)
+	println("=========================--")
+	println(deleteCount)
+	println("=========================--")
+	if deleteCount > 0 {
+		dir, _ := os.Getwd()
+		err = os.Remove(dir + "/uploadedImages/" + input.FileKey)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, "Cannot remove file in disk")
+			return
+		}
+	}
+}

@@ -40,8 +40,19 @@ func GetFilesByUserId(userId int) []entity.File {
 	return files
 }
 
-//func DeleteFile(fileKey string, userMailAddress string) {
-//	db := open()
-//	db.Where().Delete()
-//	defer db.Close()
-//}
+func DeleteFile(fileKey string, userId int) int64 {
+	var file = entity.File{}
+	file.FileKey = fileKey
+	file.CreatedBy = userId
+
+	var count int64
+
+	db := open()
+	db.Where(&file).Find(&file).Count(&count)
+	if count > 0 {
+		db.Delete(&file)
+	}
+	defer db.Close()
+
+	return count
+}

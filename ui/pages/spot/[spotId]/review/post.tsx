@@ -11,6 +11,7 @@ import { StarEvaluator } from '../../../../components/common/StarEvaluator'
 import { TextField } from '../../../../components/common/TextField'
 import { useStateWithValidate } from '../../../../hooks/useStateWithValidate'
 import { ImageUploader } from '../../../../components/common/ImageUploader'
+import { Loading } from '../../../../components/common/Loading'
 
 const Post: React.FC = () => {
   const router = useRouter()
@@ -38,7 +39,7 @@ const Post: React.FC = () => {
   }, [spotId])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

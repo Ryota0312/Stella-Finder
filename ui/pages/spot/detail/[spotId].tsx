@@ -17,6 +17,7 @@ import { ReviewList } from '../../../components/review/ReviewList'
 import { ReviewSummary } from '../../../components/review/ReviewSummary'
 import { MoonRiseSet } from '../../../components/moon/MoonRiseSet'
 import { MoonAge } from '../../../components/moon/MoonAge'
+import { Loading } from '../../../components/common/Loading'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -50,7 +51,7 @@ const Spot: React.FC = () => {
   }, [])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

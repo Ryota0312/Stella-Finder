@@ -8,6 +8,7 @@ import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { UserImageList } from '../../../components/user/UserImageList'
 import { UserProfileIcon } from '../../../components/user/UserProfileIcon'
+import { Loading } from '../../../components/common/Loading'
 
 const User: React.FC = () => {
   const router = useRouter()
@@ -27,7 +28,7 @@ const User: React.FC = () => {
   }, [userId])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

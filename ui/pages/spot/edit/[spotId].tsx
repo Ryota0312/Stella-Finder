@@ -12,6 +12,7 @@ import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
 import { TextField } from '../../../components/common/TextField'
 import { ImageUploader } from '../../../components/common/ImageUploader'
+import { Loading } from '../../../components/common/Loading'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -53,7 +54,7 @@ const Edit: React.FC = () => {
   }, [spotId])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

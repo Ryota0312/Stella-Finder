@@ -7,6 +7,7 @@ import { InputField } from '../../components/common/InputField'
 import { useStateWithValidate } from '../../hooks/useStateWithValidate'
 import { TextField } from '../../components/common/TextField'
 import { useApi } from '../../hooks/useApi'
+import { Loading } from '../../components/common/Loading'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -24,7 +25,7 @@ const Add: React.FC = () => {
   })
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
+import { Loading } from '../../../components/common/Loading'
 
 const Show: React.FC = () => {
   const [createdBy, setCreatedBy] = useState('')
@@ -25,7 +26,7 @@ const Show: React.FC = () => {
   }, [data])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

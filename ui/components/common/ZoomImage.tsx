@@ -53,10 +53,11 @@ export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
 
 const DeleteButton = styled.button`
   position: absolute;
-  top: 90%;
-  left: 90%;
+  bottom: 0;
+  right: 0;
   background-color: red;
   color: white;
+  margin: 16px;
 `
 
 const CloseButton = styled.button`

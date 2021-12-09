@@ -2,6 +2,7 @@ import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 import { Review } from './Review'
 
 export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
@@ -12,7 +13,7 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
   )
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <ReviewListUl>

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from '../common/UnoptimizedImage'
 import { UserIconEditDialog } from '../settings/UserIconEditDialog'
+import { TinyLoading } from '../common/TinyLoading'
 
 type UserIconProps = {
   isLoginUser: boolean
@@ -20,7 +21,7 @@ export const UserProfileIcon: React.FC<UserIconProps> = (
   const { data, error } = useSWR(['/api/loginUser', false], fetcher)
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <>

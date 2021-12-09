@@ -7,6 +7,7 @@ import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleList } from '../components/article/ArticleList'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
+import { TinyLoading } from '../components/common/TinyLoading'
 
 const Home: React.FC = () => {
   return (

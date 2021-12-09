@@ -2,6 +2,7 @@ import React from 'react'
 import useSWR from 'swr'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 
 type UserImageListProps = {
   userId: number
@@ -17,7 +18,7 @@ export const UserImageList: React.FC<UserImageListProps> = (
   )
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return <ImageList imageList={convertToFileItems_(data)} />
 }

@@ -3,13 +3,14 @@ import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 
 export const ArticleList: React.FC = () => {
   const fetcher = useApi()
   const { data, error } = useSWR(['/api/article/list?limit=5', false], fetcher)
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <ArticleListUl>

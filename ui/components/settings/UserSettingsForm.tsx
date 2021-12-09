@@ -6,6 +6,7 @@ import { useApi } from '../../hooks/useApi'
 import { InputField } from '../common/InputField'
 import { useStateWithValidate } from '../../hooks/useStateWithValidate'
 import { TextField } from '../common/TextField'
+import { TinyLoading } from '../common/TinyLoading'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -36,7 +37,7 @@ export const UserSettingsForm: React.FC = () => {
   }, [data])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <div>

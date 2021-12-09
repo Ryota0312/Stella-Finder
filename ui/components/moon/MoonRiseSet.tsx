@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useSWR from 'swr'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 import { PrefectureSelectMoonRiseSet } from './PrefectureSelectMoonRiseSet'
 
 type MoonRiseSetProps = {
@@ -20,7 +21,7 @@ export const MoonRiseSet: React.FC<MoonRiseSetProps> = (
   )
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <MoonRiseSetInfo>

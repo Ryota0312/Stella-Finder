@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 
 export const MoonAge: React.FC = () => {
   const { fetcher } = useApi()
@@ -12,7 +13,7 @@ export const MoonAge: React.FC = () => {
   }, [data])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <MoonAgeInfo>

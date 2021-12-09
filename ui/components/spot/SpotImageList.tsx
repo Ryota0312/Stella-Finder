@@ -2,6 +2,7 @@ import React from 'react'
 import useSWR from 'swr'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { useApi } from '../../hooks/useApi'
+import { TinyLoading } from '../common/TinyLoading'
 
 type SpotImageList = {
   spotId: number
@@ -19,7 +20,7 @@ export const SpotImageList: React.FC<SpotImageList> = (
   )
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return <ImageList imageList={convertToFileItems_(data)} />
 }

@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from './UnoptimizedImage'
 import { ZoomImage } from './ZoomImage'
+import { TinyLoading } from './TinyLoading'
 
 export interface ImageListItem {
   fileKey: string
@@ -21,7 +22,7 @@ export const ImageList: React.FC<{ imageList: ImageListItem[] }> = ({
   const [zoomFileCreatedBy, setZoomFileCreatedBy] = useState(0)
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <>

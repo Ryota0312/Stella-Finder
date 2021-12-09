@@ -8,6 +8,7 @@ import { useApi } from '../../hooks/useApi'
 import { useAuth } from '../../hooks/useAuth'
 import { UnoptimizedImage } from '../common/UnoptimizedImage'
 import { LoginUserOnly } from '../common/LoginUserOnly'
+import { TinyLoading } from '../common/TinyLoading'
 
 type LoginStatusProps = {
   isOpen: boolean
@@ -23,7 +24,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
   const { data, error } = useSWR(['/api/loginUser', false], fetcher)
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <TinyLoading />
 
   return (
     <Status>

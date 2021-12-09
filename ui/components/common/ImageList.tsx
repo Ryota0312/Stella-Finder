@@ -1,24 +1,37 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import useSWR from 'swr'
+import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from './UnoptimizedImage'
 import { ZoomImage } from './ZoomImage'
 
 export interface ImageListItem {
   fileKey: string
   fileName: string
+  createdBy: number
 }
 
-export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
+export const ImageList: React.FC<{ imageList: ImageListItem[] }> = ({
+  imageList,
+}) => {
+  const { fetcher } = useApi()
+  const { data, error } = useSWR(['/api/loginUser', false], fetcher)
+
   const [zoomFileKey, setZoomFileKey] = useState('')
+  const [zoomFileCreatedBy, setZoomFileCreatedBy] = useState(0)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <>
       <ImageGridLayout>
-        {data.map((d: ImageListItem) => {
+        {imageList.map((d: ImageListItem) => {
           return (
             <ImageItem key={d.fileKey}>
               <ImageItemButton
                 onClick={() => {
+                  setZoomFileCreatedBy(d.createdBy)
                   setZoomFileKey(d.fileKey)
                 }}
               >
@@ -39,6 +52,7 @@ export const ImageList: React.FC<{ data: ImageListItem[] }> = ({ data }) => {
         fileKey={zoomFileKey}
         isOpen={!!zoomFileKey}
         closeDialog={() => setZoomFileKey('')}
+        canDelete={zoomFileCreatedBy === data.id}
       />
     </>
   )

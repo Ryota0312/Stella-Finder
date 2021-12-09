@@ -1,15 +1,19 @@
 import React from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
+import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from './UnoptimizedImage'
 
 type ZoomImageProps = {
   isOpen: boolean
   closeDialog: () => void
   fileKey: string
+  canDelete: boolean
 }
 
 export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
+  const { postFetcher } = useApi()
+
   return (
     <Modal
       isOpen={props.isOpen}
@@ -33,9 +37,27 @@ export const ZoomImage: React.FC<ZoomImageProps> = (props: ZoomImageProps) => {
         objectFit="contain"
       />
       <CloseButton onClick={() => props.closeDialog()}>✕</CloseButton>
+      {props.canDelete && (
+        <DeleteButton
+          onClick={() => {
+            postFetcher('/api/user/file/delete', { fileKey: props.fileKey })
+            location.reload()
+          }}
+        >
+          削除
+        </DeleteButton>
+      )}
     </Modal>
   )
 }
+
+const DeleteButton = styled.button`
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  background-color: red;
+  color: white;
+`
 
 const CloseButton = styled.button`
   position: absolute;

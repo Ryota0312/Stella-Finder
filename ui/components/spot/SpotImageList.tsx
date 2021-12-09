@@ -21,13 +21,17 @@ export const SpotImageList: React.FC<SpotImageList> = (
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  return <ImageList data={convertToFileItems_(data)} />
+  return <ImageList imageList={convertToFileItems_(data)} />
 }
 
 const convertToFileItems_ = (data: any[]): ImageListItem[] => {
   if (data === undefined) return []
 
   return data.map((d) => {
-    return { fileKey: d.image, fileName: '' } as ImageListItem
+    return {
+      fileKey: d.image,
+      fileName: '',
+      createdBy: d.createdBy,
+    } as ImageListItem
   })
 }

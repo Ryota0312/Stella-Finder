@@ -24,8 +24,12 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
       <Comment>{props.comment}</Comment>
       {props.images && (
         <ImageList
-          data={props.images.map((image) => {
-            return { fileKey: image, fileName: '' } as ImageListItem
+          imageList={props.images.map((image) => {
+            return {
+              fileKey: image,
+              fileName: '',
+              createdBy: 0, // FIXME
+            } as ImageListItem
           })}
         />
       )}

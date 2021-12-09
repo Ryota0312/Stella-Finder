@@ -19,11 +19,15 @@ export const UserImageList: React.FC<UserImageListProps> = (
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  return <ImageList data={convertToFileItems_(data)} />
+  return <ImageList imageList={convertToFileItems_(data)} />
 }
 
 const convertToFileItems_ = (data: any[]): ImageListItem[] => {
   return data.map((d) => {
-    return { fileKey: d.fileKey, fileName: d.fileName } as ImageListItem
+    return {
+      fileKey: d.fileKey,
+      fileName: d.fileName,
+      createdBy: d.createdBy,
+    } as ImageListItem
   })
 }

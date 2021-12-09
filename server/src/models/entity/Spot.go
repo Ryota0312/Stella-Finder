@@ -9,6 +9,8 @@ type Spot struct {
 	PostalCode       string    `gorm:"type:varchar(8);"  json:"postalCode"`
 	Prefecture       string    `gorm:"type:varchar(32);not null"  json:"prefecture"`
 	Address          string    `gorm:"type:varchar(256);not null"  json:"address"`
+	Latitude         float64   `gorm:"type:double;" json:"latitude"`
+	Longitude        float64   `gorm:"type:double;" json:"longitude"`
 	Remarks          string    `gorm:"type:text;"  json:"remarks"`
 	LastUpdatedAt    time.Time `gorm:"type:datetime(3);not null;default:current_timestamp"  json:"updatedAt"`
 	LastUpdatedBy    int       `gorm:"type:int;"  json:"updatedBy"`

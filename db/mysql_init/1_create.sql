@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS spot
     postal_code        VARCHAR(8),
     prefecture         VARCHAR(32)            NOT NULL,
     address            VARCHAR(256)           NOT NULL,
+    latitude           DOUBLE(9, 6),
+    longitude          DOUBLE(9, 6),
     remarks            TEXT,
     last_updated_at    TIMESTAMP              NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     last_updated_by    INT(11)                NOT NULL,
@@ -47,8 +49,8 @@ CREATE TABLE IF NOT EXISTS spot
     PRIMARY KEY (id)
 ) default character set utf8mb4;
 
-INSERT INTO spot (name, postal_code, prefecture, address, remarks, last_updated_by)
-VALUES (N'井原市星空公園', '7141405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', N'初期データ', 1);
+INSERT INTO spot (name, postal_code, prefecture, address, latitude, longitude, remarks, last_updated_by)
+VALUES (N'井原市星空公園', '7141405', N'岡山県', N'小田郡井原市美星町宇戸１１６５−５４', 34.679972,133.571113, N'初期データ', 1);
 
 CREATE TABLE IF NOT EXISTS file
 (

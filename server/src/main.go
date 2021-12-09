@@ -45,6 +45,7 @@ func serve() {
 		api.GET("/moonRiseSet", controller.GetMoonRiseSet)
 		api.GET("/article/list", controller.GetArticleList)
 		api.GET("/articles", controller.GetArticle)
+		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
 	}
 
 	// API (need Authorize)

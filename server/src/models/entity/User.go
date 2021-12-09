@@ -8,5 +8,5 @@ type User struct {
 	Icon        string `gorm:"type:varchar(64)"           json:"icon"`
 	Description string `gorm:"type:text" json:"description"`
 	IsTemporary *bool  `json:"is_temporary"`
-	IsAdmin     *bool  `json:"is_admin"`
+	IsAdmin     *bool  `gorm:"type:tinyint(1);default:0;not null" json:"is_admin"`
 }

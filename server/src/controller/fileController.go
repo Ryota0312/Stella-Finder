@@ -130,4 +130,6 @@ func DeleteFile(c *gin.Context) {
 			return
 		}
 	}
+
+	c.JSON(http.StatusOK, "")
 }

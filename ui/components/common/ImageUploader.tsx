@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useDropzone } from 'react-dropzone'
-import { string } from 'prop-types'
-import { useUploader } from '../../hooks/useUploader'
+import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from './UnoptimizedImage'
 
 type ImageUploaderProps = {
@@ -17,6 +16,7 @@ type ImageUploaderProps = {
 export const ImageUploader: React.FC<ImageUploaderProps> = (
   props: ImageUploaderProps,
 ) => {
+  const { postFetcher } = useApi()
   const [uploadedImage, setUploadedImage] = useState<string>(
     props.initialImageKey ? props.initialImageKey : '',
   )
@@ -26,8 +26,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
     [props.initialImageKey],
   )
 
-  const onDrop = (files: Array<File>) => {
-    upload(files[0]).then((res: any) => {
+  const onDrop = async (files: Array<File>) => {
+    if (uploadedImage !== '' && uploadedImage !== props.initialImageKey) {
+      await postFetcher('/api/user/file/delete', { fileKey: uploadedImage })
+    }
+    await upload(files[0]).then((res: any) => {
       props.onSuccess(res)
       setUploadedImage(res.fileKey)
     })

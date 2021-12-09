@@ -28,6 +28,12 @@ const LoadingWithText = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 `
 
 const LoadingText = styled.div`

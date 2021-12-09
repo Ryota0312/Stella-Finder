@@ -10,6 +10,7 @@ import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { PrefectureButton } from '../../components/common/PrefectureButton'
 import { SpotOrderSelect } from '../../components/common/SpotOrderSelect'
+import { Loading } from '../../components/common/Loading'
 
 type SpotListItem = {
   id: number
@@ -54,7 +55,7 @@ const List: React.FC = () => {
   }, [order])
 
   if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>

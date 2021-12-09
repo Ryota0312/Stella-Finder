@@ -76,7 +76,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
       </UploadedImageThumbnail>
       {loading && (
         <LoadingOverlay>
-          <LoadingWrapper />
+          <Loading />
         </LoadingOverlay>
       )}
     </div>
@@ -94,15 +94,6 @@ const LoadingOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.3);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-`
-
-const LoadingWrapper = styled(Loading)`
   position: absolute;
   top: 50%;
   left: 50%;

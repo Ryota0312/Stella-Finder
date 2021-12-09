@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useDropzone } from 'react-dropzone'
 import { useApi } from '../../hooks/useApi'
 import { UnoptimizedImage } from './UnoptimizedImage'
+import { Loading } from './Loading'
 
 type ImageUploaderProps = {
   onSuccess: (e: any) => void
@@ -16,6 +17,8 @@ type ImageUploaderProps = {
 export const ImageUploader: React.FC<ImageUploaderProps> = (
   props: ImageUploaderProps,
 ) => {
+  const [loading, setLoading] = useState(false)
+
   const { postFetcher } = useApi()
   const [uploadedImage, setUploadedImage] = useState<string>(
     props.initialImageKey ? props.initialImageKey : '',
@@ -27,12 +30,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
   )
 
   const onDrop = async (files: Array<File>) => {
+    setLoading(true)
     if (uploadedImage !== '' && uploadedImage !== props.initialImageKey) {
       await postFetcher('/api/user/file/delete', { fileKey: uploadedImage })
     }
     await upload(files[0]).then((res: any) => {
       props.onSuccess(res)
       setUploadedImage(res.fileKey)
+      setLoading(false)
     })
   }
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
@@ -69,6 +74,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (
         )}
         <input {...getInputProps()} type="file" accept="image/*" />
       </UploadedImageThumbnail>
+      {loading && (
+        <LoadingOverlay>
+          <LoadingWrapper />
+        </LoadingOverlay>
+      )}
     </div>
   )
 }
@@ -79,6 +89,27 @@ ImageUploader.defaultProps = {
   thumbnailMaxWidth: '600px',
   thumbnailMaxHeight: '450px',
 }
+
+const LoadingOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+`
+
+const LoadingWrapper = styled(Loading)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+`
 
 const upload = async (image: File) => {
   const formData = new FormData()

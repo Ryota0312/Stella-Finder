@@ -18,7 +18,7 @@ import { ReviewSummary } from '../../../components/review/ReviewSummary'
 import { MoonRiseSet } from '../../../components/moon/MoonRiseSet'
 import { MoonAge } from '../../../components/moon/MoonAge'
 import { Loading } from '../../../components/common/Loading'
-import { CurrentWeather } from '../../../components/CurrentWeather'
+import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 
 const Spot: React.FC = () => {
   const router = useRouter()

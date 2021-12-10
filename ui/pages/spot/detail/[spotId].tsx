@@ -18,6 +18,7 @@ import { ReviewSummary } from '../../../components/review/ReviewSummary'
 import { MoonRiseSet } from '../../../components/moon/MoonRiseSet'
 import { MoonAge } from '../../../components/moon/MoonAge'
 import { Loading } from '../../../components/common/Loading'
+import { CurrentWeather } from '../../../components/CurrentWeather'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -73,6 +74,7 @@ const Spot: React.FC = () => {
             />
           </div>
           <MoonAndReview>
+            <CurrentWeather spotId={data.id} />
             <MoonInfo>
               <MoonAge />
               <MoonRiseSet prefecture={data.prefecture} />
@@ -202,6 +204,7 @@ const MoonAndReview = styled.div`
 
   @media screen and (max-width: 950px) {
     gap: 8px;
+    margin-top: 16px;
   }
 `
 

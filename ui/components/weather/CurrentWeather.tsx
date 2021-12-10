@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { WeatherIcon } from './WeatherIcon'
+import { Condition } from './Condition'
 
 type CurrentWeatherProps = {
   spotId: number
@@ -30,7 +31,13 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = (
         <WeatherIcon icon={data.weather[0].icon} />
         <div>
           <div>雲量</div>
-          <Clouds>{data.clouds.all} %</Clouds>
+          <Clouds>{data.clouds.all}%</Clouds>
+        </div>
+        <div>
+          <Condition
+            weatherCode={data.weather[0].id}
+            clouds={data.clouds.all}
+          />
         </div>
       </IconAndClouds>
     </WeatherInfo>
@@ -57,6 +64,6 @@ const Clouds = styled.div`
 const IconAndClouds = styled.div`
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
   margin: 16px 8px;
 `

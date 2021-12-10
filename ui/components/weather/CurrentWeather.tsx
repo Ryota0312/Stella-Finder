@@ -1,9 +1,9 @@
 import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
-import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
+import { WeatherIcon } from './WeatherIcon'
 
 type CurrentWeatherProps = {
   spotId: number
@@ -27,12 +27,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = (
     <WeatherInfo>
       <Title>現在の天気</Title>
       <IconAndClouds>
-        <Image
-          src="/image/weather/sunny.png"
-          alt="sunny"
-          width={64}
-          height={64}
-        />
+        <WeatherIcon icon={data.weather[0].icon} />
         <div>
           <div>雲量</div>
           <Clouds>{data.clouds.all} %</Clouds>
@@ -61,6 +56,7 @@ const Clouds = styled.div`
 
 const IconAndClouds = styled.div`
   display: flex;
+  align-items: center;
   gap: 32px;
   margin: 16px 8px;
 `

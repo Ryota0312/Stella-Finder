@@ -7,18 +7,30 @@ import { PrefectureSelect } from '../common/PrefectureSelect'
 import { StarEvaluator } from '../common/StarEvaluator'
 import { InputField } from '../common/InputField'
 
-export const Search: React.FC = () => {
+type SearchProps = {
+  name?: string
+  prefectures?: Array<string>
+  order?: string
+  total?: number
+  darkness?: number
+  view?: number
+  safety?: number
+}
+
+export const Search: React.FC<SearchProps> = (props) => {
   const router = useRouter()
 
   const [addPref, setAddPref] = useState(false)
 
-  const [name, setName] = useState('')
-  const [prefectures, setPrefectures] = useState<Array<string>>([])
-  const [order, setOrder] = useState('')
-  const [total, setTotal] = useState(0)
-  const [darkness, setDarkness] = useState(0)
-  const [view, setView] = useState(0)
-  const [safety, setSafety] = useState(0)
+  const [name, setName] = useState(props.name ? props.name : '')
+  const [prefectures, setPrefectures] = useState<Array<string>>(
+    props.prefectures ? props.prefectures : [],
+  )
+  const [order, setOrder] = useState(props.order ? props.order : '')
+  const [total, setTotal] = useState(props.total ? props.total : 0)
+  const [darkness, setDarkness] = useState(props.darkness ? props.darkness : 0)
+  const [view, setView] = useState(props.view ? props.view : 0)
+  const [safety, setSafety] = useState(props.safety ? props.safety : 0)
 
   return (
     <SearchButtons>
@@ -74,6 +86,7 @@ export const Search: React.FC = () => {
         <PointInput>
           <StarEvaluator
             label="空の暗さ"
+            value={darkness}
             size={24}
             onChange={(v) => setDarkness(v)}
           />
@@ -82,6 +95,7 @@ export const Search: React.FC = () => {
         <PointInput>
           <StarEvaluator
             label="見晴らし"
+            value={view}
             size={24}
             onChange={(v) => setView(v)}
           />
@@ -90,6 +104,7 @@ export const Search: React.FC = () => {
         <PointInput>
           <StarEvaluator
             label="安全性"
+            value={safety}
             size={24}
             onChange={(v) => setSafety(v)}
           />

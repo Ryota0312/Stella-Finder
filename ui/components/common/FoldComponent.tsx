@@ -15,30 +15,28 @@ export const FoldComponent: React.FC<FoldComponentProps> = (
 
   return (
     <div>
-      <ButtonAndLabel>
-        {isOpen && (
-          <>
-            <FoldButton onClick={() => setIsOpen(false)}>
-              <Image src="/image/close.png" alt="fold" width={32} height={32} />
-            </FoldButton>
-            <div>{props.labelClose}</div>
-          </>
-        )}
-        {!isOpen && (
-          <>
-            <FoldButton onClick={() => setIsOpen(true)}>
-              <Image src="/image/open.png" alt="open" width={32} height={32} />
-            </FoldButton>
-            <div>{props.labelOpen}</div>
-          </>
-        )}
-      </ButtonAndLabel>
+      {isOpen && (
+        <FoldButton onClick={() => setIsOpen(false)}>
+          <Image src="/image/close.png" alt="fold" width={32} height={32} />
+          <div>{props.labelClose}</div>
+        </FoldButton>
+      )}
+      {!isOpen && (
+        <FoldButton onClick={() => setIsOpen(true)}>
+          <Image src="/image/open.png" alt="open" width={32} height={32} />
+          <div>{props.labelOpen}</div>
+        </FoldButton>
+      )}
+
       {isOpen && props.children}
     </div>
   )
 }
 
 const FoldButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   border: none;
   background: none;
 `

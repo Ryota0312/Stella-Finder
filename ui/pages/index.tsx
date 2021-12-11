@@ -2,6 +2,8 @@ import Head from 'next/head'
 import React from 'react'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
 import Layout from '../components/layout'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
@@ -13,6 +15,8 @@ const RecommendSpotList = dynamic(
 )
 
 const Home: React.FC = () => {
+  const router = useRouter()
+
   return (
     <Layout>
       <Head>
@@ -25,6 +29,17 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
+        <Button onClick={() => router.push('/spot/search')}>
+          <ButtonInnerWithImage>
+            <Image
+              src={'/image/search-detail.png'}
+              alt={'Edit spot information'}
+              width={48}
+              height={48}
+            />
+            <div>観測スポットを探す</div>
+          </ButtonInnerWithImage>
+        </Button>
         <RecommendSpotList key="all" showAllPrefecture={true} />
         <RecommendSpotList key="pref" showAllPrefecture={false} />
       </main>
@@ -47,4 +62,14 @@ const MoonInfo = styled.div`
       grid-column-end: 3;
     }
   }
+`
+
+const Button = styled.button`
+  font-size: 32px;
+`
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 16px;
+  color: gray;
 `

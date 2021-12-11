@@ -9,6 +9,8 @@ import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { Loading } from '../../components/common/Loading'
 import { SearchWidget } from '../../components/spot/SearchWidget'
+import { FoldComponent } from '../../components/common/FoldComponent'
+import { Search } from '../../components/spot/Search'
 
 type SpotListItem = {
   id: number
@@ -42,13 +44,12 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <SearchWidget
-          prefecture={pref ? String(pref) : ''}
-          order={order ? String(order) : ''}
-        />
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
+        <FoldComponent labelOpen="詳細検索を開く" labelClose="詳細検索を閉じる">
+          <Search />
+        </FoldComponent>
         {data.length === 0 && <div>スポットが登録されていません</div>}
         {data.length > 0 && (
           <GridList data={convertToGridItem(data)} link="spot/detail" />

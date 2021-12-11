@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
+import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { GridList, GridListItemData } from '../common/GridList'
 
-type RecommendSpotListProps = {
-  prefecture?: string
-}
-
-export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
-  const [prefecture, setPrefecture] = useState('')
+export const RecommendSpotList: React.FC = () => {
+  const [prefecture, setPrefecture] = useState('東京都')
 
   useEffect(() => {
     const localStoragePref = localStorage.getItem('prefecture')
@@ -34,16 +31,33 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
   if (!data) return <TinyLoading />
 
   return (
-    <div>
-      <p>{prefecture}のおすすめスポット</p>
+    <RecommendedSpotContainer>
+      <Title>{prefecture}のおすすめスポット</Title>
       {data.length === 0 && <div>スポットが登録されていません</div>}
       {data.length > 0 && (
         <GridList data={convertToGridItem(data)} link="spot/detail" />
       )}
-    </div>
+    </RecommendedSpotContainer>
   )
 }
 export default RecommendSpotList
+
+const Title = styled.div`
+  position: absolute;
+  top: -16px;
+  left: 16px;
+  font-size: 24px;
+  background-color: white;
+  color: #9f9f9f;
+`
+
+const RecommendedSpotContainer = styled.div`
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 24px 16px 16px 16px;
+  border-radius: 8px;
+  margin: 24px 0;
+`
 
 type SpotListItem = {
   id: number

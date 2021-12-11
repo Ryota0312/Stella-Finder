@@ -45,7 +45,13 @@ func CreateSpot(c *gin.Context) {
 		return
 	}
 
-	spot := db.CreateSpot(input.Name, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
+	location, err := GetLocationBySpotId(BuildAddressQuery(input.Name, input.PostalCode, input.Prefecture, input.Address))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Failed to get lat and lng")
+		return
+	}
+
+	spot := db.CreateSpot(input.Name, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, location.Lat, location.Lng, input.Remarks, loginUser.ID)
 
 	c.JSON(200, gin.H{"id": spot.ID})
 }
@@ -118,7 +124,13 @@ func UpdateSpot(c *gin.Context) {
 		return
 	}
 
-	db.UpdateSpot(input.SpotId, input.SpotName, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, input.Remarks, loginUser.ID)
+	location, err := GetLocationBySpotId(BuildAddressQuery(input.SpotName, input.PostalCode, input.Prefecture, input.Address))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Failed to get lat and lng")
+		return
+	}
+
+	db.UpdateSpot(input.SpotId, input.SpotName, input.CoverImage, input.PostalCode, input.Prefecture, input.Address, location.Lat, location.Lng, input.Remarks, loginUser.ID)
 	c.JSON(200, nil)
 }
 

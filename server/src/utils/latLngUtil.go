@@ -1,5 +1,14 @@
 package utils
 
+import (
+	"encoding/json"
+	"github.com/joho/godotenv"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+)
+
 // source from https://www.benricho.org/chimei/latlng_data-center.html
 var prefToLat = map[string]float64{
 	"北海道":  43.420962,
@@ -103,4 +112,63 @@ var prefToLng = map[string]float64{
 
 func GetPrefectureCenter(prefecture string) (float64, float64) {
 	return prefToLat[prefecture], prefToLng[prefecture]
+}
+
+type GoogleGeocodingOutputForm struct {
+	Results []struct {
+		Geometry struct {
+			Location struct {
+				Lat float64 `json:"lat"`
+				Lng float64 `json:"lng"`
+			} `json:"location"`
+		} `json:"geometry"`
+	} `json:"results"`
+}
+
+type LatLng struct {
+	Lat float64
+	Lng float64
+}
+
+func GetLocationBySpotId(address string) (LatLng, error) {
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		log.Fatalf("error: %v", loadErr)
+	}
+	API_KEY := os.Getenv("GOOGLE_GEOCODING_API_KEY")
+
+	var output GoogleGeocodingOutputForm
+
+	response, _ := http.Get("https://maps.googleapis.com/maps/api/geocode/json?" +
+		"address=" + address +
+		"&key=" + API_KEY)
+	responseBody, _ := ioutil.ReadAll(response.Body)
+	defer response.Body.Close()
+
+	if err := json.Unmarshal(responseBody, &output); err != nil {
+		return LatLng{}, err
+	}
+
+	return LatLng{Lat: output.Results[0].Geometry.Location.Lat, Lng: output.Results[0].Geometry.Location.Lng}, nil
+}
+
+func BuildAddressQuery(name string, postalCode string, prefecture string, address string) string {
+	var formattedPostalCode string
+	if postalCode == "" {
+		formattedPostalCode = ""
+	} else {
+		formattedPostalCode = postalCode[0:2] + "-" + postalCode[3:]
+	}
+
+	formattedAddress := ""
+	if formattedPostalCode != "" {
+		formattedAddress += formattedPostalCode + "+"
+	}
+	formattedAddress += prefecture + "+"
+	if address != "" {
+		formattedAddress += address + "+"
+	}
+	formattedAddress += name
+
+	return formattedAddress
 }

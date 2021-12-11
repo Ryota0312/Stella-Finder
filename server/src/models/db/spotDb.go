@@ -65,7 +65,7 @@ func FindSpotByPrefectureOrderBy(prefectures []string, order string, ascDesc str
 	return spots
 }
 
-func UpdateSpot(id int, spotName string, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) {
+func UpdateSpot(id int, spotName string, coverImage string, postalCode string, prefecture string, address string, lat float64, lng float64, remarks string, updatedBy int) {
 	var spot = entity.Spot{}
 	spot.ID = id
 
@@ -76,6 +76,8 @@ func UpdateSpot(id int, spotName string, coverImage string, postalCode string, p
 		PostalCode:    postalCode,
 		Prefecture:    prefecture,
 		Address:       address,
+		Latitude:      lat,
+		Longitude:     lng,
 		Remarks:       remarks,
 		LastUpdatedBy: updatedBy,
 	})
@@ -83,13 +85,15 @@ func UpdateSpot(id int, spotName string, coverImage string, postalCode string, p
 	defer db.Close()
 }
 
-func CreateSpot(name string, coverImage string, postalCode string, prefecture string, address string, remarks string, updatedBy int) entity.Spot {
+func CreateSpot(name string, coverImage string, postalCode string, prefecture string, address string, lat float64, lng float64, remarks string, updatedBy int) entity.Spot {
 	var spot = entity.Spot{}
 	spot.Name = name
 	spot.CoverImage = coverImage
 	spot.PostalCode = postalCode
 	spot.Prefecture = prefecture
 	spot.Address = address
+	spot.Latitude = lat
+	spot.Longitude = lng
 	spot.Remarks = remarks
 	spot.LastUpdatedBy = updatedBy
 

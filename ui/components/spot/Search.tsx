@@ -34,11 +34,17 @@ export const Search: React.FC = () => {
               />
             )
           })}
+          {prefectures.length === 0 && (
+            <PrefectureEmptyMsg>すべての都道府県</PrefectureEmptyMsg>
+          )}
         </PrefectureButtonList>
         {addPref && (
           <PrefectureSelectWrapper>
             <PrefectureSelect
-              onChange={(v) => setPrefectures(prefectures.concat(v))}
+              onChange={(v) => {
+                setPrefectures(prefectures.concat(v))
+                setAddPref(false)
+              }}
             />
           </PrefectureSelectWrapper>
         )}
@@ -50,7 +56,9 @@ export const Search: React.FC = () => {
           onChange={(e) => setOrder(e.target.value)}
         />
       </SortConditions>
-      <button onClick={() => router.push(buildUrl_(prefectures, order))}>
+      <button
+        onClick={() => router.push(buildUrl_(prefectures.join('+'), order))}
+      >
         検索
       </button>
     </SearchButtons>
@@ -80,6 +88,10 @@ const PrefectureCondition = styled.div`
 
 const PrefectureButtonList = styled.div`
   display: inline-block;
+`
+
+const PrefectureEmptyMsg = styled.div`
+  margin: 0 8px 8px 0;
 `
 
 const PrefectureSelectWrapper = styled.div`

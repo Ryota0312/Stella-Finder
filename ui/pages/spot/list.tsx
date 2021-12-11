@@ -8,7 +8,7 @@ import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { Loading } from '../../components/common/Loading'
-import { Search } from '../../components/spot/Search'
+import { SearchWidget } from '../../components/spot/SearchWidget'
 
 type SpotListItem = {
   id: number
@@ -39,7 +39,7 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <Search
+        <SearchWidget
           prefecture={pref ? String(pref) : ''}
           order={order ? String(order) : ''}
         />

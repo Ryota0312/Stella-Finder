@@ -5,21 +5,43 @@ import { PrefectureButton } from '../common/PrefectureButton'
 import { SpotOrderSelect } from '../common/SpotOrderSelect'
 import { PrefectureSelect } from '../common/PrefectureSelect'
 
-export const Search: React.FC = () => {
+type SearchProps = {
+  prefecture: string | null
+  order: string
+}
+
+export const SearchWidget: React.FC<SearchProps> = (props: SearchProps) => {
   const router = useRouter()
 
   const [addPref, setAddPref] = useState(false)
 
-  const [prefectures, setPrefectures] = useState<Array<string>>([])
-  const [order, setOrder] = useState('')
-  const [total, setTotal] = useState(0)
-  const [darkness, setDarkness] = useState(0)
-  const [view, setView] = useState(0)
-  const [safety, setSafety] = useState(0)
+  const [prefectures, setPrefectures] = useState<Array<string>>(() => {
+    if (!props.prefecture) {
+      return []
+    } else {
+      return String(props.prefecture).split(' ')
+    }
+  })
+  const [orderState, setOrderState] = useState<string>(
+    !props.order ? '' : String(props.order),
+  )
+
+  useEffect(() => {
+    setPrefectures(() => {
+      if (!props.prefecture) {
+        return []
+      } else {
+        return String(props.prefecture).split(' ')
+      }
+    })
+  }, [props.prefecture])
+  useEffect(() => {
+    setOrderState(!props.order ? '' : String(props.order).replace(' ', '+'))
+  }, [props.order])
 
   return (
     <SearchButtons>
-      <Title>詳細検索</Title>
+      <Title>検索条件</Title>
       <PrefectureCondition>
         <p>都道府県</p>
         <PrefectureButtonList>
@@ -29,7 +51,14 @@ export const Search: React.FC = () => {
                 key={p}
                 prefecture={p}
                 onDelete={() =>
-                  setPrefectures(prefectures.filter((pref) => p !== pref))
+                  router.push(
+                    buildUrl_(
+                      prefectures
+                        .filter((prefecture) => prefecture !== p)
+                        .join('+'),
+                      props.order,
+                    ),
+                  )
                 }
               />
             )
@@ -38,7 +67,14 @@ export const Search: React.FC = () => {
         {addPref && (
           <PrefectureSelectWrapper>
             <PrefectureSelect
-              onChange={(v) => setPrefectures(prefectures.concat(v))}
+              label="都道府県を追加"
+              onChange={(v) => {
+                if (v != '') {
+                  router.push(
+                    buildUrl_(prefectures.concat(v).join('+'), props.order),
+                  )
+                }
+              }}
             />
           </PrefectureSelectWrapper>
         )}
@@ -46,13 +82,12 @@ export const Search: React.FC = () => {
       </PrefectureCondition>
       <SortConditions>
         <SpotOrderSelect
-          value={order}
-          onChange={(e) => setOrder(e.target.value)}
+          value={orderState}
+          onChange={(e) =>
+            router.push(buildUrl_(prefectures.join('+'), e.target.value))
+          }
         />
       </SortConditions>
-      <button onClick={() => router.push(buildUrl_(prefectures, order))}>
-        検索
-      </button>
     </SearchButtons>
   )
 }

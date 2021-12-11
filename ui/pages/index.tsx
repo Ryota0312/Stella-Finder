@@ -8,6 +8,7 @@ import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
 import { TinyLoading } from '../components/common/TinyLoading'
+import { Search } from '../components/spot/Search'
 
 const Home: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
+        <Search />
         <PrefecturePicker />
         <div>
           <Link href={'/spot/list'}>

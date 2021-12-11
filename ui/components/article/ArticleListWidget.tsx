@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
+import Show from '../../pages/article/[articleId]/show'
 
 export const ArticleListWidget: React.FC = () => {
   const fetcher = useApi()
@@ -14,7 +15,7 @@ export const ArticleListWidget: React.FC = () => {
 
   return (
     <ArticleListUl>
-      <ArticleListLabel>お知らせ</ArticleListLabel>
+      <ArticleListLabel>News</ArticleListLabel>
       {data.map((d: any) => (
         <li key={d.id}>
           <Link href={'/article/' + d.id + '/show'}>
@@ -25,6 +26,9 @@ export const ArticleListWidget: React.FC = () => {
           </Link>
         </li>
       ))}
+      <ShowAll>
+        <Link href="/article/list">すべての News を見る</Link>
+      </ShowAll>
     </ArticleListUl>
   )
 }
@@ -36,6 +40,14 @@ const ArticleListLabel = styled.div`
   font-size: 24px;
   background-color: white;
   color: #9f9f9f;
+`
+
+const ShowAll = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 8px 4px 0;
+  font-size: 10px;
 `
 
 const ArticleListUl = styled.ul`

@@ -13,9 +13,9 @@ const Search: React.FC = () => {
 
       <main>
         <h2>スポットを探す</h2>
-        <h3>詳細検索</h3>
+        <h3 id="inDetail">詳細検索</h3>
         <SearchWidget />
-        <h3 id="searchByArea">地域から探す</h3>
+        <h3 id="byArea">地域から探す</h3>
         <PrefecturePicker />
       </main>
     </Layout>

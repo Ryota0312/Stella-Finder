@@ -32,7 +32,7 @@ const Home: React.FC = () => {
         <SearchMenu>
           <SearchMenuTitle>観測スポットを探す</SearchMenuTitle>
           <SearchMenuButtons>
-            <Button onClick={() => router.push('/spot/search#searchByArea')}>
+            <Button onClick={() => router.push('/spot/search#byArea')}>
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/search-area.png'}
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
                 <div>地域から探す</div>
               </ButtonInnerWithImage>
             </Button>
-            <Button onClick={() => router.push('/spot/search')}>
+            <Button onClick={() => router.push('/spot/search#inDetail')}>
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/search-detail.png'}

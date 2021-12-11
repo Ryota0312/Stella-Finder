@@ -40,9 +40,3 @@ const FoldButton = styled.button`
   border: none;
   background: none;
 `
-
-const ButtonAndLabel = styled.div`
-  display: flex;
-  align-items: center;
-  color: rgb(75, 75, 75);
-`

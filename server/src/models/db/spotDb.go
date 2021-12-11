@@ -62,19 +62,6 @@ func FindSpot(id int) entity.Spot {
 	return spot
 }
 
-func FindSpotByPrefecture(prefectures []string) []entity.Spot {
-	var spots []entity.Spot
-
-	db := open()
-	for _, prefecture := range prefectures {
-		db = db.Or("prefecture = ?", prefecture)
-	}
-	db.Find(&spots)
-	defer db.Close()
-
-	return spots
-}
-
 func UpdateSpot(id int, spotName string, coverImage string, postalCode string, prefecture string, address string, lat float64, lng float64, remarks string, updatedBy int) {
 	var spot = entity.Spot{}
 	spot.ID = id

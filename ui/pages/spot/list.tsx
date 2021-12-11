@@ -20,11 +20,11 @@ type SpotListItem = {
 
 const List: React.FC = () => {
   const router = useRouter()
-  const { pref, order } = router.query
+  const { name, pref, order, total } = router.query
 
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/' + buildUrl_(pref, order), false],
+    ['/api/' + buildUrl_(name, pref, order, total), false],
     fetcher,
   )
 
@@ -69,15 +69,23 @@ const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
 }
 
 const buildUrl_ = (
+  name: string | string[] | undefined,
   pref: string | string[] | undefined,
   order: string | string[] | undefined,
+  total: string | string[] | undefined,
 ) => {
   const params = []
+  if (name) {
+    params.push('name=' + name)
+  }
   if (pref) {
     params.push('pref=' + pref)
   }
   if (order) {
     params.push('order=' + order)
+  }
+  if (total) {
+    params.push('total=' + total)
   }
 
   if (params.length === 0) {

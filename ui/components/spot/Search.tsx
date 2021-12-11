@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { PrefectureButton } from '../common/PrefectureButton'
 import { SpotOrderSelect } from '../common/SpotOrderSelect'
+import { PrefectureSelect } from '../common/PrefectureSelect'
 
 type SearchProps = {
   prefecture: string | null
@@ -11,6 +12,8 @@ type SearchProps = {
 
 export const Search: React.FC<SearchProps> = (props: SearchProps) => {
   const router = useRouter()
+
+  const [addPref, setAddPref] = useState(false)
 
   const [prefectures, setPrefectures] = useState<Array<string>>(() => {
     if (!props.prefecture) {
@@ -38,36 +41,58 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
   return (
     <SearchButtons>
-      <p>検索条件</p>
-      <PrefectureButtonList>
-        {prefectures.map((p) => {
-          return (
-            <PrefectureButton
-              key={p}
-              prefecture={p}
-              onDelete={() =>
+      <Title>検索条件</Title>
+      <PrefectureCondition>
+        <p>都道府県</p>
+        <PrefectureButtonList>
+          {prefectures.map((p) => {
+            return (
+              <PrefectureButton
+                key={p}
+                prefecture={p}
+                onDelete={() =>
+                  router.push(
+                    buildUrl_(
+                      prefectures
+                        .filter((prefecture) => prefecture !== p)
+                        .join('+'),
+                      props.order,
+                    ),
+                  )
+                }
+              />
+            )
+          })}
+        </PrefectureButtonList>
+        {addPref && (
+          <PrefectureSelect
+            label="都道府県を追加"
+            onChange={(v) => {
+              if (v != '') {
                 router.push(
-                  buildUrl_(
-                    prefectures
-                      .filter((prefecture) => prefecture !== p)
-                      .join('+'),
-                    props.order,
-                  ),
+                  buildUrl_(prefectures.concat(v).join('+'), props.order),
                 )
               }
-            />
-          )
-        })}
-      </PrefectureButtonList>
-      <SpotOrderSelect
-        value={orderState}
-        onChange={(e) =>
-          router.push(buildUrl_(prefectures.join('+'), e.target.value))
-        }
-      />
+            }}
+          />
+        )}
+        <button onClick={() => setAddPref(true)}>+</button>
+      </PrefectureCondition>
+      <SortConditions>
+        <SpotOrderSelect
+          value={orderState}
+          onChange={(e) =>
+            router.push(buildUrl_(prefectures.join('+'), e.target.value))
+          }
+        />
+      </SortConditions>
     </SearchButtons>
   )
 }
+
+const Title = styled.p`
+  font-weight: bold;
+`
 
 const SearchButtons = styled.div`
   display: grid;
@@ -80,8 +105,19 @@ const SearchButtons = styled.div`
   }
 `
 
+const PrefectureCondition = styled.div`
+  border-bottom: 1px solid #ccc;
+  padding: 0 8px 8px 8px;
+  margin-bottom: 16px;
+`
+
 const PrefectureButtonList = styled.div`
   display: inline-block;
+`
+
+const SortConditions = styled.div`
+  padding: 0 8px;
+  margin-bottom: 16px;
 `
 
 const buildUrl_ = (

@@ -67,26 +67,55 @@ func GetSpot(c *gin.Context) {
 
 func GetAllSpots(c *gin.Context) {
 	prefectures := c.Query("pref")
-	order := c.Query("order")
-
-	order, _ = url.QueryUnescape(order)
-	orderArray := strings.Split(order, " ")
-
-	if prefectures == "" {
-		if order == "" {
-			c.JSON(http.StatusOK, db.AllSpots())
-		} else {
-			c.JSON(http.StatusOK, db.AllSpotsOrderBy(orderArray[0], orderArray[1]))
-		}
-	} else {
+	var prefArray []string
+	if prefectures != "" {
 		prefectures, _ = url.QueryUnescape(prefectures)
-		prefArray := strings.Split(prefectures, " ")
-		if order == "" {
-			c.JSON(http.StatusOK, db.FindSpotByPrefecture(prefArray))
-		} else {
-			c.JSON(http.StatusOK, db.FindSpotByPrefectureOrderBy(prefArray, orderArray[0], orderArray[1]))
-		}
+		prefArray = strings.Split(prefectures, " ")
 	}
+
+	name := c.Query("name")
+
+	total := c.Query("total")
+	totalPoint := 0
+	if total != "" {
+		totalPoint, _ = strconv.Atoi(total)
+	}
+
+	darkness := c.Query("darkness")
+	darknessPoint := 0
+	if darkness != "" {
+		darknessPoint, _ = strconv.Atoi(darkness)
+	}
+
+	view := c.Query("view")
+	viewPoint := 0
+	if view != "" {
+		viewPoint, _ = strconv.Atoi(view)
+	}
+
+	safety := c.Query("safety")
+	safetyPoint := 0
+	if safety != "" {
+		safetyPoint, _ = strconv.Atoi(safety)
+	}
+
+	order := c.Query("order")
+	orderKey := ""
+	ascDesc := ""
+	if order != "" {
+		order, _ = url.QueryUnescape(order)
+		orderArray := strings.Split(order, " ")
+		orderKey = orderArray[0]
+		ascDesc = orderArray[1]
+	}
+
+	limit := c.Query("limit")
+	limitQuery := 0
+	if limit != "" {
+		limitQuery, _ = strconv.Atoi(limit)
+	}
+
+	c.JSON(http.StatusOK, db.SearchSpot(prefArray, name, totalPoint, darknessPoint, viewPoint, safetyPoint, orderKey, ascDesc, limitQuery))
 }
 
 type UpdateSpotInputForm struct {

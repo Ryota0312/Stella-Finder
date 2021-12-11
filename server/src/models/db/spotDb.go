@@ -6,24 +6,47 @@ import (
 	entity "stella-finder-server/src/models/entity"
 )
 
-func AllSpots() []entity.Spot {
+func SearchSpot(prefectures []string, name string, totalPoint int, darknessPoint int, viewPoint int, safetyPoint int, order string, ascDesc string, limit int) []entity.Spot {
 	var spots []entity.Spot
 
 	db := open()
-	// select
-	db.Find(&spots)
 	defer db.Close()
 
-	return spots
-}
+	if len(prefectures) > 0 {
+		for _, prefecture := range prefectures {
+			db = db.Or("prefecture = ?", prefecture)
+		}
+	}
 
-func AllSpotsOrderBy(order string, ascDesc string) []entity.Spot {
-	var spots []entity.Spot
+	if name != "" {
+		db = db.Where("name like ?", "%"+name+"%")
+	}
 
-	db := open()
-	// select
-	db.Order(order + " " + ascDesc).Find(&spots)
-	defer db.Close()
+	if totalPoint > 0 {
+		db = db.Where("avg_total_point >= ?", totalPoint)
+	}
+
+	if darknessPoint > 0 {
+		db = db.Where("avg_darkness_point >= ?", darknessPoint)
+	}
+
+	if viewPoint > 0 {
+		db = db.Where("avg_view_point >= ?", viewPoint)
+	}
+
+	if safetyPoint > 0 {
+		db = db.Where("avg_safety_point >= ?", safetyPoint)
+	}
+
+	if order != "" {
+		db = db.Order(order + " " + ascDesc)
+	}
+
+	if limit > 0 {
+		db.Limit(limit).Find(&spots)
+	} else {
+		db.Find(&spots)
+	}
 
 	return spots
 }
@@ -47,19 +70,6 @@ func FindSpotByPrefecture(prefectures []string) []entity.Spot {
 		db = db.Or("prefecture = ?", prefecture)
 	}
 	db.Find(&spots)
-	defer db.Close()
-
-	return spots
-}
-
-func FindSpotByPrefectureOrderBy(prefectures []string, order string, ascDesc string) []entity.Spot {
-	var spots []entity.Spot
-
-	db := open()
-	for _, prefecture := range prefectures {
-		db = db.Or("prefecture = ?", prefecture)
-	}
-	db.Order(order + " " + ascDesc).Find(&spots)
 	defer db.Close()
 
 	return spots

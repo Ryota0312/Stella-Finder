@@ -4,12 +4,15 @@ import { useRouter } from 'next/router'
 import { PrefectureButton } from '../common/PrefectureButton'
 import { SpotOrderSelect } from '../common/SpotOrderSelect'
 import { PrefectureSelect } from '../common/PrefectureSelect'
+import { StarEvaluator } from '../common/StarEvaluator'
+import { InputField } from '../common/InputField'
 
 export const Search: React.FC = () => {
   const router = useRouter()
 
   const [addPref, setAddPref] = useState(false)
 
+  const [name, setName] = useState('')
   const [prefectures, setPrefectures] = useState<Array<string>>([])
   const [order, setOrder] = useState('')
   const [total, setTotal] = useState(0)
@@ -20,6 +23,13 @@ export const Search: React.FC = () => {
   return (
     <SearchButtons>
       <Title>詳細検索</Title>
+      <NameConditions>
+        <InputField
+          label="スポット名"
+          value={name}
+          onChange={(v) => setName(v)}
+        />
+      </NameConditions>
       <PrefectureCondition>
         <p>都道府県</p>
         <PrefectureButtonList>
@@ -50,6 +60,10 @@ export const Search: React.FC = () => {
         )}
         <button onClick={() => setAddPref(true)}>+</button>
       </PrefectureCondition>
+      <PointConditions>
+        <StarEvaluator label="総合評価" onChange={(v) => setTotal(v)} />
+        以上
+      </PointConditions>
       <SortConditions>
         <SpotOrderSelect
           value={order}
@@ -57,7 +71,9 @@ export const Search: React.FC = () => {
         />
       </SortConditions>
       <button
-        onClick={() => router.push(buildUrl_(prefectures.join('+'), order))}
+        onClick={() =>
+          router.push(buildUrl_(name, prefectures.join('+'), total, order))
+        }
       >
         検索
       </button>
@@ -78,6 +94,12 @@ const SearchButtons = styled.div`
   p {
     margin: 0 0 16px 0;
   }
+`
+
+const NameConditions = styled.div`
+  border-bottom: 1px solid #ccc;
+  padding: 0 8px 8px 8px;
+  margin-bottom: 16px;
 `
 
 const PrefectureCondition = styled.div`
@@ -102,18 +124,32 @@ const PrefectureSelectWrapper = styled.div`
   }
 `
 
+const PointConditions = styled.div`
+  border-bottom: 1px solid #ccc;
+  padding: 0 8px 8px 8px;
+  margin-bottom: 16px;
+`
+
 const SortConditions = styled.div`
   padding: 0 8px;
   margin-bottom: 16px;
 `
 
 const buildUrl_ = (
-  pref: string | string[] | undefined,
-  order: string | string[] | undefined,
+  name: string,
+  pref: string,
+  total: number,
+  order: string,
 ) => {
   const params = []
+  if (name) {
+    params.push('name=' + name)
+  }
   if (pref) {
     params.push('pref=' + pref)
+  }
+  if (total > 0) {
+    params.push('total=' + total)
   }
   if (order) {
     params.push('order=' + order)

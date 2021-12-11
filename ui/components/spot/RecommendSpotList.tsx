@@ -1,38 +1,47 @@
 import React, { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { GridList, GridListItemData } from '../common/GridList'
 
-export const RecommendSpotList: React.FC = () => {
-  const [prefecture, setPrefecture] = useState('東京都')
+type RecommendSpotListProps = {
+  showAllPrefecture: boolean
+}
+
+export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
+  const [prefecture, setPrefecture] = useState<string | null>(null)
+  const [data, setData] = useState<Array<any>>([])
 
   useEffect(() => {
-    const localStoragePref = localStorage.getItem('prefecture')
-    if (localStoragePref) {
-      setPrefecture(localStoragePref)
+    if (props.showAllPrefecture) {
+      setPrefecture(null)
+    } else {
+      const localStoragePref = localStorage.getItem('prefecture')
+      if (localStoragePref) {
+        setPrefecture(localStoragePref)
+      } else {
+        setPrefecture('東京都')
+      }
     }
   }, [])
 
   const { fetcher } = useApi()
-  const { data, error } = useSWR(
-    prefecture
-      ? [
-          '/api/spot/list?order=avg_total_point+desc&limit=3&pref=' +
-            prefecture,
-          false,
-        ]
-      : null,
-    fetcher,
-  )
+  useEffect(() => {
+    if (!props.showAllPrefecture && !prefecture) return
+    const prefQuery = prefecture ? `&pref=${prefecture}` : ''
+    fetcher(
+      '/api/spot/list?order=avg_total_point+desc&limit=3' + prefQuery,
+      false,
+    ).then((res) => {
+      setData([...res])
+    })
+  }, [prefecture])
 
-  if (error) return <div>error</div>
   if (!data) return <TinyLoading />
 
   return (
     <RecommendedSpotContainer>
-      <Title>{prefecture}のおすすめスポット</Title>
+      <Title>{prefecture ? prefecture : '全国'}のおすすめスポット</Title>
       {data.length === 0 && <div>スポットが登録されていません</div>}
       {data.length > 0 && (
         <GridList data={convertToGridItem(data)} link="spot/detail" />

@@ -28,7 +28,8 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
-        <RecommendSpotList />
+        <RecommendSpotList key="all" showAllPrefecture={true} />
+        <RecommendSpotList key="pref" showAllPrefecture={false} />
         <Search />
         <PrefecturePicker />
         <div>

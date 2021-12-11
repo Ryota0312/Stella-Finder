@@ -3,14 +3,12 @@ import useSWR from 'swr'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
-import { PrefectureButton } from '../../components/common/PrefectureButton'
-import { SpotOrderSelect } from '../../components/common/SpotOrderSelect'
 import { Loading } from '../../components/common/Loading'
+import { Search } from '../../components/spot/Search'
 
 type SpotListItem = {
   id: number
@@ -30,30 +28,6 @@ const List: React.FC = () => {
     fetcher,
   )
 
-  const [prefectures, setPrefectures] = useState<Array<string>>(() => {
-    if (!pref) {
-      return []
-    } else {
-      return String(pref).split(' ')
-    }
-  })
-  const [orderState, setOrderState] = useState<string>(
-    !order ? '' : String(order),
-  )
-
-  useEffect(() => {
-    setPrefectures(() => {
-      if (!pref) {
-        return []
-      } else {
-        return String(pref).split(' ')
-      }
-    })
-  }, [pref])
-  useEffect(() => {
-    setOrderState(!order ? '' : String(order).replace(' ', '+'))
-  }, [order])
-
   if (error) return <div>failed to load</div>
   if (!data) return <Loading />
 
@@ -65,35 +39,10 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <SearchButtons>
-          <p>検索条件</p>
-          <PrefectureButtonList>
-            {prefectures.map((p) => {
-              return (
-                <PrefectureButton
-                  key={p}
-                  prefecture={p}
-                  onDelete={() =>
-                    router.push(
-                      buildUrl_(
-                        prefectures
-                          .filter((prefecture) => prefecture !== p)
-                          .join('+'),
-                        order,
-                      ),
-                    )
-                  }
-                />
-              )
-            })}
-          </PrefectureButtonList>
-          <SpotOrderSelect
-            value={orderState}
-            onChange={(e) =>
-              router.push(buildUrl_(prefectures.join('+'), e.target.value))
-            }
-          />
-        </SearchButtons>
+        <Search
+          prefecture={pref ? String(pref) : ''}
+          order={order ? String(order) : ''}
+        />
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
@@ -106,21 +55,6 @@ const List: React.FC = () => {
   )
 }
 export default List
-
-const SearchButtons = styled.div`
-  display: grid;
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-
-  p {
-    margin: 0 0 16px 0;
-  }
-`
-
-const PrefectureButtonList = styled.div`
-  display: inline-block;
-`
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {

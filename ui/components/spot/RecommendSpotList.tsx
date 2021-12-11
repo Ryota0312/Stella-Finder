@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Link from 'next/link'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { GridList, GridListItemData } from '../common/GridList'
@@ -46,6 +47,17 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
       {data.length > 0 && (
         <GridList data={convertToGridItem(data)} link="spot/detail" />
       )}
+      <ShowMore>
+        {!prefecture ? (
+          <Link href="/spot/list?order=avg_total_point+desc">もっと見る</Link>
+        ) : (
+          <Link
+            href={'/spot/list?order=avg_total_point+desc&pref=' + prefecture}
+          >
+            もっと見る
+          </Link>
+        )}
+      </ShowMore>
     </RecommendedSpotContainer>
   )
 }
@@ -66,6 +78,10 @@ const RecommendedSpotContainer = styled.div`
   padding: 24px 16px 16px 16px;
   border-radius: 8px;
   margin: 24px 0;
+`
+
+const ShowMore = styled.div`
+  text-align: right;
 `
 
 type SpotListItem = {

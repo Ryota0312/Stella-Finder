@@ -29,17 +29,33 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
-        <Button onClick={() => router.push('/spot/search')}>
-          <ButtonInnerWithImage>
-            <Image
-              src={'/image/search-detail.png'}
-              alt={'Edit spot information'}
-              width={48}
-              height={48}
-            />
-            <div>観測スポットを探す</div>
-          </ButtonInnerWithImage>
-        </Button>
+        <SearchMenu>
+          <SearchMenuTitle>観測スポットを探す</SearchMenuTitle>
+          <SearchMenuButtons>
+            <Button onClick={() => router.push('/spot/search#searchByArea')}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/search-area.png'}
+                  alt={'Edit spot information'}
+                  width={48}
+                  height={48}
+                />
+                <div>地域から探す</div>
+              </ButtonInnerWithImage>
+            </Button>
+            <Button onClick={() => router.push('/spot/search')}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/search-detail.png'}
+                  alt={'Edit spot information'}
+                  width={48}
+                  height={48}
+                />
+                <div>詳細検索</div>
+              </ButtonInnerWithImage>
+            </Button>
+          </SearchMenuButtons>
+        </SearchMenu>
         <RecommendSpotList key="all" showAllPrefecture={true} />
         <RecommendSpotList key="pref" showAllPrefecture={false} />
       </main>
@@ -61,6 +77,32 @@ const MoonInfo = styled.div`
       grid-column-start: 1;
       grid-column-end: 3;
     }
+  }
+`
+
+const SearchMenuTitle = styled.div`
+  position: absolute;
+  top: -16px;
+  left: 16px;
+  font-size: 24px;
+  background-color: white;
+  color: #9f9f9f;
+`
+
+const SearchMenu = styled.div`
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 24px 16px 16px 16px;
+  border-radius: 8px;
+`
+
+const SearchMenuButtons = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: 1fr;
   }
 `
 

@@ -34,7 +34,6 @@ export const SearchWidget: React.FC<SearchProps> = (props) => {
 
   return (
     <SearchButtons>
-      <Title>詳細検索</Title>
       <NameConditions>
         <InputField
           label="スポット名"
@@ -137,11 +136,6 @@ export const SearchWidget: React.FC<SearchProps> = (props) => {
     </SearchButtons>
   )
 }
-
-const Title = styled.p`
-  font-size: 20px;
-  font-weight: bold;
-`
 
 const SearchButtons = styled.div`
   display: grid;

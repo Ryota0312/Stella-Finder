@@ -40,4 +40,9 @@ const MainContents = styled.div`
     color: #3e4f6d;
     font-size: 2em;
   }
+
+  h3 {
+    color: #3e4f6d;
+    font-size: 1.5em;
+  }
 `

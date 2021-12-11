@@ -94,6 +94,7 @@ const SearchMenu = styled.div`
   border: 1px solid #ccc;
   padding: 24px 16px 16px 16px;
   border-radius: 8px;
+  margin: 24px 0;
 `
 
 const SearchMenuButtons = styled.div`

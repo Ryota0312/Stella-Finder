@@ -51,16 +51,19 @@ const Post: React.FC = () => {
         <h2>{name}のレビュー投稿</h2>
         <StarEvaluator
           label="空の暗さ"
+          size={32}
           required={true}
           onChange={(point) => setDarkness(point)}
         />
         <StarEvaluator
           label="見晴らし"
+          size={32}
           required={true}
           onChange={(point) => setView(point)}
         />
         <StarEvaluator
           label="安全性"
+          size={32}
           required={true}
           onChange={(point) => setSafety(point)}
         />

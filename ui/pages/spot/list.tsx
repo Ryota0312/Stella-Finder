@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import useSWR from 'swr'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
@@ -20,11 +20,14 @@ type SpotListItem = {
 
 const List: React.FC = () => {
   const router = useRouter()
-  const { name, pref, order, total } = router.query
+  const { name, pref, order, total, darkness, view, safety } = router.query
 
   const fetcher = useApi()
   const { data, error } = useSWR(
-    ['/api/' + buildUrl_(name, pref, order, total), false],
+    [
+      '/api/' + buildUrl_(name, pref, order, total, darkness, view, safety),
+      false,
+    ],
     fetcher,
   )
 
@@ -73,6 +76,9 @@ const buildUrl_ = (
   pref: string | string[] | undefined,
   order: string | string[] | undefined,
   total: string | string[] | undefined,
+  darkness: string | string[] | undefined,
+  view: string | string[] | undefined,
+  safety: string | string[] | undefined,
 ) => {
   const params = []
   if (name) {
@@ -84,8 +90,17 @@ const buildUrl_ = (
   if (order) {
     params.push('order=' + order)
   }
-  if (total) {
+  if (total && Number(total) > 0) {
     params.push('total=' + total)
+  }
+  if (darkness && Number(darkness) > 0) {
+    params.push('darkness=' + darkness)
+  }
+  if (view && Number(view) > 0) {
+    params.push('view=' + view)
+  }
+  if (safety && Number(safety) > 0) {
+    params.push('safety=' + safety)
   }
 
   if (params.length === 0) {

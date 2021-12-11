@@ -60,9 +60,41 @@ export const Search: React.FC = () => {
         )}
         <button onClick={() => setAddPref(true)}>+</button>
       </PrefectureCondition>
+      <p style={{ marginLeft: '8px' }}>評価 (指定された値以上を検索)</p>
       <PointConditions>
-        <StarEvaluator label="総合評価" onChange={(v) => setTotal(v)} />
-        以上
+        <PointInput>
+          <StarEvaluator
+            label="総合評価"
+            value={total}
+            size={24}
+            onChange={(v) => setTotal(v)}
+          />
+          <button onClick={() => setTotal(0)}>リセット</button>
+        </PointInput>
+        <PointInput>
+          <StarEvaluator
+            label="空の暗さ"
+            size={24}
+            onChange={(v) => setDarkness(v)}
+          />
+          <button onClick={() => setDarkness(0)}>リセット</button>
+        </PointInput>
+        <PointInput>
+          <StarEvaluator
+            label="見晴らし"
+            size={24}
+            onChange={(v) => setView(v)}
+          />
+          <button onClick={() => setView(0)}>リセット</button>
+        </PointInput>
+        <PointInput>
+          <StarEvaluator
+            label="安全性"
+            size={24}
+            onChange={(v) => setSafety(v)}
+          />
+          <button onClick={() => setSafety(0)}>リセット</button>
+        </PointInput>
       </PointConditions>
       <SortConditions>
         <SpotOrderSelect
@@ -72,7 +104,17 @@ export const Search: React.FC = () => {
       </SortConditions>
       <button
         onClick={() =>
-          router.push(buildUrl_(name, prefectures.join('+'), total, order))
+          router.push(
+            buildUrl_(
+              name,
+              prefectures.join('+'),
+              total,
+              darkness,
+              view,
+              safety,
+              order,
+            ),
+          )
         }
       >
         検索
@@ -82,6 +124,7 @@ export const Search: React.FC = () => {
 }
 
 const Title = styled.p`
+  font-size: 20px;
   font-weight: bold;
 `
 
@@ -131,9 +174,25 @@ const PrefectureSelectWrapper = styled.div`
 `
 
 const PointConditions = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid #ccc;
   padding: 0 8px 8px 8px;
   margin-bottom: 16px;
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const PointInput = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  button {
+    font-size: 10px;
+  }
 `
 
 const SortConditions = styled.div`
@@ -145,6 +204,9 @@ const buildUrl_ = (
   name: string,
   pref: string,
   total: number,
+  darkness: number,
+  view: number,
+  safety: number,
   order: string,
 ) => {
   const params = []
@@ -156,6 +218,15 @@ const buildUrl_ = (
   }
   if (total > 0) {
     params.push('total=' + total)
+  }
+  if (darkness > 0) {
+    params.push('darkness=' + darkness)
+  }
+  if (view > 0) {
+    params.push('view=' + view)
+  }
+  if (safety > 0) {
+    params.push('safety=' + safety)
   }
   if (order) {
     params.push('order=' + order)

@@ -17,7 +17,7 @@ type SearchProps = {
   safety?: number
 }
 
-export const Search: React.FC<SearchProps> = (props) => {
+export const SearchWidget: React.FC<SearchProps> = (props) => {
   const router = useRouter()
 
   const [addPref, setAddPref] = useState(false)

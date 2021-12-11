@@ -1,14 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 import dynamic from 'next/dynamic'
 import Layout from '../components/layout'
-import { PrefecturePicker } from '../components/common/PrefecturePicker'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
-import { Search } from '../components/spot/Search'
 
 const RecommendSpotList = dynamic(
   () => import('../components/spot/RecommendSpotList'),
@@ -30,13 +27,6 @@ const Home: React.FC = () => {
         </MoonInfo>
         <RecommendSpotList key="all" showAllPrefecture={true} />
         <RecommendSpotList key="pref" showAllPrefecture={false} />
-        <Search />
-        <PrefecturePicker />
-        <div>
-          <Link href={'/spot/list'}>
-            <a>一覧を見る</a>
-          </Link>
-        </div>
       </main>
     </Layout>
   )

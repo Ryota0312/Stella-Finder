@@ -9,7 +9,7 @@ import { GridList, GridListItemData } from '../../components/common/GridList'
 import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { Loading } from '../../components/common/Loading'
 import { FoldComponent } from '../../components/common/FoldComponent'
-import { Search } from '../../components/spot/Search'
+import { SearchWidget } from '../../components/spot/SearchWidget'
 
 type SpotListItem = {
   id: number
@@ -47,7 +47,7 @@ const List: React.FC = () => {
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
         <FoldComponent labelOpen="検索条件を変更する" labelClose="閉じる">
-          <Search
+          <SearchWidget
             name={name ? String(name) : undefined}
             prefectures={pref ? String(pref).split(' ') : undefined}
             order={order ? String(order).split(' ').join('+') : undefined}

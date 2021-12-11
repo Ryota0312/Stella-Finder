@@ -20,8 +20,8 @@ export const MoonRiseSetWithPrefectureSelect: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('prefecture', prefecture)
     if (prefecture !== '') {
+      localStorage.setItem('prefecture', prefecture)
       fetcher('/api/moonRiseSet?pref=' + prefecture, false).then((res) => {
         setRise(res.rise_and_set.moonrise_hm)
         setSet(res.rise_and_set.moonset_hm)

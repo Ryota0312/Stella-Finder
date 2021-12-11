@@ -100,6 +100,12 @@ const NameConditions = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 0 8px 8px 8px;
   margin-bottom: 16px;
+
+  input {
+    @media screen and (max-width: 600px) {
+      width: 60vw;
+    }
+  }
 `
 
 const PrefectureCondition = styled.div`

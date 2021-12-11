@@ -13,9 +13,11 @@ func SearchSpot(prefectures []string, name string, totalPoint int, darknessPoint
 	defer db.Close()
 
 	if len(prefectures) > 0 {
-		for _, prefecture := range prefectures {
-			db = db.Or("prefecture = ?", prefecture)
+		prefQuery := "prefecture = '" + prefectures[0] + "'"
+		for _, prefecture := range prefectures[1:] {
+			prefQuery += " OR prefecture = '" + prefecture + "'"
 		}
+		db = db.Where(prefQuery)
 	}
 
 	if name != "" {

@@ -46,7 +46,7 @@ const List: React.FC = () => {
         <LoginUserOnly>
           <Link href={'/spot/register'}>スポット登録</Link>
         </LoginUserOnly>
-        <FoldComponent labelOpen="詳細検索を開く" labelClose="詳細検索を閉じる">
+        <FoldComponent labelOpen="検索条件を変更する" labelClose="閉じる">
           <Search
             name={name ? String(name) : undefined}
             prefectures={pref ? String(pref).split(' ') : undefined}

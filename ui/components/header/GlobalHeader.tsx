@@ -10,7 +10,8 @@ export const GlobalHeader: React.FC = () => {
 
   const headerMenuItems = [
     { label: 'トップ', href: '/' },
-    { label: '観測スポット', href: '/spot/list' },
+    { label: 'News', href: '/article/list' },
+    { label: 'スポットを探す', href: '/spot/list' },
   ]
 
   return (

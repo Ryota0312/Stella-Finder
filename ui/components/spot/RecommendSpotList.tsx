@@ -49,12 +49,14 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
       )}
       <ShowMore>
         {!prefecture ? (
-          <Link href="/spot/list?order=avg_total_point+desc">もっと見る</Link>
+          <Link href="/spot/list?order=avg_total_point+desc">
+            全国のスポットをもっと見る
+          </Link>
         ) : (
           <Link
             href={'/spot/list?order=avg_total_point+desc&pref=' + prefecture}
           >
-            もっと見る
+            {prefecture + 'のスポットをもっと見る'}
           </Link>
         )}
       </ShowMore>

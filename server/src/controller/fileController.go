@@ -72,6 +72,19 @@ func CreateFile(c *gin.Context) {
 
 func GetFile(c *gin.Context) {
 	fileKey := c.Query("fileKey")
+	size := c.Query("size")
+
+	if size != "" {
+		intSize, _ := strconv.Atoi(size)
+		resizedImagePath, err := GetResizedImage(fileKey, intSize)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "An error occurred in resize image"})
+			return
+		}
+
+		c.File(resizedImagePath)
+		return
+	}
 
 	c.File(getFilePath(fileKey))
 }

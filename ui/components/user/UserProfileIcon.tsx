@@ -40,6 +40,7 @@ export const UserProfileIcon: React.FC<UserIconProps> = (
             width="128px"
             height="128px"
             objectFit={'cover'}
+            fetchedImageSize={300}
           />
         )}
 

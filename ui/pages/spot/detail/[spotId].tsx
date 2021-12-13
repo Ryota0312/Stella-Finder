@@ -71,6 +71,7 @@ const Spot: React.FC = () => {
               maxWidth={'600px'}
               maxHeight={'600px'}
               objectFit={'cover'}
+              fetchedImageSize={600}
             />
           </div>
           <MoonAndReview>

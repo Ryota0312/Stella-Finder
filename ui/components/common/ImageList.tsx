@@ -43,6 +43,7 @@ export const ImageList: React.FC<{ imageList: ImageListItem[] }> = ({
                   maxWidth="280px"
                   maxHeight="280px"
                   objectFit="cover"
+                  fetchedImageSize={300}
                 />
               </ImageItemButton>
             </ImageItem>

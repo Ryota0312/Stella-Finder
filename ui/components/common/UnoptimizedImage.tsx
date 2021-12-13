@@ -14,6 +14,7 @@ interface ImageSize {
 interface UnoptimizedImageInterface extends ImageSize {
   fileKey: string
   objectFit?: Property.ObjectFit
+  fetchedImageSize?: number
 }
 
 export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
@@ -27,13 +28,19 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
       maxHeight={props.maxHeight}
       borderRadius={props.borderRadius}
     >
-      {!!props.fileKey && (
+      {!!props.fileKey && props.fetchedImageSize !== undefined && (
         <Image
-          src={'/api/file/download?fileKey=' + props.fileKey}
+          src={
+            '/api/file/download?fileKey=' +
+            props.fileKey +
+            (props.fetchedImageSize && props.fetchedImageSize > 0
+              ? `&size=${props.fetchedImageSize}`
+              : '')
+          }
           alt=""
           unoptimized={true}
           layout="fill"
-          objectFit={!props.objectFit ? 'contain' : props.objectFit}
+          objectFit={props.objectFit}
         />
       )}
       {!props.fileKey && (
@@ -48,6 +55,11 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
       )}
     </ImageWrapper>
   )
+}
+
+UnoptimizedImage.defaultProps = {
+  objectFit: 'contain',
+  fetchedImageSize: 0,
 }
 
 const ImageWrapper = styled.div<Partial<ImageSize>>`

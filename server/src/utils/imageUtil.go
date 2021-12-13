@@ -13,9 +13,6 @@ import (
 func GetResizedImage(filename string, limitEdge int) (string, error) {
 	resizedFilePath := GetResizedImagePath(ConvertResizedFilename(filename, limitEdge))
 	if !Exists(resizedFilePath) {
-		println("==============---")
-		println("Resize!!!!!")
-		println("==============---")
 		data, err := os.Open(GetOriginalImagePath(filename))
 		if err != nil {
 			return "", err
@@ -28,7 +25,7 @@ func GetResizedImage(filename string, limitEdge int) (string, error) {
 		height := imgRectangle.Dy()
 
 		newImgData := &image.RGBA{}
-		if height >= width {
+		if width >= height {
 			f := float64(width * limitEdge)
 			w := math.Round(f / float64(height))
 			newImgData = image.NewRGBA(image.Rect(0, 0, int(w), limitEdge))
@@ -48,10 +45,6 @@ func GetResizedImage(filename string, limitEdge int) (string, error) {
 		if err := jpeg.Encode(newImg, newImgData, &jpeg.Options{Quality: 100}); err != nil {
 			return "", nil
 		}
-	} else {
-		println("==============---")
-		println("Use cache")
-		println("==============---")
 	}
 
 	return resizedFilePath, nil

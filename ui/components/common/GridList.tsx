@@ -27,6 +27,7 @@ export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
                   fileKey={d.coverImage}
                   height={'200px'}
                   objectFit={'cover'}
+                  fetchedImageSize={300}
                 />
                 {d.title}
                 <StarEvaluate

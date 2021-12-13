@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-contrib/sessions"
 	"hash"
+	"path/filepath"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
 	"strconv"
@@ -142,6 +143,18 @@ func DeleteFile(c *gin.Context) {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, "Cannot remove file in disk")
 			return
+		}
+
+		resizedImages, err := filepath.Glob(dir + "/uploadedImages/resized/" + input.FileKey + "_s*")
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, "Cannot get resized image in disk")
+			return
+		}
+		for _, f := range resizedImages {
+			if err := os.Remove(f); err != nil {
+				c.JSON(http.StatusInternalServerError, "Cannot remove resized image in disk")
+				return
+			}
 		}
 	}
 

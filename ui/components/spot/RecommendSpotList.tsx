@@ -53,7 +53,13 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
             {prefecture ? prefecture + 'の' : ''}
             スポットはまだ登録されていません
           </div>
-          <LoginUserOnly>
+          <LoginUserOnly
+            fallbackComponent={
+              <Link href="/tmpregister">
+                ユーザー登録してスポットを登録する
+              </Link>
+            }
+          >
             <button onClick={() => router.push('/spot/register')}>
               <ButtonInnerWithImage>
                 <Image

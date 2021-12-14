@@ -91,7 +91,7 @@ func TmpRegister(c *gin.Context) {
 
 	utils.SendTmpRegisterMail(input.Mail, tmpRegisterKey)
 
-	c.JSON(http.StatusOK, "TmpRegister: email addr is "+input.Mail)
+	c.JSON(http.StatusOK, "Tmpregister: email addr is "+input.Mail)
 }
 
 type RegisterInputForm struct {

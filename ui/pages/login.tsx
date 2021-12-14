@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     <Layout>
       <main>
         <h2>ログイン</h2>
-        <Link href="/tmpRegister">新規ユーザー登録</Link>
+        <Link href="/tmpregister">新規ユーザー登録</Link>
         <LoginForm>
           <p>メールアドレス</p>
           <input

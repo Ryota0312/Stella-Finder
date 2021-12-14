@@ -89,7 +89,7 @@ const MailSendSuccess = styled.div`
 `
 
 const register_ = async (mail: string) => {
-  return await fetch('/auth/tmpRegister', {
+  return await fetch('/auth/tmpregister', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

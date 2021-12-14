@@ -4,6 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Image from 'next/image'
+import Link from 'next/link'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
@@ -58,7 +59,13 @@ const List: React.FC = () => {
         {data.length === 0 && (
           <div>
             <div>検索条件に一致するスポットはありませんでした。</div>
-            <LoginUserOnly>
+            <LoginUserOnly
+              fallbackComponent={
+                <Link href="/tmpregister">
+                  ユーザー登録してスポットを登録する
+                </Link>
+              }
+            >
               <button onClick={() => router.push('/spot/register')}>
                 <ButtonInnerWithImage>
                   <Image

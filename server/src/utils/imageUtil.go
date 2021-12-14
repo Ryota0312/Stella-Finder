@@ -1,10 +1,14 @@
 package utils
 
 import (
+	"github.com/disintegration/imaging"
+	"github.com/rwcarlsen/goexif/exif"
 	"golang.org/x/image/draw"
 	"image"
+	"image/color"
 	"image/jpeg"
 	_ "image/jpeg"
+	_ "image/png"
 	"math"
 	"os"
 	"strconv"
@@ -42,7 +46,7 @@ func GetResizedImage(filename string, limitEdge int) (string, error) {
 		}
 		defer newImg.Close()
 
-		if err := jpeg.Encode(newImg, newImgData, &jpeg.Options{Quality: 100}); err != nil {
+		if err := jpeg.Encode(newImg, imaging.Rotate(newImgData, GetImageRotation(filename), color.Gray{}), &jpeg.Options{Quality: 100}); err != nil {
 			return "", nil
 		}
 	}
@@ -53,6 +57,35 @@ func GetResizedImage(filename string, limitEdge int) (string, error) {
 func Exists(filepath string) bool {
 	_, err := os.Stat(filepath)
 	return err == nil
+}
+
+func GetImageRotation(filename string) float64 {
+	data, err := os.Open(GetOriginalImagePath(filename))
+	if err != nil {
+		return 0
+	}
+	defer data.Close()
+
+	// Exif の orientation 情報から何度回転するかを取得
+	imgExif, err := exif.Decode(data)
+	var rotation float64 = 0
+	if err == nil {
+		orientationRaw, err := imgExif.Get("Orientation")
+
+		if err == nil {
+			orientation := orientationRaw.String()
+
+			if orientation == "3" {
+				rotation = 180
+			} else if orientation == "6" {
+				rotation = 270
+			} else if orientation == "8" {
+				rotation = 90
+			}
+		}
+	}
+
+	return rotation
 }
 
 func GetOriginalImagePath(filename string) string {

@@ -34,7 +34,7 @@ func SendTmpRegisterMail(toMailAddress string, registerKey string) {
 	message.AddPersonalizations(p)
 
 	// 件名を設定
-	message.Subject = "Stella-Finder 仮登録完了のお知らせ"
+	message.Subject = "Stella Finder仮登録完了のお知らせ"
 	// テキストパートを設定
 	c := mail.NewContent("text/plain", "この度はStella Finderをご利用いただき、誠にありがとうございます。\r\n"+
 		"下記の本登録用URLから、ご登録手続きをお願いいたします。\r\n\r\n"+

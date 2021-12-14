@@ -64,8 +64,8 @@ const List: React.FC = () => {
                   <Image
                     src={'/image/add.png'}
                     alt={'Add new spot'}
-                    width={16}
-                    height={16}
+                    width={20}
+                    height={20}
                   />
                   <div>スポットを登録する</div>
                 </ButtonInnerWithImage>

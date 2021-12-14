@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { GridList, GridListItemData } from '../common/GridList'
+import { LoginUserOnly } from '../common/LoginUserOnly'
 
 type RecommendSpotListProps = {
   showAllPrefecture: boolean
 }
 
 export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
+  const router = useRouter()
   const [prefecture, setPrefecture] = useState<string | null>(null)
   const [data, setData] = useState<Array<any>>([])
 
@@ -43,7 +47,27 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
   return (
     <RecommendedSpotContainer>
       <Title>{prefecture ? prefecture : '全国'}のおすすめスポット</Title>
-      {data.length === 0 && <div>スポットが登録されていません</div>}
+      {data.length === 0 && (
+        <div>
+          <div>
+            {prefecture ? prefecture + 'の' : ''}
+            スポットはまだ登録されていません
+          </div>
+          <LoginUserOnly>
+            <button onClick={() => router.push('/spot/register')}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/add.png'}
+                  alt={'Add new spot'}
+                  width={20}
+                  height={20}
+                />
+                <div>スポットを登録する</div>
+              </ButtonInnerWithImage>
+            </button>
+          </LoginUserOnly>
+        </div>
+      )}
       {data.length > 0 && (
         <GridList data={convertToGridItem(data)} link="spot/detail" />
       )}
@@ -64,6 +88,12 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
   )
 }
 export default RecommendSpotList
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 8px;
+  color: gray;
+`
 
 const Title = styled.div`
   position: absolute;

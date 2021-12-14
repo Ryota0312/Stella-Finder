@@ -41,6 +41,9 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
           unoptimized={true}
           layout="fill"
           objectFit={props.objectFit}
+          onError={(e) => {
+            e.currentTarget.src = `/image/image-icon.png`
+          }}
         />
       )}
       {!props.fileKey && (

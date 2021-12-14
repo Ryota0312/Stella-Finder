@@ -1,15 +1,16 @@
 import Head from 'next/head'
 import useSWR from 'swr'
 import React from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
+import Image from 'next/image'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { GridList, GridListItemData } from '../../components/common/GridList'
-import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 import { Loading } from '../../components/common/Loading'
 import { FoldComponent } from '../../components/common/FoldComponent'
 import { SearchWidget } from '../../components/spot/SearchWidget'
+import { LoginUserOnly } from '../../components/common/LoginUserOnly'
 
 type SpotListItem = {
   id: number
@@ -43,9 +44,6 @@ const List: React.FC = () => {
 
       <main>
         <h2>スポット一覧</h2>
-        <LoginUserOnly>
-          <Link href={'/spot/register'}>スポット登録</Link>
-        </LoginUserOnly>
         <FoldComponent labelOpen="検索条件を変更する" labelClose="閉じる">
           <SearchWidget
             name={name ? String(name) : undefined}
@@ -57,7 +55,24 @@ const List: React.FC = () => {
             safety={safety ? Number(safety) : undefined}
           />
         </FoldComponent>
-        {data.length === 0 && <div>スポットが登録されていません</div>}
+        {data.length === 0 && (
+          <div>
+            <div>検索条件に一致するスポットはありませんでした。</div>
+            <LoginUserOnly>
+              <button onClick={() => router.push('/spot/register')}>
+                <ButtonInnerWithImage>
+                  <Image
+                    src={'/image/add.png'}
+                    alt={'Add new spot'}
+                    width={16}
+                    height={16}
+                  />
+                  <div>スポットを登録する</div>
+                </ButtonInnerWithImage>
+              </button>
+            </LoginUserOnly>
+          </div>
+        )}
         {data.length > 0 && (
           <GridList data={convertToGridItem(data)} link="spot/detail" />
         )}
@@ -66,6 +81,12 @@ const List: React.FC = () => {
   )
 }
 export default List
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 8px;
+  color: gray;
+`
 
 const convertToGridItem = (spotList: SpotListItem[]): GridListItemData[] => {
   return spotList.map((spot: SpotListItem) => {

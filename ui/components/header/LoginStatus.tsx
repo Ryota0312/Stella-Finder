@@ -47,6 +47,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = (
                   height="32px"
                   objectFit={'cover'}
                   borderRadius={'50%'}
+                  fetchedImageSize={300}
                 />
               )}
               <UserName>{data.name}</UserName>

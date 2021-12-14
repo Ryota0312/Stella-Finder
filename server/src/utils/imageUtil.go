@@ -6,6 +6,7 @@ import (
 	"golang.org/x/image/draw"
 	"image"
 	"image/color"
+	_ "image/gif"
 	"image/jpeg"
 	_ "image/jpeg"
 	_ "image/png"

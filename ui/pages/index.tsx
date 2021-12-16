@@ -73,7 +73,7 @@ const MoonInfo = styled.div`
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr 1fr;
 
-    ul {
+    div:last-child {
       grid-column-start: 1;
       grid-column-end: 3;
     }

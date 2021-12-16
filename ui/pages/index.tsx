@@ -80,23 +80,6 @@ const MoonInfo = styled.div`
   }
 `
 
-const SearchMenuTitle = styled.div`
-  position: absolute;
-  top: -16px;
-  left: 16px;
-  font-size: 24px;
-  background-color: white;
-  color: #9f9f9f;
-`
-
-const SearchMenu = styled.div`
-  position: relative;
-  border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
-  border-radius: 8px;
-  margin: 24px 0;
-`
-
 const SearchMenuButtons = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

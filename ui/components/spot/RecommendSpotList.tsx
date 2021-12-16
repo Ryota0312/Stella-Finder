@@ -101,23 +101,6 @@ const ButtonInnerWithImage = styled.div`
   color: gray;
 `
 
-const Title = styled.div`
-  position: absolute;
-  top: -16px;
-  left: 16px;
-  font-size: 24px;
-  background-color: white;
-  color: #9f9f9f;
-`
-
-const RecommendedSpotContainer = styled.div`
-  position: relative;
-  border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
-  border-radius: 8px;
-  margin: 24px 0;
-`
-
 const ShowMore = styled.div`
   text-align: right;
 `

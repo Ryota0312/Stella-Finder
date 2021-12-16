@@ -8,6 +8,7 @@ import Layout from '../components/layout'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
+import { RoundFrame } from '../components/common/RoundFrame'
 
 const RecommendSpotList = dynamic(
   () => import('../components/spot/RecommendSpotList'),
@@ -29,8 +30,7 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
-        <SearchMenu>
-          <SearchMenuTitle>観測スポットを探す</SearchMenuTitle>
+        <RoundFrame title="観測スポットを探す">
           <SearchMenuButtons>
             <Button onClick={() => router.push('/spot/search#byArea')}>
               <ButtonInnerWithImage>
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
               </ButtonInnerWithImage>
             </Button>
           </SearchMenuButtons>
-        </SearchMenu>
+        </RoundFrame>
         <RecommendSpotList key="all" showAllPrefecture={true} />
         <RecommendSpotList key="pref" showAllPrefecture={false} />
       </main>

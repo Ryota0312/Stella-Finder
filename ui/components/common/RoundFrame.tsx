@@ -23,7 +23,7 @@ const Title = styled.div`
   left: 16px;
   font-size: 24px;
   background-color: white;
-  color: #5e2323;
+  color: #2a2467;
 `
 
 const Frame = styled.div`

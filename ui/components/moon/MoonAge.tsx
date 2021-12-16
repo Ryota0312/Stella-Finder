@@ -18,7 +18,7 @@ export const MoonAge: React.FC = () => {
 
   return (
     <RoundFrame>
-      <>
+      <div>
         <Title>月齢</Title>
         <Moon>
           <MoonCanvasLayer1 id="a0" />
@@ -26,7 +26,7 @@ export const MoonAge: React.FC = () => {
           <MoonCanvasLayer3 id="a2" />
           <MoonAgeNumber>{data.moon_age}</MoonAgeNumber>
         </Moon>
-      </>
+      </div>
     </RoundFrame>
   )
 }

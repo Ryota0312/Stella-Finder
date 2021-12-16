@@ -23,10 +23,11 @@ const Title = styled.div`
   left: 16px;
   font-size: 24px;
   background-color: white;
-  color: #9f9f9f;
+  color: #5e2323;
 `
 
 const Frame = styled.div`
+  flex: auto;
   position: relative;
   border: 1px solid #ccc;
   padding: 24px 16px 16px 16px;

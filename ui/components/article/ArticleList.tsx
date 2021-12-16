@@ -14,7 +14,7 @@ export const ArticleList: React.FC = () => {
   if (!data) return <TinyLoading />
 
   return (
-    <RoundFrame title="お知らせ">
+    <RoundFrame>
       <ArticleListUl>
         {data.map((d: any) => (
           <li key={d.id}>

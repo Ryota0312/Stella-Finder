@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
+import { RoundFrame } from '../common/RoundFrame'
 
 export const MoonAge: React.FC = () => {
   const { fetcher } = useApi()
@@ -16,27 +17,21 @@ export const MoonAge: React.FC = () => {
   if (!data) return <TinyLoading />
 
   return (
-    <MoonAgeInfo>
-      <Title>月齢</Title>
-      <Moon>
-        <MoonCanvasLayer1 id="a0" />
-        <MoonCanvasLayer2 id="a1" />
-        <MoonCanvasLayer3 id="a2" />
-        <MoonAgeNumber>{data.moon_age}</MoonAgeNumber>
-      </Moon>
-    </MoonAgeInfo>
+    <RoundFrame>
+      <>
+        <Title>月齢</Title>
+        <Moon>
+          <MoonCanvasLayer1 id="a0" />
+          <MoonCanvasLayer2 id="a1" />
+          <MoonCanvasLayer3 id="a2" />
+          <MoonAgeNumber>{data.moon_age}</MoonAgeNumber>
+        </Moon>
+      </>
+    </RoundFrame>
   )
 }
 
 const MOON_SIZE = 100
-
-const MoonAgeInfo = styled.div`
-  flex: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 0;
-`
 
 const Title = styled.div`
   font-size: 24px;

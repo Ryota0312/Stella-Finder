@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
+import { RoundFrame } from '../common/RoundFrame'
 import { PrefectureSelectMoonRiseSet } from './PrefectureSelectMoonRiseSet'
 
 export const MoonRiseSetWithPrefectureSelect: React.FC = () => {
@@ -30,7 +31,7 @@ export const MoonRiseSetWithPrefectureSelect: React.FC = () => {
   }, [prefecture])
 
   return (
-    <MoonRiseSetInfo>
+    <RoundFrame>
       <div>月の出</div>
       <TimeText>{rise}</TimeText>
       <div>月の入</div>
@@ -39,16 +40,9 @@ export const MoonRiseSetWithPrefectureSelect: React.FC = () => {
         value={prefecture}
         onChange={(v) => setPrefecture(v)}
       />
-    </MoonRiseSetInfo>
+    </RoundFrame>
   )
 }
-
-const MoonRiseSetInfo = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px 16px;
-  margin: 0;
-`
 
 const TimeText = styled.div`
   font-size: 24px;

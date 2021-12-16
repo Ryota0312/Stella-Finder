@@ -7,7 +7,7 @@ import Layout from '../../../components/layout'
 import { useApi } from '../../../hooks/useApi'
 
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
-import { PrefectureSelect } from '../../../components/common/PrefectureSelect'
+import { PrefectureSelect } from '../../../components/search/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
 import { TextField } from '../../../components/common/TextField'

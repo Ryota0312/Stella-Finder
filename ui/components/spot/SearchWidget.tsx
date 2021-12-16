@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { PrefectureButton } from '../common/PrefectureButton'
-import { SpotOrderSelect } from '../common/SpotOrderSelect'
-import { PrefectureSelect } from '../common/PrefectureSelect'
+import { PrefectureButton } from '../search/PrefectureButton'
+import { SpotOrderSelect } from '../search/SpotOrderSelect'
+import { PrefectureSelect } from '../search/PrefectureSelect'
 import { StarEvaluator } from '../common/StarEvaluator'
 import { InputField } from '../common/InputField'
 

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../../components/layout'
-import { PrefecturePicker } from '../../components/common/PrefecturePicker'
+import { PrefecturePicker } from '../../components/search/PrefecturePicker'
 import { SearchWidget } from '../../components/spot/SearchWidget'
 
 const Search: React.FC = () => {

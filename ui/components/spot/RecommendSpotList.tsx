@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
-import { GridList, GridListItemData } from '../common/GridList'
 import { LoginUserOnly } from '../common/LoginUserOnly'
+import { GridList, GridListItemData } from './GridList'
 
 type RecommendSpotListProps = {
   showAllPrefecture: boolean

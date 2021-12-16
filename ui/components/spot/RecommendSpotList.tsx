@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { LoginUserOnly } from '../common/LoginUserOnly'
+import { RoundFrame } from '../common/RoundFrame'
 import { GridList, GridListItemData } from './GridList'
 
 type RecommendSpotListProps = {
@@ -45,8 +46,7 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
   if (!data) return <TinyLoading />
 
   return (
-    <RecommendedSpotContainer>
-      <Title>{prefecture ? prefecture : '全国'}のおすすめスポット</Title>
+    <RoundFrame title={`${prefecture ? prefecture : '全国'}のおすすめスポット`}>
       {data.length === 0 && (
         <div>
           <div>
@@ -90,7 +90,7 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
           </Link>
         )}
       </ShowMore>
-    </RecommendedSpotContainer>
+    </RoundFrame>
   )
 }
 export default RecommendSpotList
@@ -99,23 +99,6 @@ const ButtonInnerWithImage = styled.div`
   display: flex;
   gap: 8px;
   color: gray;
-`
-
-const Title = styled.div`
-  position: absolute;
-  top: -16px;
-  left: 16px;
-  font-size: 24px;
-  background-color: white;
-  color: #9f9f9f;
-`
-
-const RecommendedSpotContainer = styled.div`
-  position: relative;
-  border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
-  border-radius: 8px;
-  margin: 24px 0;
 `
 
 const ShowMore = styled.div`

@@ -8,6 +8,7 @@ import Layout from '../components/layout'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
+import { RoundFrame } from '../components/common/RoundFrame'
 
 const RecommendSpotList = dynamic(
   () => import('../components/spot/RecommendSpotList'),
@@ -29,8 +30,7 @@ const Home: React.FC = () => {
           <MoonRiseSetWithPrefectureSelect />
           <ArticleListWidget />
         </MoonInfo>
-        <SearchMenu>
-          <SearchMenuTitle>観測スポットを探す</SearchMenuTitle>
+        <RoundFrame title="観測スポットを探す">
           <SearchMenuButtons>
             <Button onClick={() => router.push('/spot/search#byArea')}>
               <ButtonInnerWithImage>
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
               </ButtonInnerWithImage>
             </Button>
           </SearchMenuButtons>
-        </SearchMenu>
+        </RoundFrame>
         <RecommendSpotList key="all" showAllPrefecture={true} />
         <RecommendSpotList key="pref" showAllPrefecture={false} />
       </main>
@@ -73,28 +73,11 @@ const MoonInfo = styled.div`
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr 1fr;
 
-    ul {
+    div:last-child {
       grid-column-start: 1;
       grid-column-end: 3;
     }
   }
-`
-
-const SearchMenuTitle = styled.div`
-  position: absolute;
-  top: -16px;
-  left: 16px;
-  font-size: 24px;
-  background-color: white;
-  color: #9f9f9f;
-`
-
-const SearchMenu = styled.div`
-  position: relative;
-  border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
-  border-radius: 8px;
-  margin: 24px 0;
 `
 
 const SearchMenuButtons = styled.div`

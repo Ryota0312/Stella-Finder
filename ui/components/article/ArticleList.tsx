@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
+import { RoundFrame } from '../common/RoundFrame'
 
 export const ArticleList: React.FC = () => {
   const fetcher = useApi()
@@ -13,37 +14,26 @@ export const ArticleList: React.FC = () => {
   if (!data) return <TinyLoading />
 
   return (
-    <ArticleListUl>
-      <ArticleListLabel>お知らせ</ArticleListLabel>
-      {data.map((d: any) => (
-        <li key={d.id}>
-          <Link href={'/article/' + d.id + '/show'}>
-            <ArticleListItem>
-              <div>{d.title}</div>
-              <div>{convertDateTimeString_(d.createdAt)}</div>
-            </ArticleListItem>
-          </Link>
-        </li>
-      ))}
-    </ArticleListUl>
+    <RoundFrame>
+      <ArticleListUl>
+        {data.map((d: any) => (
+          <li key={d.id}>
+            <Link href={'/article/' + d.id + '/show'}>
+              <ArticleListItem>
+                <div>{d.title}</div>
+                <div>{convertDateTimeString_(d.createdAt)}</div>
+              </ArticleListItem>
+            </Link>
+          </li>
+        ))}
+      </ArticleListUl>
+    </RoundFrame>
   )
 }
 
-const ArticleListLabel = styled.div`
-  position: absolute;
-  top: -16px;
-  left: 16px;
-  font-size: 24px;
-  background-color: white;
-  color: #9f9f9f;
-`
-
 const ArticleListUl = styled.ul`
-  position: relative;
   list-style: none;
-  border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
-  border-radius: 8px;
+  padding: 0;
   margin: 0;
 `
 

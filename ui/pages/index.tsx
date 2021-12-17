@@ -71,6 +71,7 @@ const MoonInfo = styled.div`
   margin: 32px 0 16px 0;
 
   @media screen and (max-width: 800px) {
+    gap: 0 16px;
     grid-template-columns: 1fr 1fr;
 
     div:last-child {

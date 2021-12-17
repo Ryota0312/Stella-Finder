@@ -123,8 +123,10 @@ const Spot: React.FC = () => {
             <tr>
               <th>最終更新</th>
               <td>
-                {convertDateTimeString_(data.updatedAt)} (
-                <LinkedUserName userId={data.updatedBy} />)
+                <LastModified>
+                  {convertDateTimeString_(data.updatedAt)} (
+                  <LinkedUserName userId={data.updatedBy} />)
+                </LastModified>
               </td>
             </tr>
           </tbody>
@@ -273,6 +275,10 @@ const ButtonInnerWithImage = styled.div`
 
 const Remarks = styled.td`
   white-space: pre-line;
+`
+
+const LastModified = styled.div`
+  display: flex;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

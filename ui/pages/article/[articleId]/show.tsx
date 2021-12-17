@@ -54,6 +54,9 @@ const ArticleBody = styled.div`
 `
 
 const CreatedBy = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
   font-size: 11px;
   text-align: right;
 `

@@ -2,7 +2,8 @@ version: '3'
 services:
   https-portal:
     environment:
-      STAGE: production
+      STAGE: staging
+      # STAGE: production
       DOMAINS: 'stella-finder.com -> http://nginx:8080'
 
   nginx:

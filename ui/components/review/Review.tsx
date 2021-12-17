@@ -36,6 +36,7 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
           })}
         />
       )}
+      <CreatedAt>{convertDateTimeString_(props.createdAt)}</CreatedAt>
     </RoundFrame>
   )
 }
@@ -50,3 +51,14 @@ const Comment = styled.div`
   margin-top: 32px;
   white-space: pre-line;
 `
+
+const CreatedAt = styled.div`
+  text-align: right;
+`
+
+const convertDateTimeString_ = (datetime: string) => {
+  const dt = new Date(datetime)
+  return `${dt.getFullYear()}年${
+    dt.getMonth() + 1
+  }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
+}

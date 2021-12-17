@@ -36,6 +36,12 @@ const Spot: React.FC = () => {
     fetcher,
   )
 
+  useEffect(() => {
+    if (data) {
+      setCoverImage(data.coverImage)
+    }
+  }, [data])
+
   const notify = () => toast.success('Success!')
   useEffect(() => {
     if (fragment == 'success') {

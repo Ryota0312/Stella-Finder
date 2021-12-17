@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import Link from 'next/link'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
+import { LinkedUserName } from '../../../components/common/LinkedUserName'
 
 const Show: React.FC = () => {
-  const [createdBy, setCreatedBy] = useState('')
   const router = useRouter()
   const { articleId } = router.query
 
@@ -18,12 +17,6 @@ const Show: React.FC = () => {
     articleId ? ['/api/articles?articleId=' + articleId, false] : null,
     fetcher,
   )
-
-  useEffect(() => {
-    if (data) {
-      getUserNameById_(data.createdBy).then((name) => setCreatedBy(name))
-    }
-  }, [data])
 
   if (error) return <div>failed to load</div>
   if (!data) return <Loading />
@@ -39,7 +32,7 @@ const Show: React.FC = () => {
         <PostDateTime>{convertDateTimeString_(data.createdAt)}</PostDateTime>
         <ArticleBody>{data.body}</ArticleBody>
         <CreatedBy>
-          by <Link href={'/user/profile/' + data.createdBy}>{createdBy}</Link>
+          by <LinkedUserName userId={data.createdBy} />
         </CreatedBy>
       </main>
     </Layout>
@@ -70,10 +63,4 @@ const convertDateTimeString_ = (datetime: string) => {
   return `${dt.getFullYear()}年${
     dt.getMonth() + 1
   }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
-}
-
-const getUserNameById_ = async (id: number) => {
-  const response = await fetch('/api/profile?id=' + id)
-  const json = await response.json()
-  return json.name
 }

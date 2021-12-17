@@ -19,6 +19,7 @@ import { MoonRiseSet } from '../../../components/moon/MoonRiseSet'
 import { MoonAge } from '../../../components/moon/MoonAge'
 import { Loading } from '../../../components/common/Loading'
 import { CurrentWeather } from '../../../components/weather/CurrentWeather'
+import { LinkedUserName } from '../../../components/common/LinkedUserName'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -28,20 +29,12 @@ const Spot: React.FC = () => {
   const [isOpenAddImageDialog, setIsOpenAddImageDialog] =
     useState<boolean>(false)
   const [coverImage, setCoverImage] = useState<string>('')
-  const [updatedBy, setUpdatedBy] = useState<string>('')
 
   const fetcher = useApi()
   const { data, error } = useSWR(
     spotId ? ['/api/spots' + '?id=' + spotId, false] : null,
     fetcher,
   )
-
-  useEffect(() => {
-    if (data) {
-      setCoverImage(data.coverImage)
-      getUserNameById_(data.updatedBy).then((name) => setUpdatedBy(name))
-    }
-  }, [data])
 
   const notify = () => toast.success('Success!')
   useEffect(() => {
@@ -131,10 +124,7 @@ const Spot: React.FC = () => {
               <th>最終更新</th>
               <td>
                 {convertDateTimeString_(data.updatedAt)} (
-                <Link href={'/user/profile/' + data.updatedBy}>
-                  {updatedBy}
-                </Link>
-                )
+                <LinkedUserName userId={data.updatedBy} />)
               </td>
             </tr>
           </tbody>
@@ -288,10 +278,4 @@ const Remarks = styled.td`
 const convertDateTimeString_ = (datetime: string) => {
   const dt = new Date(datetime)
   return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日`
-}
-
-const getUserNameById_ = async (id: number) => {
-  const response = await fetch('/api/profile?id=' + id)
-  const json = await response.json()
-  return json.name
 }

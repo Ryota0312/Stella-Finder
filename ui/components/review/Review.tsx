@@ -48,7 +48,7 @@ const Evaluates = styled.div`
 `
 
 const Comment = styled.div`
-  margin-top: 32px;
+  margin: 32px 0;
   white-space: pre-line;
 `
 

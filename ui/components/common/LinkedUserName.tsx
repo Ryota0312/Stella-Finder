@@ -25,38 +25,46 @@ export const LinkedUserName: React.FC<LinkedUserNameProps> = (
   if (!data) return <TinyLoading />
 
   return (
-    <IconAndName>
-      {props.showIcon && (
-        <>
-          {data.icon === '' && (
-            <UserIconDefault
-              src="/image/profile-icon-default.png"
-              alt="user icon"
-              width={32}
-              height={32}
-            />
+    <div style={{ width: 'fit-content' }}>
+      <Link href={'/user/profile/' + props.userId}>
+        <IconAndName>
+          {props.showIcon && (
+            <>
+              {data.icon === '' && (
+                <UserIconDefault
+                  src="/image/profile-icon-default.png"
+                  alt="user icon"
+                  width={48}
+                  height={48}
+                />
+              )}
+              {data.icon !== '' && (
+                <UserIcon
+                  fileKey={data.icon}
+                  width="48px"
+                  height="48px"
+                  objectFit={'cover'}
+                  borderRadius={'50%'}
+                  fetchedImageSize={300}
+                />
+              )}
+            </>
           )}
-          {data.icon !== '' && (
-            <UserIcon
-              fileKey={data.icon}
-              width="32px"
-              height="32px"
-              objectFit={'cover'}
-              borderRadius={'50%'}
-              fetchedImageSize={300}
-            />
-          )}
-        </>
-      )}
-      <Link href={'/user/profile/' + props.userId}>{data.name}</Link>
-    </IconAndName>
+          <div>{data.name}</div>
+        </IconAndName>
+      </Link>
+    </div>
   )
 }
 
 const IconAndName = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  cursor: pointer;
+  color: #0070f3;
+  text-decoration: none;
+  padding-right: 16px;
 `
 
 const UserIconDefault = styled(Image)`

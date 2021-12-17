@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
+import { RoundFrame } from '../common/RoundFrame'
+import { LinkedUserName } from '../common/LinkedUserName'
 
 type ReviewProps = {
   darkness: number
@@ -15,7 +17,8 @@ type ReviewProps = {
 
 export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
   return (
-    <ReviewListItem>
+    <RoundFrame>
+      <LinkedUserName userId={props.createdBy} showIcon={true} />
       <Evaluates>
         <StarEvaluate label="空の暗さ" point={props.darkness} />
         <StarEvaluate label="見晴らし" point={props.view} />
@@ -33,16 +36,9 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
           })}
         />
       )}
-    </ReviewListItem>
+    </RoundFrame>
   )
 }
-
-const ReviewListItem = styled.li`
-  list-style: none;
-  border: 1px solid #ccc;
-  padding: 8px;
-  margin-bottom: 16px;
-`
 
 const Evaluates = styled.div`
   display: flex;

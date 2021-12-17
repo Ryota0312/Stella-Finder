@@ -30,7 +30,7 @@ const Frame = styled.div`
   flex: auto;
   position: relative;
   border: 1px solid #ccc;
-  padding: 24px 16px 16px 16px;
+  padding: 16px;
   border-radius: 8px;
   margin: 24px 0;
 `

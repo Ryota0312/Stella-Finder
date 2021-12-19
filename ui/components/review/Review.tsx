@@ -4,8 +4,10 @@ import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'
 import { LinkedUserName } from '../common/LinkedUserName'
+import { useApi } from '../../hooks/useApi'
 
 type ReviewProps = {
+  id: number
   darkness: number
   view: number
   safety: number
@@ -16,6 +18,8 @@ type ReviewProps = {
 }
 
 export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
+  const { postFetcher } = useApi()
+
   return (
     <RoundFrame>
       <LinkedUserName userId={props.createdBy} showIcon={true} />
@@ -37,6 +41,11 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         />
       )}
       <CreatedAt>{convertDateTimeString_(props.createdAt)}</CreatedAt>
+      <button
+        onClick={() => postFetcher('/api/review/like', { reviewId: props.id })}
+      >
+        いいね
+      </button>
     </RoundFrame>
   )
 }

@@ -23,6 +23,7 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
           return (
             <Review
               key={d.id}
+              id={d.id}
               darkness={d.darkness}
               view={d.view}
               safety={d.safety}

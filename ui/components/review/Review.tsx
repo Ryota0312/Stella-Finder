@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Image from 'next/image'
 import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'
@@ -44,7 +45,15 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
       <button
         onClick={() => postFetcher('/api/review/like', { reviewId: props.id })}
       >
-        いいね
+        <ButtonInnerWithImage>
+          <Image
+            src={'/image/like-review.png'}
+            alt={'Like review'}
+            width={18}
+            height={18}
+          />
+          <div>参考になった</div>
+        </ButtonInnerWithImage>
       </button>
     </RoundFrame>
   )
@@ -63,6 +72,11 @@ const Comment = styled.div`
 
 const CreatedAt = styled.div`
   text-align: right;
+`
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 4px;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

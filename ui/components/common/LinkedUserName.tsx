@@ -64,7 +64,6 @@ const IconAndName = styled.div`
   cursor: pointer;
   color: #0070f3;
   text-decoration: none;
-  padding-right: 16px;
 `
 
 const UserIconDefault = styled(Image)`

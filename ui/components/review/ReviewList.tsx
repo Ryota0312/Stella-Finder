@@ -31,6 +31,7 @@ export const ReviewList: React.FC<{ spotId: number }> = ({ spotId }) => {
               createdBy={d.createdBy}
               createdAt={d.createdAt}
               images={d.images}
+              likeCount={d.likeCount}
             />
           )
         })}

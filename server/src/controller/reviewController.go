@@ -79,6 +79,7 @@ type GetReviewListOutputForm struct {
 	CreatedBy int       `json:"createdBy"`
 	CreatedAt time.Time `json:"createdAt"`
 	Images    []string  `json:"images"`
+	LikeCount int       `json:"likeCount"`
 }
 
 func GetReviewList(c *gin.Context) {
@@ -104,6 +105,7 @@ func GetReviewList(c *gin.Context) {
 			review.CreatedBy,
 			review.CreatedAt,
 			images,
+			review.LikeCount,
 		})
 	}
 

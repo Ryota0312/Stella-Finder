@@ -16,6 +16,7 @@ type ReviewProps = {
   createdBy: number
   createdAt: string
   images: Array<string> | null
+  likeCount: number
 }
 
 export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
@@ -52,7 +53,7 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
             width={18}
             height={18}
           />
-          <div>参考になった</div>
+          <div>参考になった {props.likeCount}</div>
         </ButtonInnerWithImage>
       </button>
     </RoundFrame>

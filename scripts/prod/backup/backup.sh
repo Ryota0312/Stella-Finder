@@ -10,7 +10,7 @@ BACKUP_DIR=$BACKUP_ROOT_DIR/$BACKUP_DIR_NAME
 
 mkdir "$BACKUP_DIR"
 
-"$PROJECT_ROOT"/scripts/prod/docker-compose-wrapper.sh exec stella-finder-db mysqldump --defaults-extra-file=/etc/mysql/conf.d/dbaccess.conf stella_finder > "$BACKUP_DIR"/stella_finder.bk
+"$PROJECT_ROOT"/scripts/prod/docker-compose-wrapper.sh exec -T stella-finder-db mysqldump --defaults-extra-file=/etc/mysql/conf.d/dbaccess.conf stella_finder > "$BACKUP_DIR"/stella_finder.bk
 cp -r "$PROJECT_ROOT"/server/uploadedImages/ "$BACKUP_DIR"/
 
 (cd "$BACKUP_ROOT_DIR" && zip -r "$BACKUP_DIR_NAME".zip "$BACKUP_DIR_NAME")

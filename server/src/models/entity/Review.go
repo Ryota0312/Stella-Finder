@@ -13,4 +13,5 @@ type Review struct {
 	Comment   string    `gorm:"type:text;"  json:"comment"`
 	CreatedBy int       `gorm:"type:int(11);not null"  json:"createdBy"`
 	CreatedAt time.Time `gorm:"type:datetime(3);not null;default:current_timestamp"  json:"createdAt"`
+	LikeCount int       `gorm:"type:int(11);not null;default:0" json:"likeCount"`
 }

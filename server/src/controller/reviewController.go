@@ -146,3 +146,19 @@ func GetSummary(c *gin.Context) {
 
 	c.JSON(http.StatusOK, output)
 }
+
+type LikeInputForm struct {
+	ReviewId int `json:"reviewId"`
+}
+
+func Like(c *gin.Context) {
+	var input LikeInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.IncrementLikeCount(input.ReviewId)
+
+	c.JSON(http.StatusOK, gin.H{})
+}

@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
   )
 }
 
-const LayoutFooter = styled.header`
+const LayoutFooter = styled.footer`
   height: auto;
   background-color: black;
   padding: 16px;

@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import { GlobalHeader } from './header/GlobalHeader'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { Footer } from './footer/Footer'
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -25,6 +26,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({
         />
         <GlobalHeader />
         <MainContents>{children}</MainContents>
+        <Footer />
       </main>
     </>
   )

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
+import { bool } from 'prop-types'
 import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'
@@ -21,6 +22,12 @@ type ReviewProps = {
 
 export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
   const { postFetcher } = useApi()
+  const [likeCount, setLikeCount] = useState(props.likeCount)
+  const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    setIsLiked(isAlreadyLiked_(props.id))
+  }, [props.id])
 
   return (
     <RoundFrame>
@@ -43,8 +50,17 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         />
       )}
       <CreatedAt>{convertDateTimeString_(props.createdAt)}</CreatedAt>
-      <button
-        onClick={() => postFetcher('/api/review/like', { reviewId: props.id })}
+      <LikeButton
+        disabled={isLiked}
+        isLiked={isLiked}
+        title={isLiked ? 'クリック済みです' : ''}
+        onClick={() =>
+          postFetcher('/api/review/like', { reviewId: props.id }).then(() => {
+            setLikeCount(likeCount + 1)
+            setIsLiked(true)
+            storeLikedReview_(props.id)
+          })
+        }
       >
         <ButtonInnerWithImage>
           <Image
@@ -53,9 +69,9 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
             width={18}
             height={18}
           />
-          <div>参考になった {props.likeCount}</div>
+          <div>参考になった {likeCount}</div>
         </ButtonInnerWithImage>
-      </button>
+      </LikeButton>
     </RoundFrame>
   )
 }
@@ -80,9 +96,37 @@ const ButtonInnerWithImage = styled.div`
   gap: 4px;
 `
 
+const LikeButton = styled.button<{ isLiked: boolean }>`
+  cursor: ${({ isLiked }) => (isLiked ? 'default' : 'pointer')};
+  &:hover,
+  &:focus {
+    background-color: ${({ isLiked }) => (isLiked ? 'transparent' : '#aaa')};
+  }
+`
+
 const convertDateTimeString_ = (datetime: string) => {
   const dt = new Date(datetime)
   return `${dt.getFullYear()}年${
     dt.getMonth() + 1
   }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
+}
+
+const isAlreadyLiked_ = (reviewId: number) => {
+  const likedReviewStringValue = localStorage.getItem('likedReview')
+  const likedReview: Array<number> = likedReviewStringValue
+    ? likedReviewStringValue.split(',').map((id) => Number(id))
+    : []
+
+  return likedReview.includes(reviewId)
+}
+
+const storeLikedReview_ = (reviewId: number) => {
+  const likedReviewStringValue = localStorage.getItem('likedReview')
+  const likedReview: Array<number> = likedReviewStringValue
+    ? likedReviewStringValue.split(',').map((id) => Number(id))
+    : []
+
+  if (!likedReview.includes(reviewId)) {
+    localStorage.setItem('likedReview', likedReview.concat(reviewId).toString())
+  }
 }

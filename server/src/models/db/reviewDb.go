@@ -28,7 +28,7 @@ func FindReviews(spotId int) []entity.Review {
 	var review []entity.Review
 
 	db := open()
-	db.Where("spot_id = ?", spotId).Order("created_at desc").Find(&review)
+	db.Where("spot_id = ?", spotId).Order("like_count desc").Find(&review)
 
 	defer db.Close()
 

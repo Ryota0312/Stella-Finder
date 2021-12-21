@@ -50,7 +50,7 @@ func FindArticleByTag(tagId int) []entity.Article {
 	db := open()
 	defer db.Close()
 
-	db.Table("article").Joins("left join article_tag on article_tag.article_id = article.id").Where("tag_id = ?", tagId).Find(&articles)
+	db.Table("article").Joins("left join article_tag on article_tag.article_id = article.id").Where("tag_id = ?", tagId).Order("article.created_at desc").Find(&articles)
 
 	return articles
 }

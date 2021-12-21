@@ -12,7 +12,7 @@ jobs:
         run: cd ${{ secrets.DEPLOY_DIR }} && git pull
       - name: Stop server
         run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh down
-      - name: Remove docker volume for db migrate
-        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-volume-rm-for-migrate-db.sh
+      - name: Migrate DB
+        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/migrate-db.sh
       - name: Start server
         run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh up -d

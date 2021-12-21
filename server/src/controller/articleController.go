@@ -55,3 +55,9 @@ func GetArticle(c *gin.Context) {
 
 	c.JSON(http.StatusOK, db.FindArticleById(articleId))
 }
+
+func GetArticleListByTag(c *gin.Context) {
+	tagId, _ := strconv.Atoi(c.Query("id"))
+
+	c.JSON(http.StatusOK, db.FindArticleByTag(tagId))
+}

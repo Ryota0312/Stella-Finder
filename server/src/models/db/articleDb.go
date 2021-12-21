@@ -43,3 +43,14 @@ func FindArticleById(articleId int) entity.Article {
 
 	return article
 }
+
+func FindArticleByTag(tagId int) []entity.Article {
+	var articles []entity.Article
+
+	db := open()
+	defer db.Close()
+
+	db.Table("article").Joins("left join article_tag on article_tag.article_id = article.id").Where("tag_id = ?", tagId).Find(&articles)
+
+	return articles
+}

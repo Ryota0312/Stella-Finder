@@ -106,7 +106,6 @@ const LikeButton = styled.button<{ isLiked: boolean }>`
 
 const convertDateTimeString_ = (datetime: string) => {
   const dt = new Date(datetime)
-  console.log(('00' + dt.getHours()).slice(-2))
   return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日 ${(
     '00' + dt.getHours()
   ).slice(-2)}:${('00' + dt.getMinutes()).slice(-2)}`

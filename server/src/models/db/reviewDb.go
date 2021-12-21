@@ -1,6 +1,7 @@
 package db
 
 import (
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
@@ -32,4 +33,13 @@ func FindReviews(spotId int) []entity.Review {
 	defer db.Close()
 
 	return review
+}
+
+func IncrementLikeCount(reviewId int) {
+	var review = entity.Review{}
+	review.Id = reviewId
+
+	db := open()
+	defer db.Close()
+	db.Model(&review).Update("like_count", gorm.Expr("like_count + 1"))
 }

@@ -41,6 +41,7 @@ func serve() {
 		api.GET("/profile", controller.GetUser)
 		api.GET("/review/list", controller.GetReviewList)
 		api.GET("/review/summary", controller.GetSummary) // Deprecated: spot DB の値を使えばよい
+		api.POST("/review/like", controller.Like)
 		api.GET("/moonAge", controller.GetMoonAge)
 		api.GET("/moonRiseSet", controller.GetMoonRiseSet)
 		api.GET("/article/list", controller.GetArticleList)

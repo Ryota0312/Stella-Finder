@@ -79,6 +79,7 @@ type GetReviewListOutputForm struct {
 	CreatedBy int       `json:"createdBy"`
 	CreatedAt time.Time `json:"createdAt"`
 	Images    []string  `json:"images"`
+	LikeCount int       `json:"likeCount"`
 }
 
 func GetReviewList(c *gin.Context) {
@@ -104,6 +105,7 @@ func GetReviewList(c *gin.Context) {
 			review.CreatedBy,
 			review.CreatedAt,
 			images,
+			review.LikeCount,
 		})
 	}
 
@@ -145,4 +147,20 @@ func GetSummary(c *gin.Context) {
 	output := GetSummaryOutputForm{total, darknessAvg, viewAvg, safetyAvg}
 
 	c.JSON(http.StatusOK, output)
+}
+
+type LikeInputForm struct {
+	ReviewId int `json:"reviewId"`
+}
+
+func Like(c *gin.Context) {
+	var input LikeInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.IncrementLikeCount(input.ReviewId)
+
+	c.JSON(http.StatusOK, gin.H{})
 }

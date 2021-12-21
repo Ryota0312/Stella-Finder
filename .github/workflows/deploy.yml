@@ -10,5 +10,9 @@ jobs:
     steps:
       - name: Pull
         run: cd ${{ secrets.DEPLOY_DIR }} && git pull
-      - name: Restart server
-        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh down && ./scripts/prod/docker-compose-wrapper.sh up -d
+      - name: Stop server
+        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh down
+      - name: Remove docker volume for db migrate
+        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-volume-rm-for-migrate-db.sh
+      - name: Start server
+        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh up -d

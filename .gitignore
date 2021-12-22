@@ -1,3 +1,4 @@
+.env
 db/mysql_data/
 server/.env
 server/target/

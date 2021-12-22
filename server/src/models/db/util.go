@@ -3,14 +3,25 @@ package db
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
 	"stella-finder-server/src/models/entity"
 )
 
 // DB接続する
 func open() *gorm.DB {
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		log.Fatalf("error: %v", loadErr)
+	}
+
+	// .envから環境変数読み込み
+	MYSQL_ROOT_PASS := os.Getenv("MYSQL_ROOT_PASS")
+
 	DBMS := "mysql"
 	USER := "root"
-	PASS := "root"
+	PASS := MYSQL_ROOT_PASS
 	PROTOCOL := "tcp(stella-finder-db:3306)"
 	DBNAME := "stella_finder"
 	PARAMS := "parseTime=true"

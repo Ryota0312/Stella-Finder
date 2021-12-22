@@ -13,7 +13,7 @@ type ArticleListProps = {
 export const ArticleList: React.FC<ArticleListProps> = (props) => {
   const fetcher = useApi()
   const { data, error } = useSWR(
-    props.tagId
+    props.tagId && props.tagId !== 0
       ? ['/api/article/listByTag?id=' + props.tagId, false]
       : ['/api/article/list', false],
     fetcher,

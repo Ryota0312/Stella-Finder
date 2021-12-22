@@ -1,13 +1,12 @@
-import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
-import { RoundFrame } from '../common/RoundFrame'
 
 type TagListProps = {
-  tagId?: number
+  selected: number
+  onChange: (tagId: number) => void
 }
 
 export const TagList: React.FC<TagListProps> = (props) => {
@@ -18,16 +17,44 @@ export const TagList: React.FC<TagListProps> = (props) => {
   if (!data) return <TinyLoading />
 
   return (
-    <div>
+    <TagListUl>
+      <li>
+        <TagListItem
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            props.onChange(0)
+            e.currentTarget.blur()
+          }}
+          selected={props.selected === 0}
+        >
+          すべて表示
+        </TagListItem>
+      </li>
       {data.map((d: any) => (
-        <div key={d.id}>{d.name}</div>
+        <li key={d.id}>
+          <TagListItem
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              props.onChange(d.id)
+              e.currentTarget.blur()
+            }}
+            selected={props.selected === d.id}
+          >
+            #{d.name}
+          </TagListItem>
+        </li>
       ))}
-    </div>
+    </TagListUl>
   )
 }
 
-const ArticleListUl = styled.ul`
+const TagListUl = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;
+`
+
+const TagListItem = styled.button<{ selected: boolean }>`
+  background-color: ${({ selected }) => (selected ? '#b2b2ff' : 'transparent')};
 `

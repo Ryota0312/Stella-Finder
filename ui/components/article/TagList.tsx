@@ -24,7 +24,7 @@ export const TagList: React.FC<TagListProps> = (props) => {
             props.onChange(0)
             e.currentTarget.blur()
           }}
-          selected={props.selected === 0}
+          selected={!props.selected}
         >
           すべて表示
         </TagListItem>

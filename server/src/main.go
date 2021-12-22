@@ -49,7 +49,6 @@ func serve() {
 		api.GET("/article/listByTag", controller.GetArticleListByTag)
 		api.GET("/article/tag/list", controller.GetArticleTags)
 		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
-		api.GET("/location/search", controller.GetAddressBySpotName)
 	}
 
 	// API (need Authorize)
@@ -66,6 +65,7 @@ func serve() {
 		authRequiredAPI.POST("/spot/addImage", controller.CreateSpotImage)
 		authRequiredAPI.POST("/review/add", controller.CreateReview)
 		authRequiredAPI.POST("/article/add", controller.CreateArticle)
+		authRequiredAPI.GET("/location/search", controller.GetAddressBySpotName)
 	}
 
 	// Proxy to Next.js

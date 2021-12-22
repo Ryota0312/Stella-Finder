@@ -13,6 +13,7 @@ import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
 import { TextField } from '../../../components/common/TextField'
 import { ImageUploader } from '../../../components/common/ImageUploader'
 import { Loading } from '../../../components/common/Loading'
+import { AddressSearchByPostalCode } from '../../../components/common/AddressSearchByPostalCode'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -78,6 +79,13 @@ const Edit: React.FC = () => {
           onChange={(v) => setPostalCode(v)}
           isValid={isPostalCodeValid}
           validateErrorMsg="郵便番号の形式が不正です"
+        />
+        <AddressSearchByPostalCode
+          postalCode={postalCode}
+          onSearch={(pref, addr) => {
+            setPrefecture(pref)
+            setAddress(addr)
+          }}
         />
         <PrefectureSelect
           label="都道府県"

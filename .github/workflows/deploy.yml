@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Pull
         run: cd ${{ secrets.DEPLOY_DIR }} && git pull
-      - name: Stop server
-        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh down
       - name: Migrate DB
         run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/migrate-db.sh
+      - name: Stop server
+        run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh down
       - name: Start server
         run: cd ${{ secrets.DEPLOY_DIR }} && ./scripts/prod/docker-compose-wrapper.sh up -d

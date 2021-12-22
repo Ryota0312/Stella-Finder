@@ -70,3 +70,7 @@ func GetArticleListByTag(c *gin.Context) {
 
 	c.JSON(http.StatusOK, db.FindArticleByTag(tagId))
 }
+
+func GetArticleTags(c *gin.Context) {
+	c.JSON(http.StatusOK, db.GetArticleTags())
+}

@@ -16,3 +16,13 @@ func CreateArticleTag(articleId int, tagId int) {
 
 	db.Create(&articleTag)
 }
+
+func GetArticleTags() []entity.Tag {
+	var tags []entity.Tag
+
+	db := open()
+	defer db.Close()
+
+	db.Table("tag").Select("DISTINCT tag.id, tag.name").Joins("left join article_tag on article_tag.tag_id = tag.id").Where("article_id IS NOT NULL").Find(&tags)
+	return tags
+}

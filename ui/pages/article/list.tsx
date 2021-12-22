@@ -2,6 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout'
 import { ArticleList } from '../../components/article/ArticleList'
+import { TagList } from '../../components/article/TagList'
 
 const List: React.FC = () => {
   const router = useRouter()
@@ -11,6 +12,7 @@ const List: React.FC = () => {
     <Layout>
       <main>
         <h2>News</h2>
+        <TagList />
         <ArticleList tagId={Number(tag)} />
       </main>
     </Layout>

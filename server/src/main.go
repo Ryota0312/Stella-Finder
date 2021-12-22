@@ -46,7 +46,8 @@ func serve() {
 		api.GET("/moonRiseSet", controller.GetMoonRiseSet)
 		api.GET("/article/list", controller.GetArticleList)
 		api.GET("/articles", controller.GetArticle)
-		api.GET("/article/list/tag", controller.GetArticleListByTag)
+		api.GET("/article/listByTag", controller.GetArticleListByTag)
+		api.GET("/article/tag/list", controller.GetArticleTags)
 		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
 	}
 

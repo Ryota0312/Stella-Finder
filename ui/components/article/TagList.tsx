@@ -21,7 +21,7 @@ export const TagList: React.FC<TagListProps> = (props) => {
       if (tag.length > 0) {
         setName('#' + tag[0].name)
       } else {
-        setName('すべての記事')
+        setName('すべて')
       }
     }
   }, [data])
@@ -31,13 +31,13 @@ export const TagList: React.FC<TagListProps> = (props) => {
 
   return (
     <>
-      <DisplayedArticle>{name}を表示中</DisplayedArticle>
+      <DisplayedArticle>{name}の記事を表示中</DisplayedArticle>
       <TagListUl>
         <li>
           <TagListItem
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               props.onChange(0)
-              setName('すべての記事')
+              setName('すべて')
               e.currentTarget.blur()
             }}
             selected={!props.selected}
@@ -50,7 +50,7 @@ export const TagList: React.FC<TagListProps> = (props) => {
             <TagListItem
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 props.onChange(d.id)
-                setName('#' + d.name + 'の記事')
+                setName('#' + d.name)
                 e.currentTarget.blur()
               }}
               selected={props.selected === d.id}

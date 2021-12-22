@@ -50,11 +50,14 @@ const TagListUl = styled.ul`
   display: flex;
   justify-content: flex-start;
   gap: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   list-style: none;
-  padding: 0;
+  padding: 8px;
   margin: 0;
 `
 
 const TagListItem = styled.button<{ selected: boolean }>`
+  height: 32px;
   background-color: ${({ selected }) => (selected ? '#b2b2ff' : 'transparent')};
 `

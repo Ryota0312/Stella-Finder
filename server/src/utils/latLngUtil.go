@@ -116,6 +116,11 @@ func GetPrefectureCenter(prefecture string) (float64, float64) {
 
 type GoogleGeocodingOutputForm struct {
 	Results []struct {
+		AddressComponents []struct {
+			LongName  string   `json:"long_name"`
+			ShortName string   `json:"short_name"`
+			Types     []string `json:"types"`
+		} `json:"address_components"`
 		Geometry struct {
 			Location struct {
 				Lat float64 `json:"lat"`

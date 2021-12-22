@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import Layout from '../../../components/layout'
 import { useApi } from '../../../hooks/useApi'
 
-import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/search/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'

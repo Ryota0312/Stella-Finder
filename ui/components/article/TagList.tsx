@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
@@ -10,39 +10,57 @@ type TagListProps = {
 }
 
 export const TagList: React.FC<TagListProps> = (props) => {
+  const [name, setName] = useState('')
+
   const fetcher = useApi()
   const { data, error } = useSWR(['/api/article/tag/list', false], fetcher)
+
+  useEffect(() => {
+    if (data) {
+      const tag = data.filter((d: any) => d.id === props.selected)
+      if (tag.length > 0) {
+        setName('#' + tag[0].name)
+      } else {
+        setName('すべての記事')
+      }
+    }
+  }, [data])
 
   if (error) return <div>failed to load</div>
   if (!data) return <TinyLoading />
 
   return (
-    <TagListUl>
-      <li>
-        <TagListItem
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            props.onChange(0)
-            e.currentTarget.blur()
-          }}
-          selected={!props.selected}
-        >
-          すべて表示
-        </TagListItem>
-      </li>
-      {data.map((d: any) => (
-        <li key={d.id}>
+    <>
+      <DisplayedArticle>{name}を表示中</DisplayedArticle>
+      <TagListUl>
+        <li>
           <TagListItem
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-              props.onChange(d.id)
+              props.onChange(0)
+              setName('すべての記事')
               e.currentTarget.blur()
             }}
-            selected={props.selected === d.id}
+            selected={!props.selected}
           >
-            #{d.name}
+            すべて表示
           </TagListItem>
         </li>
-      ))}
-    </TagListUl>
+        {data.map((d: any) => (
+          <li key={d.id}>
+            <TagListItem
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                props.onChange(d.id)
+                setName('#' + d.name + 'の記事')
+                e.currentTarget.blur()
+              }}
+              selected={props.selected === d.id}
+            >
+              #{d.name}
+            </TagListItem>
+          </li>
+        ))}
+      </TagListUl>
+    </>
   )
 }
 
@@ -60,4 +78,8 @@ const TagListUl = styled.ul`
 const TagListItem = styled.button<{ selected: boolean }>`
   height: 32px;
   background-color: ${({ selected }) => (selected ? '#b2b2ff' : 'transparent')};
+`
+
+const DisplayedArticle = styled.div`
+  margin-bottom: 8px;
 `

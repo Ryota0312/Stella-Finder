@@ -1,22 +1,26 @@
-import React from 'react'
-import { toast } from 'react-toastify'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
 import Layout from '../../components/layout'
-import { InputField } from '../../components/common/InputField'
-import { useStateWithValidate } from '../../hooks/useStateWithValidate'
-import { TextField } from '../../components/common/TextField'
-import { useApi } from '../../hooks/useApi'
-import { Loading } from '../../components/common/Loading'
-import { ArticleListWidget } from '../../components/article/ArticleListWidget'
 import { ArticleList } from '../../components/article/ArticleList'
+import { TagList } from '../../components/article/TagList'
 
 const List: React.FC = () => {
+  const router = useRouter()
+  const { tag } = router.query
+
+  const [selectedTag, setSelectedTag] = useState(tag ? Number(tag) : 0)
+
+  useEffect(() => setSelectedTag(Number(tag)), [tag])
+
   return (
     <Layout>
       <main>
         <h2>News</h2>
-        <ArticleList />
+        <TagList
+          selected={selectedTag}
+          onChange={(tagId) => router.replace('/article/list?tag=' + tagId)}
+        />
+        <ArticleList tagId={selectedTag} />
       </main>
     </Layout>
   )

@@ -6,18 +6,9 @@ import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { RoundFrame } from '../common/RoundFrame'
 
-type ArticleListProps = {
-  tagId?: number
-}
-
-export const ArticleList: React.FC<ArticleListProps> = (props) => {
+export const ArticleList: React.FC = () => {
   const fetcher = useApi()
-  const { data, error } = useSWR(
-    props.tagId && props.tagId !== 0
-      ? ['/api/article/listByTag?id=' + props.tagId, false]
-      : ['/api/article/list', false],
-    fetcher,
-  )
+  const { data, error } = useSWR(['/api/article/list', false], fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <TinyLoading />

@@ -10,8 +10,9 @@ import (
 )
 
 type CreateArticleInputForm struct {
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Title string   `json:"title"`
+	Body  string   `json:"body"`
+	Tags  []string `json:"tags"`
 }
 
 func CreateArticle(c *gin.Context) {
@@ -41,6 +42,14 @@ func CreateArticle(c *gin.Context) {
 
 	article := db.CreateArticle(input.Title, input.Body, loginUser.ID)
 
+	for _, tag := range input.Tags {
+		if !db.TagExists(tag) {
+			db.CreateTag(tag)
+		}
+		tagId := db.GetTagIdByTagName(tag)
+		db.CreateArticleTag(article.ID, tagId)
+	}
+
 	c.JSON(200, gin.H{"id": article.ID})
 }
 
@@ -54,4 +63,14 @@ func GetArticle(c *gin.Context) {
 	articleId, _ := strconv.Atoi(c.Query("articleId"))
 
 	c.JSON(http.StatusOK, db.FindArticleById(articleId))
+}
+
+func GetArticleListByTag(c *gin.Context) {
+	tagId, _ := strconv.Atoi(c.Query("id"))
+
+	c.JSON(http.StatusOK, db.FindArticleByTag(tagId))
+}
+
+func GetArticleTags(c *gin.Context) {
+	c.JSON(http.StatusOK, db.GetArticleTags())
 }

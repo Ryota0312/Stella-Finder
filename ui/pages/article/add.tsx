@@ -23,6 +23,9 @@ const Add: React.FC = () => {
   const [body, isBodyValid, setBody] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 10000
   })
+  const [tag, isTagValid, setTag] = useStateWithValidate('', (v) => {
+    return v.length > 0 && v.length < 64
+  })
 
   if (error) return <div>failed to load</div>
   if (!data) return <Loading />
@@ -46,6 +49,13 @@ const Add: React.FC = () => {
           isValid={isBodyValid}
           validateErrorMsg="1文字以上10000文字以下で入力してください"
         />
+        <InputField
+          label="タグ"
+          value={tag}
+          onChange={(v) => setTag(v)}
+          isValid={isTagValid}
+          validateErrorMsg="1文字以上64文字未満で入力してください"
+        />
         <button
           onClick={() => {
             if (!isTitleValid || !isBodyValid) {
@@ -55,6 +65,7 @@ const Add: React.FC = () => {
             postFetcher('/api/user/article/add', {
               title: title,
               body: body,
+              tags: [tag],
             }).then(async (res) => {
               if (!res.error) {
                 await router.push('/')

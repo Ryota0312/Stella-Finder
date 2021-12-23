@@ -3,5 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/db/mysql_init/1_create.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/db/mysql_init/2_add_like_to_revview.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/db/mysql_init/3_add_tag_to_article.sql" dialect="MySQL" />
   </component>
 </project>

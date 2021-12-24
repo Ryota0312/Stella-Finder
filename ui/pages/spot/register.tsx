@@ -146,7 +146,7 @@ const register_ = async (
     body: JSON.stringify({
       name: name,
       coverImage: coverImage,
-      postalCode: postalCode,
+      postalCode: postalCode.replace('-', ''),
       prefecture: prefecture,
       address: address,
       remarks: remarks,

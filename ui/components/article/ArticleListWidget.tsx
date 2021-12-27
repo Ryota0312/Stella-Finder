@@ -46,7 +46,7 @@ const ShowAll = styled.div`
 const ArticleListUl = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 8px 0;
 `
 
 const ArticleListItem = styled.div`
@@ -64,7 +64,7 @@ const ArticleListItem = styled.div`
 
 const convertDateTimeString_ = (datetime: string) => {
   const dt = new Date(datetime)
-  return `${dt.getFullYear()}年${
-    dt.getMonth() + 1
-  }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
+  return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日 ${(
+    '00' + dt.getHours()
+  ).slice(-2)}:${('00' + dt.getMinutes()).slice(-2)}`
 }

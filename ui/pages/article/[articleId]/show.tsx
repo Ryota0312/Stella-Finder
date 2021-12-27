@@ -63,7 +63,7 @@ const CreatedBy = styled.div`
 
 const convertDateTimeString_ = (datetime: string) => {
   const dt = new Date(datetime)
-  return `${dt.getFullYear()}年${
-    dt.getMonth() + 1
-  }月${dt.getDate()}日 ${dt.getHours()}:${dt.getMinutes()}`
+  return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日 ${(
+    '00' + dt.getHours()
+  ).slice(-2)}:${('00' + dt.getMinutes()).slice(-2)}`
 }

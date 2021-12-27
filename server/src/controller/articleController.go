@@ -76,10 +76,9 @@ func GetArticleTags(c *gin.Context) {
 }
 
 type UpdateArticleInputForm struct {
-	Id    int      `json:"id"`
-	Title string   `json:"title"`
-	Body  string   `json:"body"`
-	Tags  []string `json:"tags"`
+	Id    int    `json:"id"`
+	Title string `json:"title"`
+	Body  string `json:"body"`
 }
 
 func UpdateArticle(c *gin.Context) {

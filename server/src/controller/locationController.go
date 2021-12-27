@@ -11,7 +11,7 @@ func GetAddressBySpotName(c *gin.Context) {
 
 	output, err := utils.GetAddrByName(spotName)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 

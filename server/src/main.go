@@ -65,6 +65,7 @@ func serve() {
 		authRequiredAPI.POST("/spot/addImage", controller.CreateSpotImage)
 		authRequiredAPI.POST("/review/add", controller.CreateReview)
 		authRequiredAPI.POST("/article/add", controller.CreateArticle)
+		authRequiredAPI.POST("/article/update", controller.UpdateArticle)
 		authRequiredAPI.GET("/location/search", controller.GetAddressBySpotName)
 	}
 

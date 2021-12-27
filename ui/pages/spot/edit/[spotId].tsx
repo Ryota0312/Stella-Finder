@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import Layout from '../../../components/layout'
 import { useApi } from '../../../hooks/useApi'
 
-import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { PrefectureSelect } from '../../../components/search/PrefectureSelect'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
@@ -14,6 +13,7 @@ import { TextField } from '../../../components/common/TextField'
 import { ImageUploader } from '../../../components/common/ImageUploader'
 import { Loading } from '../../../components/common/Loading'
 import { AddressSearchByPostalCode } from '../../../components/common/AddressSearchByPostalCode'
+import { AddressSearchByName } from '../../../components/common/AddressSearchByName'
 
 const Edit: React.FC = () => {
   const router = useRouter()
@@ -72,6 +72,15 @@ const Edit: React.FC = () => {
           onChange={(v) => setName(v)}
           isValid={isNameValid}
           validateErrorMsg="必須です"
+        />
+        <AddressSearchByName
+          name={name}
+          onSearch={(name, postalCode, prefecture, address) => {
+            // setName(name)
+            setPostalCode(postalCode)
+            setPrefecture(prefecture)
+            setAddress(address)
+          }}
         />
         <InputField
           label="郵便番号"

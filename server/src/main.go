@@ -25,7 +25,7 @@ func serve() {
 		auth.GET("/check", controller.Check)
 		auth.POST("/login", controller.Login)
 		auth.GET("/logout", controller.Logout)
-		auth.POST("/tmpRegister", controller.TmpRegister)
+		auth.POST("/tmpregister", controller.TmpRegister)
 		auth.POST("/register", controller.Register)
 	}
 

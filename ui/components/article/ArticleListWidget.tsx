@@ -22,7 +22,9 @@ export const ArticleListWidget: React.FC = () => {
             <Link href={'/article/' + d.id + '/show'}>
               <ArticleListItem>
                 <div>{d.title}</div>
-                <div>{convertDateTimeString_(d.createdAt)}</div>
+                <PostDateTime>
+                  {convertDateTimeString_(d.createdAt)}
+                </PostDateTime>
               </ArticleListItem>
             </Link>
           </li>
@@ -50,8 +52,7 @@ const ArticleListUl = styled.ul`
 `
 
 const ArticleListItem = styled.div`
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
   color: #0070f3;
   cursor: pointer;
   padding: 4px;
@@ -60,6 +61,12 @@ const ArticleListItem = styled.div`
   &:focus {
     background-color: #aaa;
   }
+`
+
+const PostDateTime = styled.div`
+  text-align: right;
+  font-size: 8px;
+  color: gray;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

@@ -7,6 +7,7 @@ import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'
 import { LinkedUserName } from '../common/LinkedUserName'
 import { useApi } from '../../hooks/useApi'
+import { AutoLink } from '../common/AutoLink'
 
 type ReviewProps = {
   id: number
@@ -37,7 +38,9 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         <StarEvaluate label="見晴らし" point={props.view} />
         <StarEvaluate label="安全性" point={props.safety} />
       </Evaluates>
-      <Comment>{props.comment}</Comment>
+      <Comment>
+        <AutoLink>{props.comment}</AutoLink>
+      </Comment>
       {props.images && (
         <ImageList
           imageList={props.images.map((image) => {

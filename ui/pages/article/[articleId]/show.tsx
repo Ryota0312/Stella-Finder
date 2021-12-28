@@ -9,6 +9,7 @@ import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
+import { AutoLink } from '../../../components/common/AutoLink'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -32,7 +33,9 @@ const Show: React.FC = () => {
       <main>
         <h2>{data.title}</h2>
         <PostDateTime>{convertDateTimeString_(data.createdAt)}</PostDateTime>
-        <ArticleBody>{data.body}</ArticleBody>
+        <ArticleBody>
+          <AutoLink>{data.body}</AutoLink>
+        </ArticleBody>
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
         </CreatedBy>

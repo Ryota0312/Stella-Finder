@@ -422,6 +422,13 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.8.tgz#edf1bf1dbf4e04413ca8e5b17b3b7d7d54b59818"
   integrity sha512-YSBPTLTVm2e2OoQIDYx8HaeWJ5tTToLH67kXR7zYNGupXMEHa2++G8k+DczX2cFVgalypqtyZIcU19AFcmOpmg==
 
+"@types/linkifyjs@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@types/linkifyjs/-/linkifyjs-2.1.4.tgz#6b14e35d8d211f2666f602dcabcdc6859617516f"
+  integrity sha512-UuF0hyWNnLTT4xNJdrQx6OWYMNlPRBtt3fKCaROIx48boQyXkQ4YDDwTEQNi9mlsRX0Hpc6AnFKkDZ6IXkxD4g==
+  dependencies:
+    "@types/react" "*"
+
 "@types/next@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@types/next/-/next-9.0.0.tgz#29aca06f8a5cfffc974a83b87e52ca57b2a506c4"
@@ -2245,6 +2252,16 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
+
+linkify-react@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/linkify-react/-/linkify-react-3.0.4.tgz#5f41ef63efe23eba34d23a091c0054f328323522"
+  integrity sha512-ar/fLlBw4/pbg5BmpH65dSXpGWhts/+BDV8tCdLN8Pd0P/vtHKjaEw9Gf4Za3Utpn5FhWlQyf57SWriPtoBHtw==
+
+linkifyjs@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-3.0.4.tgz#469a1b44903d179e3b23317fd3c4e995453765b9"
+  integrity sha512-JWw1HHMx54g8mEsG7JwI8I/xh7qeJbF6L9u1dQOYW91RdRqDYpnTn1UaNXYkmLD967Vk0xGuyHzuRnkSApby3w==
 
 load-json-file@^4.0.0:
   version "4.0.0"

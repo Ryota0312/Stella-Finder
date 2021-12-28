@@ -81,6 +81,7 @@ const NoImage = styled.div<Partial<ImageSize>>`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: gray;
   text-align: center;
   width: ${({ width }) => width};
   height: ${({ height }) => height};

@@ -10,6 +10,8 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix ."
   },
   "dependencies": {
+    "linkify-react": "^3.0.4",
+    "linkifyjs": "^3.0.4",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -21,6 +23,7 @@
     "swr": "^0.5.6"
   },
   "devDependencies": {
+    "@types/linkifyjs": "^2.1.4",
     "@types/next": "^9.0.0",
     "@types/react": "17.0.14",
     "@types/react-dropzone": "^5.1.0",

@@ -20,6 +20,7 @@ import { MoonAge } from '../../../components/moon/MoonAge'
 import { Loading } from '../../../components/common/Loading'
 import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
+import { AutoLink } from '../../../components/common/AutoLink'
 
 const Spot: React.FC = () => {
   const router = useRouter()
@@ -124,7 +125,9 @@ const Spot: React.FC = () => {
             </tr>
             <tr>
               <th>その他</th>
-              <Remarks>{data.remarks}</Remarks>
+              <Remarks>
+                <AutoLink>{data.remarks}</AutoLink>
+              </Remarks>
             </tr>
             <tr>
               <th>最終更新</th>

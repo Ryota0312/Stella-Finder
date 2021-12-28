@@ -23,6 +23,28 @@ func Check(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"authorized": true})
 }
 
+func CheckAdmin(c *gin.Context) {
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false})
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false})
+		return
+	}
+
+	if *loginUser.IsAdmin == false {
+		c.JSON(http.StatusUnauthorized, gin.H{"authorized": false})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"authorized": true})
+}
+
 type LoginInputForm struct {
 	MailAddress string `json:"mailAddress"`
 	Password    string `json:"password"`

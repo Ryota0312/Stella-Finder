@@ -23,6 +23,7 @@ func serve() {
 	auth := router.Group("/auth")
 	{
 		auth.GET("/check", controller.Check)
+		auth.GET("/checkAdmin", controller.CheckAdmin)
 		auth.POST("/login", controller.Login)
 		auth.GET("/logout", controller.Logout)
 		auth.POST("/tmpregister", controller.TmpRegister)
@@ -66,6 +67,7 @@ func serve() {
 		authRequiredAPI.POST("/review/add", controller.CreateReview)
 		authRequiredAPI.POST("/article/add", controller.CreateArticle)
 		authRequiredAPI.POST("/article/update", controller.UpdateArticle)
+		authRequiredAPI.POST("/article/delete", controller.DeleteArticle)
 		authRequiredAPI.GET("/location/search", controller.GetAddressBySpotName)
 	}
 

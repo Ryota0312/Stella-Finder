@@ -111,3 +111,19 @@ func UpdateArticle(c *gin.Context) {
 
 	c.JSON(200, gin.H{"id": article.ID})
 }
+
+type DeleteArticleInputForm struct {
+	Id int `json:"id"`
+}
+
+func DeleteArticle(c *gin.Context) {
+	var input DeleteArticleInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.DeleteArticle(input.Id)
+
+	c.JSON(200, gin.H{})
+}

@@ -66,3 +66,19 @@ func UpdateArticle(articleId int, title string, body string) entity.Article {
 
 	return article
 }
+
+func DeleteArticle(articleId int) {
+	var article entity.Article
+	article.ID = articleId
+
+	var articleTag entity.ArticleTag
+	articleTag.ArticleId = articleId
+
+	println(articleId)
+
+	db := open()
+	defer db.Close()
+
+	db.Delete(&articleTag)
+	db.Delete(&article)
+}

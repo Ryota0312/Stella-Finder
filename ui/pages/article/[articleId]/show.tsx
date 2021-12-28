@@ -3,16 +3,18 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import { number } from 'prop-types'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
+import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
 
 const Show: React.FC = () => {
   const router = useRouter()
   const { articleId } = router.query
 
-  const fetcher = useApi()
+  const { fetcher, postFetcher } = useApi()
   const { data, error } = useSWR(
     articleId ? ['/api/articles?articleId=' + articleId, false] : null,
     fetcher,
@@ -34,6 +36,17 @@ const Show: React.FC = () => {
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
         </CreatedBy>
+        <AdminUserOnly>
+          <button
+            onClick={() =>
+              postFetcher('/api/user/article/delete', {
+                id: Number(articleId),
+              }).then(() => router.push('/article/list'))
+            }
+          >
+            削除
+          </button>
+        </AdminUserOnly>
       </main>
     </Layout>
   )

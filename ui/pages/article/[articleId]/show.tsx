@@ -38,6 +38,11 @@ const Show: React.FC = () => {
         </CreatedBy>
         <AdminUserOnly>
           <button
+            onClick={() => router.push('/article/' + articleId + '/edit')}
+          >
+            編集
+          </button>
+          <DeleteButton
             onClick={() =>
               postFetcher('/api/user/article/delete', {
                 id: Number(articleId),
@@ -45,7 +50,7 @@ const Show: React.FC = () => {
             }
           >
             削除
-          </button>
+          </DeleteButton>
         </AdminUserOnly>
       </main>
     </Layout>
@@ -72,6 +77,11 @@ const CreatedBy = styled.div`
   gap: 8px;
   font-size: 11px;
   text-align: right;
+`
+
+const DeleteButton = styled.button`
+  background-color: red;
+  color: white;
 `
 
 const convertDateTimeString_ = (datetime: string) => {

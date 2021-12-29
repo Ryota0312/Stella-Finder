@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -8,6 +8,7 @@ import { useStateWithValidate } from '../../hooks/useStateWithValidate'
 import { TextField } from '../../components/common/TextField'
 import { useApi } from '../../hooks/useApi'
 import { Loading } from '../../components/common/Loading'
+import { ImageUploader } from '../../components/common/ImageUploader'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -23,6 +24,7 @@ const Add: React.FC = () => {
   const [body, isBodyValid, setBody] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 10000
   })
+  const [coverImage, setCoverImage] = useState('')
   const [tag, isTagValid, setTag] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length < 64
   })
@@ -42,6 +44,8 @@ const Add: React.FC = () => {
           isValid={isTitleValid}
           validateErrorMsg="1文字以上128文字以下で入力してください"
         />
+        <p>カバー画像</p>
+        <ImageUploader onSuccess={(res) => setCoverImage(res.fileKey)} />
         <TextField
           label="本文"
           value={body}
@@ -65,6 +69,7 @@ const Add: React.FC = () => {
             postFetcher('/api/user/article/add', {
               title: title,
               body: body,
+              coverImage: coverImage,
               tags: [tag],
             }).then(async (res) => {
               if (!res.error) {

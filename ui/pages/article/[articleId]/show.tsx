@@ -48,9 +48,9 @@ const Show: React.FC = () => {
               />
             </CoverImage>
           )}
-          <ReactMarkdown plugins={[gfm]}>{data.body}</ReactMarkdown>
-          {/*<AutoLink>*/}
-          {/*</AutoLink>*/}
+          <MarkdownStyle>
+            <ReactMarkdown plugins={[gfm]}>{data.body}</ReactMarkdown>
+          </MarkdownStyle>
         </ArticleBody>
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
@@ -95,6 +95,24 @@ const ArticleBody = styled.div`
   padding: 16px 0;
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
+`
+
+const MarkdownStyle = styled.div`
+  h1 {
+    margin: 0;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
 `
 
 const CreatedBy = styled.div`

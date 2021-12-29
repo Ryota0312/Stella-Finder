@@ -49,7 +49,9 @@ const Show: React.FC = () => {
             </CoverImage>
           )}
           <MarkdownStyle>
-            <ReactMarkdown plugins={[gfm]}>{data.body}</ReactMarkdown>
+            <ReactMarkdown plugins={[gfm]} linkTarget={'_blank'}>
+              {data.body}
+            </ReactMarkdown>
           </MarkdownStyle>
         </ArticleBody>
         <CreatedBy>
@@ -111,7 +113,7 @@ const MarkdownStyle = styled.div`
   }
 
   img {
-    max-width: 100%;
+    max-width: 70%;
   }
 `
 

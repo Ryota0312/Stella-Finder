@@ -3,6 +3,8 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
@@ -46,7 +48,9 @@ const Show: React.FC = () => {
               />
             </CoverImage>
           )}
-          <AutoLink>{data.body}</AutoLink>
+          <ReactMarkdown plugins={[gfm]}>{data.body}</ReactMarkdown>
+          {/*<AutoLink>*/}
+          {/*</AutoLink>*/}
         </ArticleBody>
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />

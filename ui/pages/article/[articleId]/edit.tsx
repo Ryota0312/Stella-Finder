@@ -61,6 +61,7 @@ const Edit: React.FC = () => {
           onChange={(v) => setBody(v)}
           isValid={isBodyValid}
           validateErrorMsg="1文字以上10000文字以下で入力してください"
+          rows={20}
         />
         <button
           onClick={() => {

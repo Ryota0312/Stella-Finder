@@ -10,9 +10,10 @@ import (
 )
 
 type CreateArticleInputForm struct {
-	Title string   `json:"title"`
-	Body  string   `json:"body"`
-	Tags  []string `json:"tags"`
+	Title      string   `json:"title"`
+	Body       string   `json:"body"`
+	CoverImage string   `json:"coverImage"`
+	Tags       []string `json:"tags"`
 }
 
 func CreateArticle(c *gin.Context) {
@@ -40,7 +41,7 @@ func CreateArticle(c *gin.Context) {
 		return
 	}
 
-	article := db.CreateArticle(input.Title, input.Body, loginUser.ID)
+	article := db.CreateArticle(input.Title, input.Body, input.CoverImage, loginUser.ID)
 
 	for _, tag := range input.Tags {
 		if !db.TagExists(tag) {
@@ -76,9 +77,10 @@ func GetArticleTags(c *gin.Context) {
 }
 
 type UpdateArticleInputForm struct {
-	Id    int    `json:"id"`
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Id         int    `json:"id"`
+	Title      string `json:"title"`
+	Body       string `json:"body"`
+	CoverImage string `json:"coverImage"`
 }
 
 func UpdateArticle(c *gin.Context) {
@@ -107,7 +109,7 @@ func UpdateArticle(c *gin.Context) {
 	}
 
 	// TODO: 作成者以外でも管理者権限を持っていたら編集可能なので注意
-	article := db.UpdateArticle(input.Id, input.Title, input.Body)
+	article := db.UpdateArticle(input.Id, input.Title, input.Body, input.CoverImage)
 
 	c.JSON(200, gin.H{"id": article.ID})
 }

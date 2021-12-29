@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -8,6 +8,8 @@ import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
 import { TextField } from '../../../components/common/TextField'
 import { useApi } from '../../../hooks/useApi'
 import { Loading } from '../../../components/common/Loading'
+import { ImageUploader } from '../../../components/common/ImageUploader'
+import { InsertImage } from '../../../components/article/InsertImage'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -21,6 +23,7 @@ const Edit: React.FC = () => {
   const [title, isTitleValid, setTitle] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 128
   })
+  const [coverImage, setCoverImage] = useState('')
   const [body, isBodyValid, setBody] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 10000
   })
@@ -29,6 +32,7 @@ const Edit: React.FC = () => {
     fetcher('/api/articles?articleId=' + articleId, false).then((res) => {
       setTitle(res.title)
       setBody(res.body)
+      setCoverImage(res.coverImage)
     })
   }, [articleId])
 
@@ -47,13 +51,23 @@ const Edit: React.FC = () => {
           isValid={isTitleValid}
           validateErrorMsg="1文字以上128文字以下で入力してください"
         />
+        <p>カバー画像</p>
+        <ImageUploader
+          initialImageKey={coverImage}
+          onSuccess={(res) => setCoverImage(res.fileKey)}
+        />
         <TextField
           label="本文"
           value={body}
           onChange={(v) => setBody(v)}
           isValid={isBodyValid}
           validateErrorMsg="1文字以上10000文字以下で入力してください"
+          rows={20}
         />
+        <InsertImage
+          onInsert={(mdImageText) => setBody(body + '\n' + mdImageText)}
+        />
+        <br />
         <button
           onClick={() => {
             if (!isTitleValid || !isBodyValid) {
@@ -63,6 +77,7 @@ const Edit: React.FC = () => {
             postFetcher('/api/user/article/update', {
               id: Number(articleId),
               title: title,
+              coverImage: coverImage,
               body: body,
             }).then(async (res) => {
               if (!res.error) {

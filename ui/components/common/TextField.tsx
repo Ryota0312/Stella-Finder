@@ -8,6 +8,7 @@ type InputFieldProps = {
   required?: boolean
   isValid?: boolean
   validateErrorMsg?: string
+  rows?: number
 }
 
 export const TextField: React.FC<InputFieldProps> = (
@@ -21,7 +22,7 @@ export const TextField: React.FC<InputFieldProps> = (
       </Label>
       <TextAreaAndError>
         <textarea
-          rows={7}
+          rows={props.rows ? props.rows : 7}
           value={props.value}
           onChange={(e) => {
             props.onChange(e.target.value)

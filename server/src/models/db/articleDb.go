@@ -6,10 +6,11 @@ import (
 	entity "stella-finder-server/src/models/entity"
 )
 
-func CreateArticle(title string, body string, createdBy int) entity.Article {
+func CreateArticle(title string, body string, coverImage string, createdBy int) entity.Article {
 	var article = entity.Article{}
 	article.Title = title
 	article.Body = body
+	article.CoverImage = coverImage
 	article.CreatedBy = createdBy
 
 	db := open()
@@ -55,14 +56,14 @@ func FindArticleByTag(tagId int) []entity.Article {
 	return articles
 }
 
-func UpdateArticle(articleId int, title string, body string) entity.Article {
+func UpdateArticle(articleId int, title string, body string, coverImage string) entity.Article {
 	var article entity.Article
 	article.ID = articleId
 
 	db := open()
 	defer db.Close()
 
-	db.Model(&article).Updates(entity.Article{Title: title, Body: body})
+	db.Model(&article).Updates(entity.Article{Title: title, Body: body, CoverImage: coverImage})
 
 	return article
 }

@@ -2,9 +2,12 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { LoginStatus } from './LoginStatus'
 
 export const GlobalHeader: React.FC = () => {
+  const router = useRouter()
+
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const [isOpenUserMenu, setIsOpenUserMenu] = useState(false)
 
@@ -46,7 +49,10 @@ export const GlobalHeader: React.FC = () => {
       <HeaderMenuList>
         {headerMenuItems.map((menu) => (
           <HeaderMenuListItem key={menu.label}>
-            <Link href={menu.href}>{menu.label}</Link>
+            {/*<Link href={menu.href}>{menu.label}</Link>*/}
+            <HeaderMenuButton onClick={() => router.push(menu.href)}>
+              {menu.label}
+            </HeaderMenuButton>
           </HeaderMenuListItem>
         ))}
       </HeaderMenuList>
@@ -92,6 +98,7 @@ const HeaderMenuList = styled.li`
   display: flex;
   flex: 1;
   justify-content: flex-start;
+  align-items: center;
   margin: 0 8px;
 
   @media screen and (max-width: 600px) {
@@ -101,21 +108,25 @@ const HeaderMenuList = styled.li`
 
 const HeaderMenuListItem = styled.ul`
   list-style: none;
-  font-size: 18px;
   color: white;
   margin: 0;
-  padding: 0 12px;
+  padding: 0;
+`
 
-  a {
-    color: white;
-  }
+const HeaderMenuButton = styled.button`
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+  color: white;
+  background-color: transparent;
+  line-height: 1.5;
+  padding: 4px 16px;
+  margin: 0;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    color: black;
     background-color: white;
-
-    a {
-      color: black;
-    }
   }
 `
 

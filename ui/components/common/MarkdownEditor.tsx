@@ -1,6 +1,8 @@
 import React from 'react'
 import { InsertImage } from '../article/InsertImage'
 import { TextField } from './TextField'
+import { MarkdownToHTML } from './MarkdownToHTML'
+import { FoldComponent } from './FoldComponent'
 
 type MarkdownEditorProps = {
   value: string
@@ -26,6 +28,12 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (
           props.onChange(props.value + '\n' + mdImageText)
         }
       />
+      <FoldComponent
+        labelOpen="プレビューを開く"
+        labelClose="プレビューを閉じる"
+      >
+        <MarkdownToHTML>{props.value}</MarkdownToHTML>
+      </FoldComponent>
     </div>
   )
 }

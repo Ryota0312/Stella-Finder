@@ -148,7 +148,7 @@ const Show: React.FC = () => {
           }
         >
           <Actions>
-            <button onClick={() => router.push('/spot/edit/' + spotId)}>
+            <button onClick={() => router.push('/spot/' + spotId + '/edit')}>
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-edit.png'}

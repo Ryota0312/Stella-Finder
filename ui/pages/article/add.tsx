@@ -9,7 +9,6 @@ import { useStateWithValidate } from '../../hooks/useStateWithValidate'
 import { useApi } from '../../hooks/useApi'
 import { Loading } from '../../components/common/Loading'
 import { ImageUploader } from '../../components/common/ImageUploader'
-import { InsertImage } from '../../components/article/InsertImage'
 import { MarkdownEditor } from '../../components/common/MarkdownEditor'
 
 const notifyError = (msg: string) => toast.error(msg)
@@ -56,9 +55,6 @@ const Add: React.FC = () => {
           value={body}
           onChange={(v) => setBody(v)}
           isValid={isBodyValid}
-        />
-        <InsertImage
-          onInsert={(mdImageText) => setBody(body + '\n' + mdImageText)}
         />
         <InputField
           label="タグ"

@@ -43,4 +43,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (
 
 const Preview = styled.div`
   white-space: pre-line;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
 `

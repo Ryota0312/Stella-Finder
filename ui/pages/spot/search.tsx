@@ -3,6 +3,7 @@ import React from 'react'
 import Layout from '../../components/layout'
 import { PrefecturePicker } from '../../components/search/PrefecturePicker'
 import { SearchWidget } from '../../components/spot/SearchWidget'
+import RecommendSpotList from '../../components/spot/RecommendSpotList'
 
 const Search: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Search: React.FC = () => {
 
       <main>
         <h2>スポットを探す</h2>
+        <RecommendSpotList showAllPrefecture={true} />
         <h3 id="inDetail">詳細検索</h3>
         <SearchWidget />
         <h3 id="byArea">地域から探す</h3>

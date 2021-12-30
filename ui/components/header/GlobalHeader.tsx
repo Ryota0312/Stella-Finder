@@ -35,7 +35,12 @@ export const GlobalHeader: React.FC = () => {
         </HeaderMenuOpenButton>
         <HeaderP1>
           <Link href={'/'}>
-            <HeaderTitle>Stella Finder</HeaderTitle>
+            <div>
+              <HeaderSubTitle>
+                天体観測スポットの検索・情報共有コミュニティ
+              </HeaderSubTitle>
+              <HeaderTitle>Stella Finder</HeaderTitle>
+            </div>
           </Link>
           <LoginStatus
             isOpen={isOpenUserMenu}
@@ -77,7 +82,7 @@ const LayoutHeader = styled.header`
 const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 `
 
 const HeaderP1 = styled.div`
@@ -88,11 +93,20 @@ const HeaderP1 = styled.div`
   width: 100%;
 `
 
+const HeaderSubTitle = styled.div`
+  color: white;
+  font-size: 8px;
+`
+
 const HeaderTitle = styled.h1`
   color: white;
   margin: 0;
   float: left;
   cursor: pointer;
+
+  @media screen and (max-width: 380px) {
+    font-size: 24px;
+  }
 `
 
 const HeaderMenuList = styled.li`

@@ -49,7 +49,6 @@ export const GlobalHeader: React.FC = () => {
       <HeaderMenuList>
         {headerMenuItems.map((menu) => (
           <HeaderMenuListItem key={menu.label}>
-            {/*<Link href={menu.href}>{menu.label}</Link>*/}
             <HeaderMenuButton onClick={() => router.push(menu.href)}>
               {menu.label}
             </HeaderMenuButton>
@@ -59,7 +58,9 @@ export const GlobalHeader: React.FC = () => {
       <MobileHeaderMenuList isOpen={isOpenMenu}>
         {headerMenuItems.map((menu) => (
           <HeaderMenuListItem key={menu.label}>
-            <Link href={menu.href}>{menu.label}</Link>
+            <HeaderMenuButton onClick={() => router.push(menu.href)}>
+              {menu.label}
+            </HeaderMenuButton>
           </HeaderMenuListItem>
         ))}
       </MobileHeaderMenuList>
@@ -122,6 +123,11 @@ const HeaderMenuButton = styled.button`
   line-height: 1.5;
   padding: 4px 16px;
   margin: 0;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    text-align: left;
+  }
 
   &:hover,
   &:focus {

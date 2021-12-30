@@ -29,8 +29,8 @@ export const GlobalHeader: React.FC = () => {
           <Image
             src="/image/header-menu.png"
             alt="open menu"
-            width={24}
-            height={24}
+            width={32}
+            height={32}
           />
         </HeaderMenuOpenButton>
         <HeaderP1>

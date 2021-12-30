@@ -74,9 +74,7 @@ export const RecommendSpotList: React.FC<RecommendSpotListProps> = (props) => {
           </LoginUserOnly>
         </div>
       )}
-      {data.length > 0 && (
-        <GridList data={convertToGridItem(data)} link="spot/detail" />
-      )}
+      {data.length > 0 && <GridList data={convertToGridItem(data)} />}
       <ShowMore>
         {!prefecture ? (
           <Link href="/spot/list?order=avg_total_point+desc">

@@ -12,16 +12,13 @@ export interface GridListItemData {
   reviewCount: number
 }
 
-export const GridList: React.FC<{ data: GridListItemData[]; link: string }> = ({
-  data,
-  link,
-}) => {
+export const GridList: React.FC<{ data: GridListItemData[] }> = ({ data }) => {
   return (
     <GridLayout>
       {data.map((d: GridListItemData) => {
         return (
           <GridItem key={d.title}>
-            <Link href={'/' + link + '/' + d.id} passHref>
+            <Link href={'/spot/' + d.id + '/show'} passHref>
               <a>
                 <UnoptimizedImage
                   fileKey={d.coverImage}

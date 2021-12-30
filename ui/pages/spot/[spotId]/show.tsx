@@ -22,7 +22,7 @@ import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AutoLink } from '../../../components/common/AutoLink'
 
-const Spot: React.FC = () => {
+const Show: React.FC = () => {
   const router = useRouter()
   const { spotId } = router.query
   const { fragment, setFragment } = useFragment()
@@ -196,7 +196,7 @@ const Spot: React.FC = () => {
     </Layout>
   )
 }
-export default Spot
+export default Show
 
 const MoonAndReview = styled.div`
   flex: auto;

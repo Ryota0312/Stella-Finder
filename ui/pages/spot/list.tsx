@@ -80,9 +80,7 @@ const List: React.FC = () => {
             </LoginUserOnly>
           </div>
         )}
-        {data.length > 0 && (
-          <GridList data={convertToGridItem(data)} link="spot/detail" />
-        )}
+        {data.length > 0 && <GridList data={convertToGridItem(data)} />}
       </main>
     </Layout>
   )

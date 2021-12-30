@@ -35,12 +35,12 @@ export const GlobalHeader: React.FC = () => {
         </HeaderMenuOpenButton>
         <HeaderP1>
           <Link href={'/'}>
-            <div>
+            <HeaderTitleLink>
               <HeaderSubTitle>
                 天体観測スポットの検索・情報共有コミュニティ
               </HeaderSubTitle>
               <HeaderTitle>Stella Finder</HeaderTitle>
-            </div>
+            </HeaderTitleLink>
           </Link>
           <LoginStatus
             isOpen={isOpenUserMenu}
@@ -92,6 +92,10 @@ const HeaderP1 = styled.div`
   align-items: start;
   padding: 0 16px 8px 16px;
   width: 100%;
+`
+
+const HeaderTitleLink = styled.div`
+  margin-left: 8px;
 `
 
 const HeaderSubTitle = styled.div`

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"stella-finder-server/src/models/db"
 	. "stella-finder-server/src/utils"
+	"strconv"
 )
 
 type CreateReportInputForm struct {
@@ -47,13 +48,13 @@ func CreateReport(c *gin.Context) {
 //
 //	c.JSON(http.StatusOK, db.FindAllArticle(limit))
 //}
-//
-//func GetArticle(c *gin.Context) {
-//	articleId, _ := strconv.Atoi(c.Query("articleId"))
-//
-//	c.JSON(http.StatusOK, db.FindArticleById(articleId))
-//}
-//
+
+func GetReport(c *gin.Context) {
+	reportId, _ := strconv.Atoi(c.Query("reportId"))
+
+	c.JSON(http.StatusOK, db.FindReportById(reportId))
+}
+
 //func GetArticleListByTag(c *gin.Context) {
 //	tagId, _ := strconv.Atoi(c.Query("id"))
 //

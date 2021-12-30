@@ -50,6 +50,7 @@ func serve() {
 		api.GET("/article/listByTag", controller.GetArticleListByTag)
 		api.GET("/article/tag/list", controller.GetArticleTags)
 		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
+		api.GET("/report", controller.GetReport)
 	}
 
 	// API (need Authorize)

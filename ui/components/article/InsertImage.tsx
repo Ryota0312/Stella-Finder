@@ -1,5 +1,7 @@
 import useSWR from 'swr'
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { InsertImageDialog } from './InsertImageDialog'
@@ -22,7 +24,15 @@ export const InsertImage: React.FC<InsertImageProps> = (
   return (
     <>
       <button onClick={() => setIsInsertImageDialogOpen(true)}>
-        画像を挿入
+        <ButtonInnerWithImage>
+          <Image
+            src="/image/image-icon.png"
+            alt="画像を挿入"
+            width={18}
+            height={18}
+          />
+          <div>画像を挿入</div>
+        </ButtonInnerWithImage>
       </button>
       <InsertImageDialog
         onInsert={(mdImageText) => props.onInsert(mdImageText)}
@@ -32,3 +42,8 @@ export const InsertImage: React.FC<InsertImageProps> = (
     </>
   )
 }
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 8px;
+`

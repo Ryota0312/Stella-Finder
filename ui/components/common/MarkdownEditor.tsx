@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { InsertImage } from '../article/InsertImage'
 import { TextField } from './TextField'
 import { MarkdownToHTML } from './MarkdownToHTML'
@@ -15,8 +16,16 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (
 ) => {
   return (
     <div>
+      <p>本文</p>
+      <FoldComponent
+        labelOpen="プレビューを開く"
+        labelClose="プレビューを閉じる"
+      >
+        <Preview>
+          <MarkdownToHTML>{props.value}</MarkdownToHTML>
+        </Preview>
+      </FoldComponent>
       <TextField
-        label="本文"
         value={props.value}
         onChange={(v) => props.onChange(v)}
         isValid={props.isValid}
@@ -28,12 +37,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = (
           props.onChange(props.value + '\n' + mdImageText)
         }
       />
-      <FoldComponent
-        labelOpen="プレビューを開く"
-        labelClose="プレビューを閉じる"
-      >
-        <MarkdownToHTML>{props.value}</MarkdownToHTML>
-      </FoldComponent>
     </div>
   )
 }
+
+const Preview = styled.div`
+  white-space: pre-line;
+`

@@ -145,7 +145,7 @@ const Edit: React.FC = () => {
               remarks,
             )
             if (response.ok) {
-              await router.push(`/spot/detail/${spotId}#success`)
+              await router.push(`/spot/${spotId}/show#success`)
             } else {
               const json = await response.json()
               notifyError(json.error)

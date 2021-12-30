@@ -133,7 +133,7 @@ const Register: React.FC = () => {
             )
             if (response.ok) {
               const json = await response.json()
-              await router.push(`/spot/detail/${json.id}#success`)
+              await router.push(`/spot/${json.id}/show#success`)
             } else {
               const json = await response.json()
               notifyError(json.error)

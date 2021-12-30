@@ -102,7 +102,7 @@ const Post: React.FC = () => {
               [image],
             )
             if (response.ok) {
-              await router.push(`/spot/detail/${spotId}#success`)
+              await router.push(`/spot/${spotId}/show#success`)
             } else {
               const json = await response.json()
               notifyError(json.error)

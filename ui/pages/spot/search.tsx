@@ -8,7 +8,7 @@ const Search: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>観測スポットを探す</title>
+        <title>天体観測スポットを探す | Stella Finder</title>
       </Head>
 
       <main>

@@ -48,7 +48,7 @@ const Register: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>スポット登録</title>s
+        <title>スポット新規登録 | Stella Finder</title>
       </Head>
 
       <main>

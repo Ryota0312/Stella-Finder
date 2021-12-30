@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import Head from 'next/head'
 import Layout from '../../../components/layout'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
@@ -41,6 +42,10 @@ const Edit: React.FC = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>記事修正 | Stella Finder</title>
+      </Head>
+
       <main>
         <h2>記事を修正</h2>
 

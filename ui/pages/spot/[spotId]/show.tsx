@@ -57,7 +57,7 @@ const Show: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>スポット詳細 - {data.name}</title>
+        <title>スポット詳細 - {data.name} | Stella Finder</title>
       </Head>
 
       <main>

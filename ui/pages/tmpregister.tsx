@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import Image from 'next/image'
 import styled from 'styled-components'
+import Head from 'next/head'
 import Layout from '../components/layout'
 import { InputField } from '../components/common/InputField'
 import { useStateWithValidate } from '../hooks/useStateWithValidate'
@@ -21,6 +22,10 @@ const TmpRegister: React.FC = () => {
   if (isComplete) {
     return (
       <Layout>
+        <Head>
+          <title>新規ユーザー登録 | Stella Finder</title>
+        </Head>
+
         <main>
           <MailSendSuccess>
             <Image
@@ -39,6 +44,10 @@ const TmpRegister: React.FC = () => {
   } else {
     return (
       <Layout>
+        <Head>
+          <title>新規ユーザー登録 | Stella Finder</title>
+        </Head>
+
         <main>
           <h2>新規ユーザー登録</h2>
 

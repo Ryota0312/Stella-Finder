@@ -33,7 +33,7 @@ const User: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{data.user_name}</title>
+        <title>{data.name}さんのプロフィール | Stella Finder</title>
       </Head>
 
       <main>

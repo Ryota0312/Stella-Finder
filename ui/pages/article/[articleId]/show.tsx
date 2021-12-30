@@ -10,7 +10,6 @@ import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
-import { AutoLink } from '../../../components/common/AutoLink'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 
 const Show: React.FC = () => {
@@ -29,7 +28,7 @@ const Show: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{data.title}</title>
+        <title>{data.title} | Stella Finder</title>
       </Head>
 
       <main>

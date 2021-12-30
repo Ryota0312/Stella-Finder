@@ -44,7 +44,7 @@ const Post: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>{name} - レビュー投稿</title>s
+        <title>レビュー投稿 - {name} | Stella Finder</title>
       </Head>
 
       <main>

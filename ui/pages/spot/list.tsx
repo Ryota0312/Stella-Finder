@@ -40,7 +40,7 @@ const List: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>スポット一覧</title>
+        <title>スポット一覧 | Stella Finder</title>
       </Head>
 
       <main>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import Image from 'next/image'
+import Head from 'next/head'
 import Layout from '../components/layout'
 import { useStateWithValidate } from '../hooks/useStateWithValidate'
 import { InputField } from '../components/common/InputField'
@@ -33,6 +33,10 @@ const Register: React.FC = () => {
   if (isComplete) {
     return (
       <Layout>
+        <Head>
+          <title>登録完了 | Stella Finder</title>
+        </Head>
+
         <main>
           <RegisterSuccess>
             <Image
@@ -52,6 +56,10 @@ const Register: React.FC = () => {
   } else {
     return (
       <Layout>
+        <Head>
+          <title>新規ユーザー登録 | Stella Finder</title>
+        </Head>
+
         <main>
           <h2>ユーザー登録</h2>
 

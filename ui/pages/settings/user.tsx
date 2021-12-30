@@ -16,7 +16,7 @@ const User: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Stella Finder</title>
+        <title>プロフィールを編集 | Stella Finder</title>
       </Head>
 
       <main>

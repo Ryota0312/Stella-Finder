@@ -60,7 +60,7 @@ const Edit: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>スポット情報編集</title>
+        <title>スポット情報編集 - {name} | Stella Finder</title>
       </Head>
 
       <main>

@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 
@@ -15,6 +16,10 @@ const Login: React.FC = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>ログイン | Stella Finder</title>
+      </Head>
+
       <main>
         <h2>ログイン</h2>
         <Link href="/tmpregister">新規ユーザー登録</Link>

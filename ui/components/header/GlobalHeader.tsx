@@ -82,14 +82,15 @@ const LayoutHeader = styled.header`
 const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 16px;
 `
 
 const HeaderP1 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding: 8px 16px;
+  padding: 0 16px 8px 16px;
   width: 100%;
 `
 

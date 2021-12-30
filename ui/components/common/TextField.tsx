@@ -22,6 +22,7 @@ export const TextField: React.FC<InputFieldProps> = (
       </Label>
       <TextAreaAndError>
         <textarea
+          style={{ fontFamily: 'initial' }}
           rows={props.rows ? props.rows : 7}
           value={props.value}
           onChange={(e) => {

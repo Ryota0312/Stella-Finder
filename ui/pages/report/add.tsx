@@ -10,6 +10,7 @@ import { useApi } from '../../hooks/useApi'
 import { Loading } from '../../components/common/Loading'
 import { ImageUploader } from '../../components/common/ImageUploader'
 import { MarkdownEditor } from '../../components/common/MarkdownEditor'
+import { SpotCard } from '../../components/spot/SpotCard'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -45,6 +46,7 @@ const Add: React.FC = () => {
           value={String(spotId)}
           onChange={(v) => setSpotId(Number(v))}
         />
+        <SpotCard spotId={spotId} />
         <InputField
           label="タイトル"
           value={title}

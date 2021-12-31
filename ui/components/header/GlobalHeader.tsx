@@ -2,9 +2,12 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { LoginStatus } from './LoginStatus'
 
 export const GlobalHeader: React.FC = () => {
+  const router = useRouter()
+
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const [isOpenUserMenu, setIsOpenUserMenu] = useState(false)
 
@@ -32,7 +35,12 @@ export const GlobalHeader: React.FC = () => {
         </HeaderMenuOpenButton>
         <HeaderP1>
           <Link href={'/'}>
-            <HeaderTitle>Stella Finder</HeaderTitle>
+            <HeaderTitleLink>
+              <HeaderSubTitle>
+                天体観測スポットの検索・情報共有コミュニティ
+              </HeaderSubTitle>
+              <HeaderTitle>Stella Finder</HeaderTitle>
+            </HeaderTitleLink>
           </Link>
           <LoginStatus
             isOpen={isOpenUserMenu}
@@ -46,14 +54,18 @@ export const GlobalHeader: React.FC = () => {
       <HeaderMenuList>
         {headerMenuItems.map((menu) => (
           <HeaderMenuListItem key={menu.label}>
-            <Link href={menu.href}>{menu.label}</Link>
+            <HeaderMenuButton onClick={() => router.push(menu.href)}>
+              {menu.label}
+            </HeaderMenuButton>
           </HeaderMenuListItem>
         ))}
       </HeaderMenuList>
       <MobileHeaderMenuList isOpen={isOpenMenu}>
         {headerMenuItems.map((menu) => (
           <HeaderMenuListItem key={menu.label}>
-            <Link href={menu.href}>{menu.label}</Link>
+            <HeaderMenuButton onClick={() => router.push(menu.href)}>
+              {menu.label}
+            </HeaderMenuButton>
           </HeaderMenuListItem>
         ))}
       </MobileHeaderMenuList>
@@ -70,15 +82,25 @@ const LayoutHeader = styled.header`
 const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  margin-top: 16px;
 `
 
 const HeaderP1 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  padding: 8px 16px;
+  padding: 0 16px 8px 16px;
   width: 100%;
+`
+
+const HeaderTitleLink = styled.div`
+  margin-left: 8px;
+`
+
+const HeaderSubTitle = styled.div`
+  color: white;
+  font-size: 8px;
 `
 
 const HeaderTitle = styled.h1`
@@ -86,12 +108,17 @@ const HeaderTitle = styled.h1`
   margin: 0;
   float: left;
   cursor: pointer;
+
+  @media screen and (max-width: 380px) {
+    font-size: 24px;
+  }
 `
 
 const HeaderMenuList = styled.li`
   display: flex;
   flex: 1;
   justify-content: flex-start;
+  align-items: center;
   margin: 0 8px;
 
   @media screen and (max-width: 600px) {
@@ -101,21 +128,30 @@ const HeaderMenuList = styled.li`
 
 const HeaderMenuListItem = styled.ul`
   list-style: none;
-  font-size: 18px;
   color: white;
   margin: 0;
-  padding: 0 12px;
+  padding: 0;
+`
 
-  a {
-    color: white;
+const HeaderMenuButton = styled.button`
+  font-size: 18px;
+  border: none;
+  border-radius: 0;
+  color: white;
+  background-color: transparent;
+  line-height: 1.5;
+  padding: 4px 16px;
+  margin: 0;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    text-align: left;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
+    color: black;
     background-color: white;
-
-    a {
-      color: black;
-    }
   }
 `
 

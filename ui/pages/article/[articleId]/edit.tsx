@@ -6,11 +6,10 @@ import Head from 'next/head'
 import Layout from '../../../components/layout'
 import { InputField } from '../../../components/common/InputField'
 import { useStateWithValidate } from '../../../hooks/useStateWithValidate'
-import { TextField } from '../../../components/common/TextField'
 import { useApi } from '../../../hooks/useApi'
 import { Loading } from '../../../components/common/Loading'
 import { ImageUploader } from '../../../components/common/ImageUploader'
-import { InsertImage } from '../../../components/article/InsertImage'
+import { MarkdownEditor } from '../../../components/common/MarkdownEditor'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -61,18 +60,11 @@ const Edit: React.FC = () => {
           initialImageKey={coverImage}
           onSuccess={(res) => setCoverImage(res.fileKey)}
         />
-        <TextField
-          label="本文"
+        <MarkdownEditor
           value={body}
           onChange={(v) => setBody(v)}
           isValid={isBodyValid}
-          validateErrorMsg="1文字以上10000文字以下で入力してください"
-          rows={20}
         />
-        <InsertImage
-          onInsert={(mdImageText) => setBody(body + '\n' + mdImageText)}
-        />
-        <br />
         <button
           onClick={() => {
             if (!isTitleValid || !isBodyValid) {

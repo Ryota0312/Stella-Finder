@@ -3,14 +3,13 @@ import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import ReactMarkdown from 'react-markdown'
-import gfm from 'remark-gfm'
 import { useApi } from '../../../hooks/useApi'
 import Layout from '../../../components/layout'
 import { Loading } from '../../../components/common/Loading'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
+import { MarkdownToHTML } from '../../../components/common/MarkdownToHTML'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -47,11 +46,7 @@ const Show: React.FC = () => {
               />
             </CoverImage>
           )}
-          <MarkdownStyle>
-            <ReactMarkdown plugins={[gfm]} linkTarget={'_blank'}>
-              {data.body}
-            </ReactMarkdown>
-          </MarkdownStyle>
+          <MarkdownToHTML>{data.body}</MarkdownToHTML>
         </ArticleBody>
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
@@ -96,24 +91,6 @@ const ArticleBody = styled.div`
   padding: 16px 0;
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
-`
-
-const MarkdownStyle = styled.div`
-  h1 {
-    margin: 0;
-  }
-
-  h2 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  img {
-    max-width: 70%;
-  }
 `
 
 const CreatedBy = styled.div`

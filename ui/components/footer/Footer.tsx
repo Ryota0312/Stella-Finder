@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
           />
         </a>
       </Twitter>
-      <CopyRight>Copyright © 2021 Ryota Nishi All Rights Reserved.</CopyRight>
+      <CopyRight>Copyright © 2022 Ryota Nishi All Rights Reserved.</CopyRight>
     </LayoutFooter>
   )
 }

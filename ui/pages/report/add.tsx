@@ -10,7 +10,7 @@ import { useApi } from '../../hooks/useApi'
 import { Loading } from '../../components/common/Loading'
 import { ImageUploader } from '../../components/common/ImageUploader'
 import { MarkdownEditor } from '../../components/common/MarkdownEditor'
-import { SpotCard } from '../../components/spot/SpotCard'
+import { InputSpotIdWithSearchByName } from '../../components/common/InputSpotIdWithSearchByName'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -41,12 +41,7 @@ const Add: React.FC = () => {
       <main>
         <h2>観測レポート投稿</h2>
 
-        <InputField
-          label="スポット(WIP: IDで入力してね)"
-          value={String(spotId)}
-          onChange={(v) => setSpotId(Number(v))}
-        />
-        <SpotCard spotId={spotId} />
+        <InputSpotIdWithSearchByName onSet={(v) => setSpotId(v)} />
         <InputField
           label="タイトル"
           value={title}

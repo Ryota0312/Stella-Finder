@@ -145,3 +145,14 @@ func UpdateReviewPoint(spotId int, total float64, darkness float64, view float64
 
 	defer db.Close()
 }
+
+func FindSpotByName(spotName string) []entity.Spot {
+	var spots []entity.Spot
+
+	db := open()
+	defer db.Close()
+
+	db.Where("name like ?", "%"+spotName+"%").Order("avg_total_point desc").Find(&spots)
+
+	return spots
+}

@@ -48,8 +48,13 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
             )
           }}
         >
-          検索して紐づけ
+          検索して紐付け
         </button>
+        {linkedSpotId == 0 && (
+          <ValidateError>
+            「検索して紐付け」からスポットを紐付けてください
+          </ValidateError>
+        )}
         <SpotCard spotId={linkedSpotId} />
         {spotList.length > 1 && <div>他にも候補があります</div>}
       </>
@@ -68,4 +73,13 @@ const Required = styled.div`
   color: white;
   border-radius: 4px;
   padding: 2px 4px;
+`
+
+const ValidateError = styled.div`
+  color: red;
+  font-size: 12px;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 8px;
+  }
 `

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { SpotCard } from '../spot/SpotCard'
+import { SpotSelectDialog } from '../report/SpotSelectDialog'
 
 type InputSpotIdWithSearchByNameProps = {
   onSet: (v: number) => void
@@ -14,6 +15,8 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
     const [value, setValue] = useState('')
     const [spotList, setSpotList] = useState([])
     const [linkedSpotId, setLinkedSpotId] = useState(0)
+
+    const [isOpenSpotSelectDialog, setIsOpenSpotSelectDialog] = useState(false)
 
     useEffect(() => {
       if (spotList.length > 0) {
@@ -56,7 +59,19 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
           </ValidateError>
         )}
         <SpotCard spotId={linkedSpotId} />
-        {spotList.length > 1 && <div>他にも候補があります</div>}
+        {spotList.length > 1 && (
+          <OtherSearchResult>
+            <div>他{spotList.length - 1}件の候補があります</div>
+            <button onClick={() => setIsOpenSpotSelectDialog(true)}>
+              選択する
+            </button>
+          </OtherSearchResult>
+        )}
+        <SpotSelectDialog
+          isOpen={isOpenSpotSelectDialog}
+          closeDialog={() => setIsOpenSpotSelectDialog(false)}
+          spotIds={spotList}
+        />
       </>
     )
   }
@@ -82,4 +97,10 @@ const ValidateError = styled.div`
   @media screen and (max-width: 600px) {
     margin-top: 8px;
   }
+`
+
+const OtherSearchResult = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
 `

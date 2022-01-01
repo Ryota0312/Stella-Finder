@@ -25,10 +25,12 @@ export const SpotCard: React.FC<SpotCardProps> = (props: SpotCardProps) => {
         <Card>
           <UnoptimizedImage
             fileKey={data.coverImage}
-            width="100px"
-            height="100px"
-            minWidth="100px"
-            minHeight="100px"
+            width="10vw"
+            height="10vw"
+            maxWidth="100px"
+            maxHeight="100px"
+            minWidth="70px"
+            minHeight="70px"
             objectFit="cover"
             fetchedImageSize={300}
           />
@@ -50,5 +52,6 @@ const Card = styled.div`
   border-radius: 4px;
   padding: 4px;
   margin: 8px 0;
-  width: fit-content;
+  max-width: 600px;
+  width: 70vw;
 `

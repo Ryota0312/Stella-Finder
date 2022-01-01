@@ -9,6 +9,7 @@ export type SpotSelectDialogProps = {
   isOpen: boolean
   closeDialog: () => void
   spotIds: Array<number>
+  onSelect: (spotId: number) => void
 }
 
 export const SpotSelectDialog: (props: SpotSelectDialogProps) => JSX.Element = (
@@ -25,7 +26,13 @@ export const SpotSelectDialog: (props: SpotSelectDialogProps) => JSX.Element = (
       <SpotList>
         {props.spotIds.map((spotId) => (
           <SpotListItem key={spotId}>
-            <SpotCard spotId={spotId} />
+            <SpotCard
+              onClick={() => {
+                props.onSelect(spotId)
+                props.closeDialog()
+              }}
+              spotId={spotId}
+            />
           </SpotListItem>
         ))}
       </SpotList>

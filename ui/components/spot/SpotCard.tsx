@@ -7,6 +7,7 @@ import { UnoptimizedImage } from '../common/UnoptimizedImage'
 
 type SpotCardProps = {
   spotId: number
+  onClick: () => void
 }
 
 export const SpotCard: React.FC<SpotCardProps> = (props: SpotCardProps) => {
@@ -22,7 +23,7 @@ export const SpotCard: React.FC<SpotCardProps> = (props: SpotCardProps) => {
   return (
     <>
       {!!props.spotId && (
-        <Card>
+        <Card onClick={() => props.onClick()}>
           <UnoptimizedImage
             fileKey={data.coverImage}
             width="10vw"
@@ -44,14 +45,21 @@ export const SpotCard: React.FC<SpotCardProps> = (props: SpotCardProps) => {
   )
 }
 
-const Card = styled.div`
+const Card = styled.button`
   display: flex;
   flex: 1;
   gap: 8px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 4px;
   padding: 4px;
   margin: 8px 0;
   max-width: 600px;
   width: 70vw;
+  text-align: left;
+
+  :hover,
+  :focus {
+    background-color: transparent;
+    border: solid 2px #ffa216;
+  }
 `

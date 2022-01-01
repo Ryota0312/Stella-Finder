@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 import { useApi } from '../../hooks/useApi'
 import { SpotCard } from '../spot/SpotCard'
 import { SpotSelectDialog } from '../report/SpotSelectDialog'
@@ -11,6 +12,7 @@ type InputSpotIdWithSearchByNameProps = {
 export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNameProps> =
   (props: InputSpotIdWithSearchByNameProps) => {
     const { fetcher } = useApi()
+    const router = useRouter()
 
     const [value, setValue] = useState('')
     const [spotList, setSpotList] = useState([])
@@ -58,7 +60,10 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
             「検索して紐付け」からスポットを紐付けてください
           </ValidateError>
         )}
-        <SpotCard spotId={linkedSpotId} />
+        <SpotCard
+          onClick={() => router.push('/spot/' + linkedSpotId + '/show')}
+          spotId={linkedSpotId}
+        />
         {spotList.length > 1 && (
           <OtherSearchResult>
             <div>他{spotList.length - 1}件の候補があります</div>
@@ -71,6 +76,7 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
           isOpen={isOpenSpotSelectDialog}
           closeDialog={() => setIsOpenSpotSelectDialog(false)}
           spotIds={spotList}
+          onSelect={(id) => setLinkedSpotId(id)}
         />
       </>
     )

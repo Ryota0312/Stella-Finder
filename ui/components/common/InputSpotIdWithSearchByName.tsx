@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useApi } from '../../hooks/useApi'
 import { SpotCard } from '../spot/SpotCard'
 import { SpotSelectDialog } from '../report/SpotSelectDialog'
@@ -15,16 +16,30 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
     const router = useRouter()
 
     const [value, setValue] = useState('')
+    const [searchValue, setSearchValue] = useState('')
     const [spotList, setSpotList] = useState([])
     const [linkedSpotId, setLinkedSpotId] = useState(0)
+    const [isSearchResultNone, setIsSearchResultNone] = useState(false)
 
     const [isOpenSpotSelectDialog, setIsOpenSpotSelectDialog] = useState(false)
 
+    const isFirstRender = useRef(false)
+
     useEffect(() => {
-      if (spotList.length > 0) {
-        setLinkedSpotId(spotList[0])
+      isFirstRender.current = true
+    }, [])
+
+    useEffect(() => {
+      if (isFirstRender.current) {
+        isFirstRender.current = false
       } else {
-        setLinkedSpotId(0)
+        if (spotList.length > 0) {
+          setLinkedSpotId(spotList[0])
+          setIsSearchResultNone(false)
+        } else {
+          setLinkedSpotId(0)
+          setIsSearchResultNone(true)
+        }
       }
     }, [spotList])
 
@@ -46,6 +61,7 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
         />
         <button
           onClick={() => {
+            setSearchValue(value)
             fetcher('/api/spot/listByName?spotName=' + value, false).then(
               (res) => {
                 setSpotList(res.map((r: any) => r.id))
@@ -71,6 +87,24 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
               選択する
             </button>
           </OtherSearchResult>
+        )}
+        {isSearchResultNone && (
+          <>
+            <ValidateError>
+              「{searchValue}」に一致するスポットはありません
+            </ValidateError>
+            <button onClick={() => router.push('/spot/register')}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/add.png'}
+                  alt={'Add new spot'}
+                  width={20}
+                  height={20}
+                />
+                <div>スポットを登録する</div>
+              </ButtonInnerWithImage>
+            </button>
+          </>
         )}
         <SpotSelectDialog
           isOpen={isOpenSpotSelectDialog}
@@ -109,4 +143,10 @@ const OtherSearchResult = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+`
+
+const ButtonInnerWithImage = styled.div`
+  display: flex;
+  gap: 8px;
+  color: gray;
 `

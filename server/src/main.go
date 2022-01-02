@@ -75,6 +75,7 @@ func serve() {
 		authRequiredAPI.GET("/location/search", controller.GetAddressBySpotName)
 		authRequiredAPI.POST("/report/add", controller.CreateReport)
 		authRequiredAPI.POST("/report/update", controller.UpdateReport)
+		authRequiredAPI.POST("/report/delete", controller.DeleteReport)
 	}
 
 	// Proxy to Next.js

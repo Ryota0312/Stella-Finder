@@ -90,26 +90,42 @@ func UpdateReport(c *gin.Context) {
 
 	report, err := db.UpdateReport(input.Id, loginUser.ID, input.Title, input.Body, input.CoverImage)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, err)
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
 	}
 
 	c.JSON(200, gin.H{"id": report.ID})
 }
 
-//
-//type DeleteArticleInputForm struct {
-//	Id int `json:"id"`
-//}
-//
-//func DeleteArticle(c *gin.Context) {
-//	var input DeleteArticleInputForm
-//	if err := c.ShouldBindJSON(&input); err != nil {
-//		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-//		return
-//	}
-//
-//	db.DeleteArticle(input.Id)
-//
-//	c.JSON(200, gin.H{})
-//}
+type DeleteReportInputForm struct {
+	Id int `json:"id"`
+}
+
+func DeleteReport(c *gin.Context) {
+	var input DeleteReportInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	session := sessions.Default(c)
+	loginUserMailAddress, err := GetLoginUserMailAddressFromSession(session)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	loginUser, err := db.FindUserByMailAddress(loginUserMailAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cannot find loginUser")
+		return
+	}
+
+	err = db.DeleteReport(input.Id, loginUser.ID)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{})
+}

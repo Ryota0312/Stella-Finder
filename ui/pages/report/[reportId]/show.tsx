@@ -65,7 +65,7 @@ const Show: React.FC = () => {
             onClick={() =>
               postFetcher('/api/user/report/delete', {
                 id: Number(reportId),
-              }).then(() => router.push('/article/list'))
+              }).then(() => router.push('/report/list'))
             }
           >
             削除

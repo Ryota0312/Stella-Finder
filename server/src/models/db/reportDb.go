@@ -77,12 +77,17 @@ func UpdateReport(reportId int, loginUserId int, title string, body string, cove
 	return report, nil
 }
 
-func DeleteReport(reportId int) {
+func DeleteReport(reportId int, loginUserId int) error {
 	var report entity.Report
-	report.ID = reportId
 
 	db := open()
 	defer db.Close()
 
+	db.Where("id = ?", reportId).Find(&report)
+	if report.CreatedBy != loginUserId {
+		return errors.New("作成者以外は削除できません")
+	}
+
 	db.Delete(&report)
+	return nil
 }

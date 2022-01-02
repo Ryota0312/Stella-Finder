@@ -11,6 +11,7 @@ import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { MarkdownToHTML } from '../../../components/common/MarkdownToHTML'
 import { SpotCard } from '../../../components/spot/SpotCard'
+import { SpecifiedUserOnly } from '../../../components/common/SpecifiedUserOnly'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -56,8 +57,7 @@ const Show: React.FC = () => {
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
         </CreatedBy>
-        {/*TODO: 編集・削除は投稿ユーザーのみ表示・実施可能*/}
-        <AdminUserOnly>
+        <SpecifiedUserOnly userId={data.createdBy}>
           <button onClick={() => router.push('/report/' + reportId + '/edit')}>
             編集
           </button>
@@ -70,7 +70,7 @@ const Show: React.FC = () => {
           >
             削除
           </DeleteButton>
-        </AdminUserOnly>
+        </SpecifiedUserOnly>
       </main>
     </Layout>
   )

@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
@@ -61,16 +62,19 @@ func FindReportsBySpotId(spotId int, limit int) []entity.Report {
 	return reports
 }
 
-func UpdateReport(reportId int, title string, body string, coverImage string) entity.Report {
+func UpdateReport(reportId int, loginUserId int, title string, body string, coverImage string) (entity.Report, error) {
 	var report entity.Report
-	report.ID = reportId
 
 	db := open()
 	defer db.Close()
 
+	db.Where("id = ?", reportId).Find(&report)
+	if report.CreatedBy != loginUserId {
+		return report, errors.New("作成者以外は編集できません")
+	}
 	db.Model(&report).Updates(entity.Report{Title: title, Body: body, CoverImage: coverImage})
 
-	return report
+	return report, nil
 }
 
 func DeleteReport(reportId int) {

@@ -297,6 +297,7 @@ const ButtonInnerWithImage = styled.div`
 
 const Remarks = styled.td`
   white-space: pre-line;
+  word-break: break-all;
 `
 
 const LastModified = styled.div`

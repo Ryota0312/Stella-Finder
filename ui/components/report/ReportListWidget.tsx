@@ -33,18 +33,24 @@ export const ReportListWidget: React.FC<ReportListWidgetProps> = (
   return (
     <RoundFrame title="観測レポート">
       <ReportList>
-        {data.map((d: any) => (
-          <li key={d.id}>
-            <ReportListItem
-              id={d.id}
-              title={d.title}
-              coverImage={d.coverImage}
-              body={d.body}
-              createdAt={d.createdAt}
-              createdBy={d.createdBy}
-            />
-          </li>
-        ))}
+        {data.length > 0 ? (
+          <>
+            {data.map((d: any) => (
+              <li key={d.id}>
+                <ReportListItem
+                  id={d.id}
+                  title={d.title}
+                  coverImage={d.coverImage}
+                  body={d.body}
+                  createdAt={d.createdAt}
+                  createdBy={d.createdBy}
+                />
+              </li>
+            ))}
+          </>
+        ) : (
+          <div>レポートがありません</div>
+        )}
       </ReportList>
     </RoundFrame>
   )
@@ -52,5 +58,5 @@ export const ReportListWidget: React.FC<ReportListWidgetProps> = (
 
 const ReportList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 8px;
 `

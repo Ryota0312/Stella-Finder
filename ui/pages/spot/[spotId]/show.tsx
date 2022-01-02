@@ -152,7 +152,7 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-edit.png'}
-                  alt={'Edit spot information'}
+                  alt={'スポット情報を編集'}
                   width={18}
                   height={18}
                 />
@@ -163,7 +163,7 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-photo.png'}
-                  alt={'Edit spot information'}
+                  alt={'写真を投稿'}
                   width={18}
                   height={18}
                 />
@@ -176,11 +176,22 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-review.png'}
-                  alt={'Edit spot information'}
+                  alt={'レビュー投稿'}
                   width={18}
                   height={18}
                 />
                 <div>レビュー投稿</div>
+              </ButtonInnerWithImage>
+            </button>
+            <button onClick={() => router.push('/report/add?spotId=' + spotId)}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/spot-report.png'}
+                  alt={'観測レポート投稿'}
+                  width={18}
+                  height={18}
+                />
+                <div>観測レポート投稿</div>
               </ButtonInnerWithImage>
             </button>
           </Actions>

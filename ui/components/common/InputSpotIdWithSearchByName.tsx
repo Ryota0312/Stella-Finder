@@ -55,8 +55,8 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
     return (
       <>
         <Label>
-          <p>スポット名</p>
-          <Required>必須</Required>
+          <p>スポット</p>
+          {/*<Required>必須</Required>*/}
         </Label>
         <input
           list="spot-name"

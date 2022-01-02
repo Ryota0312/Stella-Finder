@@ -44,4 +44,5 @@ export default List
 
 const ReportList = styled.ul`
   list-style: none;
+  padding: 0;
 `

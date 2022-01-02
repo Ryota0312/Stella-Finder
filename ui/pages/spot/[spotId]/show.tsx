@@ -21,6 +21,7 @@ import { Loading } from '../../../components/common/Loading'
 import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AutoLink } from '../../../components/common/AutoLink'
+import { ReportListWidget } from '../../../components/report/ReportListWidget'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -202,6 +203,7 @@ const Show: React.FC = () => {
           />
         </LoginUserOnly>
         <SpotImageList spotId={Number(spotId)} />
+        <ReportListWidget spotId={Number(spotId)} limit={3} />
         <ReviewList spotId={Number(spotId)} />
       </main>
     </Layout>

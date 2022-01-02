@@ -42,12 +42,11 @@ func CreateReport(c *gin.Context) {
 	c.JSON(200, gin.H{"id": report.ID})
 }
 
-//
-//func GetArticleList(c *gin.Context) {
-//	limit, _ := strconv.Atoi(c.Query("limit"))
-//
-//	c.JSON(http.StatusOK, db.FindAllArticle(limit))
-//}
+func GetReportList(c *gin.Context) {
+	limit, _ := strconv.Atoi(c.Query("limit"))
+
+	c.JSON(http.StatusOK, db.FindAllReport(limit))
+}
 
 func GetReport(c *gin.Context) {
 	reportId, _ := strconv.Atoi(c.Query("reportId"))

@@ -1,10 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
 import useSWR from 'swr'
-import Link from 'next/link'
+import styled from 'styled-components'
 import Layout from '../../components/layout'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../../components/common/TinyLoading'
+import { ReportListItem } from '../../components/report/ReportListItem'
 
 const List: React.FC = () => {
   const { fetcher } = useApi()
@@ -21,15 +22,23 @@ const List: React.FC = () => {
 
       <main>
         <h2>観測レポート</h2>
-        <ul>
+        <ReportList>
           {data.map((d: any) => (
             <li key={d.id}>
-              <Link href={'/report/' + d.id + '/show'}>{d.title}</Link>
+              <ReportListItem
+                id={d.id}
+                title={d.title}
+                coverImage={d.coverImage}
+              />
             </li>
           ))}
-        </ul>
+        </ReportList>
       </main>
     </Layout>
   )
 }
 export default List
+
+const ReportList = styled.ul`
+  list-style: none;
+`

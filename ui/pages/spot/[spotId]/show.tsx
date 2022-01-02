@@ -21,6 +21,7 @@ import { Loading } from '../../../components/common/Loading'
 import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AutoLink } from '../../../components/common/AutoLink'
+import { ReportListWidget } from '../../../components/report/ReportListWidget'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -152,7 +153,7 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-edit.png'}
-                  alt={'Edit spot information'}
+                  alt={'スポット情報を編集'}
                   width={18}
                   height={18}
                 />
@@ -163,7 +164,7 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-photo.png'}
-                  alt={'Edit spot information'}
+                  alt={'写真を投稿'}
                   width={18}
                   height={18}
                 />
@@ -176,11 +177,22 @@ const Show: React.FC = () => {
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/spot-review.png'}
-                  alt={'Edit spot information'}
+                  alt={'レビュー投稿'}
                   width={18}
                   height={18}
                 />
                 <div>レビュー投稿</div>
+              </ButtonInnerWithImage>
+            </button>
+            <button onClick={() => router.push('/report/add?spotId=' + spotId)}>
+              <ButtonInnerWithImage>
+                <Image
+                  src={'/image/spot-report.png'}
+                  alt={'観測レポート投稿'}
+                  width={18}
+                  height={18}
+                />
+                <div>観測レポート投稿</div>
               </ButtonInnerWithImage>
             </button>
           </Actions>
@@ -191,6 +203,7 @@ const Show: React.FC = () => {
           />
         </LoginUserOnly>
         <SpotImageList spotId={Number(spotId)} />
+        <ReportListWidget spotId={Number(spotId)} limit={3} />
         <ReviewList spotId={Number(spotId)} />
       </main>
     </Layout>
@@ -284,6 +297,7 @@ const ButtonInnerWithImage = styled.div`
 
 const Remarks = styled.td`
   white-space: pre-line;
+  word-break: break-all;
 `
 
 const LastModified = styled.div`

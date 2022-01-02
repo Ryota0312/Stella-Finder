@@ -15,6 +15,7 @@ export const GlobalHeader: React.FC = () => {
     { label: 'トップ', href: '/' },
     { label: 'News', href: '/article/list' },
     { label: 'スポットを探す', href: '/spot/search' },
+    { label: '観測レポート', href: '/report/list' },
   ]
 
   return (

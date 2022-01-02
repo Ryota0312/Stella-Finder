@@ -185,3 +185,9 @@ func GetSpotImages(c *gin.Context) {
 	result := db.GetAllSpotImages(spotId)
 	c.JSON(http.StatusOK, result)
 }
+
+func GetSpotsByName(c *gin.Context) {
+	spotName := c.Query("spotName")
+
+	c.JSON(http.StatusOK, db.FindSpotByName(spotName))
+}

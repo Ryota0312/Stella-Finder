@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { bool } from 'prop-types'
 import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'
@@ -53,7 +52,7 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
         />
       )}
       <CreatedAt>{convertDateTimeString_(props.createdAt)}</CreatedAt>
-      <LikeButton
+      <LikeReviewButton
         disabled={isLiked}
         isLiked={isLiked}
         title={isLiked ? 'クリック済みです' : ''}
@@ -74,7 +73,7 @@ export const Review: React.FC<ReviewProps> = (props: ReviewProps) => {
           />
           <div>参考になった {likeCount}</div>
         </ButtonInnerWithImage>
-      </LikeButton>
+      </LikeReviewButton>
     </RoundFrame>
   )
 }
@@ -99,7 +98,7 @@ const ButtonInnerWithImage = styled.div`
   gap: 4px;
 `
 
-const LikeButton = styled.button<{ isLiked: boolean }>`
+const LikeReviewButton = styled.button<{ isLiked: boolean }>`
   cursor: ${({ isLiked }) => (isLiked ? 'default' : 'pointer')};
   &:hover,
   &:focus {

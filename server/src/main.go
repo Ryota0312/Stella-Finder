@@ -35,6 +35,7 @@ func serve() {
 	{
 		api.GET("/spots", controller.GetSpot)
 		api.GET("/spot/list", controller.GetAllSpots)
+		api.GET("/spot/listByName", controller.GetSpotsByName)
 		api.GET("/spot/image/list", controller.GetSpotImages)
 		api.GET("/loginUser", controller.GetLoginUser)
 		api.GET("/file/download", controller.GetFile)
@@ -42,7 +43,7 @@ func serve() {
 		api.GET("/profile", controller.GetUser)
 		api.GET("/review/list", controller.GetReviewList)
 		api.GET("/review/summary", controller.GetSummary) // Deprecated: spot DB の値を使えばよい
-		api.POST("/review/like", controller.Like)
+		api.POST("/review/like", controller.ReviewLike)
 		api.GET("/moonAge", controller.GetMoonAge)
 		api.GET("/moonRiseSet", controller.GetMoonRiseSet)
 		api.GET("/article/list", controller.GetArticleList)
@@ -50,6 +51,10 @@ func serve() {
 		api.GET("/article/listByTag", controller.GetArticleListByTag)
 		api.GET("/article/tag/list", controller.GetArticleTags)
 		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
+		api.GET("/report", controller.GetReport)
+		api.GET("/report/list", controller.GetReportList)
+		api.GET("/report/listBySpot", controller.GetReportListBySpotId)
+		api.POST("/report/like", controller.ReportLike)
 	}
 
 	// API (need Authorize)
@@ -69,6 +74,9 @@ func serve() {
 		authRequiredAPI.POST("/article/update", controller.UpdateArticle)
 		authRequiredAPI.POST("/article/delete", controller.DeleteArticle)
 		authRequiredAPI.GET("/location/search", controller.GetAddressBySpotName)
+		authRequiredAPI.POST("/report/add", controller.CreateReport)
+		authRequiredAPI.POST("/report/update", controller.UpdateReport)
+		authRequiredAPI.POST("/report/delete", controller.DeleteReport)
 	}
 
 	// Proxy to Next.js

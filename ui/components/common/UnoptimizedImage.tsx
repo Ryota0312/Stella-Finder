@@ -8,6 +8,8 @@ interface ImageSize {
   height: string
   maxWidth?: string
   maxHeight?: string
+  minWidth?: string
+  minHeight?: string
   borderRadius?: string
 }
 
@@ -26,6 +28,8 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
       height={props.height}
       maxWidth={props.maxWidth}
       maxHeight={props.maxHeight}
+      minWidth={props.minWidth}
+      minHeight={props.minHeight}
       borderRadius={props.borderRadius}
     >
       {!!props.fileKey && props.fetchedImageSize !== undefined && (
@@ -52,6 +56,8 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
           height={props.height}
           maxWidth={props.maxWidth}
           maxHeight={props.maxHeight}
+          minWidth={props.minWidth}
+          minHeight={props.minHeight}
         >
           No image
         </NoImage>
@@ -71,6 +77,8 @@ const ImageWrapper = styled.div<Partial<ImageSize>>`
   height: ${({ height }) => height};
   max-width: ${({ maxWidth }) => maxWidth};
   max-height: ${({ maxHeight }) => maxHeight};
+  min-width: ${({ minWidth }) => minWidth};
+  min-height: ${({ minHeight }) => minHeight};
 
   img {
     border-radius: ${({ borderRadius }) => borderRadius};
@@ -85,6 +93,8 @@ const NoImage = styled.div<Partial<ImageSize>>`
   text-align: center;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  min-width: ${({ minWidth }) => minWidth};
+  min-height: ${({ minHeight }) => minHeight};
   max-width: ${({ maxWidth }) => maxWidth};
   max-height: ${({ maxHeight }) => maxHeight};
   border: 1px solid grey;

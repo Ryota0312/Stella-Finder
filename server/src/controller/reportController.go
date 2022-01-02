@@ -48,6 +48,13 @@ func GetReportList(c *gin.Context) {
 	c.JSON(http.StatusOK, db.FindAllReport(limit))
 }
 
+func GetReportListBySpotId(c *gin.Context) {
+	spotId, _ := strconv.Atoi(c.Query("spotId"))
+	limit, _ := strconv.Atoi(c.Query("limit"))
+
+	c.JSON(http.StatusOK, db.FindReportsBySpotId(spotId, limit))
+}
+
 func GetReport(c *gin.Context) {
 	reportId, _ := strconv.Atoi(c.Query("reportId"))
 

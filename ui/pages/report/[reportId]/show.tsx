@@ -10,6 +10,7 @@ import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AdminUserOnly } from '../../../components/common/AdminUserOnly'
 import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { MarkdownToHTML } from '../../../components/common/MarkdownToHTML'
+import { SpotCard } from '../../../components/spot/SpotCard'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -46,6 +47,10 @@ const Show: React.FC = () => {
               />
             </CoverImage>
           )}
+          <SpotCard
+            spotId={data.spotId}
+            onClick={() => router.push('/spot/' + data.spotId + '/show')}
+          />
           <MarkdownToHTML>{data.body}</MarkdownToHTML>
         </ArticleBody>
         <CreatedBy>

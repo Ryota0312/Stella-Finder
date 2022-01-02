@@ -29,6 +29,9 @@ const List: React.FC = () => {
                 id={d.id}
                 title={d.title}
                 coverImage={d.coverImage}
+                body={d.body}
+                createdAt={d.createdAt}
+                createdBy={d.createdBy}
               />
             </li>
           ))}

@@ -34,10 +34,14 @@ export const LikeButton: React.FC<LikeButtonProps> = (
     >
       <ButtonInnerWithImage>
         <Image
-          src={'/image/like-report-empty.png'}
+          src={
+            isLiked
+              ? '/image/like-report-fill.png'
+              : '/image/like-report-empty.png'
+          }
           alt={'Like report'}
-          width={18}
-          height={18}
+          width={20}
+          height={20}
         />
         <div>いいね {likeCount}</div>
       </ButtonInnerWithImage>

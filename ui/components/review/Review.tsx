@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { bool } from 'prop-types'
 import { StarEvaluate } from '../common/StarEvaluate'
 import { ImageList, ImageListItem } from '../common/ImageList'
 import { RoundFrame } from '../common/RoundFrame'

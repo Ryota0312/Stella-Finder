@@ -1,9 +1,6 @@
 import React from 'react'
-import useSWR from 'swr'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { useApi } from '../../hooks/useApi'
-import { TinyLoading } from '../common/TinyLoading'
 import { UnoptimizedImage } from '../common/UnoptimizedImage'
 import { LinkedUserName } from '../common/LinkedUserName'
 
@@ -36,6 +33,10 @@ export const ReportListItem: React.FC<ReportListItemProps> = (
         />
         <div>
           <b>{props.title}</b>
+          <ReportSummary>
+            {props.body.substr(0, 100)}
+            {props.body.length > 100 ? '...' : ''}
+          </ReportSummary>
         </div>
       </Card>
       <CreatedInfo>
@@ -60,6 +61,7 @@ const Card = styled.button`
   margin: 8px 0;
   width: 100%;
   text-align: left;
+  overflow: hidden;
 
   :hover,
   :focus {
@@ -75,4 +77,8 @@ const CreatedInfo = styled.div`
   bottom: 4px;
   right: 8px;
   font-size: 8px;
+`
+
+const ReportSummary = styled.div`
+  margin: 8px 8px 12px 0;
 `

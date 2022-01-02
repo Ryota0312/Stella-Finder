@@ -7,6 +7,7 @@ import { SpotCard } from '../spot/SpotCard'
 import { SpotSelectDialog } from '../report/SpotSelectDialog'
 
 type InputSpotIdWithSearchByNameProps = {
+  initialSpotId: number
   onSet: (v: number) => void
 }
 
@@ -28,6 +29,12 @@ export const InputSpotIdWithSearchByName: React.FC<InputSpotIdWithSearchByNamePr
     useEffect(() => {
       isFirstRender.current = true
     }, [])
+
+    useEffect(() => {
+      if (props.initialSpotId) {
+        setLinkedSpotId(props.initialSpotId)
+      }
+    }, [props.initialSpotId])
 
     useEffect(() => {
       if (isFirstRender.current) {

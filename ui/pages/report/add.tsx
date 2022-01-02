@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -17,10 +17,11 @@ const notifyError = (msg: string) => toast.error(msg)
 const Add: React.FC = () => {
   const { fetcher, postFetcher } = useApi()
   const router = useRouter()
+  const { spotId } = router.query
 
   const { data, error } = useSWR(['/auth/check', true], fetcher)
 
-  const [spotId, setSpotId] = useState(0)
+  const [linkedSpotId, setLinkedSpotId] = useState(0)
   const [title, isTitleValid, setTitle] = useStateWithValidate('', (v) => {
     return v.length > 0 && v.length <= 128
   })
@@ -28,6 +29,8 @@ const Add: React.FC = () => {
     return v.length > 0 && v.length <= 10000
   })
   const [coverImage, setCoverImage] = useState('')
+
+  useEffect(() => setLinkedSpotId(Number(spotId)), [spotId])
 
   if (error) return <div>failed to load</div>
   if (!data) return <Loading />
@@ -41,7 +44,10 @@ const Add: React.FC = () => {
       <main>
         <h2>観測レポート投稿</h2>
 
-        <InputSpotIdWithSearchByName onSet={(v) => setSpotId(v)} />
+        <InputSpotIdWithSearchByName
+          initialSpotId={linkedSpotId}
+          onSet={(v) => setLinkedSpotId(v)}
+        />
         <InputField
           label="タイトル"
           value={title}
@@ -63,7 +69,7 @@ const Add: React.FC = () => {
               return
             }
             postFetcher('/api/user/report/add', {
-              spotId: spotId,
+              spotId: linkedSpotId,
               title: title,
               body: body,
               coverImage: coverImage,

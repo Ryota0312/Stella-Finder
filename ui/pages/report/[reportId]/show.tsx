@@ -11,6 +11,7 @@ import { UnoptimizedImage } from '../../../components/common/UnoptimizedImage'
 import { MarkdownToHTML } from '../../../components/common/MarkdownToHTML'
 import { SpotCard } from '../../../components/spot/SpotCard'
 import { SpecifiedUserOnly } from '../../../components/common/SpecifiedUserOnly'
+import { LikeButton } from '../../../components/report/LikeButton'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -56,6 +57,7 @@ const Show: React.FC = () => {
         <CreatedBy>
           by <LinkedUserName userId={data.createdBy} />
         </CreatedBy>
+        <LikeButton id={Number(reportId)} likeCount={data.likeCount} />
         <SpecifiedUserOnly userId={data.createdBy}>
           <button onClick={() => router.push('/report/' + reportId + '/edit')}>
             編集

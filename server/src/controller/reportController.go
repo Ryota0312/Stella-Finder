@@ -129,3 +129,19 @@ func DeleteReport(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{})
 }
+
+type ReportLikeInputForm struct {
+	ReportId int `json:"reportId"`
+}
+
+func ReportLike(c *gin.Context) {
+	var input ReportLikeInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.IncrementReportLikeCount(input.ReportId)
+
+	c.JSON(http.StatusOK, gin.H{})
+}

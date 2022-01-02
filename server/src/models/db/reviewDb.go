@@ -35,7 +35,7 @@ func FindReviews(spotId int) []entity.Review {
 	return review
 }
 
-func IncrementLikeCount(reviewId int) {
+func IncrementReviewLikeCount(reviewId int) {
 	var review = entity.Review{}
 	review.Id = reviewId
 

@@ -2,6 +2,7 @@ package db
 
 import (
 	"errors"
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	// エンティティ(データベースのテーブルの行に対応)
 	entity "stella-finder-server/src/models/entity"
@@ -90,4 +91,13 @@ func DeleteReport(reportId int, loginUserId int) error {
 
 	db.Delete(&report)
 	return nil
+}
+
+func IncrementReportLikeCount(reportId int) {
+	var report = entity.Report{}
+	report.ID = reportId
+
+	db := open()
+	defer db.Close()
+	db.Model(&report).Update("like_count", gorm.Expr("like_count + 1"))
 }

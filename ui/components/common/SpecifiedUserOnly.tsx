@@ -17,5 +17,5 @@ export const SpecifiedUserOnly: React.FC<SpecifiedUserOnlyProps> = (
   if (error) return <div>failed to load</div>
   if (!data) return <TinyLoading />
 
-  return <>{data.id === props.userId && props.children}</>
+  return <div>{data.id === props.userId && props.children}</div>
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
+import Link from 'next/link'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { RoundFrame } from '../common/RoundFrame'
@@ -52,6 +53,11 @@ export const ReportListWidget: React.FC<ReportListWidgetProps> = (
           <div>レポートがありません</div>
         )}
       </ReportList>
+      {data.length === 3 && (
+        <Link href={'/report/list?spotId=' + props.spotId}>
+          すべての観測レポートを見る
+        </Link>
+      )}
     </RoundFrame>
   )
 }

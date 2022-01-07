@@ -45,6 +45,8 @@ export const UnoptimizedImage: React.FC<Partial<UnoptimizedImageInterface>> = (
           unoptimized={true}
           layout="fill"
           objectFit={props.objectFit}
+          placeholder="blur"
+          blurDataURL="/image/image-icon.png"
           onError={(e) => {
             e.currentTarget.src = `/image/image-icon.png`
           }}

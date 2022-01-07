@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import Link from 'next/link'
 import Layout from '../components/layout'
 import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
         </MoonInfo>
         <RoundFrame title="観測スポットを探す">
           <SearchMenuButtons>
-            <Button onClick={() => router.push('/spot/search#byArea')}>
+            <Button onClick={() => router.push('/spot/search?scroll=byArea')}>
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/search-area.png'}
@@ -43,7 +44,7 @@ const Home: React.FC = () => {
                 <div>地域から探す</div>
               </ButtonInnerWithImage>
             </Button>
-            <Button onClick={() => router.push('/spot/search#inDetail')}>
+            <Button onClick={() => router.push('/spot/search?scroll=inDetail')}>
               <ButtonInnerWithImage>
                 <Image
                   src={'/image/search-detail.png'}

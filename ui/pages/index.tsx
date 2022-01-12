@@ -22,7 +22,9 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Stella Finder | 天体観測スポット検索・共有サービス</title>
+        <title>
+          Stella Finder | 天体観測スポットの検索・情報共有コミュニティ
+        </title>
       </Head>
 
       <main>

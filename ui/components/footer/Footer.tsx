@@ -10,20 +10,31 @@ export const Footer: React.FC = () => {
         <FooterLink>
           <Link href="/about">Stella Finderについて</Link>
         </FooterLink>
-        <Twitter>
-          <a
-            href="https://twitter.com/stella_finder"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <SNSLinks>
+          <Twitter>
+            <a
+              href="https://twitter.com/stella_finder"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/image/twitter-logo.png"
+                alt="twitter"
+                width={32}
+                height={26}
+              />
+            </a>
+          </Twitter>
+          <Instagram>
             <Image
-              src="/image/twitter-logo.png"
-              alt="twitter"
+              src="/image/instagram-logo.png"
+              alt="instagram"
+              title="準備中です"
               width={32}
-              height={26}
+              height={32}
             />
-          </a>
-        </Twitter>
+          </Instagram>
+        </SNSLinks>
       </Links>
       <CopyRight>
         Copyright © 2021-2022 Ryota Nishi All Rights Reserved.
@@ -46,13 +57,25 @@ const Links = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: min(138px, 30%);
+  gap: min(102px, 30%);
   margin-bottom: 8px;
+`
+
+const SNSLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `
 
 const Twitter = styled.div`
   color: white;
   font-size: 10px;
+`
+
+const Instagram = styled.div`
+  color: white;
+  font-size: 10px;
+  cursor: not-allowed;
 `
 
 const FooterLink = styled.div`

@@ -55,16 +55,16 @@ const LayoutFooter = styled.footer`
 
 const Links = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   gap: min(102px, 30%);
-  margin-bottom: 8px;
+  margin: 0 16px 8px 16px;
 `
 
 const SNSLinks = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 `
 
 const Twitter = styled.div`
@@ -79,7 +79,7 @@ const Instagram = styled.div`
 `
 
 const FooterLink = styled.div`
-  font-size: 10px;
+  font-size: 11px;
 
   a {
     &:hover {

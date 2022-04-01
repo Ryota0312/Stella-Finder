@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
+import Link from 'next/link'
 import Layout from '../components/layout'
 
 const About: React.FC = () => {
@@ -20,15 +21,18 @@ const About: React.FC = () => {
             <FeatureIntroductionIcon>
               <Image
                 src="/image/about-search.png"
-                alt="検索する"
+                alt="探す"
                 width={64}
                 height={64}
               />
             </FeatureIntroductionIcon>
             <FeatureIntroductionText>
-              <FeatureIntroductionLabel>検索する</FeatureIntroductionLabel>
+              <FeatureIntroductionLabel>探す</FeatureIntroductionLabel>
               <FeatureIntroductionDescription>
-                天体観測スポットと観測レポートの検索ができます。
+                Stella Finderで天体観測スポットを探しましょう。
+                <br />
+                キーワードや地域、みんなの評価から天体観測スポットを検索できます。
+                スポットの評価は、「空の暗さ」「見晴らし」「安全性」の3項目で5段階の評価が行われます。
               </FeatureIntroductionDescription>
             </FeatureIntroductionText>
           </FeatureIntroductionContainer>
@@ -44,11 +48,29 @@ const About: React.FC = () => {
             <FeatureIntroductionText>
               <FeatureIntroductionLabel>共有する</FeatureIntroductionLabel>
               <FeatureIntroductionDescription>
-                天体観測スポットを登録したり、レビューして情報共有できます。
+                天体観測スポットを登録したり、スポットのレビューをして情報を共有できます。
+                <br />
+                まだまだ知られていない天体観測スポットを新たに登録したり、スポットのレビューや観測レポートを投稿して、
+                これから天体観測をしようとしている人を手助けしましょう。
               </FeatureIntroductionDescription>
             </FeatureIntroductionText>
           </FeatureIntroductionContainer>
         </FeatureIntroduction>
+        <h3>探す</h3>
+        <ul>
+          <li>
+            <Link href="/spot/search">スポット検索</Link>
+          </li>
+        </ul>
+        <h3>共有する</h3>
+        <ul>
+          <li>
+            <Link href="/spot/register">スポット登録</Link>
+          </li>
+          <li>
+            <Link href="/report/add">観測レポート投稿</Link>
+          </li>
+        </ul>
       </main>
     </Layout>
   )

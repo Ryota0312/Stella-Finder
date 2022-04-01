@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { Link as Scroll } from 'react-scroll'
 import Layout from '../components/layout'
 
 const About: React.FC = () => {
@@ -17,7 +18,12 @@ const About: React.FC = () => {
       <main>
         <h2>『Stella Finder』で天体観測スポットを検索＆共有</h2>
         <FeatureIntroduction>
-          <FeatureIntroductionContainer>
+          <FeatureIntroductionContainer
+            to="search"
+            smooth={true}
+            duration={600}
+            offset={-30}
+          >
             <FeatureIntroductionIcon>
               <Image
                 src="/image/about-search.png"
@@ -36,7 +42,12 @@ const About: React.FC = () => {
               </FeatureIntroductionDescription>
             </FeatureIntroductionText>
           </FeatureIntroductionContainer>
-          <FeatureIntroductionContainer>
+          <FeatureIntroductionContainer
+            to="share"
+            smooth={true}
+            duration={600}
+            offset={-30}
+          >
             <FeatureIntroductionIcon>
               <Image
                 src="/image/about-share.png"
@@ -56,13 +67,13 @@ const About: React.FC = () => {
             </FeatureIntroductionText>
           </FeatureIntroductionContainer>
         </FeatureIntroduction>
-        <h3>探す</h3>
+        <h3 id="search">探す</h3>
         <ul>
           <li>
             <Link href="/spot/search">スポット検索</Link>
           </li>
         </ul>
-        <h3>共有する</h3>
+        <h3 id="share">共有する</h3>
         <ul>
           <li>
             <Link href="/spot/register">スポット登録</Link>
@@ -92,7 +103,7 @@ const FeatureIntroduction = styled.div`
   }
 `
 
-const FeatureIntroductionContainer = styled.div`
+const FeatureIntroductionContainer = styled(Scroll)`
   display: flex;
   border: 1px solid gray;
   border-radius: 4px;

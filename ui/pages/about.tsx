@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { Link as Scroll } from 'react-scroll'
 import Layout from '../components/layout'
-import { UnoptimizedImage } from '../components/common/UnoptimizedImage'
 
 const About: React.FC = () => {
   return (
@@ -27,6 +26,8 @@ const About: React.FC = () => {
             alt=""
             width={1680}
             height={945}
+            placeholder="blur"
+            blurDataURL="/image/about-cover-photo-blur.jpg"
           />
         </CoverImageAndTitle>
         <FeatureIntroduction>

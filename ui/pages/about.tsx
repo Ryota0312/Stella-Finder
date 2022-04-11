@@ -80,6 +80,7 @@ const About: React.FC = () => {
             </FeatureIntroductionText>
           </FeatureIntroductionContainer>
         </FeatureIntroduction>
+        <FeatureIntroductionTitle> - 機能紹介 - </FeatureIntroductionTitle>
         <h3 id="search">探す</h3>
         <Image
           src="/image/about-search-sample.png"
@@ -127,6 +128,11 @@ const TitleAndDescription = styled.div`
   @media screen and (max-width: 640px) {
     font-size: 8px;
   }
+`
+
+const FeatureIntroductionTitle = styled.h2`
+  text-align: center;
+  margin: 140px 0 80px 0;
 `
 
 const FeatureIntroduction = styled.div`

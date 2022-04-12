@@ -92,7 +92,7 @@ const About: React.FC = () => {
             width={560}
             height={478}
             placeholder="blur"
-            blurDataURL="/image/about-search-sample-blur.jpg"
+            blurDataURL="/image/about-search-sample-blur.png"
           />
           <FeatureLinkList>
             <FeatureLinkListItem onClick={() => router.push('/spot/search')}>
@@ -108,7 +108,7 @@ const About: React.FC = () => {
             width={560}
             height={478}
             placeholder="blur"
-            blurDataURL="/image/about-share-sample-blur.jpg"
+            blurDataURL="/image/about-share-sample-blur.png"
           />
           <FeatureLinkList>
             <FeatureLinkListItem onClick={() => router.push('/spot/register')}>

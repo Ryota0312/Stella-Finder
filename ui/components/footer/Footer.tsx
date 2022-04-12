@@ -6,9 +6,18 @@ import Link from 'next/link'
 export const Footer: React.FC = () => {
   return (
     <LayoutFooter>
-      <Links>
+      <FooterLinks>
         <FooterLink>
-          <Link href="/about">Stella Finderについて</Link>
+          <TEXTLinks>
+            <Link href="/about">Stella Finderについて</Link>
+            <a
+              target="_blank"
+              href="https://github.com/Ryota0312/Stella-Finder/releases"
+              rel="noreferrer"
+            >
+              リリースノート
+            </a>
+          </TEXTLinks>
         </FooterLink>
         <SNSLinks>
           <Twitter>
@@ -35,7 +44,7 @@ export const Footer: React.FC = () => {
             />
           </Instagram>
         </SNSLinks>
-      </Links>
+      </FooterLinks>
       <CopyRight>
         Copyright © 2021-2022 Ryota Nishi All Rights Reserved.
       </CopyRight>
@@ -53,12 +62,18 @@ const LayoutFooter = styled.footer`
   }
 `
 
-const Links = styled.div`
+const FooterLinks = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: min(102px, 30%);
   margin: 0 16px 8px 16px;
+`
+
+const TEXTLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `
 
 const SNSLinks = styled.div`

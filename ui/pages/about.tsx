@@ -91,6 +91,8 @@ const About: React.FC = () => {
             alt="検索画面"
             width={560}
             height={478}
+            placeholder="blur"
+            blurDataURL="/image/about-search-sample-blur.jpg"
           />
           <FeatureLinkList>
             <FeatureLinkListItem onClick={() => router.push('/spot/search')}>
@@ -105,6 +107,8 @@ const About: React.FC = () => {
             alt="検索画面"
             width={560}
             height={478}
+            placeholder="blur"
+            blurDataURL="/image/about-share-sample-blur.jpg"
           />
           <FeatureLinkList>
             <FeatureLinkListItem onClick={() => router.push('/spot/register')}>

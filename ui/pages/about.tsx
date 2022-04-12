@@ -4,9 +4,12 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { Link as Scroll } from 'react-scroll'
+import { useRouter } from 'next/router'
 import Layout from '../components/layout'
 
 const About: React.FC = () => {
+  const router = useRouter()
+
   return (
     <Layout>
       <Head>
@@ -81,27 +84,37 @@ const About: React.FC = () => {
           </FeatureIntroductionContainer>
         </FeatureIntroduction>
         <FeatureIntroductionTitle> - 機能紹介 - </FeatureIntroductionTitle>
-        <h3 id="search">探す</h3>
-        <Image
-          src="/image/about-search-sample.png"
-          alt="検索画面"
-          width={300}
-          height={200}
-        />
-        <ul>
-          <li>
-            <Link href="/spot/search">スポットを検索する</Link>
-          </li>
-        </ul>
-        <h3 id="share">共有する</h3>
-        <ul>
-          <li>
-            <Link href="/spot/register">スポットを登録する</Link>
-          </li>
-          <li>
-            <Link href="/report/add">観測レポートを投稿する</Link>
-          </li>
-        </ul>
+        <h3 id="search">SEARCH - 探す -</h3>
+        <TwoColumn>
+          <Image
+            src="/image/about-search-sample.png"
+            alt="検索画面"
+            width={560}
+            height={478}
+          />
+          <FeatureLinkList>
+            <FeatureLinkListItem onClick={() => router.push('/spot/search')}>
+              <div>▶ スポットを検索する</div>
+            </FeatureLinkListItem>
+          </FeatureLinkList>
+        </TwoColumn>
+        <h3 id="share">SHARE - 共有する -</h3>
+        <TwoColumn>
+          <Image
+            src="/image/about-share-sample.png"
+            alt="検索画面"
+            width={560}
+            height={478}
+          />
+          <FeatureLinkList>
+            <FeatureLinkListItem onClick={() => router.push('/spot/register')}>
+              <div>▶ スポットを登録する</div>
+            </FeatureLinkListItem>
+            <FeatureLinkListItem onClick={() => router.push('/report/add')}>
+              <div>▶ 観測レポートを投稿する</div>
+            </FeatureLinkListItem>
+          </FeatureLinkList>
+        </TwoColumn>
       </main>
     </Layout>
   )
@@ -177,4 +190,34 @@ const FeatureIntroductionLabel = styled.div`
 const FeatureIntroductionDescription = styled.div`
   margin-top: 8px;
   color: #313131;
+`
+
+const TwoColumn = styled.div`
+  display: flex;
+  gap: 32px;
+  margin-bottom: 96px;
+
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+  }
+`
+
+const FeatureLinkList = styled.ul`
+  width: 100%;
+  padding: 0;
+  margin: 0;
+`
+
+const FeatureLinkListItem = styled.li`
+  list-style: none;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 8px;
+
+  &:hover {
+    background-color: #aaa;
+    border: 2px solid #ffa216;
+  }
 `

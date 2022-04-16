@@ -25,49 +25,68 @@ const Contact: React.FC = () => {
     (v) => v.length > 0 && v.length <= 1000,
   )
 
+  const [isComplete, setIsComplete] = useState<boolean>(false)
+
   const notifyError = (msg: string) => toast.error(msg)
 
-  return (
-    <Layout>
-      <Head>
-        <title>お問い合わせ | Stella Finder</title>
-      </Head>
+  if (isComplete) {
+    return (
+      <Layout>
+        <Head>
+          <title>お問い合わせ | Stella Finder</title>
+        </Head>
+        <main>
+          <h2>お問い合わせ完了</h2>
+          <div>
+            お問い合わせが完了しました。お問い合わせ内容を確認して対応を検討させていただきます。
+          </div>
+        </main>
+      </Layout>
+    )
+  } else {
+    return (
+      <Layout>
+        <Head>
+          <title>お問い合わせ | Stella Finder</title>
+        </Head>
 
-      <main>
-        <h2>お問い合わせ</h2>
-        <InputField
-          label="メールアドレス"
-          value={mail}
-          required={true}
-          onChange={(v) => setMail(v)}
-          isValid={isMailValid}
-          validateErrorMsg="メールアドレスが空または不正な形式です"
-        />
-        <TextField
-          label="本文"
-          value={body}
-          required={true}
-          onChange={(v) => setBody(v)}
-          isValid={isBodyValid}
-          validateErrorMsg="1000文字以内で入力してください"
-        />
-        <button
-          type={'button'}
-          onClick={async () => {
-            if (!isMailValid || !isBodyValid) {
-              notifyError('入力内容にエラーがあります')
-              return
-            }
-            postFetcher('/api/contact/send', {
-              mailAddress: mail,
-              body: body,
-            }).then(() => router.push('/'))
-          }}
-        >
-          送信
-        </button>
-      </main>
-    </Layout>
-  )
+        <main>
+          <h2>お問い合わせ</h2>
+          <InputField
+            label="メールアドレス"
+            value={mail}
+            required={true}
+            onChange={(v) => setMail(v)}
+            isValid={isMailValid}
+            validateErrorMsg="メールアドレスが空または不正な形式です"
+          />
+          <TextField
+            label="本文"
+            value={body}
+            required={true}
+            rows={12}
+            onChange={(v) => setBody(v)}
+            isValid={isBodyValid}
+            validateErrorMsg="1000文字以内で入力してください"
+          />
+          <button
+            type={'button'}
+            onClick={async () => {
+              if (!isMailValid || !isBodyValid) {
+                notifyError('入力内容にエラーがあります')
+                return
+              }
+              postFetcher('/api/contact/send', {
+                mailAddress: mail,
+                body: body,
+              }).then(() => setIsComplete(true))
+            }}
+          >
+            送信
+          </button>
+        </main>
+      </Layout>
+    )
+  }
 }
 export default Contact

@@ -55,7 +55,7 @@ func SendTmpRegisterMail(toMailAddress string, registerKey string) {
 	}
 }
 
-func SendContactMail(fromMailAddress string, body string) {
+func SendContactMail(fromMailAddress string, body string) error {
 	loadErr := godotenv.Load()
 	if loadErr != nil {
 		log.Fatalf("error: %v", loadErr)
@@ -90,9 +90,13 @@ func SendContactMail(fromMailAddress string, body string) {
 	response, err := client.Send(message)
 	if err != nil {
 		log.Println(err)
+		return err
 	} else {
 		fmt.Println(response.StatusCode)
 		fmt.Println(response.Body)
 		fmt.Println(response.Headers)
+		return nil
 	}
+
+	return nil
 }

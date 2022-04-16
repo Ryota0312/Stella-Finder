@@ -55,6 +55,7 @@ func serve() {
 		api.GET("/report/list", controller.GetReportList)
 		api.GET("/report/listBySpot", controller.GetReportListBySpotId)
 		api.POST("/report/like", controller.ReportLike)
+		api.POST("/contact/send", controller.SendContact)
 	}
 
 	// API (need Authorize)

@@ -10,6 +10,7 @@ export const Footer: React.FC = () => {
         <FooterLink>
           <TEXTLinks>
             <Link href="/about">Stella Finderについて</Link>
+            <Link href="/contact">お問い合わせ</Link>
             <a
               target="_blank"
               href="https://github.com/Ryota0312/Stella-Finder/releases"

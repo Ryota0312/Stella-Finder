@@ -12,7 +12,7 @@ jobs:
         with:
           ruby-version: "3.0"
       - name: Install licensed
-        run: gem install licensed -v '~> 3.0'
+        run: gem install licensed
       - name: Setup Python
         uses: actions/setup-python@v2
         with:

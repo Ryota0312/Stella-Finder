@@ -1,8 +1,6 @@
 name: Update Licenses
 
-on:
-  push:
-    branches: [ master ]
+on: pull_request
 
 jobs:
   update-licenses:
@@ -17,4 +15,6 @@ jobs:
       - name: Install dependencies
         run: pip install PyYAML
       - name: Run Python
-        run: python scripts/ci/make-license-list.py
+        run: python scripts/ci/make-license-list.py > new-licenses.txt
+      - name: Check licenses diff
+        run: diff ui/public/licenses.txt new-licenses.txt

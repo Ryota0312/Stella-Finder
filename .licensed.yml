@@ -1,0 +1,8 @@
+name: 'Stella Finder'
+source_path: './ui'
+
+sources:
+  npm: true
+
+allowed:
+  - mit

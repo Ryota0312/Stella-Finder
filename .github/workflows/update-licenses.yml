@@ -1,0 +1,20 @@
+name: Update Licenses
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  update-licenses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install dependencies
+        run: pip install PyYAML
+      - name: Run Python
+        run: python scripts/ci/make-license-list.py

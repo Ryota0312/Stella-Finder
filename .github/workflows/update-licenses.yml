@@ -20,7 +20,7 @@ jobs:
           architecture: 'x64'
       - name: Install python dependencies
         run: pip install PyYAML
-      - name: npm install
-        run: (cd ui/ && npm install)
+      - name: yarn install
+        run: (cd ui/ && yarn install)
       - name: Check licenses diff
         run: licensed cache && diff ui/public/licenses.txt <(python scripts/ci/make-license-list.py)

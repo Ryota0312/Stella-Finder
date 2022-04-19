@@ -14,7 +14,5 @@ jobs:
           architecture: 'x64'
       - name: Install dependencies
         run: pip install PyYAML
-      - name: Run Python
-        run: python scripts/ci/make-license-list.py > new-licenses.txt
       - name: Check licenses diff
-        run: diff ui/public/licenses.txt new-licenses.txt
+        run: licensed cache && diff ui/public/licenses.txt <(python scripts/ci/make-license-list.py)

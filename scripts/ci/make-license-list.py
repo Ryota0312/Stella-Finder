@@ -1,7 +1,7 @@
 import glob
 import yaml
 
-licensed_dir = ".licenses/npm/"
+licensed_dir = ".licenses/yarn/"
 
 files = glob.glob(licensed_dir + "**/*.yml", recursive=True)
 

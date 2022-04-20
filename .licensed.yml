@@ -2,7 +2,8 @@ name: 'Stella Finder'
 source_path: './ui'
 
 sources:
-  npm: true
+  yarn: true
 
-allowed:
-  - mit
+ignored:
+  yarn:
+    - fsevents

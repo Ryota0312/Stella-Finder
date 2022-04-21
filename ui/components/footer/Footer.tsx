@@ -18,6 +18,7 @@ export const Footer: React.FC = () => {
             >
               リリースノート
             </a>
+            <Link href="/license">ライセンス</Link>
           </TEXTLinks>
         </FooterLink>
         <SNSLinks>

@@ -1,9 +1,9 @@
-name: Update Licenses
+name: Check Licenses
 
 on: pull_request
 
 jobs:
-  update-licenses:
+  check-licenses:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,5 +18,5 @@ jobs:
         run: pip install PyYAML
       - name: yarn install
         run: (cd ui/ && yarn install)
-      - name: Check licenses diff
+      - name: Check licenses
         run: ./licensed cache && diff ui/public/licenses.txt <(python scripts/ci/make-license-list.py)

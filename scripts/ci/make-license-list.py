@@ -3,7 +3,7 @@ import yaml
 
 licensed_dir = ".licenses/yarn/"
 
-files = glob.glob(licensed_dir + "**/*.yml", recursive=True)
+files = sorted(glob.glob(licensed_dir + "**/*.yml", recursive=True))
 
 for file in files:
     with open(file, 'r') as f:

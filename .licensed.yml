@@ -1,0 +1,9 @@
+name: 'Stella Finder'
+source_path: './ui'
+
+sources:
+  yarn: true
+
+ignored:
+  yarn:
+    - fsevents

@@ -1,0 +1,22 @@
+name: Update Licenses
+
+on: pull_request
+
+jobs:
+  update-licenses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install licensed
+        run: wget https://github.com/github/licensed/releases/download/3.6.0/licensed-3.6.0-linux-x64.tar.gz && tar xvf licensed-3.6.0-linux-x64.tar.gz
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install python dependencies
+        run: pip install PyYAML
+      - name: yarn install
+        run: (cd ui/ && yarn install)
+      - name: Check licenses diff
+        run: ./licensed cache && diff ui/public/licenses.txt <(python scripts/ci/make-license-list.py)

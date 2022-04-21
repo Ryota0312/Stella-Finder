@@ -4,3 +4,5 @@ server/.env
 server/target/
 ui/.env
 db/mysql_conf/dbaccess.conf
+.licenses/
+

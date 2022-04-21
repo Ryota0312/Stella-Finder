@@ -73,9 +73,9 @@ const FooterLinks = styled.div`
 `
 
 const TEXTLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 32px;
 `
 
 const SNSLinks = styled.div`

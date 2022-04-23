@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
@@ -206,6 +205,15 @@ type TwitterOAuthToken struct {
 	AccessToken string `json:"access_token"`
 }
 
+// {"data":{"id":"1234567890","name":"Stella Finder","username":"stella_finder"}}
+type TwitterUserInfo struct {
+	Data struct {
+		Id       string `json:"id"`
+		Name     string `json:"name"`
+		UserName string `json:"username"`
+	} `json:"data"`
+}
+
 func TwitterLogin(c *gin.Context) {
 	var input TwitterLoginInputForm
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -253,9 +261,14 @@ func TwitterLogin(c *gin.Context) {
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 	responseBody, _ = ioutil.ReadAll(resp.Body)
-	println("==============================")
-	fmt.Println(string(responseBody))
-	println("==============================")
+
+	var userInfo TwitterUserInfo
+	if err := json.Unmarshal(responseBody, &userInfo); err != nil {
+		c.JSON(http.StatusInternalServerError, "Internal server error")
+		return
+	}
+
+	db.CreateUserWithSNSLogin(userInfo.Data.Name, userInfo.Data.Id, "twitter")
 
 	c.JSON(http.StatusOK, "ok")
 }

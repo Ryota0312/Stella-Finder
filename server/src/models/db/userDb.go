@@ -99,3 +99,21 @@ func DeleteTemporaryUser(mailAddress string) {
 	db.Where("mail_address = ?", mailAddress).Where("is_temporary = ?", 1).Delete(entity.User{})
 	defer db.Close()
 }
+
+func CreateUserWithSNSLogin(userName string, userId string) {
+	ptrue := &[]bool{true}[0]
+	pfalse := &[]bool{false}[0]
+
+	var user = entity.User{}
+	user.UserName = userName
+	user.MailAddress = userId
+	user.IsSnsLogin = ptrue
+	user.IsTemporary = pfalse
+
+	// FIXME: SNSログインなのでパスワードは不要だが適当な値を入れている。テーブル定義を見直したほうがいい。
+	user.Password = utils.RandString(256)
+
+	db := open()
+	db.Create(&user)
+	defer db.Close()
+}

@@ -9,4 +9,5 @@ type User struct {
 	Description string `gorm:"type:text" json:"description"`
 	IsTemporary *bool  `json:"is_temporary"`
 	IsAdmin     *bool  `gorm:"type:tinyint(1);default:0;not null" json:"is_admin"`
+	IsSnsLogin  *bool  `gorm:"type:tinyint(1);default:0;not null" json:"is_sns_login"`
 }

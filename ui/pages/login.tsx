@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
+import { useApi } from '../hooks/useApi'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -13,6 +14,7 @@ const Login: React.FC = () => {
   const { setMailAddress, setPassword, login } = useAuth()
   const router = useRouter()
   const { redirect } = router.query
+  const { fetcher } = useApi()
 
   return (
     <Layout>
@@ -23,51 +25,80 @@ const Login: React.FC = () => {
       <main>
         <h2>ログイン</h2>
         <Link href="/tmpregister">新規ユーザー登録</Link>
-        <LoginForm>
-          <p>メールアドレス</p>
-          <input
-            type={'text'}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setMailAddress(e.target.value)
-            }
-          />
-          <p>パスワード</p>
-          <input
-            type={'password'}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
-          />
-          <button
-            type={'button'}
-            onClick={() => {
-              login().then(async (res) => {
-                if (res.ok) {
-                  if (redirect) {
-                    window.location.href = String(redirect)
+        <LoginContainer>
+          <LoginForm>
+            <p>メールアドレス</p>
+            <input
+              type={'text'}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setMailAddress(e.target.value)
+              }
+            />
+            <p>パスワード</p>
+            <input
+              type={'password'}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
+            />
+            <button
+              type={'button'}
+              onClick={() => {
+                login().then(async (res) => {
+                  if (res.ok) {
+                    if (redirect) {
+                      window.location.href = String(redirect)
+                    } else {
+                      window.location.href = '/'
+                    }
                   } else {
-                    window.location.href = '/'
+                    const json = await res.json()
+                    notifyError(json.error)
                   }
-                } else {
-                  const json = await res.json()
-                  notifyError(json.error)
-                }
-              })
-            }}
-          >
-            ログイン
-          </button>
-        </LoginForm>
+                })
+              }}
+            >
+              ログイン
+            </button>
+          </LoginForm>
+          <SNSLogin>
+            <TwitterLogin
+              onClick={() =>
+                fetcher('/auth/twitter/getOAuthInfo', false).then((res) => {
+                  const twitterOAuthURL =
+                    `https://twitter.com/i/oauth2/authorize?response_type=code&redirect_uri=${encodeURI(
+                      res.redirectUri,
+                    )}` +
+                    `&scope=${res.scope}&client_id=${res.clientId}&state=${res.state}` +
+                    `&code_challenge=${res.codeChallenge}&code_challenge_method=${res.codeChallengeMethod}`
+                  window.location.href = twitterOAuthURL
+                })
+              }
+            >
+              Twitterでログイン
+            </TwitterLogin>
+          </SNSLogin>
+        </LoginContainer>
       </main>
     </Layout>
   )
 }
 export default Login
 
+const LoginContainer = styled.div`
+  display: flex;
+  gap: 16px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    gap: 0;
+  }
+`
+
 const LoginForm = styled.div`
   border: 1px solid #ccc;
   padding: 16px;
-  width: 80vw;
+  width: 40vw;
   max-width: 400px;
   margin: 16px 0;
 
@@ -82,4 +113,25 @@ const LoginForm = styled.div`
     line-height: 2em;
     font-size: 1em;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 80vw;
+  }
+`
+
+const SNSLogin = styled.div`
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px 0;
+  width: 40vw;
+
+  @media screen and (max-width: 600px) {
+    width: 80vw;
+  }
+`
+
+const TwitterLogin = styled.button`
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
 `

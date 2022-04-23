@@ -14,16 +14,14 @@ const LoginWithTwitter: React.FC = () => {
       postFetcher('/auth/loginWithTwitter', {
         state: state,
         code: code,
-      }).then(() => {
-        console.log('twitter login ok!')
-      })
+      }).then(() => (window.location.href = '/')) // TODO: ログイン後にログイン要求前のページに遷移する
     }
   }, [state])
 
   return (
     <Layout>
       <main>
-        <div>お待ちください</div>
+        <div>ログイン処理中です。しばらくお待ちください。</div>
       </main>
     </Layout>
   )

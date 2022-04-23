@@ -186,7 +186,7 @@ func TwitterLoginPrepare(c *gin.Context) {
 
 	output := TwitterLoginOutputForm{
 		ClientId:            TWITTER_CLIENT_ID,
-		RedirectUri:         "http://localhost/loginWithTwitter",
+		RedirectUri:         "https://stella-finder.com/loginWithTwitter",
 		Scope:               "users.read tweet.read",
 		State:               state,
 		CodeChallenge:       codeChallengeURL,
@@ -238,7 +238,7 @@ func TwitterLogin(c *gin.Context) {
 	url := "https://api.twitter.com/2/oauth2/token?grant_type=authorization_code" +
 		"&code=" + input.Code +
 		"&client_id=" + TWITTER_CLIENT_ID +
-		"&redirect_uri=" + "http://localhost/loginWithTwitter" +
+		"&redirect_uri=" + "https://stella-finder.com/loginWithTwitter" +
 		"&code_verifier=" + string(codeVerifier)
 	req, _ := http.NewRequest("POST", url, nil)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")

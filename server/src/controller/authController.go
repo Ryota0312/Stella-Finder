@@ -3,6 +3,7 @@ package controller
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/joho/godotenv"
@@ -187,7 +188,7 @@ func TwitterLoginPrepare(c *gin.Context) {
 	output := TwitterLoginOutputForm{
 		ClientId:            TWITTER_CLIENT_ID,
 		RedirectUri:         "http://localhost/loginWithTwitter",
-		Scope:               "users.read",
+		Scope:               "users.read tweet.read",
 		State:               state,
 		CodeChallenge:       codeChallengeURL,
 		CodeChallengeMethod: "s256",
@@ -199,6 +200,10 @@ func TwitterLoginPrepare(c *gin.Context) {
 type TwitterLoginInputForm struct {
 	State string `json:"state"`
 	Code  string `json:"code"`
+}
+
+type TwitterOAuthToken struct {
+	AccessToken string `json:"access_token"`
 }
 
 func TwitterLogin(c *gin.Context) {
@@ -235,11 +240,21 @@ func TwitterLogin(c *gin.Context) {
 	client := new(http.Client)
 	resp, _ := client.Do(req)
 	defer resp.Body.Close()
-	byteArray, _ := ioutil.ReadAll(resp.Body)
+	responseBody, _ := ioutil.ReadAll(resp.Body)
 
+	var token TwitterOAuthToken
+	if err := json.Unmarshal(responseBody, &token); err != nil {
+		c.JSON(http.StatusInternalServerError, "Internal server error")
+		return
+	}
+
+	req, _ = http.NewRequest("GET", "https://api.twitter.com/2/users/me", nil)
+	req.Header.Set("Authorization", "Bearer "+token.AccessToken)
+	resp, _ = client.Do(req)
+	defer resp.Body.Close()
+	responseBody, _ = ioutil.ReadAll(resp.Body)
 	println("==============================")
-	println(url)
-	fmt.Println(string(byteArray))
+	fmt.Println(string(responseBody))
 	println("==============================")
 
 	c.JSON(http.StatusOK, "ok")

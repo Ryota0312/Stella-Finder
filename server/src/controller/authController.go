@@ -280,5 +280,5 @@ func TwitterLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "ok")
+	c.JSON(http.StatusOK, "Login success")
 }

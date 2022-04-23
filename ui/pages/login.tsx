@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
+import { useApi } from '../hooks/useApi'
 
 const notifyError = (msg: string) => toast.error(msg)
 
@@ -13,6 +14,7 @@ const Login: React.FC = () => {
   const { setMailAddress, setPassword, login } = useAuth()
   const router = useRouter()
   const { redirect } = router.query
+  const { fetcher } = useApi()
 
   return (
     <Layout>
@@ -58,6 +60,21 @@ const Login: React.FC = () => {
             ログイン
           </button>
         </LoginForm>
+        <button
+          onClick={() =>
+            fetcher('/auth/twitter/getOAuthInfo', false).then((res) => {
+              const twitterOAuthURL =
+                `https://twitter.com/i/oauth2/authorize?response_type=code&redirect_uri=${encodeURI(
+                  res.redirectUri,
+                )}` +
+                `&scope=${res.scope}&client_id=${res.clientId}&state=${res.state}` +
+                `&code_challenge=${res.codeChallenge}&code_challenge_method=${res.codeChallengeMethod}`
+              window.location.href = twitterOAuthURL
+            })
+          }
+        >
+          Twitterでログイン
+        </button>
       </main>
     </Layout>
   )

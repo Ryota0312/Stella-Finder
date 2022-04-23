@@ -1,8 +1,15 @@
 package controller
 
 import (
+	"crypto/sha256"
+	"encoding/base64"
+	"fmt"
 	"github.com/gin-contrib/sessions"
+	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
+	"io/ioutil"
+	"log"
+	"os"
 	"stella-finder-server/src/utils"
 	"time"
 	// Gin
@@ -146,4 +153,94 @@ func Register(c *gin.Context) {
 	db.DeleteTmpRegister(tmpRegister.RegisterKey)
 
 	c.JSON(http.StatusOK, "Register success!")
+}
+
+type TwitterLoginOutputForm struct {
+	ClientId            string `json:"clientId"`
+	RedirectUri         string `json:"redirectUri"`
+	Scope               string `json:"scope"`
+	State               string `json:"state"`
+	CodeChallenge       string `json:"codeChallenge"`
+	CodeChallengeMethod string `json:"codeChallengeMethod"`
+}
+
+func TwitterLoginPrepare(c *gin.Context) {
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		log.Fatalf("error: %v", loadErr)
+	}
+	TWITTER_CLIENT_ID := os.Getenv("TWITTER_CLIENT_ID")
+
+	codeVerifier := RandString(128)
+	codeChallenge := sha256.Sum256([]byte(codeVerifier))
+	codeChallengeURL := base64.RawURLEncoding.EncodeToString(codeChallenge[:])
+	state := RandString(64)
+
+	cacheDb := utils.NewCacheDb()
+	defer cacheDb.CloseCacheDb()
+	err := cacheDb.Set(state, []byte(codeVerifier), 60*10)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cache error")
+		return
+	}
+
+	output := TwitterLoginOutputForm{
+		ClientId:            TWITTER_CLIENT_ID,
+		RedirectUri:         "http://localhost/loginWithTwitter",
+		Scope:               "users.read",
+		State:               state,
+		CodeChallenge:       codeChallengeURL,
+		CodeChallengeMethod: "s256",
+	}
+
+	c.JSON(http.StatusOK, output)
+}
+
+type TwitterLoginInputForm struct {
+	State string `json:"state"`
+	Code  string `json:"code"`
+}
+
+func TwitterLogin(c *gin.Context) {
+	var input TwitterLoginInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		log.Fatalf("error: %v", loadErr)
+	}
+	TWITTER_CLIENT_ID := os.Getenv("TWITTER_CLIENT_ID")
+	TWITTER_CLIENT_SECRET := os.Getenv("TWITTER_CLIENT_SECRET")
+
+	cacheDb := utils.NewCacheDb()
+	defer cacheDb.CloseCacheDb()
+	codeVerifier, err := cacheDb.Get(input.State)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cache error")
+		return
+	}
+
+	url := "https://api.twitter.com/2/oauth2/token?grant_type=authorization_code" +
+		"&code=" + input.Code +
+		"&client_id=" + TWITTER_CLIENT_ID +
+		"&redirect_uri=" + "http://localhost/loginWithTwitter" +
+		"&code_verifier=" + string(codeVerifier)
+	req, _ := http.NewRequest("POST", url, nil)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.SetBasicAuth(TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET)
+
+	client := new(http.Client)
+	resp, _ := client.Do(req)
+	defer resp.Body.Close()
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+
+	println("==============================")
+	println(url)
+	fmt.Println(string(byteArray))
+	println("==============================")
+
+	c.JSON(http.StatusOK, "ok")
 }

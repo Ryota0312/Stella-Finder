@@ -28,6 +28,8 @@ func serve() {
 		auth.GET("/logout", controller.Logout)
 		auth.POST("/tmpregister", controller.TmpRegister)
 		auth.POST("/register", controller.Register)
+		auth.GET("/twitter/getOAuthInfo", controller.TwitterLoginPrepare)
+		auth.POST("/loginWithTwitter", controller.TwitterLogin)
 	}
 
 	// API (NOT　need Authorize)

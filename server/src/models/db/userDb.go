@@ -100,13 +100,13 @@ func DeleteTemporaryUser(mailAddress string) {
 	defer db.Close()
 }
 
-func CreateUserWithSNSLogin(userName string, userId string, sns string) {
+func CreateUserWithSNSLogin(userName string, userId string) {
 	ptrue := &[]bool{true}[0]
 	pfalse := &[]bool{false}[0]
 
 	var user = entity.User{}
 	user.UserName = userName
-	user.MailAddress = userId + "@" + sns
+	user.MailAddress = userId
 	user.IsSnsLogin = ptrue
 	user.IsTemporary = pfalse
 

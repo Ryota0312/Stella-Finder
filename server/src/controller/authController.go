@@ -205,7 +205,6 @@ type TwitterOAuthToken struct {
 	AccessToken string `json:"access_token"`
 }
 
-// {"data":{"id":"1234567890","name":"Stella Finder","username":"stella_finder"}}
 type TwitterUserInfo struct {
 	Data struct {
 		Id       string `json:"id"`
@@ -268,7 +267,18 @@ func TwitterLogin(c *gin.Context) {
 		return
 	}
 
-	db.CreateUserWithSNSLogin(userInfo.Data.Name, userInfo.Data.Id, "twitter")
+	userIdSimilarToMailAddress := userInfo.Data.Id + "@twitter"
+
+	if !db.MailAddressExists(userIdSimilarToMailAddress) {
+		db.CreateUserWithSNSLogin(userInfo.Data.Name, userIdSimilarToMailAddress)
+	}
+
+	session := sessions.Default(c)
+	session.Set("mailAddress", userIdSimilarToMailAddress)
+	if err := session.Save(); err != nil {
+		println("Failed to save session")
+		return
+	}
 
 	c.JSON(http.StatusOK, "ok")
 }

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Image from 'next/image'
 import Layout from '../components/layout'
 import { useAuth } from '../hooks/useAuth'
 import { useApi } from '../hooks/useApi'
@@ -62,7 +63,7 @@ const Login: React.FC = () => {
             </button>
           </LoginForm>
           <SNSLogin>
-            <TwitterLogin
+            <TwitterLoginButton
               onClick={() =>
                 fetcher('/auth/twitter/getOAuthInfo', false).then((res) => {
                   const twitterOAuthURL =
@@ -75,8 +76,14 @@ const Login: React.FC = () => {
                 })
               }
             >
-              Twitterでログイン
-            </TwitterLogin>
+              <Image
+                src="/image/twitter-logo.png"
+                alt="Twitter"
+                width={24}
+                height={19.5}
+              />
+              <div>Twitterアカウントでログイン</div>
+            </TwitterLoginButton>
           </SNSLogin>
         </LoginContainer>
       </main>
@@ -130,8 +137,15 @@ const SNSLogin = styled.div`
   }
 `
 
-const TwitterLogin = styled.button`
+const TwitterLoginButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   width: 100%;
   padding: 8px 16px;
   text-align: left;
+  background-color: #00acee;
+  color: white;
+  font-size: 16px;
 `

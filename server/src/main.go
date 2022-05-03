@@ -53,7 +53,7 @@ func serve() {
 		api.GET("/article/listByTag", controller.GetArticleListByTag)
 		api.GET("/article/tag/list", controller.GetArticleTags)
 		api.GET("/spot/weather/current", controller.GetCurrentWeatherBySpotId)
-		api.GET("/spot/weather/hourly", controller.GetTonightWeatherBySpotId)
+		api.GET("/spot/weather/tonight", controller.GetTonightWeatherBySpotId)
 		api.GET("/report", controller.GetReport)
 		api.GET("/report/list", controller.GetReportList)
 		api.GET("/report/listBySpot", controller.GetReportListBySpotId)

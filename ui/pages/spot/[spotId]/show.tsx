@@ -22,6 +22,7 @@ import { CurrentWeather } from '../../../components/weather/CurrentWeather'
 import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AutoLink } from '../../../components/common/AutoLink'
 import { ReportListWidget } from '../../../components/report/ReportListWidget'
+import { TonightWeather } from '../../../components/weather/TonightWeather'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -89,6 +90,7 @@ const Show: React.FC = () => {
             />
           </MoonAndReview>
         </CoverImageAndReviewSummary>
+        <TonightWeather spotId={Number(spotId)} />
         <SpotInfoTable>
           <tbody>
             <tr>

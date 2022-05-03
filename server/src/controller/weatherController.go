@@ -67,9 +67,9 @@ type OneCallApiResponse struct {
 
 type GetTonightWeatherBySpotIdOutput struct {
 	Weathers [13]struct {
-		Hour    int
-		Weather Weather
-	}
+		Hour    int     `json:"hour"`
+		Weather Weather `json:"weather"`
+	} `json:"weathers"`
 }
 
 // 今日の18時〜翌日6時までの天気を返す

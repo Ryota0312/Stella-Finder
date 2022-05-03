@@ -31,7 +31,7 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
         {data.weathers.map((weather: any, i: number) => (
           <WeatherTimelineItem key={i}>
             <span>{('00' + ((i + 18) % 24)).slice(-2)}:00</span>
-            <WeatherIcon icon={weather.weather.icon} />
+            <WeatherIcon icon={weather.weather.icon} scale={0.7} />
           </WeatherTimelineItem>
         ))}
       </WeatherTimeline>

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 type WeatherIconProps = {
   icon: string
+  scale?: number
 }
 
 export const WeatherIcon: React.FC<WeatherIconProps> = (
@@ -16,8 +17,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/sunny.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -27,16 +28,16 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
             <Image
               src="/image/weather/sunny.png"
               alt="sunny"
-              width={48}
-              height={48}
+              width={48 * (props.scale as number)}
+              height={48 * (props.scale as number)}
             />
           </IconBack>
           <IconFront>
             <Image
               src="/image/weather/cloud.png"
               alt="sunny"
-              width={48}
-              height={48}
+              width={48 * (props.scale as number)}
+              height={48 * (props.scale as number)}
             />
           </IconFront>
         </Icon>
@@ -46,8 +47,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/cloud.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -56,8 +57,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/heavy_cloud.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -66,8 +67,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/rain.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -77,16 +78,16 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
             <Image
               src="/image/weather/sunny.png"
               alt="sunny"
-              width={40}
-              height={40}
+              width={40 * (props.scale as number)}
+              height={40 * (props.scale as number)}
             />
           </IconBack>
           <IconFront>
             <Image
               src="/image/weather/rain.png"
               alt="sunny"
-              width={48}
-              height={48}
+              width={48 * (props.scale as number)}
+              height={48 * (props.scale as number)}
             />
           </IconFront>
         </Icon>
@@ -96,8 +97,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/thunder.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -106,8 +107,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
           <Image
             src="/image/weather/snow.png"
             alt="sunny"
-            width={64}
-            height={64}
+            width={64 * (props.scale as number)}
+            height={64 * (props.scale as number)}
           />
         </Icon>
       )}
@@ -117,8 +118,8 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
             <Image
               src="/image/weather/mist.png"
               alt="sunny"
-              width={56}
-              height={56}
+              width={56 * (props.scale as number)}
+              height={56 * (props.scale as number)}
             />
           </IconBack>
           <IconFront>
@@ -128,6 +129,10 @@ export const WeatherIcon: React.FC<WeatherIconProps> = (
       )}
     </>
   )
+}
+
+WeatherIcon.defaultProps = {
+  scale: 1,
 }
 
 const Icon = styled.div`

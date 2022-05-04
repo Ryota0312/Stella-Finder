@@ -32,36 +32,52 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
           <tr>
             <th>時刻</th>
             {data.weathers.map((weather: any) => (
-              <td key={weather.dt}>
-                <span>{('00' + (weather.hour % 24)).slice(-2)}:00</span>
-              </td>
+              <>
+                {weather.dt !== 0 && (
+                  <td key={weather.dt}>
+                    <span>{('00' + (weather.hour % 24)).slice(-2)}:00</span>
+                  </td>
+                )}
+              </>
             ))}
           </tr>
           <tr>
             <th>天気</th>
             {data.weathers.map((weather: any) => (
-              <td key={weather.dt}>
-                <WeatherIcon icon={weather.weather.icon} scale={0.7} />
-              </td>
+              <>
+                {weather.dt !== 0 && (
+                  <td key={weather.dt}>
+                    <WeatherIcon icon={weather.weather.icon} scale={0.7} />
+                  </td>
+                )}
+              </>
             ))}
           </tr>
           <tr>
             <th>雲量</th>
             {data.weathers.map((weather: any) => (
-              <td key={weather.dt}>
-                <span>{weather.clouds}%</span>
-              </td>
+              <>
+                {weather.dt !== 0 && (
+                  <td key={weather.dt}>
+                    <span>{weather.clouds}%</span>
+                  </td>
+                )}
+              </>
             ))}
           </tr>
           <tr>
             <th>観測条件</th>
             {data.weathers.map((weather: any) => (
-              <td key={weather.dt}>
-                <Condition
-                  weatherCode={weather.weather.id}
-                  clouds={weather.clouds}
-                />
-              </td>
+              <>
+                {weather.dt !== 0 && (
+                  <td key={weather.dt}>
+                    <Condition
+                      weatherCode={weather.weather.id}
+                      clouds={weather.clouds}
+                    />
+                  </td>
+                )}
+              </>
             ))}
           </tr>
         </WeatherTimelineTable>

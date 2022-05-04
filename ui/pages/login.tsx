@@ -61,6 +61,9 @@ const Login: React.FC = () => {
             >
               ログイン
             </button>
+            <Link href="/prepareChangePassword">
+              パスワードをお忘れの方はこちら
+            </Link>
           </LoginForm>
           <SNSLogin>
             <TwitterLoginButton

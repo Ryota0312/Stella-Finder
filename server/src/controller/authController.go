@@ -282,3 +282,66 @@ func TwitterLogin(c *gin.Context) {
 
 	c.JSON(http.StatusOK, "Login success")
 }
+
+type PrepareChangePasswordInputForm = struct {
+	MailAddress string `json:"mailAddress"`
+}
+
+func PrepareChangePassword(c *gin.Context) {
+	var input PrepareChangePasswordInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if !db.MailAddressExists(input.MailAddress) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "このメールアドレスは登録されていません"})
+		return
+	}
+
+	resetCode := utils.RandString(128)
+
+	cacheDb := utils.NewCacheDb()
+	defer cacheDb.CloseCacheDb()
+	err := cacheDb.Set(resetCode, []byte(input.MailAddress), 60*10)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "Cache error")
+		return
+	}
+
+	utils.SendChangePasswordMail(input.MailAddress, resetCode)
+
+	c.JSON(http.StatusOK, "Reset password: email addr is "+input.MailAddress)
+}
+
+type ChangePasswordInputForm = struct {
+	ResetCode string `json:"resetCode"`
+	Password  string `json:"password"`
+}
+
+func ChangePassword(c *gin.Context) {
+	var input ChangePasswordInputForm
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	cacheDb := utils.NewCacheDb()
+	defer cacheDb.CloseCacheDb()
+	mailAddress, _ := cacheDb.Get(input.ResetCode)
+	if mailAddress != nil {
+		user, err := db.FindUserByMailAddress(string(mailAddress))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Internal server error."})
+			return
+		}
+		hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
+		db.ChangePassword(user.ID, string(hashedPassword))
+
+		c.JSON(http.StatusOK, "Success change password")
+		return
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "再設定用URLが有効期限切れまたは間違っています"})
+		return
+	}
+}

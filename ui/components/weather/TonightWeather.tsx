@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
+import { RoundFrame } from '../common/RoundFrame'
 import { WeatherIcon } from './WeatherIcon'
 import { Condition } from './Condition'
 
@@ -25,8 +26,7 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
   if (!data) return <TinyLoading />
 
   return (
-    <TonightWeatherInfo>
-      <Title>今夜の天気</Title>
+    <RoundFrame title="今夜の天気">
       <WeatherTimeline>
         <WeatherTimelineTable>
           {/*<thead>*/}
@@ -80,25 +80,14 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
           </tr>
         </WeatherTimelineTable>
       </WeatherTimeline>
-    </TonightWeatherInfo>
+    </RoundFrame>
   )
 }
-
-const TonightWeatherInfo = styled.div`
-  //flex: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 8px 0;
-`
-
-const Title = styled.div`
-  font-size: 24px;
-`
 
 const WeatherTimeline = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
+  margin-top: 16px;
 `
 
 const WeatherTimelineTable = styled.table`
@@ -110,5 +99,6 @@ const WeatherTimelineTable = styled.table`
     background-color: white;
     z-index: 10000;
     white-space: nowrap;
+    padding-right: 16px;
   }
 `

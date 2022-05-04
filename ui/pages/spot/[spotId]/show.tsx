@@ -90,7 +90,6 @@ const Show: React.FC = () => {
             />
           </MoonAndReview>
         </CoverImageAndReviewSummary>
-        <TonightWeather spotId={Number(spotId)} />
         <SpotInfoTable>
           <tbody>
             <tr>
@@ -204,6 +203,7 @@ const Show: React.FC = () => {
             spotId={Number(spotId)}
           />
         </LoginUserOnly>
+        <TonightWeather spotId={Number(spotId)} />
         <SpotImageList spotId={Number(spotId)} />
         <ReportListWidget spotId={Number(spotId)} limit={3} />
         <ReviewList spotId={Number(spotId)} />

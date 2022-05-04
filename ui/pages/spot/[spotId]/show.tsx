@@ -23,6 +23,7 @@ import { LinkedUserName } from '../../../components/common/LinkedUserName'
 import { AutoLink } from '../../../components/common/AutoLink'
 import { ReportListWidget } from '../../../components/report/ReportListWidget'
 import { TonightWeather } from '../../../components/weather/TonightWeather'
+import { TwitterCard } from '../../../components/common/TwitterCard'
 
 const Show: React.FC = () => {
   const router = useRouter()
@@ -60,6 +61,11 @@ const Show: React.FC = () => {
     <Layout>
       <Head>
         <title>スポット詳細 - {data.name} | Stella Finder</title>
+        <TwitterCard
+          title={`${data.name} - Stella Finder`}
+          description={`${data.name}のスポット詳細ページです`}
+          image={`https://stella-finder.com/api/file/download?fileKey=${coverImage}&size=600`}
+        />
       </Head>
 
       <main>

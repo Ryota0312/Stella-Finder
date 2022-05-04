@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Link as Scroll } from 'react-scroll'
 import { useRouter } from 'next/router'
 import Layout from '../components/layout'
+import { TwitterCard } from '../components/common/TwitterCard'
 
 const About: React.FC = () => {
   const router = useRouter()
@@ -16,19 +17,11 @@ const About: React.FC = () => {
         <title>
           Stella Finderについて | 天体観測スポットの検索・情報共有コミュニティ
         </title>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@stella_finder" />
-        <meta
-          name="twitter:title"
-          content="天体観測スポットの検索・情報共有コミュニティ『Stella Finder』"
-        />
-        <meta
-          name="twitter:description"
-          content="キーワードや地域、みんなの評価から天体観測スポットを検索できます。また、新たに天体観測スポットを登録したり、スポットのレビューを投稿して情報を共有して、これから天体観測をしようとしている人を手助けしましょう。"
-        />
-        <meta
-          name="twitter:image"
-          content="https://stella-finder.com/image/about-cover-photo.jpg"
+        <TwitterCard
+          card="summary_large_image"
+          title="天体観測スポットの検索・情報共有コミュニティ『Stella Finder』"
+          description="キーワードや地域、みんなの評価から天体観測スポットを検索できます。また、新たに天体観測スポットを登録したり、スポットのレビューを投稿して情報を共有して、これから天体観測をしようとしている人を手助けしましょう。"
+          image="https://stella-finder.com/image/about-cover-photo-twitter-card.jpg"
         />
       </Head>
 

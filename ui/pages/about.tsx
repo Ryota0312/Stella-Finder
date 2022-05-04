@@ -16,6 +16,17 @@ const About: React.FC = () => {
         <title>
           Stella Finderについて | 天体観測スポットの検索・情報共有コミュニティ
         </title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@stella_finder" />
+        <meta
+          name="twitter:title"
+          content="天体観測スポットの検索・情報共有コミュニティ『Stella Finder』"
+        />
+        <meta
+          name="twitter:description"
+          content="キーワードや地域、みんなの評価から天体観測スポットを検索できます。また、新たに天体観測スポットを登録したり、スポットのレビューを投稿して情報を共有して、これから天体観測をしようとしている人を手助けしましょう。"
+        />
+        <meta name="twitter:image" content="image/about-cover-photo.jpg" />
       </Head>
 
       <main>

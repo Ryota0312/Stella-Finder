@@ -87,4 +87,8 @@ const WeatherTimelineTable = styled.table`
     white-space: nowrap;
     padding-right: 16px;
   }
+
+  td {
+    padding-right: 16px;
+  }
 `

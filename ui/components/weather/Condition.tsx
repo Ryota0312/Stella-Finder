@@ -16,7 +16,6 @@ export const Condition: React.FC<ConditionProps> = (props: ConditionProps) => {
 
   return (
     <>
-      <div>観測条件</div>
       {condition == 0 && <BadCondition>✕</BadCondition>}
       {condition == 1 && <NormalCondition>△</NormalCondition>}
       {condition == 2 && <GoodCondition>○</GoodCondition>}

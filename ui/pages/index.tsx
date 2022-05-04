@@ -10,6 +10,7 @@ import { MoonAge } from '../components/moon/MoonAge'
 import { ArticleListWidget } from '../components/article/ArticleListWidget'
 import { MoonRiseSetWithPrefectureSelect } from '../components/moon/MoonRiseSetWithPrefectureSelect'
 import { RoundFrame } from '../components/common/RoundFrame'
+import { TwitterCard } from '../components/common/TwitterCard'
 
 const RecommendSpotList = dynamic(
   () => import('../components/spot/RecommendSpotList'),
@@ -25,6 +26,12 @@ const Home: React.FC = () => {
         <title>
           Stella Finder | 天体観測スポットの検索・情報共有コミュニティ
         </title>
+        <TwitterCard
+          card="summary_large_image"
+          title="天体観測スポットの検索・情報共有コミュニティ『Stella Finder』"
+          description="キーワードや地域、みんなの評価から天体観測スポットを検索できます。また、新たに天体観測スポットを登録したり、スポットのレビューを投稿して情報を共有して、これから天体観測をしようとしている人を手助けしましょう。"
+          image="https://stella-finder.com/image/about-cover-photo-twitter-card.jpg"
+        />
       </Head>
 
       <main>

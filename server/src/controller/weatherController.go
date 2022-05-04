@@ -68,6 +68,8 @@ type OneCallApiResponse struct {
 type GetTonightWeatherBySpotIdOutput struct {
 	Weathers [13]struct {
 		Hour    int     `json:"hour"`
+		Dt      int     `json:"dt"`
+		Clouds  int     `json:"clouds"`
 		Weather Weather `json:"weather"`
 	} `json:"weathers"`
 }
@@ -147,18 +149,24 @@ func getTonightForecastAfterNow(oneCallApiResponse OneCallApiResponse) GetTonigh
 		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
 		for i, _ := range make([]int, 7-firstHour) {
 			output.Weathers[13-(6-firstHour+i)].Hour = (firstHour + i) % 24
+			output.Weathers[13-(6-firstHour+i)].Dt = hourlyWeather[i].Dt
+			output.Weathers[13-(6-firstHour+i)].Clouds = hourlyWeather[i].Clouds
 			output.Weathers[13-(6-firstHour+i)].Weather = hourlyWeather[i].Weathers[0]
 		}
 	} else if nowHour >= 18 && nowHour <= 23 {
 		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
 		for i, _ := range make([]int, 24-firstHour+7) {
 			output.Weathers[(firstHour+i)-18].Hour = (firstHour + i) % 24
+			output.Weathers[(firstHour+i)-18].Dt = hourlyWeather[i].Dt
+			output.Weathers[(firstHour+i)-18].Clouds = hourlyWeather[i].Clouds
 			output.Weathers[(firstHour+i)-18].Weather = hourlyWeather[i].Weathers[0]
 		}
 	} else {
 		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
 		for i, _ := range make([]int, 13) {
 			output.Weathers[i].Hour = (18 + i) % 24
+			output.Weathers[i].Dt = hourlyWeather[18-firstHour+i].Dt
+			output.Weathers[i].Clouds = hourlyWeather[18-firstHour+i].Clouds
 			output.Weathers[i].Weather = hourlyWeather[18-firstHour+i].Weathers[0]
 		}
 	}

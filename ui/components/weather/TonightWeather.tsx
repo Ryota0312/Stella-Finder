@@ -28,12 +28,57 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
     <TonightWeatherInfo>
       <Title>今夜の天気</Title>
       <WeatherTimeline>
-        {data.weathers.map((weather: any, i: number) => (
-          <WeatherTimelineItem key={i}>
-            <span>{('00' + ((i + 18) % 24)).slice(-2)}:00</span>
-            <WeatherIcon icon={weather.weather.icon} scale={0.7} />
-          </WeatherTimelineItem>
-        ))}
+        <WeatherTimelineTable>
+          {/*<thead>*/}
+          {/*  <tr>*/}
+          {/*    <th>時刻</th>*/}
+          {/*  </tr>*/}
+          {/*  <tr>*/}
+          {/*    <th>天気</th>*/}
+          {/*  </tr>*/}
+          {/*  <tr>*/}
+          {/*    <th>雲量</th>*/}
+          {/*  </tr>*/}
+          {/*  <tr>*/}
+          {/*    <th>観測条件</th>*/}
+          {/*  </tr>*/}
+          {/*</thead>*/}
+          <tr>
+            <th>時刻</th>
+            {data.weathers.map((weather: any) => (
+              <td key={weather.dt}>
+                <span>{('00' + (weather.hour % 24)).slice(-2)}:00</span>
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <th>天気</th>
+            {data.weathers.map((weather: any) => (
+              <td key={weather.dt}>
+                <WeatherIcon icon={weather.weather.icon} scale={0.7} />
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <th>雲量</th>
+            {data.weathers.map((weather: any) => (
+              <td key={weather.dt}>
+                <span>{weather.clouds}%</span>
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <th>観測条件</th>
+            {data.weathers.map((weather: any) => (
+              <td key={weather.dt}>
+                <Condition
+                  weatherCode={weather.weather.id}
+                  clouds={weather.clouds}
+                />
+              </td>
+            ))}
+          </tr>
+        </WeatherTimelineTable>
       </WeatherTimeline>
     </TonightWeatherInfo>
   )
@@ -52,12 +97,18 @@ const Title = styled.div`
 `
 
 const WeatherTimeline = styled.div`
-  display: flex;
-  gap: 8px;
   overflow-x: auto;
   overflow-y: hidden;
 `
 
-const WeatherTimelineItem = styled.div`
-  text-align: center;
+const WeatherTimelineTable = styled.table`
+  border-collapse: collapse;
+
+  th {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 10000;
+    white-space: nowrap;
+  }
 `

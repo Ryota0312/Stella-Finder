@@ -34,6 +34,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = (
           <Clouds>{data.clouds.all}%</Clouds>
         </div>
         <div>
+          <div>観測条件</div>
           <Condition
             weatherCode={data.weather[0].id}
             clouds={data.clouds.all}

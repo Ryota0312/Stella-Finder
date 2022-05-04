@@ -26,7 +26,7 @@ const About: React.FC = () => {
           name="twitter:description"
           content="キーワードや地域、みんなの評価から天体観測スポットを検索できます。また、新たに天体観測スポットを登録したり、スポットのレビューを投稿して情報を共有して、これから天体観測をしようとしている人を手助けしましょう。"
         />
-        <meta name="twitter:image" content="image/about-cover-photo.jpg" />
+        <meta name="twitter:image" content="/image/about-cover-photo.jpg" />
       </Head>
 
       <main>

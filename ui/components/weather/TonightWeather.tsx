@@ -26,7 +26,7 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
   if (!data) return <TinyLoading />
 
   return (
-    <RoundFrame title="今夜の天気">
+    <RoundFrame title="今夜の天気" id="tonight-weather">
       <WeatherTimeline>
         <WeatherTimelineTable>
           <tr>

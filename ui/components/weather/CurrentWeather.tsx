@@ -1,6 +1,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
+import { Link as Scroll } from 'react-scroll'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { WeatherIcon } from './WeatherIcon'
@@ -41,6 +42,15 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = (
           />
         </div>
       </IconAndClouds>
+      <Scroll
+        to="tonight-weather"
+        smooth={true}
+        duration={600}
+        offset={-30}
+        style={{ cursor: 'pointer' }}
+      >
+        今夜の天気を見る
+      </Scroll>
     </WeatherInfo>
   )
 }

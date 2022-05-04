@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 export type RoundFrameProps = {
+  id?: string
   title?: string
   children: React.ReactNode
 }
@@ -10,7 +11,7 @@ export const RoundFrame: React.FC<RoundFrameProps> = (
   props: RoundFrameProps,
 ) => {
   return (
-    <Frame>
+    <Frame id={props.id}>
       {props.title && <Title>{props.title}</Title>}
       {props.children}
     </Frame>

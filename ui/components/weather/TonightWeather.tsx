@@ -29,20 +29,6 @@ export const TonightWeather: React.FC<TonightWeatherProps> = (
     <RoundFrame title="今夜の天気">
       <WeatherTimeline>
         <WeatherTimelineTable>
-          {/*<thead>*/}
-          {/*  <tr>*/}
-          {/*    <th>時刻</th>*/}
-          {/*  </tr>*/}
-          {/*  <tr>*/}
-          {/*    <th>天気</th>*/}
-          {/*  </tr>*/}
-          {/*  <tr>*/}
-          {/*    <th>雲量</th>*/}
-          {/*  </tr>*/}
-          {/*  <tr>*/}
-          {/*    <th>観測条件</th>*/}
-          {/*  </tr>*/}
-          {/*</thead>*/}
           <tr>
             <th>時刻</th>
             {data.weathers.map((weather: any) => (

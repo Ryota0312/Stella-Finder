@@ -155,6 +155,12 @@ func getTonightForecastAfterNow(oneCallApiResponse OneCallApiResponse) GetTonigh
 			output.Weathers[(firstHour+i)-18].Hour = (firstHour + i) % 24
 			output.Weathers[(firstHour+i)-18].Weather = hourlyWeather[i].Weathers[0]
 		}
+	} else {
+		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
+		for i, _ := range make([]int, 13) {
+			output.Weathers[i].Hour = (18 + i) % 24
+			output.Weathers[i].Weather = hourlyWeather[18-firstHour+i].Weathers[0]
+		}
 	}
 
 	return output

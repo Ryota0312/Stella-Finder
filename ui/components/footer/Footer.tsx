@@ -68,14 +68,14 @@ const FooterLinks = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: min(102px, 30%);
-  margin: 0 16px 8px 16px;
+  gap: min(8px, 30%);
+  margin: 0 8px 8px 8px;
 `
 
 const TEXTLinks = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px 32px;
+  gap: 4px 16px;
 `
 
 const SNSLinks = styled.div`

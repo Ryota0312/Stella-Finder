@@ -126,7 +126,8 @@ func GetTonightWeatherBySpotId(c *gin.Context) {
 			return
 		}
 
-		cacheDb.Set(cacheKey, jsonData, 60*60*1)
+		nowMinute := time.Now().Minute()
+		cacheDb.Set(cacheKey, jsonData, 60*(60-nowMinute))
 	} else {
 		if err := json.Unmarshal(cache, &output); err != nil {
 			c.JSON(http.StatusInternalServerError, "Internal server error")

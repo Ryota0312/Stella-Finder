@@ -72,6 +72,15 @@ func UpdateUser(id int, userName string, description string) {
 	defer db.Close()
 }
 
+func ChangePassword(id int, password string) {
+	var user = entity.User{}
+	user.ID = id
+
+	db := open()
+	db.Model(&user).Update("password", password)
+	defer db.Close()
+}
+
 func UpdateUserIcon(id int, icon string) {
 	var user = entity.User{}
 	user.ID = id

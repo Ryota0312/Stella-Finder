@@ -100,3 +100,49 @@ func SendContactMail(fromMailAddress string, body string) error {
 
 	return nil
 }
+
+func SendChangePasswordMail(toMailAddress string, resetCode string) {
+	loadErr := godotenv.Load()
+	if loadErr != nil {
+		log.Fatalf("error: %v", loadErr)
+	}
+
+	// .envから環境変数読み込み
+	API_KEY := os.Getenv("API_KEY")
+	FROM := os.Getenv("FROM")
+	DOMAIN := os.Getenv("DOMAIN")
+
+	// メッセージの構築
+	message := mail.NewV3Mail()
+	// 送信元を設定
+	from := mail.NewEmail("", FROM)
+	message.SetFrom(from)
+
+	// 1つ目の宛先と、対応するSubstitutionタグを指定
+	p := mail.NewPersonalization()
+	to := mail.NewEmail("", toMailAddress)
+	p.AddTos(to)
+	p.SetSubstitution("%resetCode%", resetCode)
+	message.AddPersonalizations(p)
+
+	// 件名を設定
+	message.Subject = "【Stella Finder】パスワード再設定のご案内"
+	// テキストパートを設定
+	c := mail.NewContent("text/plain", "Stella Finderのパスワード再設定のご案内です。\r\n"+
+		"下記のパスワード再設定用URLから、手続きをお願いいたします。\r\n\r\n"+
+		"https://"+DOMAIN+"/changePassword?resetCode=%resetCode%\r\n\r\n"+
+		"※ご注意\r\n"+
+		"URLの有効期限は10分です。10分以内に手続きを完了してください。有効期限切れの場合はお手数ですがパスワード再設定ページから再度お手続きください。\r\n")
+	message.AddContent(c)
+
+	// メール送信を行い、レスポンスを表示
+	client := sendgrid.NewSendClient(API_KEY)
+	response, err := client.Send(message)
+	if err != nil {
+		log.Println(err)
+	} else {
+		fmt.Println(response.StatusCode)
+		fmt.Println(response.Body)
+		fmt.Println(response.Headers)
+	}
+}

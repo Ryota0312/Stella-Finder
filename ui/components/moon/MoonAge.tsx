@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import { useApi } from '../../hooks/useApi'
 import { TinyLoading } from '../common/TinyLoading'
 import { RoundFrame } from '../common/RoundFrame'
+import { MoonAgeIllustration } from './MoonAgeIllustration'
+
+const MOON_SIZE = 100
 
 export const MoonAge: React.FC = () => {
   const { fetcher } = useApi()
@@ -20,64 +23,14 @@ export const MoonAge: React.FC = () => {
     <RoundFrame>
       <div>
         <Title>月齢</Title>
-        <Moon>
-          <MoonCanvasLayer1 id="a0" />
-          <MoonCanvasLayer2 id="a1" />
-          <MoonCanvasLayer3 id="a2" />
-          <MoonAgeNumber>{data.moon_age}</MoonAgeNumber>
-        </Moon>
+        <MoonAgeIllustration moonAge={data.moon_age} size={MOON_SIZE} />
       </div>
     </RoundFrame>
   )
 }
 
-const MOON_SIZE = 100
-
 const Title = styled.div`
   font-size: 24px;
-`
-
-const Moon = styled.div`
-  position: relative;
-  width: 100px;
-  height: ${MOON_SIZE}px;
-  margin: auto;
-`
-
-const MoonAgeNumber = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  font-size: 24px;
-`
-
-const MoonCanvasLayer1 = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${MOON_SIZE}px;
-  height: ${MOON_SIZE}px;
-`
-
-const MoonCanvasLayer2 = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${MOON_SIZE}px;
-  height: ${MOON_SIZE}px;
-`
-
-const MoonCanvasLayer3 = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${MOON_SIZE}px;
-  height: ${MOON_SIZE}px;
 `
 
 const pi = Math.PI,

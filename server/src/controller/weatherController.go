@@ -145,17 +145,15 @@ func getTonightForecastAfterNow(oneCallApiResponse OneCallApiResponse) GetTonigh
 	var output GetTonightWeatherBySpotIdOutput
 
 	hourlyWeather := oneCallApiResponse.HourlyWeather
-	nowHour := time.Now().Hour()
-	if nowHour >= 0 && nowHour <= 6 {
-		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
+	firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
+	if firstHour >= 0 && firstHour <= 6 {
 		for i, _ := range make([]int, 7-firstHour) {
-			output.Weathers[13-(6-firstHour+i)].Hour = (firstHour + i) % 24
-			output.Weathers[13-(6-firstHour+i)].Dt = hourlyWeather[i].Dt
-			output.Weathers[13-(6-firstHour+i)].Clouds = hourlyWeather[i].Clouds
-			output.Weathers[13-(6-firstHour+i)].Weather = hourlyWeather[i].Weathers[0]
+			output.Weathers[13-(6-(firstHour+i))].Hour = (firstHour + i) % 24
+			output.Weathers[13-(6-(firstHour+i))].Dt = hourlyWeather[i].Dt
+			output.Weathers[13-(6-(firstHour+i))].Clouds = hourlyWeather[i].Clouds
+			output.Weathers[13-(6-(firstHour+i))].Weather = hourlyWeather[i].Weathers[0]
 		}
-	} else if nowHour >= 18 && nowHour <= 23 {
-		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
+	} else if firstHour >= 18 && firstHour <= 23 {
 		for i, _ := range make([]int, 24-firstHour+7) {
 			output.Weathers[(firstHour+i)-18].Hour = (firstHour + i) % 24
 			output.Weathers[(firstHour+i)-18].Dt = hourlyWeather[i].Dt
@@ -163,7 +161,6 @@ func getTonightForecastAfterNow(oneCallApiResponse OneCallApiResponse) GetTonigh
 			output.Weathers[(firstHour+i)-18].Weather = hourlyWeather[i].Weathers[0]
 		}
 	} else {
-		firstHour := time.Unix(int64(hourlyWeather[0].Dt), 0).Hour()
 		for i, _ := range make([]int, 13) {
 			output.Weathers[i].Hour = (18 + i) % 24
 			output.Weathers[i].Dt = hourlyWeather[18-firstHour+i].Dt

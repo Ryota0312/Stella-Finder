@@ -1,0 +1,118 @@
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Head from 'next/head'
+import { string } from 'prop-types'
+import Layout from '../../components/layout'
+
+const Monthly: React.FC = () => {
+  const dt = new Date()
+
+  const [year, setYear] = useState(dt.getFullYear())
+  const [month, setMonth] = useState(dt.getMonth() + 1)
+
+  return (
+    <Layout>
+      <Head>
+        <title>月の出・月の入・月齢 | Stella Finder</title>
+      </Head>
+      <main>
+        <h2>月の出・月の入・月齢</h2>
+        <div>
+          {year}年{month}月
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>日</th>
+              <th>月</th>
+              <th>火</th>
+              <th>水</th>
+              <th>木</th>
+              <th>金</th>
+              <th>土</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, week) => {
+              return (
+                <tr key={week + 'w'}>
+                  {getWeek(year, month, week + 1).map((day, i) => {
+                    if (day) {
+                      return <td key={`${week}week${i}day`}>{day.day}</td>
+                    } else {
+                      return <td key={`${week}week${i}day`}>-</td>
+                    }
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </main>
+    </Layout>
+  )
+}
+export default Monthly
+
+type Day = {
+  year: number
+  month: number
+  day: number
+  dayOfWeek: number // 0: Sunday ~ 6: Saturday
+}
+
+const getWeek = (
+  year: number,
+  month: number, // zero origin
+  week: number,
+): Array<Day | null> => {
+  const month1origin = month - 1
+  let result: Array<Day | null>
+  const firstDayOfMonth = new Date(year, month1origin, 1)
+  const firstDayOfWeek = firstDayOfMonth.getDay()
+  const firstDayInSecondWeek = 7 - firstDayOfWeek + 1
+
+  if (week === 1) {
+    result = [...Array(7)].map((_, index) => {
+      if (index >= firstDayOfWeek) {
+        return {
+          year: year,
+          month: month1origin,
+          day: 1 + index - firstDayOfWeek,
+          dayOfWeek: index,
+        } as Day
+      } else {
+        return null
+      }
+    })
+  } else if (week === 5) {
+    const firstDayInThisWeek = firstDayInSecondWeek + 7 * (week - 2)
+    const lastDayOfMonth = new Date(year, month1origin + 1, 0).getDate()
+
+    result = [...Array(7)].map((_, index) => {
+      if (firstDayInThisWeek + index <= lastDayOfMonth) {
+        return {
+          year: year,
+          month: month1origin,
+          day: firstDayInThisWeek + index,
+          dayOfWeek: index,
+        } as Day
+      } else {
+        return null
+      }
+    })
+  } else {
+    const firstDayInThisWeek = firstDayInSecondWeek + 7 * (week - 2)
+
+    result = [...Array(7)].map((_, index) => {
+      return {
+        year: year,
+        month: month1origin,
+        day: firstDayInThisWeek + index,
+        dayOfWeek: index,
+      } as Day
+    })
+  }
+
+  return result
+}

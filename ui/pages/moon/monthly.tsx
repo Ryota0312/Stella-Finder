@@ -66,6 +66,20 @@ const Monthly: React.FC = () => {
                             moonAge={data.results[dayCount].moonAge.moon_age}
                             size={100}
                           />
+                          <div>
+                            出:
+                            {
+                              data.results[dayCount].riseAndSet.rise_and_set
+                                .moonrise_hm
+                            }
+                          </div>
+                          <div>
+                            没:
+                            {
+                              data.results[dayCount].riseAndSet.rise_and_set
+                                .moonset_hm
+                            }
+                          </div>
                         </td>
                       )
                     } else {

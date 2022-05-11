@@ -2,13 +2,31 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 import { string } from 'prop-types'
+import useSWR from 'swr'
 import Layout from '../../components/layout'
+import { MoonAge } from '../../components/moon/MoonAge'
+import { useApi } from '../../hooks/useApi'
+import { Loading } from '../../components/common/Loading'
+import { MoonAgeIllustration } from '../../components/moon/MoonAgeIllustration'
 
 const Monthly: React.FC = () => {
   const dt = new Date()
 
   const [year, setYear] = useState(dt.getFullYear())
   const [month, setMonth] = useState(dt.getMonth() + 1)
+  let dayCount = -1
+
+  const { fetcher } = useApi()
+  const { data, error } = useSWR(
+    [
+      `/api/moonRiseSetAgeMonthly?pref=東京都&year=${year}&month=${month}`,
+      false,
+    ],
+    fetcher,
+  )
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <Loading />
 
   return (
     <Layout>
@@ -38,7 +56,18 @@ const Monthly: React.FC = () => {
                 <tr key={week + 'w'}>
                   {getWeek(year, month, week + 1).map((day, i) => {
                     if (day) {
-                      return <td key={`${week}week${i}day`}>{day.day}</td>
+                      dayCount = dayCount + 1
+                      console.log(dayCount)
+                      return (
+                        <td key={`${week}week${i}day`}>
+                          <div>{day.day}</div>
+                          <MoonAgeIllustration
+                            keyString={`${week}week${i}day`}
+                            moonAge={data.results[dayCount].moonAge.moon_age}
+                            size={100}
+                          />
+                        </td>
+                      )
                     } else {
                       return <td key={`${week}week${i}day`}>-</td>
                     }
@@ -115,4 +144,8 @@ const getWeek = (
   }
 
   return result
+}
+
+const convertDateTimeString_ = (year: number, month: number, day: number) => {
+  return `${year}-${('00' + month).slice(-2)}-${('00' + day).slice(-2)}`
 }

@@ -8,17 +8,17 @@ import { RoundFrame } from '../common/RoundFrame'
 type MoonAgeIllustrationProps = {
   moonAge: number
   size: number
-  keyString: string
+  canvasId: string
 }
 
 export const MoonAgeIllustration: React.FC<MoonAgeIllustrationProps> = (
   props,
 ) => {
-  const [key, setKey] = useState(props.keyString)
+  const [key, setKey] = useState(props.canvasId)
 
   useEffect(() => {
-    setKey(props.keyString)
-  }, [props.keyString])
+    setKey(props.canvasId)
+  }, [props.canvasId])
 
   useEffect(() => {
     console.log(key)
@@ -27,9 +27,9 @@ export const MoonAgeIllustration: React.FC<MoonAgeIllustrationProps> = (
 
   return (
     <Moon size={props.size}>
-      <MoonCanvasLayer1 id={'a0-' + props.keyString} />
-      <MoonCanvasLayer2 id={'a1-' + props.keyString} />
-      <MoonCanvasLayer3 id={'a2-' + props.keyString} />
+      <MoonCanvasLayer1 id={'a0-' + props.canvasId} />
+      <MoonCanvasLayer2 id={'a1-' + props.canvasId} />
+      <MoonCanvasLayer3 id={'a2-' + props.canvasId} />
       <MoonAgeNumber>{props.moonAge}</MoonAgeNumber>
     </Moon>
   )

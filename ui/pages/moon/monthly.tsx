@@ -62,7 +62,7 @@ const Monthly: React.FC = () => {
                         <td key={`${week}week${i}day`}>
                           <div>{day.day}</div>
                           <MoonAgeIllustration
-                            keyString={`${week}week${i}day`}
+                            canvasId={`${week}week${i}day`}
                             moonAge={data.results[dayCount].moonAge.moon_age}
                             size={100}
                           />

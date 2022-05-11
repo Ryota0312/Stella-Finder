@@ -20,7 +20,7 @@ export const MoonAge: React.FC = () => {
       <div>
         <Title>月齢</Title>
         <MoonAgeIllustration
-          keyString={'MoonAge'}
+          canvasId={'MoonAge'}
           moonAge={data.moon_age}
           size={MOON_SIZE}
         />

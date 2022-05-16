@@ -1,25 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
-import { string } from 'prop-types'
 import useSWR from 'swr'
 import Layout from '../../components/layout'
-import { MoonAge } from '../../components/moon/MoonAge'
 import { useApi } from '../../hooks/useApi'
 import { Loading } from '../../components/common/Loading'
 import { MoonAgeIllustration } from '../../components/moon/MoonAgeIllustration'
+import { PrefectureSelect } from '../../components/search/PrefectureSelect'
 
 const Monthly: React.FC = () => {
   const dt = new Date()
 
   const [year, setYear] = useState(dt.getFullYear())
   const [month, setMonth] = useState(dt.getMonth() + 1)
+  const [prefecture, setPrefecture] = useState('')
   let dayCount = -1
+
+  useEffect(() => {
+    const localStoragePref = localStorage.getItem('prefecture')
+    if (localStoragePref) {
+      setPrefecture(localStoragePref)
+    } else {
+      setPrefecture('東京都')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (prefecture !== '') {
+      localStorage.setItem('prefecture', prefecture)
+    }
+  }, [prefecture])
 
   const { fetcher } = useApi()
   const { data, error } = useSWR(
     [
-      `/api/moonRiseSetAgeMonthly?pref=東京都&year=${year}&month=${month}`,
+      `/api/moonRiseSetAgeMonthly?pref=${prefecture}&year=${year}&month=${month}`,
       false,
     ],
     fetcher,
@@ -34,63 +49,71 @@ const Monthly: React.FC = () => {
         <title>月の出・月の入・月齢 | Stella Finder</title>
       </Head>
       <main>
-        <h2>月の出・月の入・月齢</h2>
-        <div>
-          {year}年{month}月
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>日</th>
-              <th>月</th>
-              <th>火</th>
-              <th>水</th>
-              <th>木</th>
-              <th>金</th>
-              <th>土</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...Array(5)].map((_, week) => {
-              return (
-                <tr key={week + 'w'}>
-                  {getWeek(year, month, week + 1).map((day, i) => {
-                    if (day) {
-                      dayCount = dayCount + 1
-                      console.log(dayCount)
-                      return (
-                        <td key={`${week}week${i}day`}>
-                          <div>{day.day}</div>
-                          <MoonAgeIllustration
-                            canvasId={`${week}week${i}day`}
-                            moonAge={data.results[dayCount].moonAge.moon_age}
-                            size={100}
-                          />
-                          <div>
-                            出:
-                            {
-                              data.results[dayCount].riseAndSet.rise_and_set
-                                .moonrise_hm
-                            }
-                          </div>
-                          <div>
-                            没:
-                            {
-                              data.results[dayCount].riseAndSet.rise_and_set
-                                .moonset_hm
-                            }
-                          </div>
-                        </td>
-                      )
-                    } else {
-                      return <td key={`${week}week${i}day`}>-</td>
-                    }
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <h2>
+          {year}年{month}月の月の出・月の入・月齢
+        </h2>
+        <PrefectureSelectorWrapper>
+          <div>都道府県</div>
+          <PrefectureSelect
+            required={false}
+            value={prefecture}
+            onChange={(v) => setPrefecture(v)}
+          />
+        </PrefectureSelectorWrapper>
+        <MoonCalendarOutline>
+          <table>
+            <thead>
+              <tr>
+                <th>日</th>
+                <th>月</th>
+                <th>火</th>
+                <th>水</th>
+                <th>木</th>
+                <th>金</th>
+                <th>土</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...Array(5)].map((_, week) => {
+                return (
+                  <tr key={week + 'w'}>
+                    {getWeek(year, month, week + 1).map((day, i) => {
+                      if (day) {
+                        dayCount = dayCount + 1
+                        return (
+                          <td key={`${week}week${i}day`}>
+                            <CalendarDayNumber>{day.day}</CalendarDayNumber>
+                            <MoonAgeIllustration
+                              canvasId={`${week}week${i}day`}
+                              moonAge={data.results[dayCount].moonAge.moon_age}
+                              size={100}
+                            />
+                            <div>
+                              出:
+                              {
+                                data.results[dayCount].riseAndSet.rise_and_set
+                                  .moonrise_hm
+                              }
+                            </div>
+                            <div>
+                              没:
+                              {
+                                data.results[dayCount].riseAndSet.rise_and_set
+                                  .moonset_hm
+                              }
+                            </div>
+                          </td>
+                        )
+                      } else {
+                        return <td key={`${week}week${i}day`}>-</td>
+                      }
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </MoonCalendarOutline>
       </main>
     </Layout>
   )
@@ -160,6 +183,24 @@ const getWeek = (
   return result
 }
 
-const convertDateTimeString_ = (year: number, month: number, day: number) => {
-  return `${year}-${('00' + month).slice(-2)}-${('00' + day).slice(-2)}`
-}
+const CalendarDayNumber = styled.div`
+  text-align: center;
+`
+
+const MoonCalendarOutline = styled.div`
+  width: 100%;
+
+  table,
+  th,
+  td {
+    border: 1px #ccc solid;
+  }
+
+  td {
+    padding: 8px;
+  }
+`
+
+const PrefectureSelectorWrapper = styled.div`
+  margin-bottom: 16px;
+`

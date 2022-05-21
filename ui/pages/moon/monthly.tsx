@@ -64,13 +64,13 @@ const Monthly: React.FC = () => {
           <table>
             <thead>
               <tr>
-                <th>日</th>
+                <th style={{ color: 'red' }}>日</th>
                 <th>月</th>
                 <th>火</th>
                 <th>水</th>
                 <th>木</th>
                 <th>金</th>
-                <th>土</th>
+                <th style={{ color: 'blue' }}>土</th>
               </tr>
             </thead>
             <tbody>
@@ -89,14 +89,14 @@ const Monthly: React.FC = () => {
                               size={100}
                             />
                             <div>
-                              出:
+                              月の出:
                               {
                                 data.results[dayCount].riseAndSet.rise_and_set
                                   .moonrise_hm
                               }
                             </div>
                             <div>
-                              没:
+                              月の入:
                               {
                                 data.results[dayCount].riseAndSet.rise_and_set
                                   .moonset_hm
@@ -105,7 +105,7 @@ const Monthly: React.FC = () => {
                           </td>
                         )
                       } else {
-                        return <td key={`${week}week${i}day`}>-</td>
+                        return <td key={`${week}week${i}day`}></td>
                       }
                     })}
                   </tr>
@@ -185,6 +185,9 @@ const getWeek = (
 
 const CalendarDayNumber = styled.div`
   text-align: center;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
 `
 
 const MoonCalendarOutline = styled.div`

@@ -9,10 +9,10 @@ import { MoonAgeIllustration } from '../../components/moon/MoonAgeIllustration'
 import { PrefectureSelect } from '../../components/search/PrefectureSelect'
 
 const Monthly: React.FC = () => {
-  const dt = new Date()
+  const today = new Date()
 
-  const [year, setYear] = useState(dt.getFullYear())
-  const [month, setMonth] = useState(dt.getMonth() + 1)
+  const [year, setYear] = useState(today.getFullYear())
+  const [month, setMonth] = useState(today.getMonth() + 1)
   const [prefecture, setPrefecture] = useState('')
   let dayCount = -1
 
@@ -81,7 +81,10 @@ const Monthly: React.FC = () => {
                       if (day) {
                         dayCount = dayCount + 1
                         return (
-                          <td key={`${week}week${i}day`}>
+                          <CalendarCell
+                            key={`${week}week${i}day`}
+                            isHighlight={today.getDate() === day.day}
+                          >
                             <CalendarDayNumber>{day.day}</CalendarDayNumber>
                             <MoonAgeIllustration
                               canvasId={`${week}week${i}day`}
@@ -102,7 +105,7 @@ const Monthly: React.FC = () => {
                                   .moonset_hm
                               }
                             </div>
-                          </td>
+                          </CalendarCell>
                         )
                       } else {
                         return <td key={`${week}week${i}day`}></td>
@@ -206,4 +209,9 @@ const MoonCalendarOutline = styled.div`
 
 const PrefectureSelectorWrapper = styled.div`
   margin-bottom: 16px;
+`
+
+const CalendarCell = styled.td<{ isHighlight: boolean }>`
+  background-color: ${({ isHighlight }) =>
+    isHighlight ? 'rgba(255, 0, 0, 0.3)' : 'transparent'};
 `

@@ -52,6 +52,11 @@ const Monthly: React.FC = () => {
         <h2>
           {year}年{month}月の月の出・月の入・月齢
         </h2>
+        <DisplayWarning>
+          ご使用のデバイスの画面サイズでは表示が崩れる可能性があります。ご不便をおかけして申し訳ございません。
+          <br />
+          画面サイズが小さいデバイスでも正しく表示できるように改修予定ですので、しばらくお待ちください。
+        </DisplayWarning>
         <PrefectureSelectorWrapper>
           <div>都道府県</div>
           <PrefectureSelect
@@ -92,14 +97,14 @@ const Monthly: React.FC = () => {
                               size={100}
                             />
                             <div>
-                              月の出:
+                              出:
                               {
                                 data.results[dayCount].riseAndSet.rise_and_set
                                   .moonrise_hm
                               }
                             </div>
                             <div>
-                              月の入:
+                              入:
                               {
                                 data.results[dayCount].riseAndSet.rise_and_set
                                   .moonset_hm
@@ -214,4 +219,18 @@ const PrefectureSelectorWrapper = styled.div`
 const CalendarCell = styled.td<{ isHighlight: boolean }>`
   background-color: ${({ isHighlight }) =>
     isHighlight ? 'rgba(255, 0, 0, 0.3)' : 'transparent'};
+`
+
+const DisplayWarning = styled.div`
+  @media (min-width: 900px) {
+    display: none;
+  }
+
+  border: 1px solid red;
+  border-radius: 8px;
+  background-color: #ff9d9d;
+  padding: 16px;
+  margin: 8px 0;
+  color: gray;
+  width: 100vw;
 `

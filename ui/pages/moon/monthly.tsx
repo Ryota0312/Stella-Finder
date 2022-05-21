@@ -50,7 +50,7 @@ const Monthly: React.FC = () => {
       </Head>
       <main>
         <h2>
-          {year}年{month}月の月の出・月の入・月齢
+          {year}年{month}月の月の出・月の入・月齢(β)
         </h2>
         <DisplayWarning>
           ご使用のデバイスの画面サイズでは表示が崩れる可能性があります。ご不便をおかけして申し訳ございません。

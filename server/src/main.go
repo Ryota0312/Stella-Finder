@@ -50,6 +50,7 @@ func serve() {
 		api.POST("/review/like", controller.ReviewLike)
 		api.GET("/moonAge", controller.GetMoonAge)
 		api.GET("/moonRiseSet", controller.GetMoonRiseSet)
+		api.GET("/moonRiseSetAgeMonthly", controller.GetMoonRiseSetAgeMonthly)
 		api.GET("/article/list", controller.GetArticleList)
 		api.GET("/articles", controller.GetArticle)
 		api.GET("/article/listByTag", controller.GetArticleListByTag)

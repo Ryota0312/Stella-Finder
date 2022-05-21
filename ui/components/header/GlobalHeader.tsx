@@ -16,6 +16,7 @@ export const GlobalHeader: React.FC = () => {
     { label: 'News', href: '/article/list' },
     { label: 'スポットを探す', href: '/spot/search' },
     { label: '観測レポート', href: '/report/list' },
+    { label: '月齢カレンダー(β)', href: '/moon/monthly' },
   ]
 
   return (

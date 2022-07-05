@@ -1,0 +1,3 @@
+[submodule "server/proto/hoshiyomi"]
+	path = server/proto/hoshiyomi
+	url = git@github.com:Ryota0312/hoshiyomi-proto.git

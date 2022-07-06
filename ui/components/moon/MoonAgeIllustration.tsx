@@ -30,7 +30,7 @@ export const MoonAgeIllustration: React.FC<MoonAgeIllustrationProps> = (
       <MoonCanvasLayer1 id={'a0-' + props.canvasId} />
       <MoonCanvasLayer2 id={'a1-' + props.canvasId} />
       <MoonCanvasLayer3 id={'a2-' + props.canvasId} />
-      <MoonAgeNumber>{props.moonAge}</MoonAgeNumber>
+      <MoonAgeNumber>{props.moonAge.toFixed(2)}</MoonAgeNumber>
     </Moon>
   )
 }

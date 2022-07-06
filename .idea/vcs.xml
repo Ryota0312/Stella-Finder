@@ -20,5 +20,6 @@
     <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/google.golang.org/protobuf" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/gopkg.in/yaml.v2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/hoshi-atsume-server/src/gopkg.in/yaml.v3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/server/proto/hoshiyomi" vcs="Git" />
   </component>
 </project>

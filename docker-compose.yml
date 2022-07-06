@@ -81,3 +81,11 @@ services:
       - "6380:6379"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  hoshiyomi:
+    image: "ryota0312/hoshiyomi:1.0.1"
+    container_name: hoshiyomi
+    ports:
+      - "50051:50051"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

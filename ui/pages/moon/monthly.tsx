@@ -65,6 +65,40 @@ const Monthly: React.FC = () => {
             onChange={(v) => setPrefecture(v)}
           />
         </PrefectureSelectorWrapper>
+        <CalendarMonthController>
+          <button
+            onClick={() => {
+              if (month == 1) {
+                setYear(year - 1)
+                setMonth(12)
+              } else {
+                setMonth(month - 1)
+              }
+            }}
+          >
+            前の月
+          </button>
+          <button
+            onClick={() => {
+              setYear(today.getFullYear())
+              setMonth(today.getMonth() + 1)
+            }}
+          >
+            今月
+          </button>
+          <button
+            onClick={() => {
+              if (month == 12) {
+                setYear(year + 1)
+                setMonth(1)
+              } else {
+                setMonth(month + 1)
+              }
+            }}
+          >
+            次の月
+          </button>
+        </CalendarMonthController>
         <MoonCalendarOutline>
           <table>
             <thead>
@@ -90,7 +124,11 @@ const Monthly: React.FC = () => {
                           return (
                             <CalendarCell
                               key={`${week}week${i}day`}
-                              isHighlight={today.getDate() === day.day}
+                              isHighlight={
+                                today.getFullYear() == year &&
+                                today.getMonth() + 1 == month &&
+                                today.getDate() === day.day
+                              }
                             >
                               <CalendarDayNumber>{day.day}</CalendarDayNumber>
                               <MoonAgeIllustration
@@ -195,6 +233,12 @@ const getWeek = (
 
   return result
 }
+
+const CalendarMonthController = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+`
 
 const CalendarDayNumber = styled.div`
   text-align: center;

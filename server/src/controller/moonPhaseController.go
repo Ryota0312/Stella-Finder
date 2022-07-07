@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
 	"net/http"
 	"stella-finder-server/src/utils"
 	"strconv"
@@ -92,103 +90,36 @@ func GetMoonRiseSetAgeMonthly(c *gin.Context) {
 	year, _ := strconv.Atoi(c.Query("year"))
 	month, _ := strconv.Atoi(c.Query("month"))
 
-	cacheDb := utils.NewCacheDb()
-	defer cacheDb.CloseCacheDb()
-
-	jst, err := time.LoadLocation("Asia/Tokyo")
-	if err != nil {
-		panic(err)
-	}
-	time.Local = jst
-
 	var output GetMoonRiseSetAgeMonthlyOutputForm
-	fromDate := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, jst)
-	toDate := time.Date(year, time.Month(month+1), 1, 0, 0, 0, 0, jst).AddDate(0, 0, -1)
+	fromDate := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
+	toDate := time.Date(year, time.Month(month+1), 1, 0, 0, 0, 0, time.UTC).AddDate(0, 0, -1)
 	for d := fromDate; d.Unix() <= toDate.Unix(); d = d.AddDate(0, 0, 1) {
-		var moonAge, err = getMoonAge(d, cacheDb)
+		lat, lng := utils.GetPrefectureCenter(prefecture)
+		moonInfo, err := utils.GetMoonInfo(d, lat, lng)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, err)
+			c.JSON(http.StatusInternalServerError, "Internal server error")
 			return
 		}
 
-		riseSet, err := getMoonRiseSet(prefecture, d, cacheDb)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, err)
-			return
+		const layout = "15:04"
+		moonRise := time.Unix(moonInfo.MoonRise.GetSeconds(), 0).UTC()
+		moonRiseStr := moonRise.Format(layout)
+		if d.Day() != moonRise.Day() {
+			moonRiseStr = "--:--"
+		}
+		moonSet := time.Unix(moonInfo.MoonSet.GetSeconds(), 0).UTC()
+		moonSetStr := moonSet.Format(layout)
+		if d.Day() != moonSet.Day() {
+			moonSetStr = "--:--"
 		}
 
-		output.Results = append(output.Results, Result{Date: d, MoonAge: moonAge, RiseAndSet: riseSet})
+		output.Results = append(output.Results, Result{Date: d, MoonAge: MoonAge{Age: moonInfo.MoonAge}, RiseAndSet: MoonRiseSet{
+			RiseSet: RiseAndSet{
+				MoonRise: moonRiseStr,
+				MoonSet:  moonSetStr,
+			},
+		}})
 	}
 
 	c.JSON(http.StatusOK, output)
-}
-
-func getMoonAge(d time.Time, cacheDb *utils.Redis) (MoonAge, error) {
-	var moonAge MoonAge
-
-	const layout = "2006-01-02"
-	cache, err := cacheDb.Get(d.Format(layout))
-	if cache == nil {
-		response, _ := http.Get("https://labs.bitmeister.jp/ohakon/json/?mode=moon_age" +
-			"&year=" + strconv.Itoa(d.Year()) +
-			"&month=" + strconv.Itoa(int(d.Month())) +
-			"&day=" + strconv.Itoa(d.Day()))
-		responseBody, _ := ioutil.ReadAll(response.Body)
-		defer response.Body.Close()
-
-		if err := json.Unmarshal(responseBody, &moonAge); err != nil {
-			return moonAge, err
-		}
-
-		err = cacheDb.Set(d.Format(layout), responseBody, 60*60*24) // FIXME: 月末まで保持
-		if err != nil {
-			return moonAge, err
-		}
-
-	} else {
-		err = json.Unmarshal(cache, &moonAge)
-		if err != nil {
-			return moonAge, err
-		}
-	}
-
-	return moonAge, nil
-}
-
-func getMoonRiseSet(prefecture string, d time.Time, cacheDb *utils.Redis) (MoonRiseSet, error) {
-	var riseSet MoonRiseSet
-	const layout = "2006-01-02"
-	dateString := d.Format(layout)
-	cacheKey := dateString + "-" + prefecture + "-moonriseset"
-
-	cache, err := cacheDb.Get(cacheKey)
-	if cache == nil {
-		lat, lng := utils.GetPrefectureCenter(prefecture)
-
-		response, _ := http.Get("https://labs.bitmeister.jp/ohakon/json/?mode=sun_moon_rise_set" +
-			"&year=" + strconv.Itoa(d.Year()) +
-			"&month=" + strconv.Itoa(int(d.Month())) +
-			"&day=" + strconv.Itoa(d.Day()) +
-			"&lat=" + strconv.FormatFloat(lat, 'f', -1, 64) +
-			"&lng=" + strconv.FormatFloat(lng, 'f', -1, 64))
-		responseBody, _ := ioutil.ReadAll(response.Body)
-		defer response.Body.Close()
-
-		if err := json.Unmarshal(responseBody, &riseSet); err != nil {
-			return riseSet, err
-		}
-
-		err = cacheDb.Set(cacheKey, responseBody, 60*60*24) // FIXME: 月末まで保持
-		if err != nil {
-			return riseSet, err
-		}
-
-	} else {
-		err = json.Unmarshal(cache, &riseSet)
-		if err != nil {
-			return riseSet, err
-		}
-	}
-
-	return riseSet, nil
 }

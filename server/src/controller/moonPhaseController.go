@@ -89,12 +89,12 @@ func GetMoonRiseSetAgeMonthly(c *gin.Context) {
 	prefecture := c.Query("pref")
 	year, _ := strconv.Atoi(c.Query("year"))
 	month, _ := strconv.Atoi(c.Query("month"))
+	lat, lng := utils.GetPrefectureCenter(prefecture)
 
 	var output GetMoonRiseSetAgeMonthlyOutputForm
 	fromDate := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
 	toDate := time.Date(year, time.Month(month+1), 1, 0, 0, 0, 0, time.UTC).AddDate(0, 0, -1)
 	for d := fromDate; d.Unix() <= toDate.Unix(); d = d.AddDate(0, 0, 1) {
-		lat, lng := utils.GetPrefectureCenter(prefecture)
 		moonInfo, err := utils.GetMoonInfo(d, lat, lng)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, "Internal server error")

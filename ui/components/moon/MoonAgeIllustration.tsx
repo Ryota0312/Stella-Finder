@@ -21,7 +21,6 @@ export const MoonAgeIllustration: React.FC<MoonAgeIllustrationProps> = (
   }, [props.canvasId])
 
   useEffect(() => {
-    console.log(key)
     if (key) drawMoon(props.moonAge, key)
   }, [key])
 
@@ -95,7 +94,6 @@ const pi = Math.PI,
   end = [pi2, bottomAngle, pi2]
 
 const drawMoon = (age: number, key: string) => {
-  console.log(key)
   for (let i = 0; i < 3; i++) {
     c[i] = document.getElementById(`a${i}-${key}`) as HTMLCanvasElement
     c[i].width = MOON_SIZE

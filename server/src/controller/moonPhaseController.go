@@ -1,20 +1,13 @@
 package controller
 
 import (
-	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"stella-finder-server/src/grpcClient/github.com/ryota0312/hoshiyomi/moon"
 	"stella-finder-server/src/utils"
 	"strconv"
 	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 type MoonAgeOutputForm struct {
@@ -32,29 +25,12 @@ func GetMoonAge(c *gin.Context) {
 
 	var output MoonAgeOutputForm
 
-	const addr = "host.docker.internal:50051"
-	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	moonInfo, err := utils.GetMoonInfo(today, 35.0, 135.0)
 	if err != nil {
-		log.Fatalf("Did not connect: %v", err)
+		c.JSON(http.StatusInternalServerError, "Internal server error")
+		return
 	}
-	defer conn.Close()
-	gc := moon.NewMoonApiClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := gc.MoonInfo(ctx, &moon.MoonInfoRequest{
-		Date: &timestamp.Timestamp{
-			Seconds: today.Unix(),
-			Nanos:   0,
-		},
-		Latitude:  35.0,
-		Longitude: 135.0,
-	})
-	if err != nil {
-		log.Fatalf("Could not echo: %v", err)
-	}
-
-	output.MoonAge = r.GetMoonAge()
+	output.MoonAge = moonInfo.GetMoonAge()
 
 	c.JSON(http.StatusOK, output)
 }

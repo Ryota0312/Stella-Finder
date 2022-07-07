@@ -79,45 +79,50 @@ const Monthly: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {[...Array(5)].map((_, week) => {
-                return (
-                  <tr key={week + 'w'}>
-                    {getWeek(year, month, week + 1).map((day, i) => {
-                      if (day) {
-                        dayCount = dayCount + 1
-                        return (
-                          <CalendarCell
-                            key={`${week}week${i}day`}
-                            isHighlight={today.getDate() === day.day}
-                          >
-                            <CalendarDayNumber>{day.day}</CalendarDayNumber>
-                            <MoonAgeIllustration
-                              canvasId={`${week}week${i}day`}
-                              moonAge={data.results[dayCount].moonAge.moon_age}
-                              size={100}
-                            />
-                            <div>
-                              出:
-                              {
-                                data.results[dayCount].riseAndSet.rise_and_set
-                                  .moonrise_hm
-                              }
-                            </div>
-                            <div>
-                              入:
-                              {
-                                data.results[dayCount].riseAndSet.rise_and_set
-                                  .moonset_hm
-                              }
-                            </div>
-                          </CalendarCell>
-                        )
-                      } else {
-                        return <td key={`${week}week${i}day`}></td>
-                      }
-                    })}
-                  </tr>
-                )
+              {[...Array(6)].map((_, week) => {
+                const weekDays = getWeek(year, month, week + 1)
+                if (!weekDays.every((d) => d === null)) {
+                  return (
+                    <tr key={week + 'w'}>
+                      {weekDays.map((day, i) => {
+                        if (day) {
+                          dayCount = dayCount + 1
+                          return (
+                            <CalendarCell
+                              key={`${week}week${i}day`}
+                              isHighlight={today.getDate() === day.day}
+                            >
+                              <CalendarDayNumber>{day.day}</CalendarDayNumber>
+                              <MoonAgeIllustration
+                                canvasId={`${week}week${i}day`}
+                                moonAge={
+                                  data.results[dayCount].moonAge.moon_age
+                                }
+                                size={100}
+                              />
+                              <div>
+                                出:
+                                {
+                                  data.results[dayCount].riseAndSet.rise_and_set
+                                    .moonrise_hm
+                                }
+                              </div>
+                              <div>
+                                入:
+                                {
+                                  data.results[dayCount].riseAndSet.rise_and_set
+                                    .moonset_hm
+                                }
+                              </div>
+                            </CalendarCell>
+                          )
+                        } else {
+                          return <td key={`${week}week${i}day`}></td>
+                        }
+                      })}
+                    </tr>
+                  )
+                }
               })}
             </tbody>
           </table>
@@ -145,6 +150,7 @@ const getWeek = (
   const firstDayOfMonth = new Date(year, month1origin, 1)
   const firstDayOfWeek = firstDayOfMonth.getDay()
   const firstDayInSecondWeek = 7 - firstDayOfWeek + 1
+  const lastDayOfMonth = new Date(year, month1origin + 1, 0).getDate()
 
   if (week === 1) {
     result = [...Array(7)].map((_, index) => {
@@ -159,9 +165,8 @@ const getWeek = (
         return null
       }
     })
-  } else if (week === 5) {
+  } else if (firstDayInSecondWeek + 7 * (week - 2) + 6 > lastDayOfMonth) {
     const firstDayInThisWeek = firstDayInSecondWeek + 7 * (week - 2)
-    const lastDayOfMonth = new Date(year, month1origin + 1, 0).getDate()
 
     result = [...Array(7)].map((_, index) => {
       if (firstDayInThisWeek + index <= lastDayOfMonth) {

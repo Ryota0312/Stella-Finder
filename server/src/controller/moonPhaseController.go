@@ -15,16 +15,9 @@ type MoonAgeOutputForm struct {
 }
 
 func GetMoonAge(c *gin.Context) {
-	jst, err := time.LoadLocation("Asia/Tokyo")
-	if err != nil {
-		panic(err)
-	}
-	time.Local = jst
-
-	today := time.Now()
-
 	var output MoonAgeOutputForm
 
+	today := time.Now()
 	moonInfo, err := utils.GetMoonInfo(today, 35.0, 135.0)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "Internal server error")
@@ -46,7 +39,7 @@ type RiseAndSet struct {
 
 func GetMoonRiseSet(c *gin.Context) {
 	prefecture := c.Query("pref")
-	
+
 	var output MoonRiseSetOutputForm
 
 	today := time.Now()

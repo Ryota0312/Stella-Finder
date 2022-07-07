@@ -27,8 +27,8 @@ func GetMoonInfo(date time.Time, latitude float64, longitude float64) (*moon.Moo
 			Seconds: date.Unix(),
 			Nanos:   0,
 		},
-		Latitude:  35.0,
-		Longitude: 135.0,
+		Latitude:  latitude,
+		Longitude: longitude,
 	})
 	if err != nil {
 		log.Fatalf("Could not echo: %v", err)

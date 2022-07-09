@@ -14,4 +14,4 @@ for (( i = 0; i < 5; i++ )); do
   fi
 done
 
-ls $BACKUP_ROOT_DIR | grep $KEEP_BACKUP_FILES |  | xargs -i rm $BACKUP_ROOT_DIR{}
+ls $BACKUP_ROOT_DIR | grep $KEEP_BACKUP_FILES | xargs -i rm $BACKUP_ROOT_DIR{}

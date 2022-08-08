@@ -1,13 +1,24 @@
 import type { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Loading } from '../components/common/Loading'
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
-  <>
-    <GlobalStyle />
-    <Component {...pageProps} />
-  </>
-)
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  return isLoaded ? (
+    <>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </>
+  ) : (
+    <Loading />
+  )
+}
 export default MyApp
 
 const GlobalStyle = createGlobalStyle`
